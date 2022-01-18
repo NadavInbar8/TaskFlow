@@ -7,10 +7,12 @@ import thunk from 'redux-thunk';
 
 import { boardReducer } from './board.reducer.js';
 import { listReducer } from './list.reducer.js';
+// import { userReducer } from './user.reducer.js';
 
 const rootReducer = combineReducers({
   boardModule: boardReducer,
   listModule: listReducer,
+  //   userModule: userReducer,
 });
 
 export default createStore(rootReducer, applyMiddleware(thunk));

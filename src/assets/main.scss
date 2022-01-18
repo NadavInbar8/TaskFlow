@@ -1,33 +1,37 @@
 // Setup
 // // Setup
-// @import 'setup/variables';
-// @import 'setup/functions';
-// @import 'setup/mixins';
-// @import 'setup/typography';
+// @import 'setup/variables.scss';
+// @import 'setup/functions.scss';
+// @import 'setup/mixins.scss';
+// @import 'setup/typography.scss';
 
 // // Basics
-// @import 'basics/helpers';
-// @import 'basics/layout';
-// @import 'basics/base';
-// @import 'basics/links';
-// @import 'basics/forms';
-// @import "style-guide";
+// @import 'basics/helpers.scss';
+// @import 'basics/layout.scss';
+// @import 'basics/base.scss';
+// @import 'basics/links.scss';
+// @import 'basics/forms.scss';
+// @import "style-guide.scss";
 
 // Components
 @import 'cmps/app-header.scss';
-// // @import "style-guide";
+// // @import "style-guide.scss";
 
 // // Components
-// @import 'cmps/app-header';
+// @import 'cmps/app-header.scss';
 @import 'cmps/app-footer.scss';
-// @import 'cmps/user-msg';
+// @import 'cmps/user-msg.scss';
 
 // // Pages
-// @import 'pages/homepage';
-@import 'pages/workspace.scss';
-// @import 'pages/board';
-@import 'pages/card-details';
+@import 'pages/Homepage.scss';
+// @import 'pages/workspace.scss';
+// @import 'pages/board.scss';
+@import 'pages/card-details.scss';
 
 html {
   background-color: lightblue;
+}
+
+.flex {
+  display: flex;
 }
