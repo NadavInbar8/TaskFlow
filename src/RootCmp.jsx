@@ -1,11 +1,13 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import routes from './routes.js';
-
+import { AppHeader } from './cmps/AppHeader.jsx';
+import { AppFooter } from './cmps/AppFooter.jsx';
 export function RootCmp() {
   return (
     <div>
       <main>
+        <AppHeader />
         <Switch>
           {routes.map((route) => (
             <Route
@@ -16,6 +18,7 @@ export function RootCmp() {
             />
           ))}
         </Switch>
+        <AppFooter />
       </main>
     </div>
   );

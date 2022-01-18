@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import './assets/main.scss';
 import { RootCmp } from './RootCmp.jsx';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
