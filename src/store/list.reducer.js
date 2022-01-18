@@ -1,54 +1,54 @@
 const initialState = {
-  toys: [],
-  filterBy: null,
-  isModalShown: false,
+	lists: [],
+	filterBy: null,
+	isModalShown: false,
 };
 
 export function listReducer(state = initialState, action) {
-  let newState = state;
-  switch (action.type) {
-    case 'SET_TOYS':
-      newState = { ...state, toys: [...action.toys] };
-      break;
+	let newState = state;
+	switch (action.type) {
+		case 'SET_LISTS':
+			newState = {...state, lists: [...action.lists]};
+			break;
 
-    case 'ADD_TOY':
-      newState = { ...state, toys: [...state.toys, action.savedToy] };
-      break;
+		case 'ADD_LIST':
+			newState = {...state, lists: [...state.lists, action.savedList]};
+			break;
 
-    case 'REMOVE_TOY':
-      newState = {
-        ...state,
-        toys: state.toys.filter((toy) => toy._id !== action.toyId),
-      };
-      break;
+		case 'REMOVE_LIST':
+			newState = {
+				...state,
+				lists: state.lists.filter((list) => list._id !== action.listId),
+			};
+			break;
 
-    case 'UPDATE_TOY':
-      newState = {
-        ...state,
-        toys: state.toys.map((toy) => {
-          console.log(toy, action.savedToy);
-          return toy._id === action.savedToy._id ? action.savedToy : toy;
-        }),
-      };
-      break;
+		case 'UPDATE_LIST':
+			newState = {
+				...state,
+				lists: state.lists.map((list) => {
+					console.log(list, action.savedList);
+					return list._id === action.savedList._id ? action.savedList : list;
+				}),
+			};
+			break;
 
-    case 'SET_FILTER_BY':
-      newState = {
-        ...state,
-        filterBy: action.filterBy,
-      };
-      break;
+		case 'SET_FILTER_BY':
+			newState = {
+				...state,
+				filterBy: action.filterBy,
+			};
+			break;
 
-    case 'TOGGLE_MODAL':
-      console.log('in reducer toggling');
-      newState = {
-        ...state,
-        isModalShown: !state.isModalShown,
-      };
-      break;
+		case 'TOGGLE_MODAL':
+			console.log('in reducer toggling');
+			newState = {
+				...state,
+				isModalShown: !state.isModalShown,
+			};
+			break;
 
-    default:
-  }
+		default:
+	}
 
-  return newState;
+	return newState;
 }
