@@ -1,3 +1,58 @@
 .homepage-header {
-  color: white;
+  background-color: #eef5fb;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.sign-options {
+  margin: 0px 16px;
+  align-items: center;
+}
+.sign-options > * {
+  margin: 4px;
+  cursor: pointer;
+}
+.logo-img-homepage {
+  width: 300px;
+  margin: 0px 16px;
+}
+.homepage-hero {
+  position: relative;
+}
+.homepage-hero-pic {
+  width: 100%;
+}
+.hero-text {
+  position: absolute;
+  width: 40%;
+  top: 20%;
+  font-size: 26px;
+}
+
+.hero-signup-btn {
+  background-color: lightblue;
+  padding: 4px;
+  margin: 8px;
+  border-radius: 4px;
+}
+
+.hero-signup-input {
+  width: 50%;
+  height: 50px;
+  border-radius: 4px;
+}
+
+.explain-details {
+  justify-content: center;
+  align-items: center;
+  font-size: 26px;
+  background-color: #eef5fb;
+}
+
+.explain-details-btn {
+  width: 150px;
+  height: 50px;
+  padding: 4px;
+  margin: 8px;
+  border-radius: 4px;
 }
