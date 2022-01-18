@@ -1,9 +1,13 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-export const CardDetails = () => {
+export function CardDetails() {
   return (
     <div>
-      <h1>card details</h1>
+      <Link className='go-back-container' to='/board' />
+      <div className='card-details'>
+        <h1>card details</h1>
+      </div>
     </div>
   );
-};
+}
