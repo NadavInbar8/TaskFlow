@@ -29,5 +29,9 @@
 @import 'pages/card-details.scss';
 
 html {
-	background-color: lightblue;
+  background-color: lightblue;
+}
+
+.flex {
+  display: flex;
 }
