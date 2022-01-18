@@ -1,5 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+<<<<<<< HEAD
+=======
+// import './index.css';
+>>>>>>> d65e269104f5d8e0a7e57097498671a3fd3b93d9
 import './assets/main.scss';
 import { RootCmp } from './RootCmp.jsx';
 import reportWebVitals from './reportWebVitals';

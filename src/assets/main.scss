@@ -1,4 +1,5 @@
 // Setup
+// // Setup
 // @import 'setup/variables';
 // @import 'setup/functions';
 // @import 'setup/mixins';
@@ -14,6 +15,10 @@
 
 // Components
 @import 'cmps/app-header.scss';
+// // @import "style-guide";
+
+// // Components
+// @import 'cmps/app-header';
 // @import 'cmps/app-footer';
 // @import 'cmps/user-msg';
 
@@ -22,3 +27,7 @@
 // @import 'pages/workspace';
 // @import 'pages/board';
 // @import 'pages/card-details';
+
+html {
+  background-color: lightblue;
+}
