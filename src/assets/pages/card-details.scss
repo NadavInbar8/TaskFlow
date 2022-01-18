@@ -21,3 +21,14 @@
   top: 0;
   left: 0;
 }
+
+.card-details-top {
+  h1 {
+    margin: 0;
+  }
+  width: 90%;
+  margin: auto;
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+}
