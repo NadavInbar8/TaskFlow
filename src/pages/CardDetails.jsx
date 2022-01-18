@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useHistory, useParams } from 'react-router-dom';
+import { CardService } from '../services/card.service.js';
 export function CardDetails() {
-  const [card, setCard] = useState(null);
+  const [card, setCard] = useState({});
 
-  const { id } = useParams();
-  console.log(id);
-  useEffect(() => {
-    // setCard(getCard());
+  const { cardId } = useParams();
+
+  useEffect(async () => {
+    console.log(cardId);
+    setCard(await CardService.getCardById());
   }, []);
 
   //   function getCard() {
@@ -28,6 +30,8 @@ export function CardDetails() {
         </div>
 
         <div className='card-details-main'></div>
+        <h1>{card.title}</h1>
+        <h1>{card.id}</h1>
       </div>
     </div>
   );
