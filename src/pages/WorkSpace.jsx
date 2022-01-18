@@ -1,6 +1,7 @@
 import React from 'react';
 import boardPreview from '../assets/imgs/boardPreview.jpg';
 import { Link } from 'react-router-dom';
+import usersvg from '../assets/imgs/usersvg.svg';
 
 export const WorkSpace = () => {
   return (
@@ -26,12 +27,50 @@ export const WorkSpace = () => {
 
       <div className='workspaces-boards'>
         <div className='boards'>
-          <h1> Workspaces boards</h1>
-
+          <div className='headline'>
+            <img className='usersvg' src={usersvg} alt='' />
+            <h1 className='headling'> Workspaces boards</h1>
+          </div>
           <div className='boards-container'>
-            <Link to='/board'>
-              <img className='board-preview' src={boardPreview} alt='' />
-            </Link>
+            <div className='board-preview'>
+              <Link to='/board'>
+                <img src={boardPreview} alt='' />
+              </Link>
+            </div>
+            <div className='board-preview'>
+              <Link to='/board'>
+                <img src={boardPreview} alt='' />
+              </Link>
+            </div>
+            <div className='board-preview'>
+              <Link to='/board'>
+                <img src={boardPreview} alt='' />
+              </Link>
+            </div>
+          </div>
+        </div>
+
+        <div className='boards'>
+          <div className='headline'>
+            <img className='usersvg' src={usersvg} alt='' />
+            <h1 className='headling'> Workspaces boards</h1>
+          </div>
+          <div className='boards-container'>
+            <div className='board-preview'>
+              <Link to='/board'>
+                <img src={boardPreview} alt='' />
+              </Link>
+            </div>
+            <div className='board-preview'>
+              <Link to='/board'>
+                <img src={boardPreview} alt='' />
+              </Link>
+            </div>
+            <div className='board-preview'>
+              <Link to='/board'>
+                <img src={boardPreview} alt='' />
+              </Link>
+            </div>
           </div>
         </div>
       </div>
