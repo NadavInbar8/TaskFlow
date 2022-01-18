@@ -1,27 +1,22 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import {Switch, Route} from 'react-router-dom';
 import routes from './routes.js';
-import { AppHeader } from './cmps/AppHeader.jsx';
-import { AppFooter } from './cmps/AppFooter.jsx';
+import {AppHeader} from './cmps/AppHeader.jsx';
+import {AppFooter} from './cmps/AppFooter.jsx';
 export function RootCmp() {
-  return (
-    <div>
-      <main>
-        <AppHeader />
-        <Switch>
-          {routes.map((route) => (
-            <Route
-              key={route.path}
-              exact
-              component={route.component}
-              path={route.path}
-            />
-          ))}
-        </Switch>
-        <AppFooter />
-      </main>
-    </div>
-  );
+	return (
+		<div>
+			<main>
+				<AppHeader />
+				<Switch>
+					{routes.map((route) => (
+						<Route key={route.path} component={route.component} path={route.path} />
+					))}
+				</Switch>
+				<AppFooter />
+			</main>
+		</div>
+	);
 }
 
 // function mapStateToProps({ toyModule }) {
