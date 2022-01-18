@@ -239,7 +239,7 @@ const board = {
   cmpsOrder: ['status-picker', 'member-picker', 'date-picker'],
 };
 
-putJsonInStorage();
+// putJsonInStorage();
 function putJsonInStorage() {
   localStorage.setItem(STORAGE_KEY_BOARD, JSON.stringify(board));
 }
