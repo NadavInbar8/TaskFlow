@@ -1,14 +1,21 @@
 import React from 'react';
-import { Switch, Route } from 'react-router';
+import { Switch, Route } from 'react-router-dom';
+import routes from './routes.js';
 
 export function RootCmp() {
   return (
     <div>
       <main>
-        hi
-        {/* <Switch>
-            <Route component={Review} path='/review' />
-          </Switch> */}
+        <Switch>
+          {routes.map((route) => (
+            <Route
+              key={route.path}
+              exact
+              component={route.component}
+              path={route.path}
+            />
+          ))}
+        </Switch>
       </main>
     </div>
   );
