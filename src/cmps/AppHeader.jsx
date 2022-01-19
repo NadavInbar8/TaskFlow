@@ -1,33 +1,31 @@
 import React, {useEffect, useState} from 'react';
-import {connect} from 'react-redux';
+import {useSelector, useDispatch, shallowEqual} from 'react-redux';
 import {loadBoards, addBoard} from '../store/board.action.js';
 import {Link} from 'react-router-dom';
+import boardsImg from '../assets/imgs/boards.svg';
 
 // import {WorkSpace} from '../pages/WorkSpace.jsx';
 // import {Board} from '../pages/Board.jsx';
 
 import logo from '../assets/imgs/logo/logo.svg';
 
-function _AppHeader({loadBoards, boards, addBoard}) {
-	const [stateBoards, setBoards] = useState([]);
+export function AppHeader() {
 	let [isBoardsModalOpen, setBoardsModal] = useState(false);
 	let [isCreateModalOpen, setCreateModal] = useState(false);
+	let [isUserModalOpen, setUserModal] = useState(false);
+	const {boards} = useSelector((state) => ({boards: state.boardModule.boards}), shallowEqual);
 
-	useEffect(async () => {
-		await loadBoards();
-		setBoards(boards);
-	}, []);
+	const dispatch = useDispatch();
 
 	useEffect(() => {
-		console.log(stateBoards);
-	}, [stateBoards]);
+		dispatch(loadBoards());
+	}, []);
 
-	const openBoardsModal = () => {
-		setBoardsModal((isBoardsModalOpen = !isBoardsModalOpen));
-	};
-
-	const openCreateModal = () => {
-		setCreateModal((isCreateModalOpen = !isCreateModalOpen));
+	const toggleModal = (type) => {
+		type === 'boards' && setBoardsModal((isBoardsModalOpen = !isBoardsModalOpen));
+		type === 'create' && setCreateModal((isCreateModalOpen = !isCreateModalOpen));
+		type === 'user' && setUserModal((isUserModalOpen = !isUserModalOpen));
+		console.log(isUserModalOpen);
 	};
 
 	return (
@@ -40,10 +38,11 @@ function _AppHeader({loadBoards, boards, addBoard}) {
 				</div>
 				<nav className='flex'>
 					<ul>
-						<li className='boards' onClick={() => openBoardsModal()}>
+						<li className='boards' onClick={() => toggleModal('boards')}>
+							<img className='boards-img' src={boardsImg} alt='' />
 							Boards
 						</li>
-						<li className='create' onClick={() => openCreateModal()}>
+						<li className='create-li' onClick={() => toggleModal('create')}>
 							Create
 						</li>
 					</ul>
@@ -51,7 +50,7 @@ function _AppHeader({loadBoards, boards, addBoard}) {
 						<ul className='boards-modal flex'>
 							{boards.map((board) => {
 								return (
-									<Link key={board._id} to={`/board/${board._id}`}>
+									<Link onClick={() => toggleModal('boards')} key={board._id} to={`/board/${board._id}`}>
 										<li>{board.title}</li>
 									</Link>
 								);
@@ -63,31 +62,35 @@ function _AppHeader({loadBoards, boards, addBoard}) {
 						<div className='create-modal flex'>
 							<div
 								onClick={() => {
-									addBoard();
+									dispatch(addBoard());
+									toggleModal('create');
 								}}>
-								Create Board
+								<span>Create Board</span>
 							</div>
 						</div>
 					)}
 
 					<div className='user-avatar'>
-						<div className='user-avatar-btn'>G</div>
+						<div
+							onClick={() => {
+								toggleModal('user');
+							}}
+							className='user-avatar-btn'>
+							G
+						</div>
+						{isUserModalOpen && (
+							<div className='user-modal'>
+								<span
+									onClick={() => {
+										toggleModal('user');
+									}}>
+									logout
+								</span>
+							</div>
+						)}
 					</div>
 				</nav>
 			</div>
 		</section>
 	);
 }
-
-function mapStateToProps({boardModule}) {
-	return {
-		boards: boardModule.boards,
-	};
-}
-
-const mapDispatchToProps = {
-	loadBoards,
-	addBoard,
-};
-
-export const AppHeader = connect(mapStateToProps, mapDispatchToProps)(_AppHeader);

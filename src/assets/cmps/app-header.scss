@@ -3,7 +3,10 @@
 	justify-content: flex-between;
 	width: 100vw;
 	height: 8vh;
-	background-color: rgb(85, 211, 233);
+	font-size: 1.5rem;
+	font-weight: 700;
+	background-color: rgb(0, 60, 95);
+	opacity: 0.8;
 	.main-header {
 		display: flex;
 		width: 100vw;
@@ -15,6 +18,12 @@
 	img {
 		width: 10rem;
 		height: 8vh;
+	}
+
+	.boards-img {
+		height: 30px;
+		width: 30px;
+		margin-right: 10px;
 	}
 
 	nav {
@@ -55,7 +64,7 @@
 		justify-content: center;
 		align-items: center;
 		font-weight: 700;
-		font-size: larger;
+		// font-size: larger;
 		cursor: pointer;
 		height: 40px;
 		width: 40px;
@@ -76,6 +85,7 @@
 	}
 
 	.boards-modal {
+		z-index: 1;
 		background-color: white;
 		flex-direction: column;
 		min-height: 20vh;
@@ -92,5 +102,48 @@
 	.boards-modal li {
 		margin-top: 15px;
 		margin-left: 0;
+	}
+
+	.create-li {
+		margin-left: 150px;
+	}
+
+	.create-modal {
+		z-index: 1;
+		background-color: white;
+		flex-direction: column;
+		min-height: 10vh;
+		height: fit-content;
+		width: fit-content;
+		position: absolute;
+		align-items: flex-start;
+		left: 29vw;
+		top: 8.5vh;
+		padding: 10px;
+		border-radius: 8px;
+	}
+
+	.user-modal {
+		z-index: 1;
+		background-color: white;
+		flex-direction: column;
+		min-height: 10vh;
+		height: fit-content;
+		width: fit-content;
+		position: absolute;
+		align-items: flex-start;
+		right: 5;
+		top: 8.5vh;
+		padding: 10px;
+		border-radius: 8px;
+	}
+
+	.create-modal span {
+		cursor: pointer;
+	}
+
+	.create-modal span:hover {
+		opacity: 0.5;
+		transition: 0.2s ease-in-out all;
 	}
 }
