@@ -24,18 +24,14 @@
 // // Pages
 @import 'pages/Homepage.scss';
 @import 'pages/workspace.scss';
-// @import 'pages/board.scss';
+@import 'pages/board.scss';
 @import 'pages/card-details.scss';
 
-html {
-	background-color: lightblue;
-}
-
 .flex {
-	display: flex;
+  display: flex;
 }
 
 .flex-column {
-	display: flex;
-	flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }

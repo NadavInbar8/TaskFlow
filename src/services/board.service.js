@@ -28,7 +28,6 @@ async function getBoards() {
 
 async function getById(boardId) {
   const board = await storageService.get('board', boardId);
-
   // const user = await httpService.get(`user/${userId}`)
   // gWatchedUser = user;
   return board;

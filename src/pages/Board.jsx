@@ -7,7 +7,6 @@ import { BoardService } from '../services/board.service.js';
 export const Board = () => {
   const [board, setBoard] = useState({});
   const { boardId } = useParams();
-  console.log(boardId);
 
   useEffect(async () => {
     console.log('hello world');
@@ -17,19 +16,17 @@ export const Board = () => {
   return (
     <div>
       <h1>{board.title}</h1>
-      {console.log(board)}
       <div className='board flex'>
         {board.groups
           ? board.groups.map((list) => {
               return (
-                <div key={list.id} className='board-list'>
+                <div key={list.id} className='board-list flex-column'>
                   <h3>{list.title}</h3>
                   <ul>
                     {list.tasks.map((card) => {
                       return (
                         <li key={card.id} className='board-card'>
                           <Link to={`/board/${boardId}/${card.id}/${list.id}`}>
-                            {' '}
                             {card.title}
                           </Link>
                         </li>
