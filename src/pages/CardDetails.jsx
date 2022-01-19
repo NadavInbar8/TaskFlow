@@ -9,6 +9,7 @@ function _CardDetails({ updateBoard, board }) {
 
   const [card, setCard] = useState({
     id: '',
+    description: '',
     title: '',
     memebers: [],
     label: [],
@@ -58,8 +59,13 @@ function _CardDetails({ updateBoard, board }) {
   }
 
   function updateCard() {
-    // console.log(card);
-    // console.log(board);
+    let listIdx = board.groups.findIndex((group) => group.id === listId);
+    let currCardIdx = board.groups[listIdx].tasks.findIndex(
+      (task) => task.id === cardId
+    );
+    const updatedBoard = { ...board };
+    updatedBoard.groups[listIdx].tasks[currCardIdx] = card;
+    updateBoard(updatedBoard);
   }
 
   return (
@@ -85,7 +91,13 @@ function _CardDetails({ updateBoard, board }) {
             <div>
               <label>
                 Description
-                <input type='text-area' />
+                <input
+                  name='description'
+                  value={card.description}
+                  onChange={handleChange}
+                  onBlur={updateCard}
+                  type='text-area'
+                />
               </label>
             </div>
             <div>
