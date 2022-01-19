@@ -20,7 +20,6 @@ export function CardDetails({ board }) {
   }, []);
 
   function getCard() {
-    debugger;
     if (!board) return;
     console.log(board);
     let list = board.groups.find((group) => group.id === listId);
