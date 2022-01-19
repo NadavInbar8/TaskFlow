@@ -1,10 +1,10 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
-import {WorkSpace} from '../pages/WorkSpace.jsx';
-import {Board} from '../pages/Board.jsx';
+// import {WorkSpace} from '../pages/WorkSpace.jsx';
+// import {Board} from '../pages/Board.jsx';
 
-import logo from '../assets/imgs/logo.jpg';
+import logo from '../assets/imgs/logo/logo.svg';
 
 export function AppHeader() {
 	return (
@@ -15,12 +15,15 @@ export function AppHeader() {
 						<img src={logo} alt='taskflow logo' />
 					</Link>
 				</div>
-				<nav>
+				<nav className='flex'>
 					<ul>
-						<Link to='/board'>
+						<Link to='/board:101'>
 							<li className='board'>Board</li>
 						</Link>
 					</ul>
+					<div className='user-avatar'>
+						<div className='user-avatar-btn'>G</div>
+					</div>
 				</nav>
 			</div>
 		</div>

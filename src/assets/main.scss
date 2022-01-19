@@ -1,9 +1,10 @@
 // Setup
 // // Setup
-// @import 'setup/variables.scss';
-// @import 'setup/functions.scss';
-// @import 'setup/mixins.scss';
-// @import 'setup/typography.scss';
+@import 'setup/variables.scss';
+@import 'setup/functions.scss';
+@import 'setup/mixins.scss';
+@import 'setup/typography.scss';
+// @import "setup/style-guide.scss";
 
 // // Basics
 // @import 'basics/helpers.scss';
@@ -11,11 +12,9 @@
 @import 'basics/base.scss';
 // @import 'basics/links.scss';
 // @import 'basics/forms.scss';
-// @import "style-guide.scss";
 
 // Components
 @import 'cmps/app-header.scss';
-// // @import "style-guide.scss";
 
 // // Components
 // @import 'cmps/app-header.scss';
@@ -29,14 +28,14 @@
 @import 'pages/card-details.scss';
 
 html {
-  background-color: lightblue;
+	background-color: lightblue;
 }
 
 .flex {
-  display: flex;
+	display: flex;
 }
 
 .flex-column {
-  display: flex;
-  flex-direction: column;
+	display: flex;
+	flex-direction: column;
 }
