@@ -3,27 +3,38 @@ import { Link, useHistory, useParams, useRouteMatch } from 'react-router-dom';
 import { CardService } from '../services/card.service.js';
 export function CardDetails({ board }) {
   const history = useHistory();
-  const [card, setCard] = useState({});
-
+  const [card, setCard] = useState({
+    id: '',
+    title: '',
+    memebers: [],
+    label: [],
+    date: '',
+    attachedLinks: [],
+    cover: '',
+  });
   const { boardId, listId, cardId } = useParams();
-  //   console.log(params);
-  //   const id = useRouteMatch(`/b102/:cardId`);
-  //   console.log(id);
+
   useEffect(async () => {
-    // console.log(cardId);
     setCard(getCard());
+    console.log(card);
   }, []);
 
   function getCard() {
+    debugger;
+    if (!board) return;
+    console.log(board);
     let list = board.groups.find((group) => group.id === listId);
     let currCard = list.tasks.find((task) => task.id === cardId);
     return currCard;
   }
 
-  //   function getCard() {
-  //     const { id } = useParams();
-  //     console.log(id);
-  //   }
+  function handleChange({ target }) {
+    const field = target.name;
+    const value = target.value;
+    console.log(field, value);
+    setCard({ [field]: value });
+    console.log(card);
+  }
 
   console.log('hello');
   return (
@@ -32,14 +43,32 @@ export function CardDetails({ board }) {
 
       <div className='card-details'>
         <div className='card-details-top'>
-          <h1>{card.title}</h1>
+          <input
+            onChange={handleChange}
+            name='title'
+            value={card.title}
+            type='text-area'
+          />
           <Link to={`/board/${board._id}`}>
             <button>X</button>
           </Link>
         </div>
 
         <div className='card-details-main'>
-          <div className='edit-actions'>the edit actions is here</div>
+          <div className='edit-actions'>
+            <div>
+              <label>
+                Description
+                <input type='text-area' />
+              </label>
+            </div>
+            <div>
+              <label>
+                Activity
+                <input type='text' />
+              </label>
+            </div>
+          </div>
 
           <div className='add-to-card'>
             <ul>
