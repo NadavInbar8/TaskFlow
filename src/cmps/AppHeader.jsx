@@ -25,6 +25,10 @@ export function _AppHeader({loadBoards, boards}) {
 		setBoardsModal((isBoardsModalOpen = !isBoardsModalOpen));
 	};
 
+	const createBoard = () => {
+		console.log('hello');
+	};
+
 	return (
 		<div className='app-header'>
 			<div className='main-header'>
@@ -38,9 +42,12 @@ export function _AppHeader({loadBoards, boards}) {
 						<li className='boards' onClick={() => openBoardsModal()}>
 							Boards
 						</li>
+						<li className='create' onClick={() => createBoard()}>
+							Create
+						</li>
 					</ul>
 					{isBoardsModalOpen && (
-						<ul className='boards-modal'>
+						<ul className='boards-modal flex'>
 							{boards.map((board) => {
 								return (
 									<Link key={board._id} to={`/board/${board._id}`}>
@@ -50,6 +57,7 @@ export function _AppHeader({loadBoards, boards}) {
 							})}
 						</ul>
 					)}
+
 					<div className='user-avatar'>
 						<div className='user-avatar-btn'>G</div>
 					</div>
