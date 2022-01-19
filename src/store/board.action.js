@@ -1,27 +1,27 @@
-import {boardService} from '../services/board.service.js';
+import { boardService } from '../services/board.service.js';
 
 export function loadBoards(filterBy = null) {
-	return async (dispatch) => {
-		try {
-			const boards = await boardService.query();
-			dispatch({type: 'SET_BOARDS', boards});
-		} catch (err) {
-			console.log('could not get boards ', err);
-		}
-	};
+  return async (dispatch) => {
+    try {
+      const boards = await boardService.query();
+      dispatch({ type: 'SET_BOARDS', boards });
+    } catch (err) {
+      console.log('could not get boards ', err);
+    }
+  };
 }
 
 export function addBoard(board) {
-	return async (dispatch) => {
-		try {
-			const savedBoard = await boardService.save(board);
-			console.log(savedBoard);
-			console.log('Added Succesfully!');
-			dispatch({type: 'ADD_BOARD', savedBoard});
-		} catch (err) {
-			console.log('cannot add board', err);
-		}
-	};
+  return async (dispatch) => {
+    try {
+      const savedBoard = await boardService.save(board);
+      console.log(savedBoard);
+      console.log('Added Succesfully!');
+      dispatch({ type: 'ADD_BOARD', savedBoard });
+    } catch (err) {
+      console.log('cannot add board', err);
+    }
+  };
 }
 
 export function loadBoard(boardId) {
@@ -36,6 +36,19 @@ export function loadBoard(boardId) {
   };
 }
 
+export function updateBoard(board) {
+  // console.log(board);
+  return async (dispatch) => {
+    try {
+      const updatedBoard = await boardService.save(board);
+      // console.log(updatedBoard);
+      dispatch({ type: 'UPDATE_BOARDS', updatedBoard });
+      dispatch({ type: 'UPDATE_CURRBOARD', updatedBoard });
+    } catch (err) {
+      console.log('couldnt update board', err);
+    }
+  };
+}
 // export function loadBoard(filterBy) {
 //   return async (dispatch) =>{
 //     try{

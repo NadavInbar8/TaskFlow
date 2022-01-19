@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Link, useHistory, useParams, useRouteMatch } from 'react-router-dom';
+import { updateBoard } from '../store/board.action.js';
 import { CardService } from '../services/card.service.js';
 
-function _CardDetails({ board }) {
+function _CardDetails({ updateBoard, board }) {
   const history = useHistory();
 
   const [card, setCard] = useState({
     id: '',
+    description: '',
     title: '',
     memebers: [],
     label: [],
@@ -20,16 +22,16 @@ function _CardDetails({ board }) {
 
   useEffect(async () => {
     setCard(getCard());
-    console.log(card);
+    // console.log(card);
   }, []);
 
   function getCard() {
     if (!board) return;
-    console.log(board);
+    // console.log(board);
     let list = board.groups.find((group) => group.id === listId);
-    console.log('list', list);
+    // console.log('list', list);
     let currCard = list.tasks.find((task) => task.id === cardId);
-    console.log('currCard', currCard);
+    // console.log('currCard', currCard);
     return currCard;
   }
 
@@ -47,16 +49,25 @@ function _CardDetails({ board }) {
     let currCardIdx = board.groups[listIdx].tasks.findIndex(
       (task) => task.id === cardId
     );
-    board.groups[listIdx].tasks.splice(1, currCardIdx);
-    console.log(board);
+
+    const updatedBoard = { ...board };
+    updatedBoard.groups[listIdx].tasks.length > 1
+      ? updatedBoard.groups[listIdx].tasks.splice(1, currCardIdx)
+      : updatedBoard.groups[listIdx].tasks.pop();
+    updateBoard(updatedBoard);
+    history.push(`/board/${board._id}`);
   }
 
   function updateCard() {
-    console.log(card);
-    console.log(board);
+    let listIdx = board.groups.findIndex((group) => group.id === listId);
+    let currCardIdx = board.groups[listIdx].tasks.findIndex(
+      (task) => task.id === cardId
+    );
+    const updatedBoard = { ...board };
+    updatedBoard.groups[listIdx].tasks[currCardIdx] = card;
+    updateBoard(updatedBoard);
   }
 
-  console.log('hello');
   return (
     <div className='go-back-container'>
       <Link className='go-back-container' to={`/board/${board._id}`} />
@@ -80,7 +91,13 @@ function _CardDetails({ board }) {
             <div>
               <label>
                 Description
-                <input type='text-area' />
+                <input
+                  name='description'
+                  value={card.description}
+                  onChange={handleChange}
+                  onBlur={updateCard}
+                  type='text-area'
+                />
               </label>
             </div>
             <div>
@@ -122,6 +139,7 @@ function mapStateToProps({ boardModule }) {
 
 const mapDispatchToProps = {
   // loadBoards,
+  updateBoard,
 };
 
 export const CardDetails = connect(

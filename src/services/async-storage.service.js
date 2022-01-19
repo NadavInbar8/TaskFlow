@@ -38,6 +38,7 @@ function put(entityType, updatedEntity) {
     );
     entities.splice(idx, 1, updatedEntity);
     _save(entityType, entities);
+    // console.log(updatedEntity);
     return updatedEntity;
   });
 }
