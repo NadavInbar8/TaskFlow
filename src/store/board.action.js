@@ -1,14 +1,27 @@
-import { boardService } from '../services/board.service.js';
+import {boardService} from '../services/board.service.js';
 
 export function loadBoards(filterBy = null) {
-  return async (dispatch) => {
-    try {
-      const boards = await boardService.query();
-      dispatch({ type: 'SET_BOARDS', boards });
-    } catch (err) {
-      console.log('could not get boards ', err);
-    }
-  };
+	return async (dispatch) => {
+		try {
+			const boards = await boardService.query();
+			dispatch({type: 'SET_BOARDS', boards});
+		} catch (err) {
+			console.log('could not get boards ', err);
+		}
+	};
+}
+
+export function addBoard(board) {
+	return async (dispatch) => {
+		try {
+			const savedBoard = await boardService.save(board);
+			console.log(savedBoard);
+			console.log('Added Succesfully!');
+			dispatch({type: 'ADD_BOARD', savedBoard});
+		} catch (err) {
+			console.log('cannot add board', err);
+		}
+	};
 }
 
 // export function loadBoard(filterBy) {
@@ -25,24 +38,6 @@ export function loadBoards(filterBy = null) {
 //       .then(() => {
 //         dispatch({ type: 'REMOVE_TOY', toyId });
 //       })
-//       .catch((err) => {
-//         console.log('cannot delete toy');
-//       });
-//   };
-// }
-// export function addToy(toy, cb) {
-//   console.log(toy);
-//   return (dispatch) => {
-//     ToyService.save(toy)
-//       .then((savedToy) => {
-//         console.log(savedToy);
-//         console.log('Added Succesfully!');
-//         dispatch({ type: 'ADD_TOY', savedToy });
-//       })
-//       .then(() => {
-//         cb();
-//       })
-
 //       .catch((err) => {
 //         console.log('cannot delete toy');
 //       });

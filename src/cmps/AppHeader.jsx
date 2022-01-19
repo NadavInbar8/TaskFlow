@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
-import {loadBoards} from '../store/board.action.js';
+import {loadBoards, addBoard} from '../store/board.action.js';
 import {Link} from 'react-router-dom';
 
 // import {WorkSpace} from '../pages/WorkSpace.jsx';
@@ -8,9 +8,10 @@ import {Link} from 'react-router-dom';
 
 import logo from '../assets/imgs/logo/logo.svg';
 
-export function _AppHeader({loadBoards, boards}) {
+function _AppHeader({loadBoards, boards, addBoard}) {
 	const [stateBoards, setBoards] = useState([]);
 	let [isBoardsModalOpen, setBoardsModal] = useState(false);
+	let [isCreateModalOpen, setCreateModal] = useState(false);
 
 	useEffect(async () => {
 		await loadBoards();
@@ -25,12 +26,12 @@ export function _AppHeader({loadBoards, boards}) {
 		setBoardsModal((isBoardsModalOpen = !isBoardsModalOpen));
 	};
 
-	const createBoard = () => {
-		console.log('hello');
+	const openCreateModal = () => {
+		setCreateModal((isCreateModalOpen = !isCreateModalOpen));
 	};
 
 	return (
-		<div className='app-header'>
+		<section className='app-header'>
 			<div className='main-header'>
 				<div className='logo-container'>
 					<Link to='/workspace'>
@@ -42,7 +43,7 @@ export function _AppHeader({loadBoards, boards}) {
 						<li className='boards' onClick={() => openBoardsModal()}>
 							Boards
 						</li>
-						<li className='create' onClick={() => createBoard()}>
+						<li className='create' onClick={() => openCreateModal()}>
 							Create
 						</li>
 					</ul>
@@ -58,12 +59,23 @@ export function _AppHeader({loadBoards, boards}) {
 						</ul>
 					)}
 
+					{isCreateModalOpen && (
+						<div className='create-modal flex'>
+							<div
+								onClick={() => {
+									addBoard();
+								}}>
+								Create Board
+							</div>
+						</div>
+					)}
+
 					<div className='user-avatar'>
 						<div className='user-avatar-btn'>G</div>
 					</div>
 				</nav>
 			</div>
-		</div>
+		</section>
 	);
 }
 
@@ -75,6 +87,7 @@ function mapStateToProps({boardModule}) {
 
 const mapDispatchToProps = {
 	loadBoards,
+	addBoard,
 };
 
 export const AppHeader = connect(mapStateToProps, mapDispatchToProps)(_AppHeader);
