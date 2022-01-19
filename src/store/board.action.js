@@ -24,6 +24,18 @@ export function addBoard(board) {
 	};
 }
 
+export function loadBoard(boardId) {
+  return async (dispatch) => {
+    try {
+      let currBoard = await boardService.getById(boardId);
+      console.log(currBoard);
+      dispatch({ type: 'SET_BOARD', currBoard });
+    } catch (err) {
+      console.log('couldnt load board', err);
+    }
+  };
+}
+
 // export function loadBoard(filterBy) {
 //   return async (dispatch) =>{
 //     try{
