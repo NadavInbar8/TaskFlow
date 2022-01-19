@@ -1,11 +1,26 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import { loadBoards } from '../store/board.action.js';
+
 import boardPreview from '../assets/imgs/boardPreview.jpg';
 import { Link } from 'react-router-dom';
 import usersvg from '../assets/imgs/usersvg.svg';
 
-export const WorkSpace = () => {
+const _WorkSpace = ({ loadBoards, boards }) => {
+  const [stateBoards, setBoards] = useState([]);
+
+  useEffect(async () => {
+    loadBoards();
+    setBoards(boards);
+  }, []);
+
+  useEffect(() => {
+    console.log(stateBoards);
+  }, [stateBoards]);
+
   return (
     <div className='work-space'>
+      {/* {console.log(boards)} */}
       <div className='nav'>
         <ul>
           <li>Boards</li>
@@ -100,3 +115,18 @@ export const WorkSpace = () => {
     </div>
   );
 };
+
+function mapStateToProps({ boardModule }) {
+  return {
+    boards: boardModule.boards,
+  };
+}
+
+const mapDispatchToProps = {
+  loadBoards,
+};
+
+export const WorkSpace = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(_WorkSpace);

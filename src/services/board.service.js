@@ -4,12 +4,12 @@ import { storageService } from './async-storage.service';
 const STORAGE_KEY_BOARD = 'board';
 // var gWatchedUser = null;
 
-export const BoardService = {
+export const boardService = {
   // login,
   // logout,
   // signup,
   // getLoggedinUser,
-  getBoards,
+  query,
   getById,
   // remove,
   // update,
@@ -19,7 +19,7 @@ export const BoardService = {
 // To help debugging from console
 // window.userService = userService;
 
-async function getBoards() {
+async function query() {
   let board = await storageService.query('board');
   console.log(board);
   return board;
@@ -28,6 +28,7 @@ async function getBoards() {
 
 async function getById(boardId) {
   const board = await storageService.get('board', boardId);
+
   // const user = await httpService.get(`user/${userId}`)
   // gWatchedUser = user;
   return board;
@@ -368,7 +369,7 @@ const boards = [
   },
 ];
 
-// putJsonInStorage();
-function putJsonInStorage() {
+// _saveToStorage();
+function _saveToStorage() {
   localStorage.setItem(STORAGE_KEY_BOARD, JSON.stringify(boards));
 }

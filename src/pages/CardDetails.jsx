@@ -32,7 +32,7 @@ export function CardDetails({ board }) {
 
       <div className='card-details'>
         <div className='card-details-top'>
-          <h1>card details</h1>
+          <h1>{card.title}</h1>
           <Link to={`/board/${board._id}`}>
             <button>X</button>
           </Link>
@@ -63,3 +63,13 @@ export function CardDetails({ board }) {
     </div>
   );
 }
+
+// card = {
+// 	id:'',
+// 	title:'',
+// 	memebers:[],
+// 	label:[],
+// 	date: '',
+// 	attachedLinks: [{},{}],
+// 	cover : ''
+// }

@@ -17,7 +17,7 @@ export function AppHeader() {
 				</div>
 				<nav className='flex'>
 					<ul>
-						<Link to='/board:101'>
+						<Link to='/board/'>
 							<li className='board'>Board</li>
 						</Link>
 					</ul>
