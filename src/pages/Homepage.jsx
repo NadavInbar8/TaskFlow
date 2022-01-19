@@ -30,11 +30,11 @@ export const Homepage = () => {
 			</div>
 			<div className='homepage-explain'>
 				<div className='explain-details flex-column'>
-					<h1>It’s more than work. It’s a way of working together.</h1>
-					<p>
+					{/* <h1>It’s more than work. It’s a way of working together.</h1> */}
+					{/* <p>
 						Start with a Trello board, lists, and cards. Customize and expand with more features as your teamwork grows.
 						Manage projects, organize tasks, and build team spirit—all in one place.
-					</p>
+					</p> */}
 					<button className='explain-details-btn'>Start doing → </button>
 					<img src={board} alt='borad' />
 				</div>
