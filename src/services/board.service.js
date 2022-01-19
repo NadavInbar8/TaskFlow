@@ -10,7 +10,7 @@ export const BoardService = {
   // signup,
   // getLoggedinUser,
   getBoards,
-  // getById,
+  getById,
   // remove,
   // update,
   // changeScore
@@ -19,8 +19,10 @@ export const BoardService = {
 // To help debugging from console
 // window.userService = userService;
 
-function getBoards() {
-  return storageService.query('board');
+async function getBoards() {
+  let board = await storageService.query('board');
+  console.log(board);
+  return board;
   //   return httpService.get(`user`);
 }
 
