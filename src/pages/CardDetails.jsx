@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
 import { Link, useHistory, useParams, useRouteMatch } from 'react-router-dom';
 import { CardService } from '../services/card.service.js';
-export function CardDetails({ board }) {
+
+function _CardDetails({ board }) {
   const history = useHistory();
+
   const [card, setCard] = useState({
     id: '',
     title: '',
@@ -12,6 +15,7 @@ export function CardDetails({ board }) {
     attachedLinks: [],
     cover: '',
   });
+
   const { boardId, listId, cardId } = useParams();
 
   useEffect(async () => {
@@ -109,6 +113,21 @@ export function CardDetails({ board }) {
     </div>
   );
 }
+
+function mapStateToProps({ boardModule }) {
+  return {
+    boards: boardModule.boards,
+  };
+}
+
+const mapDispatchToProps = {
+  // loadBoards,
+};
+
+export const CardDetails = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(_CardDetails);
 
 // card = {
 // 	id:'',
