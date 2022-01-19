@@ -1,0 +1,38 @@
+.board-filter {
+	z-index: -1;
+	position: absolute;
+	margin-right: 10px;
+	top: 8.5vh;
+	right: 0;
+	opacity: 0.8;
+	background-color: whitesmoke;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	width: 12vw;
+	min-height: 40vh;
+	max-height: 80vh;
+
+	h2 {
+		text-align: center;
+		margin: 10px 0;
+	}
+
+	.search-options {
+		margin-top: 10px;
+		margin-bottom: 10px;
+	}
+
+	form.filter-form {
+		height: 30vh;
+		padding: 20px;
+	}
+
+	input {
+		margin: 10px 0;
+	}
+
+	select {
+		margin-top: 10px;
+	}
+}

@@ -4,6 +4,7 @@ import {Route, Switch} from 'react-router';
 import {Link, useParams} from 'react-router-dom';
 import {useSelector, useDispatch, shallowEqual} from 'react-redux';
 import {loadBoard} from '../store/board.action.js';
+import {BoardFilter} from '../cmps/Boardfilter.jsx';
 
 export const Board = () => {
 	const {boardId} = useParams();
@@ -40,7 +41,7 @@ export const Board = () => {
 							  })
 							: null}
 					</div>
-
+					<BoardFilter />
 					<Route component={CardDetails} path={`/board/:boardId/:cardId/:listId`} />
 				</div>
 			) : (
