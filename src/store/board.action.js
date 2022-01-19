@@ -1,9 +1,10 @@
 import { boardService } from '../services/board.service.js';
 
-export function setBoards(filterBy) {
+export function loadBoards(filterBy) {
   return async (dispatch) => {
     try {
       const boards = await boardService.query(filterBy);
+      console.log(boards);
       dispatch({ type: 'SET_BOARDS', boards });
     } catch (err) {
       console.log('could not get boards ', err);
