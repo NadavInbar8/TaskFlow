@@ -23,6 +23,13 @@ export function loadBoard(boardId) {
   };
 }
 
+export function updateBoards(board) {
+  //   return async (dispatch)=>{
+  // try{
+  //   const updatedBoard = await boardService.
+  // }
+  //   }
+}
 // export function loadBoard(filterBy) {
 //   return async (dispatch) =>{
 //     try{
