@@ -19,8 +19,8 @@ export const BoardService = {
 // To help debugging from console
 // window.userService = userService;
 
-function getBoards() {
-  return storageService.query('board');
+async function getBoards() {
+  return await storageService.query('board');
   //   return httpService.get(`user`);
 }
 
