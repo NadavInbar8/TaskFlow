@@ -19,9 +19,9 @@ export const CardService = {
 // window.userService = userService;
 
 async function getCardById() {
-  const board = await storageService.query('board');
-  console.log(board);
-  return board.groups[0].tasks[0];
+  // const board = await storageService.query('board');
+  // console.log(board);
+  // return board.groups[0].tasks[0];
   //   return httpService.get(`user`);
 }
 

@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { CardDetails } from './CardDetails.jsx';
 import { Route, Switch } from 'react-router';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { BoardService } from '../services/board.service.js';
 
 export const Board = () => {
   const [board, setBoard] = useState({});
+  const { boardId } = useParams();
+  console.log(boardId);
 
   useEffect(async () => {
     console.log('hello world');
-    setBoard(await BoardService.getBoards());
+    setBoard(await BoardService.getById(boardId));
   }, []);
+
   return (
     <div>
       <h1>{board.title}</h1>
@@ -25,7 +28,10 @@ export const Board = () => {
                     {list.tasks.map((card) => {
                       return (
                         <li key={card.id} className='board-card'>
-                          <Link to={`/board/${card.id}`}> {card.title}</Link>
+                          <Link to={`/board/${boardId}/${card.id}/${list.id}`}>
+                            {' '}
+                            {card.title}
+                          </Link>
                         </li>
                       );
                     })}
@@ -36,7 +42,10 @@ export const Board = () => {
           : null}
       </div>
       <Switch>
-        <Route component={CardDetails} path='/board/:cardId' />
+        <Route
+          component={() => <CardDetails board={board} />}
+          path={`/board/:boardId/:cardId/:listId`}
+        />
       </Switch>
     </div>
   );
