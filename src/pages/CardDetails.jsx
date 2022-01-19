@@ -29,9 +29,9 @@ function _CardDetails({ updateBoard, board }) {
     if (!board) return;
     // console.log(board);
     let list = board.groups.find((group) => group.id === listId);
-    // console.log('list', list);
+    console.log('list', list);
     let currCard = list.tasks.find((task) => task.id === cardId);
-    // console.log('currCard', currCard);
+    console.log('currCard', currCard);
     return currCard;
   }
 
