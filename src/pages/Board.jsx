@@ -3,8 +3,9 @@ import { CardDetails } from './CardDetails.jsx';
 import { Route, Switch } from 'react-router';
 import { Link, useParams } from 'react-router-dom';
 import { boardService } from '../services/board.service.js';
+import { connect } from 'react-redux';
 
-export const Board = () => {
+export const _Board = () => {
   const [board, setBoard] = useState({});
   const { boardId } = useParams();
 
@@ -47,6 +48,18 @@ export const Board = () => {
     </section>
   );
 };
+
+function mapStateToProps({ boardModule }) {
+  return {
+    boards: boardModule.boards,
+  };
+}
+
+const mapDispatchToProps = {
+  // loadBoards,
+};
+
+export const Board = connect(mapStateToProps, mapDispatchToProps)(_Board);
 
 // function mapStateToProps({ toyModule, userModule }) {
 // 	return {

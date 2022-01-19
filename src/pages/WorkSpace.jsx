@@ -7,20 +7,13 @@ import { Link } from 'react-router-dom';
 import usersvg from '../assets/imgs/usersvg.svg';
 
 const _WorkSpace = ({ loadBoards, boards }) => {
-  const [stateBoards, setBoards] = useState([]);
-
-  useEffect(async () => {
-    await loadBoards();
-    setBoards(boards);
-  }, []);
-
+  const [stateBoards, setBoards] = useState(loadBoards);
   useEffect(() => {
-    console.log(stateBoards);
+    setBoards(boards);
   }, [stateBoards]);
 
   return (
     <div className='work-space'>
-      {/* {console.log(boards)} */}
       <div className='nav'>
         <ul>
           <li>Boards</li>
@@ -47,18 +40,19 @@ const _WorkSpace = ({ loadBoards, boards }) => {
             <h1 className='headling'> Workspaces boards</h1>
           </div>
           <div className='boards-container'>
-            {stateBoards.length
-              ? stateBoards.map((board) => {
-                  console.log(board);
-                  return (
-                    <div key={board._id} className='board-preview'>
-                      <Link to={`/board/${board._id}`}>
-                        <img src={boardPreview} alt='' />
-                      </Link>
-                    </div>
-                  );
-                })
-              : null}
+            {stateBoards.length ? (
+              stateBoards.map((board) => {
+                return (
+                  <div key={board._id} className='board-preview'>
+                    <Link to={`/board/${board._id}`}>
+                      <img src={boardPreview} alt='' />
+                    </Link>
+                  </div>
+                );
+              })
+            ) : (
+              <div>Loading...</div>
+            )}
           </div>
         </div>
       </div>
