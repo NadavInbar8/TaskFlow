@@ -369,5 +369,5 @@ const boards = [
 
 // putJsonInStorage();
 function putJsonInStorage() {
-  localStorage.setItem(STORAGE_KEY_BOARD, JSON.stringify(board));
+  localStorage.setItem(STORAGE_KEY_BOARD, JSON.stringify(boards));
 }
