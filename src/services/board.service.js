@@ -10,7 +10,7 @@ export const BoardService = {
   // signup,
   // getLoggedinUser,
   getBoards,
-  getById,
+  // getById,
   // remove,
   // update,
   // changeScore
@@ -367,7 +367,7 @@ const boards = [
   },
 ];
 
-putJsonInStorage();
+// putJsonInStorage();
 function putJsonInStorage() {
-  localStorage.setItem(STORAGE_KEY_BOARD, JSON.stringify(boards));
+  localStorage.setItem(STORAGE_KEY_BOARD, JSON.stringify(board));
 }
