@@ -21,7 +21,6 @@ export const boardService = {
 
 async function query() {
   let board = await storageService.query('board');
-  console.log(board);
   return board;
   //   return httpService.get(`user`);
 }

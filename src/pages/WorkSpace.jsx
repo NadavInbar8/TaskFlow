@@ -10,7 +10,7 @@ const _WorkSpace = ({ loadBoards, boards }) => {
   const [stateBoards, setBoards] = useState([]);
 
   useEffect(async () => {
-    loadBoards();
+    await loadBoards();
     setBoards(boards);
   }, []);
 
@@ -47,68 +47,18 @@ const _WorkSpace = ({ loadBoards, boards }) => {
             <h1 className='headling'> Workspaces boards</h1>
           </div>
           <div className='boards-container'>
-            <div className='board-preview'>
-              <Link to='/board/b102'>
-                <img src={boardPreview} alt='' />
-              </Link>
-            </div>
-            <div className='board-preview'>
-              <Link to='/board/b101'>
-                <img src={boardPreview} alt='' />
-              </Link>
-            </div>
-            <div className='board-preview'>
-              <Link to='/board'>
-                <img src={boardPreview} alt='' />
-              </Link>
-            </div>
-          </div>
-        </div>
-
-        <div className='boards'>
-          <div className='headline'>
-            <img className='usersvg' src={usersvg} alt='' />
-            <h1 className='headling'> Workspaces boards</h1>
-          </div>
-          <div className='boards-container'>
-            <div className='board-preview'>
-              <Link to='/board'>
-                <img src={boardPreview} alt='' />
-              </Link>
-            </div>
-            <div className='board-preview'>
-              <Link to='/board'>
-                <img src={boardPreview} alt='' />
-              </Link>
-            </div>
-            <div className='board-preview'>
-              <Link to='/board'>
-                <img src={boardPreview} alt='' />
-              </Link>
-            </div>
-          </div>
-        </div>
-        <div className='boards'>
-          <div className='headline'>
-            <img className='usersvg' src={usersvg} alt='' />
-            <h1 className='headling'> Workspaces boards</h1>
-          </div>
-          <div className='boards-container'>
-            <div className='board-preview'>
-              <Link to='/board'>
-                <img src={boardPreview} alt='' />
-              </Link>
-            </div>
-            <div className='board-preview'>
-              <Link to='/board'>
-                <img src={boardPreview} alt='' />
-              </Link>
-            </div>
-            <div className='board-preview'>
-              <Link to='/board'>
-                <img src={boardPreview} alt='' />
-              </Link>
-            </div>
+            {stateBoards.length
+              ? stateBoards.map((board) => {
+                  console.log(board);
+                  return (
+                    <div key={board._id} className='board-preview'>
+                      <Link to={`/board/${board._id}`}>
+                        <img src={boardPreview} alt='' />
+                      </Link>
+                    </div>
+                  );
+                })
+              : null}
           </div>
         </div>
       </div>
