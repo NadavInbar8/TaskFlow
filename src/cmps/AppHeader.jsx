@@ -6,7 +6,7 @@ import {Link} from 'react-router-dom';
 
 import logo from '../assets/imgs/logo/logo.svg';
 
-export function _AppHeader() {
+export function AppHeader() {
 	return (
 		<div className='app-header'>
 			<div className='main-header'>
@@ -17,7 +17,7 @@ export function _AppHeader() {
 				</div>
 				<nav className='flex'>
 					<ul>
-						<Link to='/board'>
+						<Link to='/board/'>
 							<li className='board'>Board</li>
 						</Link>
 					</ul>
