@@ -10,13 +10,16 @@ export const CardDetails = () => {
     (state) => ({ board: state.boardModule.currBoard }),
     shallowEqual
   );
+
+  const { boardId, listId, cardId } = useParams();
   const dispatch = useDispatch();
 
   const history = useHistory();
 
   const [card, setCard] = useState({
     id: '',
-    description: '',
+    description: 'hi',
+    comments: [],
     title: '',
     memebers: [],
     label: [],
@@ -25,7 +28,10 @@ export const CardDetails = () => {
     cover: '',
   });
 
-  const { boardId, listId, cardId } = useParams();
+  const [comment, setComment] = useState({
+    by: 'guest',
+    txt: '',
+  });
 
   useEffect(async () => {
     setCard(getCard());
@@ -34,12 +40,13 @@ export const CardDetails = () => {
 
   function getCard() {
     // console.log('board', board);
+
     if (!board) return;
-    console.log(board.groups);
+    // console.log(board.groups);
     let list = board.groups.find((group) => group.id === listId);
-    console.log('list', list);
+    // console.log('list', list);
     let currCard = list.tasks.find((task) => task.id === cardId);
-    console.log('currCard', currCard);
+    // console.log('currCard', currCard);
     return currCard;
   }
 
@@ -57,12 +64,12 @@ export const CardDetails = () => {
     let currCardIdx = board.groups[listIdx].tasks.findIndex(
       (task) => task.id === cardId
     );
-
     const updatedBoard = { ...board };
     updatedBoard.groups[listIdx].tasks.length > 1
-      ? updatedBoard.groups[listIdx].tasks.splice(1, currCardIdx)
+      ? updatedBoard.groups[listIdx].tasks.splice(currCardIdx, 1)
       : updatedBoard.groups[listIdx].tasks.pop();
-    updateBoard(updatedBoard);
+    // console.log(updatedBoard);
+    dispatch(updateBoard(updatedBoard));
     history.push(`/board/${board._id}`);
   }
 
@@ -73,12 +80,44 @@ export const CardDetails = () => {
     );
     const updatedBoard = { ...board };
     updatedBoard.groups[listIdx].tasks[currCardIdx] = card;
-    updateBoard(updatedBoard);
+    dispatch(updateBoard(updatedBoard));
+  }
+
+  function addComment(ev) {
+    ev.preventDefault();
+    // console.log(ev.target);
+  }
+
+  function handleCommentChange({ target }) {
+    const field = target.name;
+    const value = target.value;
+    setComment({ by: 'guest', txt: value });
+  }
+
+  function addComment(ev) {
+    ev.preventDefault();
+    const currCard = card;
+    currCard.comments
+      ? currCard.comments.push(comment)
+      : (currCard.comments = [comment]);
+    // console.log(currCard);
+    setCard(currCard);
+    updateCard();
+    setComment({ by: 'guest', txt: '' });
+    // console.log(card);
+  }
+
+  function deleteComment(idx) {
+    const currCard = card;
+    currCard.comments.splice(idx, 1);
+    setCard(currCard);
+    console.log(currCard);
+    updateCard();
   }
 
   return (
     <div>
-      {card ? (
+      {board.groups ? (
         <div className='go-back-container'>
           <Link className='go-back-container' to={`/board/${board._id}`} />
 
@@ -103,18 +142,44 @@ export const CardDetails = () => {
                     Description
                     <input
                       name='description'
-                      value={card.description}
+                      value={card.description || ''}
                       onChange={handleChange}
                       onBlur={updateCard}
                       type='text-area'
                     />
                   </label>
                 </div>
+
                 <div>
-                  <label>
-                    Activity
-                    <input type='text' />
-                  </label>
+                  Activity
+                  <form onSubmit={addComment} action=''>
+                    <label>
+                      Add Comment
+                      <input
+                        value={comment.txt}
+                        name='comment'
+                        onChange={handleCommentChange}
+                        type='text'
+                      />
+                    </label>
+                  </form>
+                </div>
+
+                <div className='comments'>
+                  {card.comments && (
+                    <ul>
+                      {card.comments.map((comment, idx) => {
+                        return (
+                          <li key={idx}>
+                            {comment.by}:{comment.txt}
+                            <button onClick={() => deleteComment(idx)}>
+                              delete
+                            </button>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  )}
                 </div>
               </div>
 

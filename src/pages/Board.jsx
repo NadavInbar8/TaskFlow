@@ -49,12 +49,11 @@ export const Board = () => {
               : null}
           </div>
           <img src={something} alt='' />
-          <Switch>
-            <Route
-              component={() => <CardDetails board={board} />}
-              path={`/board/:boardId/:cardId/:listId`}
-            />
-          </Switch>
+
+          <Route
+            component={CardDetails}
+            path={`/board/:boardId/:cardId/:listId`}
+          />
         </div>
       ) : (
         <div>Loading...</div>

@@ -1,6 +1,6 @@
 const initialState = {
   boards: [],
-  currBoard: {},
+  currBoard: null,
   // filterBy: null,
   // isModalShown: false,
 };
