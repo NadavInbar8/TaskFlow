@@ -1,34 +1,60 @@
 .board {
-  overflow-x: auto;
+	overflow-x: auto;
+	margin: 0 30px;
 }
 .board-list {
-  justify-content: center;
-  align-items: center;
-  background-color: rgb(216, 216, 216);
-  border-radius: 4px;
-  margin: 8px;
+	justify-content: center;
+	align-items: center;
+	background-color: rgb(216, 216, 216);
+	border-radius: 4px;
+	margin: 8px;
 
-  ul {
-    padding: 0;
-    margin: 0;
-  }
-  .board-card {
-    background-color: whitesmoke;
-    margin: 8px;
-    padding: 8px;
-    border-radius: 4px;
-    position: relative;
-  }
+	ul {
+		padding: 0;
+		margin: 0;
+	}
+	.board-card {
+		background-color: whitesmoke;
+		margin: 8px;
+		padding: 8px;
+		border-radius: 4px;
+		position: relative;
+	}
 }
 
-.board-list {
+.board-header {
+	background: #0000003d;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	padding: 0 30px;
+	max-height: 50px;
+	align-items: center;
+
+	.member-icons {
+		display: flex;
+		flex-direction: row;
+	}
+	.member-icon {
+		margin-left: 10px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		// font-size: larger;
+		cursor: pointer;
+		height: 28px;
+		width: 28px;
+		background-color: rgb(218, 218, 218);
+		border-radius: 25em;
+	}
 }
+
 .add-card {
-  padding: 4px;
+	padding: 4px;
 }
 .edit-modal {
-  background-color: hotpink;
-  height: 200px;
-  position: absolute;
-  top: 0;
+	background-color: hotpink;
+	height: 200px;
+	position: absolute;
+	top: 0;
 }

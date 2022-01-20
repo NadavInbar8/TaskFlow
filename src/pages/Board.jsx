@@ -100,7 +100,7 @@ export const Board = () => {
 			{console.log(board)}
 			{board ? (
 				<div>
-					<header>
+					<header className='board-header'>
 						<h1>{board.title}</h1>
 						<div className='star'>
 							<span>&#9734;</span>
@@ -110,11 +110,17 @@ export const Board = () => {
 							<div className='member-icon'>NI</div>
 							<div className='member-icon'>TR</div>
 						</div>
-						<button>
+						<button className='invite-btn'>
 							<span>Invite</span>
 						</button>
-						<div>
+						<div className='filter-div'>
 							<span>Filter</span>
+						</div>
+						<div className='dashboard'>
+							<span>Dashboard</span>
+						</div>
+						<div className='menu'>
+							<span>...Show menu</span>
 						</div>
 					</header>
 					<div className='board flex'>
