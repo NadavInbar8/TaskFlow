@@ -100,7 +100,23 @@ export const Board = () => {
 			{console.log(board)}
 			{board ? (
 				<div>
-					<h1>{board.title}</h1>
+					<header>
+						<h1>{board.title}</h1>
+						<div className='star'>
+							<span>&#9734;</span>
+						</div>
+						<div className='member-icons'>
+							<div className='member-icon'>OK</div>
+							<div className='member-icon'>NI</div>
+							<div className='member-icon'>TR</div>
+						</div>
+						<button>
+							<span>Invite</span>
+						</button>
+						<div>
+							<span>Filter</span>
+						</div>
+					</header>
 					<div className='board flex'>
 						{board.groups
 							? board.groups.map((list) => {
