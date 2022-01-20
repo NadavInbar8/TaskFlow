@@ -1,4 +1,7 @@
 import React, {useEffect, useState} from 'react';
+import {useSelector, useDispatch, shallowEqual} from 'react-redux';
+
+import {loadBoard} from '../store/board.action.js';
 
 export const BoardFilter = () => {
 	const [filter, setFilter] = useState({
@@ -12,6 +15,8 @@ export const BoardFilter = () => {
 		setFilter({...filter, [field]: value});
 		// console.log(card);
 	}
+
+	const Dispatch = useDispatch();
 
 	return (
 		<section className='board-filter'>

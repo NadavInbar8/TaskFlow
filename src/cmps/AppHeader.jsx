@@ -46,7 +46,7 @@ export function AppHeader() {
 							Create
 						</li>
 					</ul>
-					{isBoardsModalOpen && (
+					{/* {isBoardsModalOpen && (
 						<ul className='boards-modal flex'>
 							{boards.map((board) => {
 								return (
@@ -68,7 +68,7 @@ export function AppHeader() {
 								<span>Create Board</span>
 							</div>
 						</div>
-					)}
+					)} */}
 
 					<div className='user-avatar'>
 						<div
@@ -78,7 +78,7 @@ export function AppHeader() {
 							className='user-avatar-btn'>
 							G
 						</div>
-						{isUserModalOpen && (
+						{/* {isUserModalOpen && (
 							<div className='user-modal'>
 								<span
 									onClick={() => {
@@ -87,10 +87,52 @@ export function AppHeader() {
 									logout
 								</span>
 							</div>
-						)}
+						)} */}
 					</div>
 				</nav>
 			</div>
+			<ul>
+				<li className='boards' onClick={() => toggleModal('boards')}>
+					<img className='boards-img' src={boardsImg} alt='' />
+					Boards
+				</li>
+				<li className='create-li' onClick={() => toggleModal('create')}>
+					Create
+				</li>
+			</ul>
+			{isBoardsModalOpen && (
+				<ul className='boards-modal flex'>
+					{boards.map((board) => {
+						return (
+							<Link onClick={() => toggleModal('boards')} key={board._id} to={`/board/${board._id}`}>
+								<li>{board.title}</li>
+							</Link>
+						);
+					})}
+				</ul>
+			)}
+
+			{isCreateModalOpen && (
+				<div className='create-modal flex'>
+					<div
+						onClick={() => {
+							dispatch(addBoard());
+							toggleModal('create');
+						}}>
+						<span>Create Board</span>
+					</div>
+				</div>
+			)}
+			{isUserModalOpen && (
+				<div className='user-modal'>
+					<span
+						onClick={() => {
+							toggleModal('user');
+						}}>
+						logout
+					</span>
+				</div>
+			)}
 		</section>
 	);
 }
