@@ -4,7 +4,7 @@
   top: 50%;
   left: 50%;
   height: 80vh;
-  width: 70vw;
+  width: 50vw;
   transform: translate(-50%, -50%);
   background-color: rgb(240, 245, 239);
   z-index: 10;
@@ -81,5 +81,16 @@
   }
   .title-li:hover {
     background-color: inherit;
+  }
+}
+
+.labels-preview {
+  display: flex;
+  gap: 5px;
+  margin: 5px;
+  .card-details-labels-preview {
+    height: 50px;
+    width: 50px;
+    border-radius: 7px;
   }
 }
