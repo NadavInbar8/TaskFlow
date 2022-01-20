@@ -17,6 +17,7 @@
     margin: 8px;
     padding: 8px;
     border-radius: 4px;
+    position: relative;
   }
 }
 
@@ -24,4 +25,10 @@
 }
 .add-card {
   padding: 4px;
+}
+.edit-modal {
+  background-color: hotpink;
+  height: 200px;
+  position: absolute;
+  top: 0;
 }
