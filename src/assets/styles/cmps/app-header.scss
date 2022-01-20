@@ -5,8 +5,7 @@
 	height: 8vh;
 	font-size: 1.5rem;
 	font-weight: 700;
-	background-color: rgb(0, 60, 95);
-	opacity: 0.8;
+	background-color: rgba(0, 60, 95, 0.801);
 	.main-header {
 		display: flex;
 		width: 100vw;
@@ -84,22 +83,6 @@
 		opacity: 0.5;
 	}
 
-	.boards-modal {
-		z-index: 1;
-		background-color: white;
-		flex-direction: column;
-		min-height: 20vh;
-		height: fit-content;
-		width: fit-content;
-		position: absolute;
-		align-items: flex-start;
-		left: 15vw;
-		top: 8.5vh;
-		padding: 10px;
-		border-radius: 8px;
-		opacity: 1 !important;
-	}
-
 	.boards-modal li {
 		margin-top: 15px;
 		margin-left: 0;
@@ -107,38 +90,6 @@
 
 	.create-li {
 		margin-left: 150px;
-	}
-
-	.create-modal {
-		z-index: 1;
-		background-color: white;
-		flex-direction: column;
-		min-height: 10vh;
-		height: fit-content;
-		width: fit-content;
-		position: absolute;
-		align-items: flex-start;
-		left: 29vw;
-		top: 8.5vh;
-		padding: 10px;
-		border-radius: 8px;
-		opacity: 1;
-	}
-
-	.user-modal {
-		z-index: 10;
-		background-color: white;
-		flex-direction: column;
-		min-height: 10vh;
-		height: fit-content;
-		width: fit-content;
-		position: absolute;
-		align-items: flex-start;
-		right: 5;
-		top: 8.5vh;
-		padding: 10px;
-		border-radius: 8px;
-		opacity: 1;
 	}
 
 	.create-modal span {
@@ -149,4 +100,52 @@
 		opacity: 0.5;
 		transition: 0.2s ease-in-out all;
 	}
+}
+
+.boards-modal {
+	z-index: 1;
+	background-color: white;
+	flex-direction: column;
+	min-height: 20vh;
+	height: fit-content;
+	width: fit-content;
+	position: absolute;
+	align-items: flex-start;
+	left: 15vw;
+	top: 8.5vh;
+	padding: 10px;
+	border-radius: 8px;
+	opacity: 1 !important;
+}
+
+.user-modal {
+	z-index: 10;
+	background-color: white;
+	flex-direction: column;
+	min-height: 10vh;
+	height: fit-content;
+	width: fit-content;
+	position: absolute;
+	align-items: flex-start;
+	right: 1%;
+	top: 8.5vh;
+	padding: 10px;
+	border-radius: 8px;
+	opacity: 1;
+}
+
+.create-modal {
+	z-index: 1;
+	background-color: white;
+	flex-direction: column;
+	min-height: 10vh;
+	height: fit-content;
+	width: fit-content;
+	position: absolute;
+	align-items: flex-start;
+	left: 29vw;
+	top: 8.5vh;
+	padding: 10px;
+	border-radius: 8px;
+	opacity: 1;
 }
