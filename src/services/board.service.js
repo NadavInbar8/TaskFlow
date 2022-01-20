@@ -36,6 +36,7 @@ async function getById(boardId) {
 }
 
 async function save(board) {
+  console.log(board);
   if (!board) {
     const emptyBoard = _getEmptyBoard();
     return storageService.post('board', emptyBoard);
@@ -88,6 +89,7 @@ function _getEmptyBoard() {
           },
         ],
         style: {},
+        editMode: false,
       },
       {
         id: 'g102',
@@ -153,6 +155,7 @@ function _getEmptyBoard() {
           },
         ],
         style: {},
+        editMode: false,
       },
     ],
     activities: [
