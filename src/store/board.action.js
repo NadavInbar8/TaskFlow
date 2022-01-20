@@ -1,6 +1,6 @@
 import {boardService} from '../services/board.service.js';
 
-export function loadBoards() {
+export function loadBoards(filterBy = null) {
 	return async (dispatch) => {
 		try {
 			const boards = await boardService.query();
@@ -24,6 +24,18 @@ export function addBoard(board) {
 	};
 }
 
+export function addCard(card, board, group) {
+	return async (dispatch) => {
+		try {
+			const groupIndex = board.groups.findIndex((groupF) => groupF.id === group.id);
+			const newBoard = board.group[groupIndex].push(card);
+			dispatch({type: 'ADD_CARD', newBoard});
+		} catch (err) {
+			console.log('cannot add card ', err);
+		}
+	};
+}
+
 export function loadBoard(boardId) {
 	return async (dispatch) => {
 		try {
@@ -37,13 +49,13 @@ export function loadBoard(boardId) {
 }
 
 export function updateBoard(board) {
-	// console.log(board);
+	console.log(board);
 	return async (dispatch) => {
 		try {
 			const updatedBoard = await boardService.save(board);
 			// console.log(updatedBoard);
 			dispatch({type: 'UPDATE_BOARDS', updatedBoard});
-			// dispatch({type: 'UPDATE_CURRBOARD', updatedBoard});
+			dispatch({type: 'UPDATE_CURRBOARD', updatedBoard});
 		} catch (err) {
 			console.log('couldnt update board', err);
 		}

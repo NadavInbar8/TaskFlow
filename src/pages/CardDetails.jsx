@@ -2,8 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Link, useHistory, useParams, useRouteMatch } from 'react-router-dom';
 import { updateBoard } from '../store/board.action.js';
-import { CardService } from '../services/card.service.js';
+
+// import { CardService } from '../services/card.service.js';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
+import {
+  Members,
+  Labels,
+  Checklist,
+  Dates,
+  Attachment,
+  Cover,
+} from '../cmps/detailsModals/modals.jsx';
 
 export const CardDetails = () => {
   const { board } = useSelector(
@@ -13,8 +22,15 @@ export const CardDetails = () => {
 
   const { boardId, listId, cardId } = useParams();
   const dispatch = useDispatch();
-
   const history = useHistory();
+
+  // MODALS
+  const [memberModal, toggleMemeberModal] = useState(false);
+  const [labelsModal, toggleLabelsModal] = useState(false);
+  const [checklistModal, toggleChecklistModal] = useState(false);
+  const [datesModal, toggleDatesModal] = useState(false);
+  const [attachmentModal, toggleAttachmentModal] = useState(false);
+  const [coverModal, toggleCoverModal] = useState(false);
 
   const [card, setCard] = useState({
     id: '',
@@ -22,7 +38,7 @@ export const CardDetails = () => {
     comments: [],
     title: '',
     memebers: [],
-    label: [],
+    labels: [],
     date: '',
     attachedLinks: [],
     cover: '',
@@ -39,27 +55,19 @@ export const CardDetails = () => {
   }, []);
 
   function getCard() {
-    // console.log('board', board);
-
     if (!board) return;
-    // console.log(board.groups);
     let list = board.groups.find((group) => group.id === listId);
-    // console.log('list', list);
     let currCard = list.tasks.find((task) => task.id === cardId);
-    // console.log('currCard', currCard);
     return currCard;
   }
 
   function handleChange({ target }) {
     const field = target.name;
     const value = target.value;
-    // console.log(field, value);
     setCard({ ...card, [field]: value });
-    // console.log(card);
   }
 
   function deleteCard() {
-    // console.log('delete card');
     let listIdx = board.groups.findIndex((group) => group.id === listId);
     let currCardIdx = board.groups[listIdx].tasks.findIndex(
       (task) => task.id === cardId
@@ -68,7 +76,6 @@ export const CardDetails = () => {
     updatedBoard.groups[listIdx].tasks.length > 1
       ? updatedBoard.groups[listIdx].tasks.splice(currCardIdx, 1)
       : updatedBoard.groups[listIdx].tasks.pop();
-    // console.log(updatedBoard);
     dispatch(updateBoard(updatedBoard));
     history.push(`/board/${board._id}`);
   }
@@ -82,12 +89,6 @@ export const CardDetails = () => {
     updatedBoard.groups[listIdx].tasks[currCardIdx] = card;
     dispatch(updateBoard(updatedBoard));
   }
-
-  function addComment(ev) {
-    ev.preventDefault();
-    // console.log(ev.target);
-  }
-
   function handleCommentChange({ target }) {
     const field = target.name;
     const value = target.value;
@@ -100,11 +101,9 @@ export const CardDetails = () => {
     currCard.comments
       ? currCard.comments.push(comment)
       : (currCard.comments = [comment]);
-    // console.log(currCard);
     setCard(currCard);
     updateCard();
     setComment({ by: 'guest', txt: '' });
-    // console.log(card);
   }
 
   function deleteComment(idx) {
@@ -113,6 +112,31 @@ export const CardDetails = () => {
     setCard(currCard);
     console.log(currCard);
     updateCard();
+  }
+
+  function addDate(date) {
+    const currCard = card;
+    currCard.date = date;
+    setCard(currCard);
+    updateCard();
+  }
+
+  function addLabel(type) {
+    console.log(type);
+    const currCard = card;
+    currCard.labels ? currCard.labels.push(type) : (currCard.labels = [type]);
+    setCard(currCard);
+    console.log(currCard);
+    updateCard();
+  }
+
+  function toggleModal(type) {
+    type === 'member' && toggleMemeberModal(!memberModal);
+    type === 'labels' && toggleLabelsModal(!labelsModal);
+    type === 'checklist' && toggleChecklistModal(!checklistModal);
+    type === 'dates' && toggleDatesModal(!datesModal);
+    type === 'attachment' && toggleAttachmentModal(!attachmentModal);
+    type === 'cover' && toggleCoverModal(!coverModal);
   }
 
   return (
@@ -137,7 +161,21 @@ export const CardDetails = () => {
 
             <div className='card-details-main'>
               <div className='edit-actions'>
+                <div className='date-on-details'></div>
+                {card.date && <h2>{card.date}</h2>}
                 <div>
+                  {card.labels && (
+                    <div className='labels-preview'>
+                      {card.labels.map((label, idx) => {
+                        return (
+                          <div
+                            style={{ backgroundColor: label }}
+                            className='card-details-labels-preview'
+                          ></div>
+                        );
+                      })}
+                    </div>
+                  )}
                   <label>
                     Description
                     <input
@@ -149,7 +187,6 @@ export const CardDetails = () => {
                     />
                   </label>
                 </div>
-
                 <div>
                   Activity
                   <form onSubmit={addComment} action=''>
@@ -181,17 +218,25 @@ export const CardDetails = () => {
                     </ul>
                   )}
                 </div>
+                {memberModal && <Members />}
+                {labelsModal && <Labels addLabel={addLabel} />}
+                {checklistModal && <Checklist />}
+                {datesModal && (
+                  <Dates toggleModal={toggleModal} addDate={addDate} />
+                )}
+                {attachmentModal && <Attachment />}
+                {coverModal && <Cover />}
               </div>
 
               <div className='add-to-card'>
                 <ul>
                   <li className='title-li'>Add to Card</li>
-                  <li>Members</li>
-                  <li>Labels</li>
-                  <li>Checklist</li>
-                  <li>Dates</li>
-                  <li>Attachment</li>
-                  <li>Cover</li>
+                  <li onClick={() => toggleModal('member')}>Members</li>
+                  <li onClick={() => toggleModal('labels')}>Labels</li>
+                  <li onClick={() => toggleModal('checklist')}>Checklist</li>
+                  <li onClick={() => toggleModal('dates')}>Dates</li>
+                  <li onClick={() => toggleModal('attachment')}>Attachment</li>
+                  <li onClick={() => toggleModal('cover')}>Cover</li>
                 </ul>
                 <ul>
                   <li className='title-li'>Actions</li>

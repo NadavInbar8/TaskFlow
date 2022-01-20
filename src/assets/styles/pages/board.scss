@@ -12,11 +12,23 @@
     padding: 0;
     margin: 0;
   }
+  .board-card {
+    background-color: whitesmoke;
+    margin: 8px;
+    padding: 8px;
+    border-radius: 4px;
+    position: relative;
+  }
 }
 
-.board-list .board-card {
-  background-color: whitesmoke;
-  margin: 8px;
-  padding: 8px;
-  border-radius: 4px;
+.board-list {
+}
+.add-card {
+  padding: 4px;
+}
+.edit-modal {
+  background-color: hotpink;
+  height: 200px;
+  position: absolute;
+  top: 0;
 }

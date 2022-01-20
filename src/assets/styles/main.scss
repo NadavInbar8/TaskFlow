@@ -16,6 +16,7 @@
 // Components
 @import 'cmps/app-header.scss';
 @import 'cmps/board-filter.scss';
+@import 'cmps/details-modals.scss';
 
 // // Components
 // @import 'cmps/app-header.scss';
@@ -28,10 +29,10 @@
 @import 'pages/card-details.scss';
 
 .flex {
-	display: flex;
+  display: flex;
 }
 
 .flex-column {
-	display: flex;
-	flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
