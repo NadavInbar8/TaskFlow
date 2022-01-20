@@ -74,7 +74,9 @@ export function Labels({addLabel}) {
 					{labels.map((label, idx) => {
 						return (
 							<div key={idx} className='label-row'>
-								<div onClick={() => addLabel(label)} className={' label label-' + label.color}></div>
+								<div onClick={() => addLabel(label)} className={' label label-' + label.color}>
+									{label.name}
+								</div>
 								<button onClick={() => setEditMode(!editMode)}>edit</button>
 							</div>
 						);
@@ -91,7 +93,7 @@ export function Labels({addLabel}) {
 						{labels.map((label, idx) => {
 							return (
 								<div onClick={() => markChosen(label)} className={'edit-label label-' + label.color} key={idx}>
-									1
+									{label.name}
 								</div>
 							);
 						})}
