@@ -15,8 +15,14 @@ export const Board = () => {
   );
   const dispatch = useDispatch();
 
+  ////// modal stuff /////
+  const [editModal, setEditModal] = useState(false);
+  const [memberModal, setMemeberModal] = useState(false);
+  const [labelsModal, setLabelsModal] = useState(false);
+  const [datesModal, setDatesModal] = useState(false);
+
   const [newCard, setNewCard] = useState({
-    id: '',
+    id: 'yosi',
     description: 'hi',
     comments: [],
     title: '',
@@ -25,6 +31,7 @@ export const Board = () => {
     date: '',
     attachedLinks: [],
     cover: '',
+    editMode: false,
   });
 
   const [edit, setEdit] = useState(false);
@@ -38,34 +45,37 @@ export const Board = () => {
     setNewCard({ ...newCard, title: value });
   }
   const editNewCard = (list) => {
-    console.log('hey there');
-    console.log(list);
     list.editMode = true;
     setEdit(true);
-    // dispatch(addCard());
+    setNewCard({ id: utilService.makeId() });
+  };
+
+  const editCard = (card) => {
+    card.editMode = true;
   };
 
   const addNewCard = (list) => {
     let listIdx = board.groups.findIndex((group) => group.id === list.id);
-    setNewCard({ ...newCard, id: utilService.makeId() });
     list.tasks.push(newCard);
     const updatedBoard = { ...board };
     updatedBoard.groups[listIdx] = list;
     updatedBoard.groups[listIdx].editMode = false;
     setEdit(false);
-    console.log(updatedBoard);
     dispatch(updateBoard(updatedBoard));
   };
 
   const openEditModal = () => {
     console.log('hello world');
+    setEditModal(true);
+  };
+  const closeEditModal = () => {
+    setEditModal(false);
   };
 
   return (
     <section>
       {board ? (
         <div>
-          {console.log(board)}
           <h1>{board.title}</h1>
           <div className='board flex'>
             {board.groups
@@ -83,6 +93,14 @@ export const Board = () => {
                                 {card.title}
                               </Link>{' '}
                               <button onClick={openEditModal}>edit</button>
+                              {card.editMode ? (
+                                <div className='edit-modal'>
+                                  Edit Modal has opened
+                                  <button onClick={closeEditModal}>
+                                    Close edit Modal
+                                  </button>
+                                </div>
+                              ) : null}
                             </li>
                           );
                         })}
