@@ -77,7 +77,6 @@ export function Labels({ addLabel }) {
                 <div
                   onClick={() => addLabel(label)}
                   className={' label label-' + label.color}
-                  label
                 ></div>
                 <button onClick={() => setEditMode(!editMode)}>edit</button>
               </div>
