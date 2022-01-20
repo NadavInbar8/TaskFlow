@@ -25,11 +25,11 @@ export function boardReducer(state = initialState, action) {
 			newState = {...state, boards: [...state.boards, action.savedBoard]};
 			break;
 
-		case 'ADD_BOARD':
-			newState = {...state, boards: [...state.boards, action.savedBoard]};
+		case 'ADD_CARD':
+			newState = {...state, currBoard: action.currBoard};
 			break;
 
-		case 'ADD_CARD':
+		case 'SET_BOARD':
 			newState = {...state, currBoard: action.currBoard};
 			break;
 
