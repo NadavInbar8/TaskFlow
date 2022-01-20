@@ -12,11 +12,16 @@
     padding: 0;
     margin: 0;
   }
+  .board-card {
+    background-color: whitesmoke;
+    margin: 8px;
+    padding: 8px;
+    border-radius: 4px;
+  }
 }
 
-.board-list .board-card {
-  background-color: whitesmoke;
-  margin: 8px;
-  padding: 8px;
-  border-radius: 4px;
+.board-list {
+}
+.add-card {
+  padding: 4px;
 }
