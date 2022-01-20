@@ -105,3 +105,16 @@
 .label-dark-blue {
   background-color: rgb(34, 34, 128);
 }
+
+// edit labels
+.edit-labels {
+  display: grid;
+
+  grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+  grid-template-rows: repeat(auto-fill, minmax(70px, 1fr));
+  gap: 20px;
+}
+.edit-label {
+  height: 70px;
+  width: 70px;
+}

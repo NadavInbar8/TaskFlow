@@ -20,18 +20,47 @@ export function Cover() {
 
 export function Labels({ addLabel }) {
   const [editMode, setEditMode] = useState(false);
-  const setLable = () => {
-    addLabel();
-  };
-  const labels = [
-    { color: 'green', name: '' },
-    { color: 'yellow', name: '' },
-    { color: 'orange', name: '' },
-    { color: 'red', name: '' },
-    { color: 'purple', name: '' },
-    { color: 'blue', name: '' },
-    { color: 'dark-blue', name: '' },
-  ];
+
+  const [labels, setLabels] = useState([
+    { id: 1, color: 'green', name: 'light' },
+    { id: 2, color: 'yellow', name: 'soon' },
+    { id: 3, color: 'orange', name: 'company fun' },
+    { id: 4, color: 'red', name: 'important' },
+    { id: 5, color: 'purple', name: 'at night' },
+    { id: 6, color: 'blue', name: 'vacation' },
+    { id: 7, color: 'dark-blue', name: 'meeting' },
+  ]);
+  const [editLabel, setEditLabel] = useState({
+    id: 1234,
+    color: 'red',
+    name: 'choose',
+  });
+
+  function markChosen(label) {
+    console.log(label);
+    setEditLabel(label);
+  }
+  function handleEditLabelChange({ target }) {
+    console.log(target.value);
+    setEditLabel({ ...editLabel, name: target.value });
+  }
+
+  function saveLabel() {
+    console.log(editLabel);
+    console.log(labels);
+    let newLabels = labels;
+    newLabels.map((label) => {
+      label.id === editLabel.id ? editLabel : label;
+    });
+    setLabels(newLabels);
+    addLabel(editLabel);
+    setEditLabel({
+      id: 1234,
+      color: 'red',
+      name: 'choose',
+    });
+  }
+
   return (
     <div className='details-modal labels-modal'>
       <h3 className='labels-headline'> Labels</h3>
@@ -42,11 +71,11 @@ export function Labels({ addLabel }) {
           <div className='labels-input'>
             <input placeholder='search for label' type='text' />
           </div>
-          {labels.map((label) => {
+          {labels.map((label, idx) => {
             return (
-              <div className='label-row'>
+              <div key={idx} className='label-row'>
                 <div
-                  onClick={() => addLabel(label.color)}
+                  onClick={() => addLabel(label)}
                   className={' label label-' + label.color}
                   label
                 ></div>
@@ -59,8 +88,29 @@ export function Labels({ addLabel }) {
 
       {editMode && (
         <div>
+          <input
+            onChange={handleEditLabelChange}
+            value={editLabel.name}
+            placeholder='Name'
+            type='text'
+          />
+          <h4>labels</h4>
+          <h4>Select a color</h4>
+          <div className='edit-labels'>
+            {labels.map((label, idx) => {
+              return (
+                <div
+                  onClick={() => markChosen(label)}
+                  className={'edit-label label-' + label.color}
+                  key={idx}
+                >
+                  1
+                </div>
+              );
+            })}
+          </div>
+          <button onClick={saveLabel}>Save</button>
           <button onClick={() => setEditMode(!editMode)}>go back</button>
-          <input placeholder='Name' type='text' />
         </div>
       )}
     </div>
