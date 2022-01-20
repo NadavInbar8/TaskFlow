@@ -77,7 +77,9 @@ export function Labels({ addLabel }) {
                 <div
                   onClick={() => addLabel(label)}
                   className={' label label-' + label.color}
-                ></div>
+                >
+                  {label.name}
+                </div>
                 <button onClick={() => setEditMode(!editMode)}>edit</button>
               </div>
             );
@@ -103,7 +105,7 @@ export function Labels({ addLabel }) {
                   className={'edit-label label-' + label.color}
                   key={idx}
                 >
-                  1
+                  {label.name}
                 </div>
               );
             })}
