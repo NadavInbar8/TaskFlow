@@ -1,22 +1,26 @@
 import React, {useEffect, useState} from 'react';
 import {useSelector, useDispatch, shallowEqual} from 'react-redux';
 
-import {loadBoard} from '../store/board.action.js';
+// import {setFilterBy} from '../store/board.action.js';
 
-export const BoardFilter = () => {
+export const BoardFilter = ({setFilteredBoard}) => {
 	const [filter, setFilter] = useState({
 		name: '',
 	});
 
-	function handleChange({target}) {
+	// const {board} = useSelector((state) => ({board: state.boardModule.currBoard}), shallowEqual);
+
+	// useEffect(() => {
+	// 	console.log(boardId);
+	// 	dispatch(loadBoard(boardId));
+	// }, []);
+
+	async function handleChange({target}) {
 		const field = target.name;
 		const value = target.value;
 		// console.log(field, value);
 		setFilter({...filter, [field]: value});
-		// console.log(card);
 	}
-
-	const Dispatch = useDispatch();
 
 	return (
 		<section className='board-filter'>
@@ -26,6 +30,12 @@ export const BoardFilter = () => {
 					Keyword
 					<input onChange={handleChange} name='name' value={filter.name} type='text' />
 				</label>
+				<button
+					onClick={(ev) => {
+						setFilteredBoard(ev, filter);
+					}}>
+					Submit
+				</button>
 				<div className='search-options'>Search cards, members, labels, and more.</div>
 				<div className='members'>Members</div>
 				<select>

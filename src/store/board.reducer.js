@@ -1,7 +1,6 @@
 const initialState = {
   boards: [],
   currBoard: null,
-  // filterBy: null,
   // isModalShown: false,
 };
 
@@ -12,7 +11,6 @@ export function boardReducer(state = initialState, action) {
       newState = { ...state, boards: [...action.boards] };
 
       break;
-
     case 'UPDATE_BOARDS':
       newState = {
         ...state,
@@ -56,10 +54,10 @@ export function boardReducer(state = initialState, action) {
       };
       break;
 
-    case 'SET_FILTER_BY':
+    case 'UPDATE_CURRBOARD':
       newState = {
         ...state,
-        filterBy: action.filterBy,
+        currBoard: action.updatedBoard,
       };
       break;
 
@@ -76,3 +74,10 @@ export function boardReducer(state = initialState, action) {
 
   return newState;
 }
+
+// case 'SET_FILTER_BY':
+// 	newState = {
+// 		...state,
+// 		filterBy: action.filterBy,
+// 	};
+// 	break;

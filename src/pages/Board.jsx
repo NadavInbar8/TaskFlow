@@ -6,6 +6,7 @@ import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { loadBoard, addCard, updateBoard } from '../store/board.action.js';
 import { BoardFilter } from '../cmps/Boardfilter.jsx';
 import { utilService } from '../services/util.service.js';
+import addUser from '../assets/imgs/add-user.png';
 
 export const Board = () => {
   const { boardId } = useParams();
@@ -13,6 +14,7 @@ export const Board = () => {
     (state) => ({ board: state.boardModule.currBoard }),
     shallowEqual
   );
+  const [filteredBoard, setFilteredBoard] = useState({});
   const dispatch = useDispatch();
 
   ////// modal stuff /////
@@ -20,6 +22,36 @@ export const Board = () => {
   const [memberModal, setMemeberModal] = useState(false);
   const [labelsModal, setLabelsModal] = useState(false);
   const [datesModal, setDatesModal] = useState(false);
+  const [filterModal, setFilterModal] = useState(false);
+  const [starStatus, setStarStatus] = useState(false);
+
+  useEffect(() => {
+    console.log('nadav');
+  }, [filteredBoard]);
+
+  function FilterBoard(ev, filter = null) {
+    ev.preventDefault();
+    // console.log('ev', ev);
+    console.log('filter', filter);
+    console.log('board', board);
+    let { name } = filter;
+    if (filter.name === '') {
+      setForceRender(!forceRender);
+    } else {
+      name = name.toLowerCase();
+      console.log(name);
+      const newFilteredBoard = board;
+      const filteredGroups = newFilteredBoard.groups.filter((group) =>
+        group.title.toLowerCase().includes(name)
+      );
+      // const filteredTasks = filteredBoard.groups.forEach((group) =>
+      // 	group.tasks.filter((task) => task.title.toLowerCase().includes(name.toLowerCase()))
+      // );
+      // filteredBoard.groups = filteredGroups.forEach(group);
+      newFilteredBoard.groups = filteredGroups;
+      setFilteredBoard(newFilteredBoard);
+    }
+  }
 
   const [selectedCard, setSelectedCard] = useState({});
   const [newList, setNewList] = useState(false);
@@ -45,6 +77,7 @@ export const Board = () => {
     const value = target.value;
     setNewCard({ ...newCard, title: value });
   }
+
   const editNewCard = (list) => {
     setNewCard({ ...newCard, id: utilService.makeId() });
     list.editMode = true;
@@ -117,11 +150,61 @@ export const Board = () => {
     setForceRender(!forceRender);
   };
 
+  const toggleModal = (type) => {
+    type === 'filter' && setFilterModal(!filterModal);
+  };
+
+  const toggleStarring = () => {
+    setStarStatus(!starStatus);
+  };
+
   return (
     <section>
       {board ? (
         <div>
-          <h1>{board.title}</h1>
+          <header className='board-header'>
+            <div className='header-left-container flex-center'>
+              <h1>{board.title}</h1>
+              <div className='board-header-div star-container flex-center'>
+                <span
+                  onClick={() => {
+                    toggleStarring();
+                  }}
+                  className={starStatus ? 'starOn' : 'star'}
+                >
+                  &#9734;
+                </span>
+              </div>
+            </div>
+            <div className='users-div flex-center'>
+              <div className='member-icons'>
+                <div className='member-icon'>OK</div>
+                <div className='member-icon'>NI</div>
+                <div className='member-icon'>TR</div>
+              </div>
+              <div className='board-header-div invite-btn flex-center'>
+                <img className='add-user-img' src={addUser} alt='' />
+                <span>Invite</span>
+              </div>
+            </div>
+            <div className='actions-div flex'>
+              <div className='board-header-div dashboard flex-center'>
+                <span>Dashboard</span>
+              </div>
+              <div className='board-header-div filter-div flex-center'>
+                <span
+                  onClick={() => {
+                    toggleModal('filter');
+                  }}
+                >
+                  Filter
+                </span>
+              </div>
+              <div className='menu board-header-div flex-center'>
+                <span>...Show menu</span>
+              </div>
+            </div>
+          </header>
           <div className='board flex'>
             {board.groups
               ? board.groups.map((list) => {
@@ -208,7 +291,7 @@ export const Board = () => {
               </div>
             )}
           </div>
-          <BoardFilter />
+          {filterModal && <BoardFilter FilterBoard={FilterBoard} />}
           <Route
             component={CardDetails}
             path={`/board/:boardId/:cardId/:listId`}
@@ -221,31 +304,3 @@ export const Board = () => {
     </section>
   );
 };
-
-// function mapStateToProps({ boardModule }) {
-//   return {
-//     boards: boardModule.boards,
-//   };
-// }
-// const mapDispatchToProps = {
-//   // loadBoards,
-// };
-
-// export const Board = connect(mapStateToProps, mapDispatchToProps)(_Board);
-
-// function mapStateToProps({ toyModule, userModule }) {
-// 	return {
-// 	  toys: toyModule.toys,
-// 	  filterBy: toyModule.filterBy,
-// 	  user: userModule.loggedInUser,
-// 	  isModalShown: toyModule.isModalShown,
-// 	};
-//   }
-
-//   const mapDispatchToProps = {
-// 	setToys,
-// 	removeToy,
-// 	setFilterBy,
-//   };
-
-//   export const ToyApp = connect(mapStateToProps, mapDispatchToProps)(_ToyApp);

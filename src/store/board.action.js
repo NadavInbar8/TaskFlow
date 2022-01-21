@@ -1,6 +1,6 @@
 import { boardService } from '../services/board.service.js';
 
-export function loadBoards(filterBy = null) {
+export function loadBoards() {
   return async (dispatch) => {
     try {
       const boards = await boardService.query();
@@ -51,7 +51,7 @@ export function loadBoard(boardId) {
 }
 
 export function updateBoard(board) {
-  console.log(board);
+  // console.log(board);
   return async (dispatch) => {
     try {
       const updatedBoard = await boardService.save(board);
@@ -99,15 +99,26 @@ export function updateBoard(board) {
 //   };
 // }
 
-// export function setFilterBy(filterBy) {
-//   console.log(filterBy);
-//   return (dispatch) => {
-//     ToyService.query(filterBy).then((toys) => {
-//       console.log(toys);
-//       dispatch({ type: 'SET_FILTER_BY', filterBy });
-//       dispatch({ type: 'SET_TOYS', toys });
-//     });
-//   };
+// export function setFilterBy(filterBy, board) {
+// 	let {name} = filterBy;
+// 	name = name.toLowerCase();
+// 	return (dispatch) => {
+// 		try {
+// 			const filteredBoard = board;
+// 			const filteredGroups = filteredBoard.groups.filter((group) => group.title.toLowerCase().includes(name));
+// 			// const filteredTasks = filteredBoard.groups.forEach((group) =>
+// 			// 	group.tasks.filter((task) => task.title.toLowerCase().includes(name.toLowerCase()))
+// 			// );
+// 			// filteredBoard.groups = filteredGroups.forEach(group);
+// 			filteredBoard.groups = filteredGroups;
+// 			console.log(name);
+// 			console.log(filteredBoard);
+// 			// dispatch({type: 'SET_FILTER_BY', filterBy});
+// 			dispatch({type: 'SET_BOARD', filteredBoard});
+// 		} catch (err) {
+// 			console.log('couldnt filter', err);
+// 		}
+// 	};
 // }
 
 // export function toggleModal() {
