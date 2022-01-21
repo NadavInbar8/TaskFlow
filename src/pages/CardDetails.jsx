@@ -327,19 +327,22 @@ export const CardDetails = () => {
                       </ul>
                     )}
                   </div>
-                  {memberModal && <Members />}
-                  {labelsModal && <Labels addLabel={addLabel} />}
-                  {checklistModal && (
-                    <Checklist
-                      toggleModal={toggleModal}
-                      addCheckList={addCheckList}
-                    />
-                  )}
-                  {datesModal && (
-                    <Dates toggleModal={toggleModal} addDate={addDate} />
-                  )}
-                  {attachmentModal && <Attachment />}
-                  {coverModal && <Cover />}
+
+                  <section className='modals-container'>
+                    {memberModal && <Members />}
+                    {labelsModal && <Labels addLabel={addLabel} />}
+                    {checklistModal && (
+                      <Checklist
+                        toggleModal={toggleModal}
+                        addCheckList={addCheckList}
+                      />
+                    )}
+                    {datesModal && (
+                      <Dates toggleModal={toggleModal} addDate={addDate} />
+                    )}
+                    {attachmentModal && <Attachment />}
+                    {coverModal && <Cover />}
+                  </section>
                 </div>
 
                 <div className='add-to-card'>
