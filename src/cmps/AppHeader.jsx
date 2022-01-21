@@ -10,9 +10,9 @@ import boardsImg from '../assets/imgs/boards.svg';
 import logo from '../assets/imgs/logo/logo.svg';
 
 export function AppHeader() {
-	let [isBoardsModalOpen, setBoardsModal] = useState(false);
-	let [isCreateModalOpen, setCreateModal] = useState(false);
-	let [isUserModalOpen, setUserModal] = useState(false);
+	const [isBoardsModalOpen, setBoardsModal] = useState(false);
+	const [isCreateModalOpen, setCreateModal] = useState(false);
+	const [isUserModalOpen, setUserModal] = useState(false);
 	const {boards} = useSelector((state) => ({boards: state.boardModule.boards}), shallowEqual);
 
 	const dispatch = useDispatch();
@@ -22,9 +22,9 @@ export function AppHeader() {
 	}, []);
 
 	const toggleModal = (type) => {
-		type === 'boards' && setBoardsModal((isBoardsModalOpen = !isBoardsModalOpen));
-		type === 'create' && setCreateModal((isCreateModalOpen = !isCreateModalOpen));
-		type === 'user' && setUserModal((isUserModalOpen = !isUserModalOpen));
+		type === 'boards' && setBoardsModal(!isBoardsModalOpen);
+		type === 'create' && setCreateModal(!isCreateModalOpen);
+		type === 'user' && setUserModal(!isUserModalOpen);
 		console.log(isUserModalOpen);
 	};
 
