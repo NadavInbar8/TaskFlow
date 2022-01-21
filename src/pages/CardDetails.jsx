@@ -214,12 +214,14 @@ export const CardDetails = () => {
                   <button>X</button>
                 </Link>
               </div>
+              <div>List id: {card.id}</div>
 
               <div className='card-details-main'>
                 <div className='edit-actions'>
                   <div className='date-on-details'>
-                    {card.date && <h2>{card.date}</h2>}
+                    {card.date && <h2>Due date:{card.date}</h2>}
                   </div>
+
                   <div>
                     {card.labels && (
                       <div className='labels-preview'>
@@ -228,7 +230,7 @@ export const CardDetails = () => {
                             <div
                               key={idx}
                               className={
-                                'card-details-labels-preview label-' +
+                                'card-details-labels-preview label-details-' +
                                 label.color
                               }
                             >
