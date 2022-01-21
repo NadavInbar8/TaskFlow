@@ -60,14 +60,12 @@
 	}
 
 	.user-avatar-btn {
-		display: flex;
-		justify-content: center;
-		align-items: center;
 		font-weight: 700;
 		// font-size: larger;
 		cursor: pointer;
-		height: 40px;
-		width: 40px;
+		height: 32px;
+		width: 32px;
+		font-size: 12;
 		background-color: rgb(218, 218, 218);
 		border-radius: 50%;
 		color: black;
@@ -107,14 +105,15 @@
 .boards-modal {
 	z-index: 1;
 	background-color: white;
+	color: $b1;
 	flex-direction: column;
 	min-height: 20vh;
 	height: fit-content;
 	width: fit-content;
 	position: absolute;
 	align-items: flex-start;
-	left: 15vw;
-	top: 8.5vh;
+	left: 14vw;
+	top: 5.5vh;
 	padding: 10px;
 	border-radius: 8px;
 }
@@ -126,14 +125,15 @@
 .user-modal {
 	z-index: 10;
 	background-color: white;
+	color: $b1;
 	flex-direction: column;
 	min-height: 10vh;
 	height: fit-content;
 	width: fit-content;
 	position: absolute;
 	align-items: flex-start;
-	right: 1%;
-	top: 8.5vh;
+	right: 2%;
+	top: 5.5vh;
 	padding: 10px;
 	border-radius: 8px;
 }
@@ -141,14 +141,15 @@
 .create-modal {
 	z-index: 1;
 	background-color: white;
+	color: $b1;
 	flex-direction: column;
 	min-height: 10vh;
 	height: fit-content;
 	width: fit-content;
 	position: absolute;
 	align-items: flex-start;
-	left: 29vw;
-	top: 8.5vh;
+	left: 27vw;
+	top: 5.5vh;
 	padding: 10px;
 	border-radius: 8px;
 }

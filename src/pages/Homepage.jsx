@@ -4,39 +4,39 @@ import board from '../assets/imgs/board.png';
 import hero from '../assets/imgs/homePageImg.jpg';
 
 export const Homepage = () => {
-  return (
-    <div className='homepage'>
-      <section className='hero'>
-        <acrticle className='hero-introduce'>
-          <div className='hero-headline'>
-            TaskFlow helps teams move
-            <br />
-            work forward.
-          </div>
+	return (
+		<div className='homepage'>
+			<section className='hero'>
+				<acrticle className='hero-introduce'>
+					<div className='hero-headline'>
+						Taskflow helps teams move
+						<br />
+						work forward.
+					</div>
 
-          <p className='hero-expand'>
-            Collaborate, manage projects, and reach new
-            <br />
-            productivity peaks. From high rises to the home office,
-            <br />
-            the way your team works is unique—accomplish it all
-            <br />
-            with Marshmello.
-          </p>
-          <button>Try Demo Version</button>
-        </acrticle>
+					<p className='hero-expand'>
+						Collaborate, manage projects, and reach new
+						<br />
+						productivity peaks. From high rises to the home office,
+						<br />
+						the way your team works is unique—accomplish it all
+						<br />
+						with Taskflow.
+					</p>
+					<button>Try Demo Version</button>
+				</acrticle>
 
-        <div className='hero-img'>
-          <img src={hero} alt='' />
-        </div>
-      </section>
+				<div className='hero-img'>
+					<img src={hero} alt='' />
+				</div>
+			</section>
 
-      <section className='website-preview'>
-        <h1>It’s more than work. It’s a way of working together.</h1>
-        <img className='logo-img-homepage' src={board} alt='logo' />
-      </section>
-    </div>
-  );
+			<section className='website-preview'>
+				<h1>It’s more than work. It’s a way of working together.</h1>
+				<img className='logo-img-homepage' src={board} alt='logo' />
+			</section>
+		</div>
+	);
 };
 
 // function mapStateToProps(state) {
@@ -48,7 +48,7 @@ export const Homepage = () => {
 // export const Homepage = connect(mapStateToProps, mapDispatchToProps)(_Homepage);
 
 {
-  /* <div className='homepage-header flex'>
+	/* <div className='homepage-header flex'>
         <div>
           <img className='logo-img-homepage' src={logo} alt='logo' />
         </div>
@@ -59,13 +59,13 @@ export const Homepage = () => {
       </div> */
 }
 {
-  /* <div className='homepage-hero'> */
+	/* <div className='homepage-hero'> */
 }
 {
-  /* <img className='homepage-hero-pic' src={logo} alt='logo' /> */
+	/* <img className='homepage-hero-pic' src={logo} alt='logo' /> */
 }
 {
-  /* <div className='hero-text'>
+	/* <div className='hero-text'>
           <h1>Trello helps teams move work forward.</h1>
           <p>
             Collaborate, manage projects, and reach new productivity peaks. From
@@ -83,16 +83,16 @@ export const Homepage = () => {
         </div> */
 }
 {
-  /* </div> */
+	/* </div> */
 }
 <div className='homepage-explain'>
-  <div className='explain-details flex-column'>
-    {/* <h1>It’s more than work. It’s a way of working together.</h1> */}
-    {/* <p>
+	<div className='explain-details flex-column'>
+		{/* <h1>It’s more than work. It’s a way of working together.</h1> */}
+		{/* <p>
 						Start with a Trello board, lists, and cards. Customize and expand with more features as your teamwork grows.
 						Manage projects, organize tasks, and build team spirit—all in one place.
 					</p> */}
-    <button className='explain-details-btn'>Start doing → </button>
-    <img src={board} alt='borad' />
-  </div>
+		<button className='explain-details-btn'>Start doing → </button>
+		<img src={board} alt='borad' />
+	</div>
 </div>;

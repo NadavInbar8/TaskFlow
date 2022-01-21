@@ -75,7 +75,7 @@ export function AppHeader() {
 							onClick={() => {
 								toggleModal('user');
 							}}
-							className='user-avatar-btn'>
+							className='user-avatar-btn flex-center'>
 							G
 						</div>
 						{/* {isUserModalOpen && (
