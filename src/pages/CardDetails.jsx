@@ -193,7 +193,7 @@ export const CardDetails = () => {
   return (
     <div>
       {board.groups ? (
-        <div className='go-back-container'>
+        <div>
           <Link className='go-back-container' to={`/board/${board._id}`} />
 
           <section className='card-details'>

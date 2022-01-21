@@ -9,7 +9,7 @@ export const Homepage = () => {
       <section className='hero'>
         <article className='hero-introduce'>
           <div className='hero-headline'>
-            TaskFlow helps teams move
+            Taskflow helps teams move
             <br />
             work forward.
           </div>
@@ -21,7 +21,7 @@ export const Homepage = () => {
             <br />
             the way your team works is unique—accomplish it all
             <br />
-            with Marshmello.
+            with Taskflow.
           </p>
           <button>Try Demo Version</button>
         </article>

@@ -75,7 +75,7 @@ export function AppHeader() {
 							onClick={() => {
 								toggleModal('user');
 							}}
-							className='user-avatar-btn'>
+							className='user-avatar-btn flex-center'>
 							G
 						</div>
 						{/* {isUserModalOpen && (
@@ -91,15 +91,6 @@ export function AppHeader() {
 					</div>
 				</nav>
 			</div>
-			<ul>
-				<li className='boards' onClick={() => toggleModal('boards')}>
-					<img className='boards-img' src={boardsImg} alt='' />
-					Boards
-				</li>
-				<li className='create-li' onClick={() => toggleModal('create')}>
-					Create
-				</li>
-			</ul>
 			{isBoardsModalOpen && (
 				<ul className='boards-modal flex'>
 					{boards.map((board) => {

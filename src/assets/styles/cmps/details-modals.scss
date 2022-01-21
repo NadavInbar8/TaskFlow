@@ -7,111 +7,117 @@
   position: absolute;
   left: 70.5%;
   width: 450px;
-}
-.members {
-  top: 19.5%;
-  height: 200px;
-  width: 450px;
-}
 
-.Dates {
-  top: 35.5%;
-  height: 350px;
-  width: 350px;
-  text-align: center;
-}
-
-.Attachment {
-  top: 40.5%;
-  height: 200px;
-}
-
-.Cover {
-  top: 46%;
-  height: 200px;
-}
-
-// LABELS MODAL
-
-.labels-modal {
-  top: 25%;
-  height: 550px;
-  width: 370px;
-}
-
-.labels-headline {
-  color: rgb(181, 185, 180);
-  text-align: center;
-}
-
-.labels-input {
-  text-align: center;
-  margin: 15px;
-  width: 90%;
-  input {
-    font-size: 1.3rem;
-    width: 100%;
-    border-radius: 4px;
-    border: 3px solid rgb(77, 77, 194);
-    height: 2.5rem;
+  .members {
+    top: 19.5%;
+    height: 200px;
+    width: 450px;
   }
-}
-.label-row {
-  display: flex;
-  justify-content: center;
-  button {
-    border-radius: 7px;
+
+  .Cheklist {
+    top: 30%;
+    height: 200px;
   }
-  button:hover {
+
+  .Dates {
+    top: 35.5%;
+    height: 350px;
+    width: 350px;
+    text-align: center;
+  }
+
+  .Attachment {
+    top: 40.5%;
+    height: 200px;
+  }
+
+  .Cover {
+    top: 46%;
+    height: 200px;
+  }
+
+  // LABELS MODAL
+
+  .labels-modal {
+    top: 25%;
+    height: 550px;
+    width: 370px;
+  }
+
+  .labels-headline {
+    color: rgb(181, 185, 180);
+    text-align: center;
+  }
+
+  .labels-input {
+    text-align: center;
+    margin: 15px;
+    width: 90%;
+    input {
+      font-size: 1.3rem;
+      width: 100%;
+      border-radius: 4px;
+      border: 3px solid rgb(77, 77, 194);
+      height: 2.5rem;
+    }
+  }
+  .label-row {
+    display: flex;
+    justify-content: center;
+    button {
+      border-radius: 7px;
+    }
+    button:hover {
+      cursor: pointer;
+    }
+  }
+
+  .label {
+    width: 80%;
+    margin-right: 4px;
+    // margin: auto;
+    height: 35px;
+    margin-top: 3px;
+    border: 1px solid black;
+    border-radius: 8px;
+  }
+  .label:hover {
     cursor: pointer;
   }
-}
+  .label-green {
+    background-color: rgb(94, 240, 94);
+  }
+  .label-red {
+    background-color: rgb(245, 73, 73);
+  }
+  .label-orange {
+    background-color: rgb(243, 180, 64);
+  }
+  .label-yellow {
+    background-color: rgb(252, 252, 19);
+  }
+  .label-purple {
+    background-color: rgb(219, 102, 219);
+  }
+  .label-blue {
+    background-color: rgb(75, 75, 245);
+  }
+  .label-dark-blue {
+    background-color: rgb(34, 34, 128);
+  }
 
-.label {
-  width: 80%;
-  margin-right: 4px;
-  // margin: auto;
-  height: 35px;
-  margin-top: 3px;
-  border: 1px solid black;
-  border-radius: 8px;
-}
-.label:hover {
-  cursor: pointer;
-}
-.label-green {
-  background-color: rgb(94, 240, 94);
-}
-.label-red {
-  background-color: rgb(245, 73, 73);
-}
-.label-orange {
-  background-color: rgb(243, 180, 64);
-}
-.label-yellow {
-  background-color: rgb(252, 252, 19);
-}
-.label-purple {
-  background-color: rgb(219, 102, 219);
-}
-.label-blue {
-  background-color: rgb(75, 75, 245);
-}
-.label-dark-blue {
-  background-color: rgb(34, 34, 128);
-}
+  // edit labels
+  .edit-labels {
+    display: grid;
 
-// edit labels
-.edit-labels {
-  display: grid;
-
-  grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
-  grid-template-rows: repeat(auto-fill, minmax(70px, 1fr));
-  gap: 20px;
-}
-.edit-label {
-  height: 70px;
-  width: 70px;
+    grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+    grid-template-rows: repeat(auto-fill, minmax(70px, 1fr));
+    gap: 20px;
+  }
+  .edit-label {
+    height: 70px;
+    width: 70px;
+  }
 }
 
 // CHECKLIST MODAL
