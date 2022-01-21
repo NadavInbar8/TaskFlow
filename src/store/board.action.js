@@ -63,6 +63,7 @@ export function updateBoard(board) {
     }
   };
 }
+
 // export function loadBoard(filterBy) {
 //   return async (dispatch) =>{
 //     try{

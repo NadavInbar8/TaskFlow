@@ -7,6 +7,7 @@
   background-color: rgb(216, 216, 216);
   border-radius: 4px;
   margin: 8px;
+  box-sizing: border-box;
 
   ul {
     padding: 0;
@@ -29,6 +30,8 @@
 .edit-modal {
   background-color: hotpink;
   height: 200px;
-  position: absolute;
-  top: 0;
+  position: relative;
+  top: 0px;
+  right: -10px;
+  z-index: 10;
 }
