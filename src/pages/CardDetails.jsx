@@ -353,6 +353,7 @@ export const CardDetails = () => {
                     <li onClick={() => toggleModal('member')}>
                       <img className='details-svg' src={user} alt='' />
                       Members
+                      {/* {memberModal && <Members />} */}
                     </li>
                     <li onClick={() => toggleModal('labels')}>
                       {' '}
