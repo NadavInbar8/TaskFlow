@@ -7,7 +7,7 @@ export const Homepage = () => {
   return (
     <div className='homepage'>
       <section className='hero'>
-        <acrticle className='hero-introduce'>
+        <article className='hero-introduce'>
           <div className='hero-headline'>
             TaskFlow helps teams move
             <br />
@@ -24,7 +24,7 @@ export const Homepage = () => {
             with Marshmello.
           </p>
           <button>Try Demo Version</button>
-        </acrticle>
+        </article>
 
         <div className='hero-img'>
           <img src={hero} alt='' />

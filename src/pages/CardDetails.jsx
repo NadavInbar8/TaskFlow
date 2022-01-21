@@ -11,6 +11,20 @@ import {
   Attachment,
   Cover,
 } from '../cmps/detailsModals/modals.jsx';
+import { DetailscheckList } from '../cmps/detailsCmps/DetailsCmps.jsx';
+
+import description from '../assets/imgs/description.svg';
+import user from '../assets/imgs/usersvg.svg';
+import label from '../assets/imgs/label.svg';
+import checklist from '../assets/imgs/checklist.svg';
+import date from '../assets/imgs/date.svg';
+import attachment from '../assets/imgs/attachment.svg';
+import cover from '../assets/imgs/cover.svg';
+import move from '../assets/imgs/move.svg';
+import copy from '../assets/imgs/copy.svg';
+import archive from '../assets/imgs/archive.svg';
+import activity from '../assets/imgs/activity.svg';
+import title from '../assets/imgs/title.svg';
 
 export const CardDetails = () => {
   // CURRBOARD
@@ -114,7 +128,7 @@ export const CardDetails = () => {
     const currCard = card;
     currCard.comments.splice(idx, 1);
     setCard(currCard);
-    console.log(currCard);
+    // console.log(currCard);
     updateCard();
   }
 
@@ -131,8 +145,39 @@ export const CardDetails = () => {
     const currCard = card;
     currCard.labels ? currCard.labels.push(label) : (currCard.labels = [label]);
     setCard(currCard);
-    console.log(currCard);
+    // console.log(currCard);
     updateCard();
+  }
+
+  // ADD CHECKLIST
+  function addCheckList(checkList) {
+    const currCard = card;
+    currCard.checkLists
+      ? currCard.checkLists.push(checkList)
+      : (currCard.checkLists = [checkList]);
+    setCard(currCard);
+    // console.log(currCard);
+    updateCard();
+  }
+
+  function saveItemToCheckList(str, idx) {
+    const item = { txt: str, isDone: false };
+    const currCard = card;
+    currCard.checkLists[idx].items.push(item);
+    setCard(currCard);
+    updateCard();
+  }
+
+  function updateCheckList(newCheckList, idx, itemIdx) {
+    const currCard = card;
+    currCard.checkLists[idx].items[itemIdx].isDone =
+      !card.checkLists[idx].items[itemIdx].isDone;
+    setCard(currCard);
+    updateCard();
+  }
+
+  function getCheckListDontPrecents() {
+    return 0.6;
   }
 
   // TOGLLING ALL MODALS
@@ -154,13 +199,17 @@ export const CardDetails = () => {
           <section className='card-details'>
             <div className='card-details-layout'>
               <div className='card-details-top'>
-                <input
-                  onBlur={updateCard}
-                  onChange={handleChange}
-                  name='title'
-                  value={card.title}
-                  type='text-area'
-                />
+                <div className='card-details-top-healine'>
+                  <img className='details-larger-svg' src={title} />
+                  <input
+                    onBlur={updateCard}
+                    onChange={handleChange}
+                    name='title'
+                    value={card.title}
+                    type='text-area'
+                  />
+                </div>
+
                 <Link to={`/board/${board._id}`}>
                   <button>X</button>
                 </Link>
@@ -189,9 +238,16 @@ export const CardDetails = () => {
                         })}
                       </div>
                     )}
-                    <label className='description'>
-                      Description:
-                      <br />
+
+                    <div className='description'>
+                      <div className='description-title'>
+                        <img
+                          className='details-larger-svg'
+                          src={description}
+                          alt=''
+                        />
+                        <span>Description:</span>
+                      </div>
                       <textarea
                         placeholder='Write your card description..'
                         name='description'
@@ -201,23 +257,56 @@ export const CardDetails = () => {
                         onBlur={updateCard}
                         type='text-box'
                       />
-                    </label>
+                    </div>
                   </div>
-                  <div className='activity'>Activity</div>
+                  <br />
+                  <br />
+                  <br />
+
+                  {card.checkLists &&
+                    card.checkLists.map((checkList, idx) => {
+                      return (
+                        <DetailscheckList
+                          key={idx}
+                          idx={idx}
+                          card={card}
+                          checkList={checkList}
+                          getCheckListDontPrecents={getCheckListDontPrecents}
+                          saveItemToCheckList={saveItemToCheckList}
+                          updateCheckList={updateCheckList}
+                        />
+                      );
+                    })}
+                  {/* {card.checkLists && (
+                    <div className='checklist'>
+                      <h2>{card.checkLists[0].title}</h2>
+
+                      <meter value={getCheckListDontPrecents()}></meter>
+                      <br />
+                      <button>Add an item</button>
+                    </div>
+                  )} */}
+                  <br />
+                  <br />
+                  <br />
+                  <br />
+                  <div className='activity'>
+                    <img className='details-larger-svg' src={activity} />
+                    Activity
+                  </div>
                   <form
                     className='add-comment-form'
                     onSubmit={addComment}
                     action=''
                   >
                     <label>
-                      Add Comment
                       <br />
                       <input
                         value={comment.txt}
                         name='comment'
                         onChange={handleCommentChange}
                         type='text'
-                        placeholder='Add comment...'
+                        placeholder='Write comment...'
                       />
                     </label>
                   </form>
@@ -240,7 +329,12 @@ export const CardDetails = () => {
                   </div>
                   {memberModal && <Members />}
                   {labelsModal && <Labels addLabel={addLabel} />}
-                  {checklistModal && <Checklist />}
+                  {checklistModal && (
+                    <Checklist
+                      toggleModal={toggleModal}
+                      addCheckList={addCheckList}
+                    />
+                  )}
                   {datesModal && (
                     <Dates toggleModal={toggleModal} addDate={addDate} />
                   )}
@@ -251,20 +345,52 @@ export const CardDetails = () => {
                 <div className='add-to-card'>
                   <ul>
                     <li className='title-li'>Add to Card</li>
-                    <li onClick={() => toggleModal('member')}>Members</li>
-                    <li onClick={() => toggleModal('labels')}>Labels</li>
-                    <li onClick={() => toggleModal('checklist')}>Checklist</li>
-                    <li onClick={() => toggleModal('dates')}>Dates</li>
+                    <li onClick={() => toggleModal('member')}>
+                      <img className='details-svg' src={user} alt='' />
+                      Members
+                    </li>
+                    <li onClick={() => toggleModal('labels')}>
+                      {' '}
+                      <img className='details-svg' src={label} alt='' />
+                      Labels
+                    </li>
+                    <li onClick={() => toggleModal('checklist')}>
+                      {' '}
+                      <img className='details-svg' src={checklist} alt='' />
+                      Checklist
+                    </li>
+                    <li onClick={() => toggleModal('dates')}>
+                      {' '}
+                      <img className='details-svg' src={date} alt='' />
+                      Dates
+                    </li>
                     <li onClick={() => toggleModal('attachment')}>
+                      <img className='details-svg' src={attachment} alt='' />{' '}
                       Attachment
                     </li>
-                    <li onClick={() => toggleModal('cover')}>Cover</li>
+                    <li onClick={() => toggleModal('cover')}>
+                      {' '}
+                      <img className='details-svg' src={cover} alt='' />
+                      Cover
+                    </li>
                   </ul>
                   <ul>
                     <li className='title-li'>Actions</li>
-                    <li>Move</li>
-                    <li>Copy</li>
-                    <li onClick={deleteCard}>Archive</li>
+                    <li>
+                      {' '}
+                      <img className='details-svg' src={move} alt='' />
+                      Move
+                    </li>
+                    <li>
+                      {' '}
+                      <img className='details-svg' src={copy} alt='' />
+                      Copy
+                    </li>
+                    <li onClick={deleteCard}>
+                      {' '}
+                      <img className='details-svg' src={archive} alt='' />
+                      Archive
+                    </li>
                   </ul>
                 </div>
               </div>

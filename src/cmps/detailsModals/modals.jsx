@@ -6,8 +6,40 @@ export function Members() {
   return <div className='details-modal members'>members</div>;
 }
 
-export function Checklist() {
-  return <div className='details-modal Cheklist'>Cheklist</div>;
+export function Checklist({ toggleModal, addCheckList }) {
+  const [checkList, setCheckList] = useState({
+    title: '',
+    items: [],
+  });
+
+  function handleChange({ target }) {
+    setCheckList({ ...checkList, title: target.value });
+    // console.log(checkList);
+  }
+  function saveCheckList(ev) {
+    ev.preventDefault();
+    console.log(checkList);
+    addCheckList(checkList);
+    setCheckList({
+      title: '',
+      items: [],
+    });
+    toggleModal('checklist');
+  }
+
+  return (
+    <div className='details-modal cheklist'>
+      <h4>Checklist</h4>
+      <hr />
+      <div className='cheklist-content'>
+        <h5>Title</h5>
+        <form onSubmit={saveCheckList}>
+          <input value={checkList.title} onChange={handleChange} type='text' />
+          <button>Add</button>
+        </form>
+      </div>
+    </div>
+  );
 }
 
 export function Attachment() {
@@ -50,7 +82,7 @@ export function Labels({ addLabel }) {
     console.log(labels);
     let newLabels = labels;
     newLabels.map((label) => {
-      label.id === editLabel.id ? editLabel : label;
+      return label.id === editLabel.id ? editLabel : label;
     });
     setLabels(newLabels);
     addLabel(editLabel);
