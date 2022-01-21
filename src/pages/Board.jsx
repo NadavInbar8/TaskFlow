@@ -10,7 +10,7 @@ import {utilService} from '../services/util.service.js';
 export const Board = () => {
 	const {boardId} = useParams();
 	const {board} = useSelector((state) => ({board: state.boardModule.currBoard}), shallowEqual);
-	// const [filteredBoard, setBoard] = useState({});
+	const [filteredBoard, setBoard] = useState({});
 	const dispatch = useDispatch();
 
 	////// modal stuff /////
@@ -19,29 +19,29 @@ export const Board = () => {
 	const [labelsModal, setLabelsModal] = useState(false);
 	const [datesModal, setDatesModal] = useState(false);
 
-	// useEffect(() => {
-	// 	console.log('nadav');
-	// }, [filteredBoard]);
+	useEffect(() => {
+		console.log('nadav');
+	}, [filteredBoard]);
 
-	// function setFilteredBoard(ev, filter = null) {
-	// 	ev.preventDefault();
-	// 	// console.log('ev', ev);
-	// 	console.log('filter', filter);
-	// 	console.log('board', board);
-	// 	let {name} = filter;
-	// 	name = name.toLowerCase();
-	// 	console.log(name);
-	// 	const newFilteredBoard = board;
-	// 	const filteredGroups = newFilteredBoard.groups.filter((group) => group.title.toLowerCase().includes(name));
-	// 	// const filteredTasks = filteredBoard.groups.forEach((group) =>
-	// 	// 	group.tasks.filter((task) => task.title.toLowerCase().includes(name.toLowerCase()))
-	// 	// );
-	// 	// filteredBoard.groups = filteredGroups.forEach(group);
-	// 	newFilteredBoard.groups = filteredGroups;
-	// 	setBoard(newFilteredBoard);
-	// 	board = filteredBoard;
-	// 	console.log(board);
-	// }
+	function setFilteredBoard(ev, filter = null) {
+		ev.preventDefault();
+		// console.log('ev', ev);
+		console.log('filter', filter);
+		console.log('board', board);
+		let {name} = filter;
+		name = name.toLowerCase();
+		console.log(name);
+		const newFilteredBoard = board;
+		const filteredGroups = newFilteredBoard.groups.filter((group) => group.title.toLowerCase().includes(name));
+		// const filteredTasks = filteredBoard.groups.forEach((group) =>
+		// 	group.tasks.filter((task) => task.title.toLowerCase().includes(name.toLowerCase()))
+		// );
+		// filteredBoard.groups = filteredGroups.forEach(group);
+		newFilteredBoard.groups = filteredGroups;
+		setBoard(newFilteredBoard);
+		board = filteredBoard;
+		console.log(board);
+	}
 
 	const [newCard, setNewCard] = useState({
 		id: 'yosi',
@@ -165,7 +165,7 @@ export const Board = () => {
 							  })
 							: null}
 					</div>
-					<BoardFilter />
+					<BoardFilter setFilteredBoard={setFilteredBoard} />
 					<Route component={CardDetails} path={`/board/:boardId/:cardId/:listId`} />
 				</div>
 			) : (
@@ -174,5 +174,3 @@ export const Board = () => {
 		</section>
 	);
 };
-
-// setFilteredBoard = {setFilteredBoard};
