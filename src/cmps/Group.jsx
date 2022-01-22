@@ -13,8 +13,8 @@ const Group = ({ column, tasks, index }) => {
   const grid = 8;
   const getListStyle = (isDraggingOver) => ({
     background: isDraggingOver ? 'lightgreen' : 'lightyellow',
-    'min-height': '100px',
-    'min-width': '100px',
+    minHeight: '100px',
+    minWidth: '100px',
 
     padding: grid,
     width: 250,
