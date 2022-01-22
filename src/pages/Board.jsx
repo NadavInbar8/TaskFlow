@@ -35,7 +35,7 @@ export const Board = () => {
 	const [starStatus, setStarStatus] = useState(false);
 
 	///// Tom useStates /////
-	const [boardTitleInput, setBoardTitleInput] = useState();
+	const [boardTitleInput, setBoardTitleInput] = useState('');
 	const toggleStarring = () => {
 		setStarStatus(!starStatus);
 	};
