@@ -22,10 +22,26 @@ export function AppHeader() {
 	}, []);
 
 	const toggleModal = (type) => {
-		type === 'boards' && setBoardsModal(!isBoardsModalOpen);
-		type === 'create' && setCreateModal(!isCreateModalOpen);
-		type === 'user' && setUserModal(!isUserModalOpen);
-		console.log(isUserModalOpen);
+		switch (type) {
+			case 'boards':
+				setBoardsModal(!isBoardsModalOpen);
+				setCreateModal(false);
+				setUserModal(false);
+				break;
+
+			case 'create':
+				setCreateModal(!isCreateModalOpen);
+				setBoardsModal(false);
+				setUserModal(false);
+				break;
+
+			case 'user':
+				setUserModal(!isUserModalOpen);
+				setBoardsModal(false);
+				setCreateModal(false);
+				break;
+			default:
+		}
 	};
 
 	return (
