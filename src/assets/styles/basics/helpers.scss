@@ -1,37 +1,60 @@
 .flex {
-  display: flex;
+	display: flex;
 }
 
 .flex-column {
-  display: flex;
-  flex-direction: column;
+	display: flex;
+	flex-direction: column;
 }
 
 .flex-center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.flex-btn {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.pointer {
+	cursor: pointer;
 }
 
 .blue-btn {
-  background-color: #2f80ed;
-  color: white;
-  border: none;
-  box-shadow: none;
-  margin: 0 8px 8px 0;
-  padding: 6px 12px;
+	background-color: #2f80ed;
+	color: white;
+	border: none;
+	box-shadow: none;
+	margin: 0 8px 8px 0;
+	padding: 6px 12px;
 }
 .blue-btn:hover {
-  transition-duration: 0.85;
-  background-color: #0079bf;
-  box-shadow: rgba(0, 0, 0, 0.05) 0 5px 30px, rgba(0, 0, 0, 0.05) 0 1px 4px;
+	//   transition-duration: 0.85;
+	background-color: #0079bf;
+	box-shadow: rgba(0, 0, 0, 0.05) 0 5px 30px, rgba(0, 0, 0, 0.05) 0 1px 4px;
+	cursor: pointer;
 }
 
-// .grey-btn {
+.grey-btn {
+	background-color: rgba(9, 30, 66, 0.04);
+	border: none;
+	color: $b1;
+	box-shadow: none;
+	margin: 0 8px 8px 0;
+	padding: 6px 12px;
+}
+.grey-btn:hover {
+	background-color: rgba(9, 30, 66, 0.08);
+	cursor: pointer;
+}
 
-// }
-// .grey-btn:hover {
-// }
+// for text areas
+.normalize-text {
+	white-space: normal;
+}
 
 // <!-- HTML !-->
 // <button class="button-65" role="button">Button 65</button>
@@ -100,11 +123,11 @@
 //   }
 // }
 .go-back-container {
-  position: fixed;
-  display: flex;
-  height: 100vh;
-  width: 100vw;
-  background-color: rgba(0, 0, 0, 0.357);
-  top: 0;
-  left: 0;
+	position: fixed;
+	display: flex;
+	height: 100vh;
+	width: 100vw;
+	background-color: rgba(0, 0, 0, 0.357);
+	top: 0;
+	left: 0;
 }

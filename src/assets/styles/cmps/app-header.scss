@@ -21,8 +21,8 @@
 	}
 
 	.boards-img {
-		height: 30px;
-		width: 30px;
+		height: 25px;
+		width: 25px;
 		margin-right: 10px;
 	}
 
@@ -46,17 +46,97 @@
 		align-items: center;
 	}
 
-	li.board {
+	li.boards {
 		height: 5vh;
 		display: flex;
+		justify-content: flex-start;
 		font-size: 1.5rem;
 		justify-content: center;
+		position: relative;
+		margin-left: 0;
 	}
+
+	.app-header li:hover {
+		opacity: 0.5;
+	}
+
+	// Boards
+
+	.boards-modal {
+		z-index: 1;
+		background-color: white;
+		color: $b1;
+		flex-direction: column;
+		position: absolute;
+		min-height: 20vh;
+		height: fit-content;
+		width: fit-content;
+		position: absolute;
+		align-items: flex-start;
+		top: 110%;
+		left: -5%;
+		min-width: 180px;
+		padding: 10px;
+		border-radius: 8px;
+	}
+
+	.boards-modal li {
+		margin-top: 10px;
+		margin-left: 0;
+	}
+
+	.boards-modal li:hover {
+		opacity: 0.6;
+	}
+
+	.boards-modal li:last-child {
+		margin-bottom: 10px;
+	}
+
+	// Create
+
+	.create-li {
+		position: relative;
+		margin-left: 150px;
+		// background-color: rgba(0, 0, 0, 0.2);
+		// padding: 4px;
+		// border-radius: 4px;
+	}
+
+	.create-modal {
+		position: absolute;
+		z-index: 1;
+		background-color: white;
+		color: $b1;
+		flex-direction: column;
+		min-height: 60px;
+		min-width: 150px;
+		height: fit-content;
+		width: fit-content;
+		position: absolute;
+		align-items: flex-start;
+		left: -5%;
+		top: 110%;
+		padding: 10px;
+		border-radius: 8px;
+	}
+
+	.create-modal span {
+		cursor: pointer;
+	}
+
+	.create-modal span:hover {
+		opacity: 0.5;
+		transition: 0.2s ease-in-out all;
+	}
+
+	// User
 
 	.user-avatar {
 		right: 0;
 		display: flex;
 		align-items: center;
+		position: relative;
 	}
 
 	.user-avatar-btn {
@@ -79,77 +159,19 @@
 		background-color: rgb(151, 150, 150);
 	}
 
-	li:hover {
-		opacity: 0.5;
+	.user-modal {
+		z-index: 10;
+		background-color: white;
+		color: $b1;
+		flex-direction: column;
+		min-height: 10vh;
+		height: fit-content;
+		width: fit-content;
+		position: absolute;
+		align-items: flex-start;
+		// right: 2%;
+		top: 130%;
+		padding: 10px;
+		border-radius: 8px;
 	}
-
-	.boards-modal li {
-		margin-top: 10px;
-		margin-left: 0;
-	}
-
-	.create-li {
-		margin-left: 150px;
-	}
-
-	.create-modal span {
-		cursor: pointer;
-	}
-
-	.create-modal span:hover {
-		opacity: 0.5;
-		transition: 0.2s ease-in-out all;
-	}
-}
-
-.boards-modal {
-	z-index: 1;
-	background-color: white;
-	color: $b1;
-	flex-direction: column;
-	min-height: 20vh;
-	height: fit-content;
-	width: fit-content;
-	position: absolute;
-	align-items: flex-start;
-	left: 14vw;
-	top: 5.5vh;
-	padding: 10px;
-	border-radius: 8px;
-}
-
-.boards-modal li:last-child {
-	margin-bottom: 10px;
-}
-
-.user-modal {
-	z-index: 10;
-	background-color: white;
-	color: $b1;
-	flex-direction: column;
-	min-height: 10vh;
-	height: fit-content;
-	width: fit-content;
-	position: absolute;
-	align-items: flex-start;
-	right: 2%;
-	top: 5.5vh;
-	padding: 10px;
-	border-radius: 8px;
-}
-
-.create-modal {
-	z-index: 1;
-	background-color: white;
-	color: $b1;
-	flex-direction: column;
-	min-height: 10vh;
-	height: fit-content;
-	width: fit-content;
-	position: absolute;
-	align-items: flex-start;
-	left: 27vw;
-	top: 5.5vh;
-	padding: 10px;
-	border-radius: 8px;
 }

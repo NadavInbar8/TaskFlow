@@ -1,211 +1,223 @@
 .card-details {
-  font-weight: bold;
-  position: fixed;
+	font-weight: bold;
+	position: fixed;
 
-  top: 50%;
-  left: 50%;
-  height: 80vh;
-  overflow-x: visible;
+	top: 50%;
+	left: 50%;
+	height: 80vh;
+	overflow-x: visible;
 
-  width: 50vw;
-  transform: translate(-50%, -50%);
-  background-color: #f4f5f7;
-  z-index: 10;
-  border-radius: 8px;
-  .details-svg {
-    height: 1.2rem;
-    margin-right: 5px;
-  }
-  .details-larger-svg {
-    height: 1.7rem;
-    align-self: center;
-  }
+	width: 50vw;
+	transform: translate(-50%, -50%);
+	background-color: #f4f5f7;
+	z-index: 10;
+	border-radius: 8px;
+	.details-svg {
+		height: 1.2rem;
+		margin-right: 5px;
+	}
+	.details-larger-svg {
+		height: 1.7rem;
+		align-self: center;
+	}
 }
 
 .card-details-layout {
-  width: 92%;
-  margin: auto;
+	width: 92%;
+	margin: auto;
 }
 
 .card-details-top {
-  height: 50px;
-  margin-top: 20px;
-  display: flex;
-  align-items: center;
+	height: 50px;
+	margin-top: 20px;
+	display: flex;
+	align-items: center;
 
-  .card-details-top-healine {
-    color: #5e6c84;
-    width: 100%;
-    display: flex;
-    gap: 10px;
-    justify-content: flex-start;
-  }
-  h1 {
-    margin: 0;
-  }
-  button {
-    margin-left: 10px;
-    background-color: inherit;
-    border: none;
-    background-color: rgb(209, 207, 207);
-    font-size: 1.6rem;
-    border-radius: 50%;
-  }
-  button:hover {
-    background-color: rgb(223, 219, 219);
-    cursor: pointer;
-  }
-  input {
-    color: #5e6c84;
-    height: 50px;
-    font-size: 1.5rem;
-    background-color: inherit;
-    border: none;
-    width: 100%;
-    border-radius: 10px;
-  }
+	.card-details-top-healine {
+		color: #5e6c84;
+		width: 100%;
+		display: flex;
+		gap: 10px;
+		justify-content: flex-start;
+	}
+	h1 {
+		margin: 0;
+	}
+	button {
+		margin-left: 10px;
+		background-color: inherit;
+		border: none;
+		background-color: rgb(209, 207, 207);
+		font-size: 1.6rem;
+		border-radius: 50%;
+	}
+	button:hover {
+		background-color: rgb(223, 219, 219);
+		cursor: pointer;
+	}
+	input {
+		color: #5e6c84;
+		height: 50px;
+		font-size: 1.5rem;
+		background-color: inherit;
+		border: none;
+		width: 100%;
+		border-radius: 10px;
+	}
 }
 
 .card-details-main {
-  display: flex;
-  height: 100%;
+	display: flex;
+	height: 100%;
+
+	input,
+	textarea:focus {
+		outline: none;
+		border-color: none;
+	}
 }
 .edit-actions {
-  width: 70%;
-  height: 100%;
-  background-color: rgb(240, 245, 239);
+	width: 70%;
+	height: 100%;
+	background-color: #f4f5f7;
 }
 
 .add-to-card {
-  width: 30%;
-  height: 100%;
-  background-color: rgb(240, 245, 239);
-  font-size: 1.2rem;
-  ul {
-    padding: 0;
-  }
-  li {
-    display: flex;
-    align-items: center;
-
-    padding: 10px;
-    margin: 4px;
-    border-radius: 4px;
-    padding-left: 20px;
-    transition: 0.2s;
-    background-color: rgb(236, 236, 236);
-  }
-  li:hover {
-    background-color: rgb(206, 199, 199);
-    cursor: pointer;
-  }
-  .title-li {
-    color: #5e6c84;
-    background-color: inherit;
-    font-size: 1.4rem;
-  }
-  .title-li:hover {
-    background-color: inherit;
-  }
+	width: 30%;
+	height: 100%;
+	background-color: #f4f5f7;
+	font-size: 1.2rem;
+	ul {
+		padding: 0;
+	}
+	li {
+		display: flex;
+		align-items: center;
+		padding: 10px;
+		margin: 4px;
+		border-radius: 4px;
+		padding-left: 20px;
+		transition: 0.2s;
+		margin-left: 10px;
+		background-color: #dbdbdb;
+	}
+	li:hover {
+		background-color: rgb(206, 199, 199);
+		cursor: pointer;
+	}
+	.title-li {
+		color: #5e6c84;
+		background-color: inherit;
+		font-size: 1.4rem;
+	}
+	.title-li:hover {
+		background-color: inherit;
+	}
 }
 
 .labels-preview {
-  display: flex;
-  gap: 5px;
-  margin: 5px;
-  .card-details-labels-preview {
-    height: 50px;
-    padding: 5px;
-    border-radius: 7px;
-  }
+	display: flex;
+	gap: 5px;
+	margin: 5px;
+	.card-details-labels-preview {
+		height: 50px;
+		padding: 5px;
+		border-radius: 7px;
+	}
 }
 
 .label-details-green {
-  background-color: rgb(94, 240, 94);
+	background-color: rgb(94, 240, 94);
 }
 .label-details-red {
-  background-color: rgb(245, 73, 73);
+	background-color: rgb(245, 73, 73);
 }
 .label-details-orange {
-  background-color: rgb(243, 180, 64);
+	background-color: rgb(243, 180, 64);
 }
 .label-details-yellow {
-  background-color: rgb(252, 252, 19);
+	background-color: rgb(252, 252, 19);
 }
 .label-details-purple {
-  background-color: rgb(219, 102, 219);
+	background-color: rgb(219, 102, 219);
 }
 .label-details-blue {
-  background-color: rgb(75, 75, 245);
+	background-color: rgb(75, 75, 245);
 }
 .label-details-dark-blue {
-  background-color: rgb(34, 34, 128);
+	background-color: rgb(34, 34, 128);
 }
 
 // descrition
 .description {
-  margin-top: 70px;
-  .description-title {
-    display: flex;
-    gap: 10px;
-    margin: 0;
-  }
-  font-size: 1.5rem;
-  textarea {
-    font-family: segoe;
-    margin-top: 10px;
-    width: 100%;
-    height: 150px;
-    background-color: #eaecf0;
-    border: none;
-    border-radius: 7px;
-    font-size: 1.3rem;
-  }
+	margin-top: 70px;
+	.description-title {
+		display: flex;
+		gap: 10px;
+		margin: 0;
+	}
+	font-size: 1.5rem;
+	textarea {
+		font-family: segoe;
+		margin-top: 10px;
+		width: 100%;
+		height: 150px;
+		background-color: #eaecf0;
+		border: none;
+		border-radius: 7px;
+		font-size: 1.3rem;
+	}
 }
 
 .activity {
-  display: flex;
-  gap: 10px;
-  font-size: 1.5rem;
+	display: flex;
+	gap: 10px;
+	font-size: 1.5rem;
 }
 
 // COMMENTS
 .add-comment-form {
-  margin-top: 10px;
-  input {
-    margin-top: 7px;
-    width: 100%;
-    height: 50px;
-    border-radius: 7px;
-    background-color: rgb(248, 252, 247);
-    font-size: 1.2rem;
-  }
+	margin-top: 10px;
+	input {
+		margin-top: 7px;
+		width: 100%;
+		height: 50px;
+		border-radius: 7px;
+		background-color: #f4f5f7;
+		font-size: 1.2rem;
+		border: none;
+		padding-inline-start: 10px;
+	}
+
+	input:focus {
+		border: solid 1px grey;
+	}
 }
 
 // checkList
 .checklist {
-  width: 100%;
-  meter {
-    width: 100%;
-    transition: 0.3s;
-  }
-  textarea {
-    font-family: segoe;
-    margin-top: 10px;
-    width: 100%;
-    height: 40px;
-    background-color: rgb(255, 255, 255);
-    border: 1px solid #0066ff;
-    // border: none;
-    border-radius: 7px;
-    font-size: 1.3rem;
-  }
-  button {
-    width: 90px;
-    height: 30px;
-    border-radius: 7px;
-    color: white;
-    background-color: #0066ff;
-    // margin-top: 30px;
-  }
+	width: 100%;
+	meter {
+		width: 100%;
+		transition: 0.3s;
+	}
+	textarea {
+		font-family: segoe;
+		margin-top: 10px;
+		width: 100%;
+		height: 40px;
+		background-color: rgb(255, 255, 255);
+		border: 1px solid #0066ff;
+		// border: none;
+		border-radius: 7px;
+		font-size: 1.3rem;
+	}
+	button {
+		width: 90px;
+		height: 30px;
+		border-radius: 7px;
+		color: white;
+		background-color: #0066ff;
+		// margin-top: 30px;
+	}
 }
