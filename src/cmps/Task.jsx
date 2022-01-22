@@ -1,16 +1,17 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Draggable } from 'react-beautiful-dnd';
-const Task = ({ task, index }) => {
+const Task = ({ task, index, openEditModal, boardId, column }) => {
   const grid = 8;
 
   const getItemStyle = (isDragging, draggableStyle) => ({
     // some basic styles to make the items look a bit nicer
     userSelect: 'none',
-    padding: grid * 2,
+    padding: '12px',
     margin: `0 0 ${grid}px 0`,
 
     // change background colour if dragging
-    background: isDragging ? 'lightskyblue' : 'lightsalmon',
+    background: isDragging ? 'whitesmoke' : 'whitesmoke',
 
     // styles we need to apply on draggables
     ...draggableStyle,
@@ -19,7 +20,7 @@ const Task = ({ task, index }) => {
     <Draggable draggableId={task.id} index={index}>
       {(provided, snapshot) => (
         <div
-          className='Container'
+          className='task-container flex'
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           ref={provided.innerRef}
@@ -28,7 +29,15 @@ const Task = ({ task, index }) => {
             provided.draggableProps.style
           )}
         >
-          {task.content}
+          <Link to={`/board/${boardId}/${task.id}/${column.id}`}>
+            {task.title}
+          </Link>
+          <div
+            className='task-container-btn'
+            onClick={() => openEditModal(task)}
+          >
+            edit
+          </div>
         </div>
       )}
     </Draggable>
