@@ -30,6 +30,7 @@ export function DetailscheckList({
 
   function getItemsDonePrecent() {
     const itemsNum = checkList.items.length;
+    if (!itemsNum) return 0;
     let count = 0;
     checkList.items.forEach((item) => {
       if (item.isDone === true) count++;
@@ -43,7 +44,7 @@ export function DetailscheckList({
       <div className='checklist'>
         <h2>{checkList.title}</h2>
         <section className='meter-section'>
-          <span>{getItemsDonePrecent() * 100}%</span>
+          <span>{Math.floor(getItemsDonePrecent() * 100)}%</span>
           <meter value={getItemsDonePrecent()}></meter>
         </section>
         <br />
@@ -55,6 +56,8 @@ export function DetailscheckList({
                   <input
                     onChange={() => handleCheckBoxChange(idx)}
                     type='checkbox'
+                    checked={item.isDone}
+                    // value={true}
                   />
                   <span>{item.txt}</span>
                 </div>
