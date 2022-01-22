@@ -32,7 +32,7 @@ export const WorkSpace = () => {
 					<li>hightlights</li>
 					<li>WorkSpace table</li>
 					<li>Members</li>
-					<li>Setting</li>
+					<li>Settings</li>
 				</ul>
 			</div>
 
