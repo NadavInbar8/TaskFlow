@@ -383,7 +383,7 @@ export const Board = () => {
               >
                 {(provided) => (
                   <div
-                    className='Container'
+                    className='Container flex'
                     {...provided.droppableProps}
                     ref={provided.innerRef}
                   >
