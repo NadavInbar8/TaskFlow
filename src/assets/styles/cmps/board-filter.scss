@@ -3,7 +3,7 @@
 	z-index: 1;
 	position: absolute;
 	margin-right: 10px;
-	top: 9.7%;
+	top: 10%;
 	right: 0;
 	background-color: white;
 	display: flex;
@@ -89,6 +89,11 @@
 		width: 93%;
 		height: 20px;
 		margin-bottom: 10px;
+	}
+
+	.label-div:hover {
+		cursor: pointer;
+		opacity: 0.6;
 	}
 
 	.inner-label {

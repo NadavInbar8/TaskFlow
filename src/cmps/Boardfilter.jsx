@@ -6,8 +6,9 @@ import userSmallSvg from '../assets/imgs/filter-svgs/user-small-svg.svg';
 import noDates from '../assets/imgs/filter-svgs/no-dates.svg';
 import overdue from '../assets/imgs/filter-svgs/overdue.svg';
 import dueNextDay from '../assets/imgs/filter-svgs/due-next-day.svg';
-import dueLAter from '../assets/imgs/filter-svgs/due-later.svg';
+import dueLater from '../assets/imgs/filter-svgs/due-later.svg';
 import noLabels from '../assets/imgs/filter-svgs/no-labels.svg';
+import close from '../assets/imgs/close.svg';
 
 // import {setFilterBy} from '../store/board.action.js';
 
@@ -34,6 +35,7 @@ export const BoardFilter = ({FilterBoard, toggleModal}) => {
 		<section className='board-filter'>
 			<div className='modal-top'>
 				<h3>Filter</h3>
+				{/* <img onClick={() => toggleModal('filter')} src={close} alt='' /> */}
 				<button onClick={() => toggleModal('filter')}>x</button>
 			</div>
 			<hr></hr>
