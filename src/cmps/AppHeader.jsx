@@ -38,47 +38,47 @@ export function AppHeader() {
 				</div>
 				<nav className='flex'>
 					<ul>
-						<li className='boards' onClick={() => toggleModal('boards')}>
-							<img className='boards-img' src={boardsImg} alt='' />
-							Boards
+						<li className='boards'>
+							<span className='li-span flex-center' onClick={() => toggleModal('boards')}>
+								<img className='boards-img' src={boardsImg} alt='' />
+								Boards
+							</span>
+							{isBoardsModalOpen && (
+								<ul className='boards-modal flex'>
+									{boards.map((board) => {
+										return (
+											<Link onClick={() => toggleModal('boards')} key={board._id} to={`/board/${board._id}`}>
+												<li>{board.title}</li>
+											</Link>
+										);
+									})}
+								</ul>
+							)}
 						</li>
-						<li className='create-li' onClick={() => toggleModal('create')}>
-							Create
+						<li className='create-li'>
+							<span onClick={() => toggleModal('create')}>Create</span>
+							{isCreateModalOpen && (
+								<div className='create-modal flex'>
+									<div
+										onClick={() => {
+											dispatch(addBoard());
+											toggleModal('create');
+										}}>
+										<span>Create Board</span>
+									</div>
+								</div>
+							)}
 						</li>
 					</ul>
-					{/* {isBoardsModalOpen && (
-						<ul className='boards-modal flex'>
-							{boards.map((board) => {
-								return (
-									<Link onClick={() => toggleModal('boards')} key={board._id} to={`/board/${board._id}`}>
-										<li>{board.title}</li>
-									</Link>
-								);
-							})}
-						</ul>
-					)}
-
-					{isCreateModalOpen && (
-						<div className='create-modal flex'>
-							<div
-								onClick={() => {
-									dispatch(addBoard());
-									toggleModal('create');
-								}}>
-								<span>Create Board</span>
-							</div>
-						</div>
-					)} */}
-
 					<div className='user-avatar'>
 						<div
+							className='user-avatar-btn flex-center'
 							onClick={() => {
 								toggleModal('user');
-							}}
-							className='user-avatar-btn flex-center'>
+							}}>
 							G
 						</div>
-						{/* {isUserModalOpen && (
+						{isUserModalOpen && (
 							<div className='user-modal'>
 								<span
 									onClick={() => {
@@ -87,11 +87,11 @@ export function AppHeader() {
 									logout
 								</span>
 							</div>
-						)} */}
+						)}
 					</div>
 				</nav>
 			</div>
-			{isBoardsModalOpen && (
+			{/* {isBoardsModalOpen && (
 				<ul className='boards-modal flex'>
 					{boards.map((board) => {
 						return (
@@ -101,9 +101,9 @@ export function AppHeader() {
 						);
 					})}
 				</ul>
-			)}
+			)} */}
 
-			{isCreateModalOpen && (
+			{/* {isCreateModalOpen && (
 				<div className='create-modal flex'>
 					<div
 						onClick={() => {
@@ -113,8 +113,8 @@ export function AppHeader() {
 						<span>Create Board</span>
 					</div>
 				</div>
-			)}
-			{isUserModalOpen && (
+			)} */}
+			{/* {isUserModalOpen && (
 				<div className='user-modal'>
 					<span
 						onClick={() => {
@@ -123,7 +123,7 @@ export function AppHeader() {
 						logout
 					</span>
 				</div>
-			)}
+			)} */}
 		</section>
 	);
 }

@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import DayPicker from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
+import paint from '../../assets/imgs/paint.svg';
+import arrowleft from '../../assets/imgs/arrowleft.svg';
 
 export function Members() {
-  return <div className='details-modal members'>members</div>;
+  return <div className='details-modal members'>this is the members modal</div>;
 }
 
 export function Checklist({ toggleModal, addCheckList }) {
@@ -50,7 +52,7 @@ export function Cover() {
   return <div className='details-modal Cover'>Cover</div>;
 }
 
-export function Labels({ addLabel }) {
+export function Labels({ addLabel, toggleModal }) {
   const [editMode, setEditMode] = useState(false);
 
   const [labels, setLabels] = useState([
@@ -95,57 +97,65 @@ export function Labels({ addLabel }) {
 
   return (
     <div className='details-modal labels-modal'>
-      <h3 className='labels-headline'> Labels</h3>
-      <hr />
+      <section className='labels-modal-layout'>
+        <section className='labels-modal-top'>
+          <img onClick={() => setEditMode(!editMode)} src={arrowleft} />
+          <h3> Labels</h3>
+          <button onClick={() => toggleModal('labels')}>X</button>
+        </section>
+        <hr />
 
-      {!editMode && (
-        <div>
-          <div className='labels-input'>
-            <input placeholder='search for label' type='text' />
+        {!editMode && (
+          <div className='labels-modal-main'>
+            <div className='labels-input'>
+              <input placeholder='Search labels...' type='text' />
+            </div>
+            <div className='labels-modal'>
+              {labels.map((label, idx) => {
+                return (
+                  <div key={idx} className='label-row'>
+                    <div
+                      onClick={() => addLabel(label)}
+                      className={' label label-' + label.color}
+                    ></div>
+                    <img onClick={() => setEditMode(!editMode)} src={paint} />
+                    {/* <button onClick={() => setEditMode(!editMode)}>edit</button> */}
+                  </div>
+                );
+              })}
+            </div>
           </div>
-          {labels.map((label, idx) => {
-            return (
-              <div key={idx} className='label-row'>
-                <div
-                  onClick={() => addLabel(label)}
-                  className={' label label-' + label.color}
-                >
-                  {label.name}
-                </div>
-                <button onClick={() => setEditMode(!editMode)}>edit</button>
-              </div>
-            );
-          })}
-        </div>
-      )}
+        )}
 
-      {editMode && (
-        <div>
-          <input
-            onChange={handleEditLabelChange}
-            value={editLabel.name}
-            placeholder='Name'
-            type='text'
-          />
-          <h4>labels</h4>
-          <h4>Select a color</h4>
-          <div className='edit-labels'>
-            {labels.map((label, idx) => {
-              return (
-                <div
-                  onClick={() => markChosen(label)}
-                  className={'edit-label label-' + label.color}
-                  key={idx}
-                >
-                  {label.name}
-                </div>
-              );
-            })}
+        {editMode && (
+          <div className='edit-labels-section'>
+            <span>Name</span>
+            <br />
+            <input
+              className='edit-label-input'
+              onChange={handleEditLabelChange}
+              value={editLabel.name}
+              placeholder='Name'
+              type='text'
+            />
+
+            <h4>Select a color</h4>
+            <div className='edit-labels'>
+              {labels.map((label, idx) => {
+                return (
+                  <div
+                    onClick={() => markChosen(label)}
+                    className={'edit-label label-' + label.color}
+                    key={idx}
+                  ></div>
+                );
+              })}
+            </div>
+            <button onClick={saveLabel}>Save</button>
+            {/* <button onClick={() => setEditMode(!editMode)}>go back</button> */}
           </div>
-          <button onClick={saveLabel}>Save</button>
-          <button onClick={() => setEditMode(!editMode)}>go back</button>
-        </div>
-      )}
+        )}
+      </section>
     </div>
   );
 }

@@ -214,7 +214,12 @@ export const CardDetails = () => {
                   <button>X</button>
                 </Link>
               </div>
-              <div>List id: {card.id}</div>
+              <div>
+                In list:
+                <span style={{ textDecoration: 'underline' }}>
+                  {card.id}
+                </span>{' '}
+              </div>
 
               <div className='card-details-main'>
                 <div className='edit-actions'>
@@ -330,8 +335,8 @@ export const CardDetails = () => {
                     )}
                   </div>
 
-                  <section className='modals-container'>
-                    {memberModal && <Members />}
+                  {/* <section className='modals-container'> */}
+                  {/* {memberModal && <Members />}
                     {labelsModal && <Labels addLabel={addLabel} />}
                     {checklistModal && (
                       <Checklist
@@ -343,61 +348,118 @@ export const CardDetails = () => {
                       <Dates toggleModal={toggleModal} addDate={addDate} />
                     )}
                     {attachmentModal && <Attachment />}
-                    {coverModal && <Cover />}
-                  </section>
+                    {coverModal && <Cover />} */}
+                  {/* </section> */}
                 </div>
 
                 <div className='add-to-card'>
-                  <ul>
-                    <li className='title-li'>Add to Card</li>
-                    <li onClick={() => toggleModal('member')}>
-                      <img className='details-svg' src={user} alt='' />
-                      Members
-                      {/* {memberModal && <Members />} */}
-                    </li>
-                    <li onClick={() => toggleModal('labels')}>
-                      {' '}
-                      <img className='details-svg' src={label} alt='' />
-                      Labels
-                    </li>
-                    <li onClick={() => toggleModal('checklist')}>
-                      {' '}
-                      <img className='details-svg' src={checklist} alt='' />
-                      Checklist
-                    </li>
-                    <li onClick={() => toggleModal('dates')}>
-                      {' '}
-                      <img className='details-svg' src={date} alt='' />
-                      Dates
-                    </li>
-                    <li onClick={() => toggleModal('attachment')}>
-                      <img className='details-svg' src={attachment} alt='' />{' '}
-                      Attachment
-                    </li>
-                    <li onClick={() => toggleModal('cover')}>
-                      {' '}
-                      <img className='details-svg' src={cover} alt='' />
-                      Cover
-                    </li>
-                  </ul>
-                  <ul>
-                    <li className='title-li'>Actions</li>
-                    <li>
-                      {' '}
-                      <img className='details-svg' src={move} alt='' />
-                      Move
-                    </li>
-                    <li>
-                      {' '}
-                      <img className='details-svg' src={copy} alt='' />
-                      Copy
-                    </li>
-                    <li onClick={deleteCard}>
-                      {' '}
-                      <img className='details-svg' src={archive} alt='' />
-                      Archive
-                    </li>
-                  </ul>
+                  <section className='modals-container'>
+                    <ul>
+                      {/* /////////////////////////////////////////////// */}
+                      <li className='title-li'>Add to Card</li>
+                      {/* ////////////////////////////////////////////////////////////////////// */}
+                      <li className='details-li'>
+                        <span
+                          className='li-span'
+                          onClick={() => toggleModal('member')}
+                        >
+                          <img className='details-svg' src={user} alt='' />
+                          Members
+                        </span>
+                        {memberModal && <Members />}
+                      </li>
+                      {/* /////////////////////////////////////////////////////////////////// */}
+                      <li className='details-li'>
+                        <span
+                          className='li-span'
+                          onClick={() => toggleModal('labels')}
+                        >
+                          <img className='details-svg' src={label} alt='' />
+                          Labels
+                        </span>
+                        {labelsModal && (
+                          <Labels
+                            toggleModal={toggleModal}
+                            addLabel={addLabel}
+                          />
+                        )}
+                      </li>
+                      {/* //////////////////////////////////////////////////////////////////// */}
+                      <li className='details-li'>
+                        <span
+                          className='li-span'
+                          onClick={() => toggleModal('checklist')}
+                        >
+                          <img className='details-svg' src={checklist} alt='' />
+                          Checklist
+                        </span>
+                        {checklistModal && (
+                          <Checklist
+                            toggleModal={toggleModal}
+                            addCheckList={addCheckList}
+                          />
+                        )}
+                      </li>
+                      {/* ////////////////////////////////////////////////// */}
+                      <li className='details-li'>
+                        <span
+                          className='li-span'
+                          onClick={() => toggleModal('dates')}
+                        >
+                          <img className='details-svg' src={date} alt='' />
+                          Dates
+                        </span>
+                        {datesModal && (
+                          <Dates toggleModal={toggleModal} addDate={addDate} />
+                        )}
+                      </li>
+                      {/* ///////////////////////////////////////////////////// */}
+                      <li className='details-li'>
+                        <span
+                          className='li-span'
+                          onClick={() => toggleModal('attachment')}
+                        >
+                          <img
+                            className='details-svg'
+                            src={attachment}
+                            alt=''
+                          />{' '}
+                          Attachment
+                        </span>
+                        {attachmentModal && <Attachment />}
+                      </li>
+                      {/* ////////////////////////////////////////////// */}
+                      <li className='details-li'>
+                        <span
+                          className='li-span'
+                          onClick={() => toggleModal('cover')}
+                        >
+                          <img className='details-svg' src={cover} alt='' />
+                          Cover
+                        </span>
+                        {coverModal && <Cover />}
+                      </li>
+                      {/* /////////////////////////////////////////////// */}
+                    </ul>
+                    <ul>
+                      <li className='title-li'>Actions</li>
+                      <li>
+                        {' '}
+                        <img className='details-svg' src={move} alt='' />
+                        Move
+                      </li>
+                      <li>
+                        {' '}
+                        <img className='details-svg' src={copy} alt='' />
+                        Copy
+                      </li>
+                      <li onClick={deleteCard}>
+                        {' '}
+                        <img className='details-svg' src={archive} alt='' />
+                        Archive
+                      </li>
+                    </ul>
+                  </section>
                 </div>
               </div>
             </div>

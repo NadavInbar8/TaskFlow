@@ -37,6 +37,15 @@ export const Board = () => {
   const [filterModal, setFilterModal] = useState(false);
   const [starStatus, setStarStatus] = useState(false);
 
+  ///// Tom useStates /////
+  const [boardTitleInput, setBoardTitleInput] = useState('');
+  const toggleStarring = () => {
+    setStarStatus(!starStatus);
+  };
+  const toggleModal = (type) => {
+    type === 'filter' && setFilterModal(!filterModal);
+  };
+
   ///// useEffect /////
 
   useEffect(() => {
@@ -85,16 +94,13 @@ export const Board = () => {
     list.editMode = true;
   };
 
-  const editCard = (list, card) => {
-    const editedCard = { ...card, title: newCard.title };
-    setSelectedCard(editedCard);
-    let listIdx = board.groups.findIndex((group) => group.id === list.id);
-    let cardIdx = list.tasks.findIndex((task) => task.id === card.id);
-    const updatedBoard = { ...board };
-    updatedBoard.groups[listIdx].tasks[cardIdx] = editedCard;
-    dispatch(updateBoard(updatedBoard));
-    closeEditModal(card);
-  };
+  function handleBoardTitleChange({ target }) {
+    if (!target) return;
+    console.log(target);
+    // const field = target.name;
+    const value = target.value;
+    setBoardTitleInput(value);
+  }
 
   const addNewCard = (list) => {
     let listIdx = board.groups.findIndex((group) => group.id === list.id);
@@ -142,14 +148,74 @@ export const Board = () => {
     dispatch(updateBoard(updatedBoard));
     setForceRender(!forceRender);
   };
-
-  const toggleModal = (type) => {
-    type === 'filter' && setFilterModal(!filterModal);
+  const updateBoardTitle = () => {
+    const updatedBoard = { ...board };
+    updatedBoard.title = boardTitleInput;
+    dispatch(updateBoard(updatedBoard));
+    setForceRender(!forceRender);
   };
 
-  const toggleStarring = () => {
-    setStarStatus(!starStatus);
+  // const editNewCard = (list) => {
+  //   setNewCard({ ...newCard, id: utilService.makeId() });
+  //   list.editMode = true;
+  //   setEdit(true);
+  // };
+
+  const editCard = (list, card) => {
+    const editedCard = { ...card, title: newCard.title };
+    setSelectedCard(editedCard);
+    let listIdx = board.groups.findIndex((group) => group.id === list.id);
+    let cardIdx = list.tasks.findIndex((task) => task.id === card.id);
+    const updatedBoard = { ...board };
+    updatedBoard.groups[listIdx].tasks[cardIdx] = editedCard;
+    dispatch(updateBoard(updatedBoard));
+    closeEditModal(card);
   };
+
+  // const editCard = (card) => {
+  //   card.editMode = true;
+  // };
+
+  // const addNewCard = (list) => {
+  //   let listIdx = board.groups.findIndex((group) => group.id === list.id);
+  //   list.tasks.push(newCard);
+  //   const updatedBoard = { ...board };
+  //   updatedBoard.groups[listIdx] = list;
+  //   updatedBoard.groups[listIdx].editMode = false;
+  //   setEdit(false);
+  //   dispatch(updateBoard(updatedBoard));
+  // };
+
+  // const openEditModal = (card) => {
+  //   // card.editMode = true;
+  //   setSelectedCard(card);
+  //   // setEditModal(true);
+  //   // console.log(card);
+  // };
+  // const closeEditModal = (card) => {
+  //   // change to toggle or save later
+  //   // console.log('selected card', selecetCard);
+  //   setSelectedCard({});
+  //   setEditModal(false);
+  //   // card.editMode = false;
+  // };
+
+  // const handleNewList = ({ target }) => {
+  //   const value = target.value;
+  //   setListName(value);
+  // };
+  // const addNewGroup = () => {
+  //   const updatedBoard = { ...board };
+  //   const newGroup = {
+  //     id: utilService.makeId(),
+  //     style: {},
+  //     tasks: [],
+  //     title: listName,
+  //   };
+  //   updatedBoard.groups.push(newGroup);
+  //   dispatch(updateBoard(updatedBoard));
+  //   setNewList(false);
+  // };
 
   const toggleEditModal = () => {
     setOverlay(!overlay);
