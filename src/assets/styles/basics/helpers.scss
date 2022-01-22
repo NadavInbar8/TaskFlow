@@ -31,6 +31,7 @@
   margin: 0 8px 8px 0;
   padding: 6px 12px;
 }
+
 .blue-btn:hover {
   //   transition-duration: 0.85;
   background-color: #0079bf;
@@ -56,6 +57,26 @@
 .grey-btn:hover {
   background-color: rgba(9, 30, 66, 0.08);
   cursor: pointer;
+}
+
+.modal-top {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	button {
+		border: none;
+		background-color: inherit;
+		color: '#5e6c84';
+		font-size: 13px;
+	}
+	button:hover {
+		cursor: pointer;
+	}
+
+	h3 {
+		margin: 0 5px;
+		font-size: 1rem;
+	}
 }
 
 // for text areas

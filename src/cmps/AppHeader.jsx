@@ -45,6 +45,11 @@ export function AppHeader() {
 							</span>
 							{isBoardsModalOpen && (
 								<ul className='boards-modal flex'>
+									<div className='modal-top'>
+										Boards
+										<button onClick={() => toggleModal('boards')}>x</button>
+									</div>
+									<hr></hr>
 									{boards.map((board) => {
 										return (
 											<Link onClick={() => toggleModal('boards')} key={board._id} to={`/board/${board._id}`}>
@@ -59,6 +64,11 @@ export function AppHeader() {
 							<span onClick={() => toggleModal('create')}>Create</span>
 							{isCreateModalOpen && (
 								<div className='create-modal flex'>
+									<div className='modal-top'>
+										Create
+										<button onClick={() => toggleModal('create')}>x</button>
+									</div>
+									<hr></hr>
 									<div
 										onClick={() => {
 											dispatch(addBoard());
@@ -78,7 +88,7 @@ export function AppHeader() {
 							}}>
 							G
 						</div>
-						{isUserModalOpen && (
+						{/* {isUserModalOpen && (
 							<div className='user-modal'>
 								<span
 									onClick={() => {
@@ -87,7 +97,7 @@ export function AppHeader() {
 									logout
 								</span>
 							</div>
-						)}
+						)} */}
 					</div>
 				</nav>
 			</div>
@@ -114,16 +124,18 @@ export function AppHeader() {
 					</div>
 				</div>
 			)} */}
-			{/* {isUserModalOpen && (
+			{isUserModalOpen && (
 				<div className='user-modal'>
-					<span
-						onClick={() => {
-							toggleModal('user');
-						}}>
-						logout
-					</span>
+					<div>
+						<div className='modal-top'>
+							<h3>Account</h3>
+							<button onClick={() => toggleModal('user')}>x</button>
+						</div>
+						<hr />
+						Logout
+					</div>
 				</div>
-			)} */}
+			)}
 		</section>
 	);
 }
