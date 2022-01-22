@@ -42,8 +42,10 @@ export function DetailscheckList({
       {/* {console.log(checkList)} */}
       <div className='checklist'>
         <h2>{checkList.title}</h2>
-
-        <meter value={getItemsDonePrecent()}></meter>
+        <section className='meter-section'>
+          <span>{getItemsDonePrecent() * 100}%</span>
+          <meter value={getItemsDonePrecent()}></meter>
+        </section>
         <br />
         {checkList.items.length > 0 && (
           <div>
