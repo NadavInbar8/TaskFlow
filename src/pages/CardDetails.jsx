@@ -180,6 +180,14 @@ export const CardDetails = () => {
     return 0.6;
   }
 
+  // COVER
+  function addCover(cover) {
+    const currCard = card;
+    currCard.cover = cover;
+    setCard(currCard);
+    updateCard();
+  }
+
   // TOGLLING ALL MODALS
   function toggleModal(type) {
     type === 'member' && toggleMemeberModal(!memberModal);
@@ -197,6 +205,11 @@ export const CardDetails = () => {
           <Link className='go-back-container' to={`/board/${board._id}`} />
 
           <section className='card-details'>
+            {card.cover && (
+              <section
+                className={card.cover + '-cover' + ' ' + 'card-details-cover'}
+              ></section>
+            )}
             <div className='card-details-layout'>
               <div className='card-details-top'>
                 <div className='card-details-top-healine'>
@@ -211,11 +224,12 @@ export const CardDetails = () => {
                 </div>
 
                 <Link to={`/board/${board._id}`}>
-                  <button>X</button>
+                  <button>x</button>
                 </Link>
               </div>
               <div>
                 In list:
+                <span> </span>
                 <span style={{ textDecoration: 'underline' }}>
                   {card.id}
                 </span>{' '}
@@ -437,7 +451,12 @@ export const CardDetails = () => {
                           <img className='details-svg' src={cover} alt='' />
                           Cover
                         </span>
-                        {coverModal && <Cover />}
+                        {coverModal && (
+                          <Cover
+                            addCover={addCover}
+                            toggleModal={toggleModal}
+                          />
+                        )}
                       </li>
                       {/* /////////////////////////////////////////////// */}
                     </ul>
