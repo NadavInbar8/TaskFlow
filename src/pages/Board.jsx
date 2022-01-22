@@ -36,6 +36,7 @@ export const Board = () => {
 
 	///// Tom useStates /////
 	const [boardTitleInput, setBoardTitleInput] = useState('');
+	const [width, setWidth] = useState('');
 	const toggleStarring = () => {
 		setStarStatus(!starStatus);
 	};
@@ -58,6 +59,7 @@ export const Board = () => {
 
 	useEffect(() => {
 		if (board) setBoardTitleInput(board.title);
+		if (board) setWidth(board.title.length - 2 + 'ch');
 	}, [board]);
 
 	function handleChange({target}) {
@@ -102,6 +104,7 @@ export const Board = () => {
 		console.log(target);
 		// const field = target.name;
 		const value = target.value;
+		setWidth(value.length + 'ch');
 		setBoardTitleInput(value);
 	}
 
@@ -323,6 +326,7 @@ export const Board = () => {
 					<header className='board-header'>
 						<div className='header-left-container flex-center'>
 							<input
+								style={{width}}
 								onBlur={updateBoardTitle}
 								onChange={handleBoardTitleChange}
 								name='title'
@@ -338,16 +342,17 @@ export const Board = () => {
 									&#9734;
 								</span>
 							</div>
-						</div>
-						<div className='users-div flex-center'>
-							<div className='member-icons'>
-								<div className='member-icon'>OK</div>
-								<div className='member-icon'>NI</div>
-								<div className='member-icon'>TR</div>
-							</div>
-							<div className='board-header-div invite-btn flex-center'>
-								<img className='add-user-img' src={addUser} alt='' />
-								<span>Invite</span>
+
+							<div className='users-div flex-center'>
+								<div className='member-icons'>
+									<div className='member-icon'>OK</div>
+									<div className='member-icon'>NI</div>
+									<div className='member-icon'>TR</div>
+								</div>
+								<div className='board-header-div invite-btn flex-center'>
+									<img className='add-user-img' src={addUser} alt='' />
+									<span>Invite</span>
+								</div>
 							</div>
 						</div>
 						<div className='actions-div flex'>
@@ -452,7 +457,7 @@ export const Board = () => {
 							</div>
 						)}
 					</div>
-					{filterModal && <BoardFilter FilterBoard={FilterBoard} />}
+					{filterModal && <BoardFilter FilterBoard={FilterBoard} toggleModal={toggleModal} />}
 					<Route component={CardDetails} path={`/board/:boardId/:cardId/:listId`} />
 				</div>
 			) : (

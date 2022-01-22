@@ -45,14 +45,15 @@ export function AppHeader() {
 	};
 
 	return (
-		<section className='app-header'>
-			<div className='main-header'>
-				<div className='logo-container'>
-					<Link to='/workspace'>
-						<img src={logo} alt='taskflow logo' />
-					</Link>
-				</div>
-				<nav className='flex'>
+		<header className='app-header'>
+			<div className='main-header flex'>
+				<div className='left-container flex'>
+					<div className='logo-container'>
+						<Link to='/workspace'>
+							<img src={logo} alt='taskflow logo' />
+						</Link>
+					</div>
+					{/* <nav className='flex'> */}
 					<ul>
 						<li className='boards'>
 							<span className='li-span flex-center' onClick={() => toggleModal('boards')}>
@@ -62,7 +63,7 @@ export function AppHeader() {
 							{isBoardsModalOpen && (
 								<ul className='boards-modal flex'>
 									<div className='modal-top'>
-										Boards
+										<h3>Boards</h3>
 										<button onClick={() => toggleModal('boards')}>x</button>
 									</div>
 									<hr></hr>
@@ -81,7 +82,7 @@ export function AppHeader() {
 							{isCreateModalOpen && (
 								<div className='create-modal flex'>
 									<div className='modal-top'>
-										Create
+										<h3>Create</h3>
 										<button onClick={() => toggleModal('create')}>x</button>
 									</div>
 									<hr></hr>
@@ -96,15 +97,16 @@ export function AppHeader() {
 							)}
 						</li>
 					</ul>
-					<div className='user-avatar'>
-						<div
-							className='user-avatar-btn flex-center'
-							onClick={() => {
-								toggleModal('user');
-							}}>
-							G
-						</div>
-						{/* {isUserModalOpen && (
+				</div>
+				<div className='user-avatar'>
+					<div
+						className='user-avatar-btn flex-center'
+						onClick={() => {
+							toggleModal('user');
+						}}>
+						G
+					</div>
+					{/* {isUserModalOpen && (
 							<div className='user-modal'>
 								<span
 									onClick={() => {
@@ -114,8 +116,8 @@ export function AppHeader() {
 								</span>
 							</div>
 						)} */}
-					</div>
-				</nav>
+				</div>
+				{/* </nav> */}
 			</div>
 			{/* {isBoardsModalOpen && (
 				<ul className='boards-modal flex'>
@@ -152,6 +154,6 @@ export function AppHeader() {
 					</div>
 				</div>
 			)}
-		</section>
+		</header>
 	);
 }

@@ -1,17 +1,25 @@
 .board-filter {
+	padding-top: 10px;
 	z-index: 1;
 	position: absolute;
 	margin-right: 10px;
-	top: 15vh;
+	top: 9.7%;
 	right: 0;
-	opacity: 0.8;
-	background-color: whitesmoke;
+	background-color: white;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-	width: 12vw;
-	min-height: 40vh;
-	max-height: 80vh;
+	width: 20vw;
+	height: 85vh;
+
+	.modal-top button {
+		font-size: 18px;
+	}
+
+	hr {
+		position: absolute;
+		top: 5%;
+	}
 
 	h2 {
 		text-align: center;
@@ -24,7 +32,7 @@
 	}
 
 	form.filter-form {
-		height: 30vh;
+		height: 80vh;
 		padding: 20px;
 	}
 

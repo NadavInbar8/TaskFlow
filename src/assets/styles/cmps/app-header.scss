@@ -7,13 +7,19 @@
 	font-weight: 700;
 	background-color: rgba(0, 0, 0, 0.45);
 	color: #ffff;
+
 	.main-header {
-		display: flex;
+		margin-right: 10px;
+		justify-content: space-between;
 		width: 100vw;
+		align-items: center;
 	}
 
+	.left-container {
+		gap: 30px;
+	}
 	.logo-container {
-		margin: 0 30px;
+		margin-left: 30px;
 	}
 	img {
 		width: 10rem;
@@ -26,14 +32,8 @@
 		margin-right: 10px;
 	}
 
-	nav {
-		margin-right: 10px;
-		justify-content: space-between;
-		width: 100vw;
-		align-items: center;
-	}
-
 	ul {
+		padding: 0;
 		display: flex;
 		margin: 0;
 	}
@@ -97,7 +97,6 @@
 
 	.create-li {
 		position: relative;
-		// margin-left: 150px;
 		span {
 			background-color: rgba(0, 0, 0, 0.1);
 			padding: 8px;
