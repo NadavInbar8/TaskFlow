@@ -22,9 +22,7 @@ export const WorkSpace = () => {
 					<li>Boards</li>
 					<li>Templates</li>
 					<li>Home</li>
-					<li>
-						work-space <button>+</button>
-					</li>
+					<li>work-space</li>
 				</ul>
 
 				<ul>
@@ -40,7 +38,7 @@ export const WorkSpace = () => {
 				<div className='boards'>
 					<div className='headline'>
 						<img className='usersvg' src={usersvg} alt='' />
-						<h1 className='headling'> Workspaces boards</h1>
+						<h1 className='headline'> Workspaces boards</h1>
 					</div>
 					<div className='boards-container'>
 						{boards.length ? (
@@ -48,6 +46,7 @@ export const WorkSpace = () => {
 								return (
 									<div key={board._id} className='board-preview'>
 										<Link to={`/board/${board._id}`}>
+											<h3 className='workspace-board-title'>{board.title}</h3>
 											<img src={boardPreview} alt='' />
 										</Link>
 									</div>

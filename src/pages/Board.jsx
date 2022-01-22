@@ -361,12 +361,12 @@ export const Board = () => {
 							<div className='board-header-div dashboard flex-center'>
 								<span>Dashboard</span>
 							</div>
-							<div className='board-header-div filter-div flex-center'>
-								<span
-									className='flex-center'
-									onClick={() => {
-										toggleModal('filter');
-									}}>
+							<div
+								className='board-header-div filter-div flex-center'
+								onClick={() => {
+									toggleModal('filter');
+								}}>
+								<span className='flex-center'>
 									<img src={filterSvg} alt='filter-img' />
 									Filter
 								</span>
