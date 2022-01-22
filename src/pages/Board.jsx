@@ -1,16 +1,28 @@
+// React
 import React, { useEffect, useState } from 'react';
 import { CardDetails } from './CardDetails.jsx';
 import { Route, Switch } from 'react-router';
 import { Link, useParams } from 'react-router-dom';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
+
+// Redux
 import { loadBoard, addCard, updateBoard } from '../store/board.action.js';
+
+// Cmps
 import { BoardFilter } from '../cmps/Boardfilter.jsx';
 import { utilService } from '../services/util.service.js';
+import Group from '../cmps/Group.jsx';
+
+// Services
 import addUser from '../assets/imgs/add-user.png';
+
+// Libs
 import { over } from 'lodash';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import initialData from './initialData.js';
-import Group from '../cmps/Group.jsx';
+
+// Images
+import filterSvg from '../assets/imgs/filter-svgs/filter.svg';
 
 export const Board = () => {
   const { boardId } = useParams();
@@ -41,7 +53,7 @@ export const Board = () => {
   const dnd = { tasks: {}, columns: {}, columnOrder: [] };
 
   ///// Tom useStates /////
-
+  const [width, setWidth] = useState('');
   const [boardTitleInput, setBoardTitleInput] = useState('');
 
   const toggleStarring = () => {
@@ -53,12 +65,11 @@ export const Board = () => {
 
   ///// useEffect /////
 
-  useEffect(() => {
-    console.log('nadav');
-  }, [filteredBoard]);
+  useEffect(() => {}, [filteredBoard]);
 
   useEffect(() => {
     dispatch(loadBoard(boardId));
+    if (board) setBoardTitleInput(board.title);
   }, []);
 
   useEffect(() => {
@@ -90,6 +101,12 @@ export const Board = () => {
   }, [forceRender]);
 
   useEffect(() => {}, [board]);
+
+  useEffect(() => {
+    if (board) setBoardTitleInput(board.title);
+    if (board) setWidth(board.title.length - 2 + 'ch');
+  }, [board]);
+
   function handleChange({ target }) {
     const value = target.value;
     setNewCard({ ...newCard, title: value });
@@ -106,12 +123,18 @@ export const Board = () => {
     } else {
       name = name.toLowerCase();
       const newFilteredBoard = board;
+      // for (var i = 0; i < board.groups.length; i++) {
+      // 	for (var j = 0; j < board.groups[i].tasks.length; j++) {
+      // 		if (board.groups[i].tasks[j] !== newFilteredBoard.groups[i].tasks[j]) console.log('different');
+      // 	}
+      // }
+      // newFilteredBoard.groups = newFilteredBoard.groups.map((group) =>
+      // 	group.tasks.filter((task) => task.title.toLowerCase().includes(name))
+      // );
       const filteredGroups = newFilteredBoard.groups.filter((group) =>
         group.title.toLowerCase().includes(name)
       );
-      // const filteredTasks = filteredBoard.groups.forEach((group) =>
-      // 	group.tasks.filter((task) => task.title.toLowerCase().includes(name.toLowerCase()))
-      // );
+
       // filteredBoard.groups = filteredGroups.forEach(group);
       newFilteredBoard.groups = filteredGroups;
       setFilteredBoard(newFilteredBoard);
@@ -128,6 +151,7 @@ export const Board = () => {
     console.log(target);
     // const field = target.name;
     const value = target.value;
+    setWidth(value.length + 'ch');
     setBoardTitleInput(value);
   }
 
@@ -324,7 +348,14 @@ export const Board = () => {
         <div>
           <header className='board-header'>
             <div className='header-left-container flex-center'>
-              <h1>{board.title}</h1>
+              <input
+                style={{ width }}
+                onBlur={updateBoardTitle}
+                onChange={handleBoardTitleChange}
+                name='title'
+                value={boardTitleInput}
+                type='text-area'
+              />
               <div className='board-header-div star-container flex-center'>
                 <span
                   onClick={() => {
@@ -335,16 +366,17 @@ export const Board = () => {
                   &#9734;
                 </span>
               </div>
-            </div>
-            <div className='users-div flex-center'>
-              <div className='member-icons'>
-                <div className='member-icon'>OK</div>
-                <div className='member-icon'>NI</div>
-                <div className='member-icon'>TR</div>
-              </div>
-              <div className='board-header-div invite-btn flex-center'>
-                <img className='add-user-img' src={addUser} alt='' />
-                <span>Invite</span>
+
+              <div className='users-div flex-center'>
+                <div className='member-icons'>
+                  <div className='member-icon'>OK</div>
+                  <div className='member-icon'>NI</div>
+                  <div className='member-icon'>TR</div>
+                </div>
+                <div className='board-header-div invite-btn flex-center'>
+                  <img className='add-user-img' src={addUser} alt='' />
+                  <span>Invite</span>
+                </div>
               </div>
             </div>
             <div className='actions-div flex'>
@@ -357,6 +389,7 @@ export const Board = () => {
                     toggleModal('filter');
                   }}
                 >
+                  <img src={filterSvg} alt='filter-img' />
                   Filter
                 </span>
               </div>
@@ -436,7 +469,9 @@ export const Board = () => {
               </div>
             )}
           </div>
-          {filterModal && <BoardFilter FilterBoard={FilterBoard} />}
+          {filterModal && (
+            <BoardFilter FilterBoard={FilterBoard} toggleModal={toggleModal} />
+          )}
           <Route
             component={CardDetails}
             path={`/board/:boardId/:cardId/:listId`}

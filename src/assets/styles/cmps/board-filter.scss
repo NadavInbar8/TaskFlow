@@ -1,17 +1,33 @@
 .board-filter {
+	padding-top: 10px;
 	z-index: 1;
 	position: absolute;
 	margin-right: 10px;
-	top: 15vh;
+	top: 9.7%;
 	right: 0;
-	opacity: 0.8;
-	background-color: whitesmoke;
+	background-color: white;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-	width: 12vw;
-	min-height: 40vh;
-	max-height: 80vh;
+	align-items: flex-start;
+	width: 20vw;
+	height: 85vh;
+	min-width: 300px;
+
+	.modal-top button {
+		font-size: 18px;
+	}
+
+	h5 {
+		margin: 7.5px 0 7.5px;
+	}
+
+	hr {
+		position: absolute;
+		margin-left: 2.5%;
+		width: 95%;
+		top: 5%;
+	}
 
 	h2 {
 		text-align: center;
@@ -24,15 +40,79 @@
 	}
 
 	form.filter-form {
-		height: 30vh;
+		height: 80vh;
+		width: 100%;
 		padding: 20px;
 	}
 
-	input {
+	span {
+		margin-left: 10px;
+		margin-bottom: 15px;
+	}
+
+	.user-avatar {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		// font-size: larger;
+		height: 24px;
+		width: 24px;
+		background-color: darkcyan;
+		color: $b1;
+		border-radius: 25em;
+		font-size: 0.8rem;
+	}
+
+	.input-text {
 		margin: 10px 0;
+		height: 30px;
+		width: 70%;
+		margin-right: 5px;
+	}
+
+	.checkbox {
+		margin-right: 20px;
 	}
 
 	select {
-		margin-top: 10px;
+		margin: 15px 0;
+		height: 35px;
+		width: 80%;
+		border-radius: 8px;
+		background-color: #eaecf0;
+		border: none;
+		padding-left: 10px;
+		color: $b1;
+	}
+
+	.label-div {
+		width: 93%;
+		height: 20px;
+		margin-bottom: 10px;
+	}
+
+	.inner-label {
+		width: 100%;
+		height: 100%;
+	}
+
+	.green-label {
+		background-color: green;
+	}
+
+	.red-label {
+		background-color: red;
+	}
+
+	.blue-label {
+		background-color: blue;
+	}
+
+	.yellow-label {
+		background-color: gold;
+	}
+
+	.pink-label {
+		background-color: pink;
 	}
 }

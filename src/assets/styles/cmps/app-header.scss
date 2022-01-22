@@ -7,13 +7,19 @@
 	font-weight: 700;
 	background-color: rgba(0, 0, 0, 0.45);
 	color: #ffff;
+
 	.main-header {
-		display: flex;
+		margin-right: 10px;
+		justify-content: space-between;
 		width: 100vw;
+		align-items: center;
 	}
 
+	.left-container {
+		gap: 30px;
+	}
 	.logo-container {
-		margin: 0 30px;
+		margin-left: 30px;
 	}
 	img {
 		width: 10rem;
@@ -26,14 +32,8 @@
 		margin-right: 10px;
 	}
 
-	nav {
-		margin-right: 30px;
-		justify-content: space-between;
-		width: 85vw;
-		align-items: center;
-	}
-
 	ul {
+		padding: 0;
 		display: flex;
 		margin: 0;
 	}
@@ -97,10 +97,15 @@
 
 	.create-li {
 		position: relative;
-		margin-left: 150px;
-		// background-color: rgba(0, 0, 0, 0.2);
-		// padding: 4px;
-		// border-radius: 4px;
+		span {
+			background-color: rgba(0, 0, 0, 0.1);
+			padding: 8px;
+			border-radius: 8px;
+		}
+
+		span:hover {
+			background-color: rgba(0, 0, 0, 0.4);
+		}
 	}
 
 	.create-modal {
@@ -119,15 +124,18 @@
 		top: 110%;
 		padding: 10px;
 		border-radius: 8px;
+		font-size: 1.2rem;
 	}
 
 	.create-modal span {
 		cursor: pointer;
+		background-color: inherit;
 	}
 
 	.create-modal span:hover {
 		opacity: 0.5;
 		transition: 0.2s ease-in-out all;
+		background-color: inherit;
 	}
 
 	// User
@@ -145,19 +153,18 @@
 		cursor: pointer;
 		height: 32px;
 		width: 32px;
-		font-size: 12;
-		background-color: rgb(218, 218, 218);
+		background-color: royalblue;
 		border-radius: 50%;
-		color: black;
+		color: $b1;
 	}
 
-	.user-avatar-btn:hover {
-		background-color: rgb(190, 190, 190);
-		transition: 0.2s ease-in-out all;
-	}
-	.user-avatar-btn:active {
-		background-color: rgb(151, 150, 150);
-	}
+	// .user-avatar-btn:hover {
+	// 	background-color: rgb(190, 190, 190);
+	// 	transition: 0.2s ease-in-out all;
+	// }
+	// .user-avatar-btn:active {
+	// 	background-color: rgb(151, 150, 150);
+	// }
 
 	.user-modal {
 		z-index: 10;
@@ -169,9 +176,11 @@
 		width: fit-content;
 		position: absolute;
 		align-items: flex-start;
-		// right: 2%;
-		top: 130%;
+		right: 0.5%;
+		top: 6%;
 		padding: 10px;
 		border-radius: 8px;
+		font-size: 1rem;
+		font-weight: normal;
 	}
 }
