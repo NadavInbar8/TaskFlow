@@ -190,6 +190,7 @@ export const CardDetails = () => {
 
   // TOGLLING ALL MODALS
   function toggleModal(type) {
+    // console.log('hi');
     type === 'member' && toggleMemeberModal(!memberModal);
     type === 'labels' && toggleLabelsModal(!labelsModal);
     type === 'checklist' && toggleChecklistModal(!checklistModal);
@@ -208,7 +209,15 @@ export const CardDetails = () => {
             {card.cover && (
               <section
                 className={card.cover + '-cover' + ' ' + 'card-details-cover'}
-              ></section>
+              >
+                <span
+                  onClick={() => {
+                    toggleModal('cover');
+                  }}
+                >
+                  COVER
+                </span>
+              </section>
             )}
             <div className='card-details-layout'>
               <div className='card-details-top'>
