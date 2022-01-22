@@ -48,8 +48,49 @@ export function Attachment() {
   return <div className='details-modal Attachment'>Attachment</div>;
 }
 
-export function Cover() {
-  return <div className='details-modal Cover'>Cover</div>;
+export function Cover({ addCover, toggleModal }) {
+  const covers = [
+    'green',
+    'yellow',
+    'blue',
+    'dark-blue',
+    'purple',
+    'pink',
+    'orange',
+    'red',
+    'brown',
+    'light-blue',
+    'turkiz',
+  ];
+  function saveCover(cover) {
+    addCover(cover);
+    toggleModal('cover');
+  }
+
+  return (
+    <div className='details-modal Cover'>
+      <section className='cover-modal-layout'>
+        <div className='cover-modal-top'>
+          <span> </span>
+          <h3>Cover</h3>
+          <button>x</button>
+        </div>
+        <hr />
+        <h3>Colors</h3>
+        <section className='cover-modal-colors'>
+          {covers.map((cover, idx) => {
+            return (
+              <div
+                onClick={() => saveCover(cover)}
+                key={idx}
+                className={cover + '-cover' + ' ' + 'cover-to-show'}
+              ></div>
+            );
+          })}
+        </section>
+      </section>
+    </div>
+  );
 }
 
 export function Labels({ addLabel, toggleModal }) {

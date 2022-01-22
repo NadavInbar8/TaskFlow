@@ -36,7 +36,6 @@ async function getById(boardId) {
 }
 
 async function save(board) {
-  console.log(board);
   if (!board) {
     const emptyBoard = _getEmptyBoard();
     return storageService.post('board', emptyBoard);

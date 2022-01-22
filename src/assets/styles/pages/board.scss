@@ -1,134 +1,163 @@
 .board {
-	overflow-x: auto;
-	margin: 0 30px;
+  overflow-x: auto;
+  margin: 0 30px;
 }
 .board-list {
-	justify-content: center;
-	align-items: center;
-	background-color: rgb(216, 216, 216);
-	border-radius: 4px;
-	margin: 8px;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(216, 216, 216);
+  border-radius: 4px;
+  margin: 8px;
 
-	ul {
-		padding: 0;
-		margin: 0;
-	}
-	.board-card {
-		background-color: whitesmoke;
-		margin: 8px;
-		padding: 8px;
-		border-radius: 4px;
-		position: relative;
-	}
+  ul {
+    padding: 0;
+    margin: 0;
+  }
+  .board-card {
+    background-color: whitesmoke;
+    margin: 8px;
+    padding: 8px;
+    border-radius: 4px;
+    position: relative;
+  }
 }
 
 // Header
 .board-header {
-	background: #0000003d;
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	padding: 0 30px;
-	max-height: 50px;
-	align-items: center;
+  background: #0000003d;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0 30px;
+  max-height: 50px;
+  align-items: center;
 
-	input {
-		width: fit-content;
-		height: 32px;
-		border-radius: 7px;
-		background-color: inherit;
-		border: none;
-		color: #506988;
-		font-size: 2rem;
-		font-weight: 600;
-		font-family: segoe;
-		padding-bottom: 4px;
-	}
+  input {
+    width: fit-content;
+    height: 32px;
+    border-radius: 7px;
+    background-color: inherit;
+    border: none;
+    color: #506988;
+    font-size: 2rem;
+    font-weight: 600;
+    font-family: segoe;
+    padding-bottom: 4px;
+  }
 
-	input:focus {
-		background-color: #ffff;
-		outline: none;
-	}
+  input:focus {
+    background-color: #ffff;
+    outline: none;
+  }
 
-	.member-icons {
-		display: flex;
-		flex-direction: row;
-	}
-	.member-icon {
-		margin-left: 10px;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		// font-size: larger;
-		cursor: pointer;
-		height: 28px;
-		width: 28px;
-		background-color: rgb(255, 86, 86);
-		color: whitesmoke;
-		border-radius: 25em;
-	}
+  .member-icons {
+    display: flex;
+    flex-direction: row;
+  }
+  .member-icon {
+    margin-left: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // font-size: larger;
+    cursor: pointer;
+    height: 28px;
+    width: 28px;
+    background-color: rgb(255, 86, 86);
+    color: whitesmoke;
+    border-radius: 25em;
+  }
 
-	.member-icon:first-child {
-		background-color: royalblue;
-		color: $b1;
-	}
+  .member-icon:first-child {
+    background-color: royalblue;
+    color: $b1;
+  }
 
-	div.star-container {
-		font-size: 24px;
-		min-width: none;
-		min-height: none;
-	}
+  div.star-container {
+    font-size: 24px;
+    min-width: none;
+    min-height: none;
+  }
 
-	.star {
-		padding: 6px;
-		color: none;
-	}
-	.star:hover {
-		font-size: 28px;
-		color: rgb(242, 214, 0);
-	}
+  .star {
+    padding: 6px;
+    color: none;
+  }
+  .star:hover {
+    font-size: 28px;
+    color: rgb(242, 214, 0);
+  }
 
-	.starOn {
-		font-size: 28px;
-		padding: 6px;
-		color: rgb(242, 214, 0);
-	}
+  .starOn {
+    font-size: 28px;
+    padding: 6px;
+    color: rgb(242, 214, 0);
+  }
 
-	.starOn:hover {
-		color: none;
-	}
+  .starOn:hover {
+    color: none;
+  }
 
-	.invite-btn {
-		height: 35px;
-		width: 70px;
-		border-radius: 8px;
-		border-color: none;
-	}
+  .invite-btn {
+    height: 35px;
+    width: 70px;
+    border-radius: 8px;
+    border-color: none;
+  }
 
-	.board-header-div {
-		background-color: rgba(218, 218, 218, 0.267);
-		cursor: pointer;
-		min-height: 40px;
-		min-width: 40px;
-		border-radius: 8px;
-		margin-left: 10px;
-	}
+  .board-header-div {
+    background-color: rgba(218, 218, 218, 0.267);
+    cursor: pointer;
+    min-height: 40px;
+    min-width: 40px;
+    border-radius: 8px;
+    margin-left: 10px;
+  }
 
-	.add-user-img {
-		height: 15px;
-		width: fit-content;
-	}
+  .add-user-img {
+    height: 15px;
+    width: fit-content;
+  }
 }
 
 // Modals
 .add-card {
-	padding: 4px;
+  padding: 4px;
 }
 .edit-modal {
-	background-color: hotpink;
-	height: 200px;
-	position: relative;
-	top: 0px;
-	right: -10px;
-	z-index: 10;
+  background-color: hotpink;
+  height: 200px;
+  position: relative;
+  top: 0px;
+  right: -10px;
+  z-index: 10;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  // backdrop-filter: blur(1px);
+  z-index: 5;
+}
+
+.pink {
+  background-color: pink;
+}
+
+////////////// DELETE AFTER DONE ////////////////////////
+
+.Container {
+  margin: 8px;
+  border: 2px solid lightgray;
+  border-radius: 4px;
+}
+.Title {
+  padding: 8px;
+}
+.TaskList {
+  padding: 8px;
 }
