@@ -1,16 +1,28 @@
+// React
 import React, {useEffect, useState} from 'react';
 import {CardDetails} from './CardDetails.jsx';
 import {Route, Switch} from 'react-router';
 import {Link, useParams} from 'react-router-dom';
 import {useSelector, useDispatch, shallowEqual} from 'react-redux';
+
+// Redux
 import {loadBoard, addCard, updateBoard} from '../store/board.action.js';
+
+// Cmps
 import {BoardFilter} from '../cmps/Boardfilter.jsx';
 import {utilService} from '../services/util.service.js';
+import Group from '../cmps/Group.jsx';
+
+// Services
 import addUser from '../assets/imgs/add-user.png';
+
+// Libs
 import {over} from 'lodash';
 import {DragDropContext, Droppable} from 'react-beautiful-dnd';
 import initialData from './initialData.js';
-import Group from '../cmps/Group.jsx';
+
+// Images
+import filterSvg from '../assets/imgs/filter-svgs/filter.svg';
 
 export const Board = () => {
 	const {boardId} = useParams();
@@ -364,6 +376,7 @@ export const Board = () => {
 									onClick={() => {
 										toggleModal('filter');
 									}}>
+									<img src={filterSvg} alt='filter-img' />
 									Filter
 								</span>
 							</div>

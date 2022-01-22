@@ -1,3 +1,5 @@
+// Flex Helpers
+
 .flex {
 	display: flex;
 }
@@ -16,6 +18,14 @@
 .flex-btn {
 	display: flex;
 	justify-content: center;
+	align-items: center;
+}
+
+.justify-center {
+	justify-content: center;
+}
+
+.align-center {
 	align-items: center;
 }
 
