@@ -1,496 +1,349 @@
 // React
-import React, { useEffect, useState } from 'react';
-import { CardDetails } from './CardDetails.jsx';
-import { Route, Switch } from 'react-router';
-import { Link, useParams } from 'react-router-dom';
-import { useSelector, useDispatch, shallowEqual } from 'react-redux';
+import React, {useEffect, useState} from 'react';
+import {CardDetails} from './CardDetails.jsx';
+import {Route, Switch} from 'react-router';
+import {Link, useParams} from 'react-router-dom';
+import {useSelector, useDispatch, shallowEqual} from 'react-redux';
 
 // Redux
-import { loadBoard, addCard, updateBoard } from '../store/board.action.js';
+import {loadBoard, addCard, updateBoard} from '../store/board.action.js';
 
 // Cmps
-import { BoardFilter } from '../cmps/boardCmps/BoardFilter.jsx';
-import { BoardMenu } from '../cmps/boardCmps/BoardMenu.jsx';
+import {BoardHeader} from '../cmps/boardCmps/BoardHeader.jsx';
 import Group from '../cmps/Group.jsx';
 
 // Utils
-import { utilService } from '../services/util.service.js';
-
-// Services
-import addUser from '../assets/imgs/add-user.png';
+import {utilService} from '../services/util.service.js';
 
 // Libs
-import { over } from 'lodash';
-import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import {over} from 'lodash';
+import {DragDropContext, Droppable} from 'react-beautiful-dnd';
 import initialData from './initialData.js';
 
 // Images
-import filterSvg from '../assets/imgs/filter-svgs/filter.svg';
 
 export const Board = () => {
-  const { boardId } = useParams();
-  const { board } = useSelector(
-    (state) => ({ board: state.boardModule.currBoard }),
-    shallowEqual
-  );
-  const dispatch = useDispatch();
+	const {boardId} = useParams();
+	const {board} = useSelector((state) => ({board: state.boardModule.currBoard}), shallowEqual);
+	const dispatch = useDispatch();
 
-  ///// useStates /////
-  const [filteredBoard, setFilteredBoard] = useState({});
-  const [selectedCard, setSelectedCard] = useState({});
-  const [newList, setNewList] = useState(false);
-  const [listName, setListName] = useState('');
-  const [newCard, setNewCard] = useState({});
-  const [overlay, setOverlay] = useState(false);
-  const [forceRender, setForceRender] = useState(true);
+	///// useStates /////
+	const [filteredBoard, setFilteredBoard] = useState({});
+	const [selectedCard, setSelectedCard] = useState({});
+	const [newList, setNewList] = useState(false);
+	const [listName, setListName] = useState('');
+	const [newCard, setNewCard] = useState({});
+	const [overlay, setOverlay] = useState(false);
+	const [forceRender, setForceRender] = useState(true);
 
-  ////// modal stuff /////
-  const [editModal, setEditModal] = useState(false);
-  const [memberModal, setMemeberModal] = useState(false);
-  const [labelsModal, setLabelsModal] = useState(false);
-  const [datesModal, setDatesModal] = useState(false);
-  const [filterModal, setFilterModal] = useState(false);
-  const [starStatus, setStarStatus] = useState(false);
-  const [menuModal, setMenuModal] = useState(false);
+	////// modal stuff /////
+	const [editModal, setEditModal] = useState(false);
+	const [memberModal, setMemeberModal] = useState(false);
+	const [labelsModal, setLabelsModal] = useState(false);
+	const [datesModal, setDatesModal] = useState(false);
 
-  const [data, setData] = useState({ tasks: {}, columns: {}, columnOrder: [] });
-  const dnd = { tasks: {}, columns: {}, columnOrder: [] };
+	const [data, setData] = useState({tasks: {}, columns: {}, columnOrder: []});
+	const dnd = {tasks: {}, columns: {}, columnOrder: []};
 
-  ///// Tom useStates /////
-  const [width, setWidth] = useState('');
-  const [boardTitleInput, setBoardTitleInput] = useState('');
-  const [cover, setCover] = useState(false);
+	///// Tom useStates /////
+	const [cover, setCover] = useState(false);
 
-  const toggleStarring = () => {
-    setStarStatus(!starStatus);
-  };
-  const toggleModal = (type) => {
-    switch (type) {
-      case 'filter':
-        setFilterModal(!filterModal);
-        setMenuModal(false);
-        break;
-      case 'menu':
-        setMenuModal(!menuModal);
-        setFilterModal(false);
-        break;
-      default:
-    }
-  };
+	///// useEffect /////
 
-  ///// useEffect /////
+	useEffect(() => {}, [filteredBoard]);
 
-  useEffect(() => {}, [filteredBoard]);
+	useEffect(() => {}, [board]);
 
-  useEffect(() => {
-    dispatch(loadBoard(boardId));
-    if (board) setBoardTitleInput(board.title);
-  }, []);
+	useEffect(() => {
+		dispatch(loadBoard(boardId));
+	}, []);
 
-  useEffect(() => {
-    if (board) {
-      const boardData = [...board.groups];
-      for (let i = 0; i < boardData.length; i++) {
-        dnd.columns[boardData[i].id] = boardData[i];
-        dnd.columns[boardData[i].id]['taskIds'] = [];
-        for (let j = 0; j < boardData[i].tasks.length; j++) {
-          dnd.columns[boardData[i].id]['taskIds'].push(
-            boardData[i].tasks[j].id
-          );
-        }
-      }
-      for (let k = 0; k < boardData.length; k++) {
-        for (let h = 0; h < boardData[k].tasks.length; h++) {
-          dnd.tasks[boardData[k].tasks[h].id] = boardData[k].tasks[h];
-        }
-      }
-      for (const col in dnd.columns) {
-        dnd.columnOrder.push(col);
-      }
-    }
-    setData(dnd);
-  }, [board]);
+	useEffect(() => {
+		if (board) {
+			const boardData = [...board.groups];
+			for (let i = 0; i < boardData.length; i++) {
+				dnd.columns[boardData[i].id] = boardData[i];
+				dnd.columns[boardData[i].id]['taskIds'] = [];
+				for (let j = 0; j < boardData[i].tasks.length; j++) {
+					dnd.columns[boardData[i].id]['taskIds'].push(boardData[i].tasks[j].id);
+				}
+			}
+			for (let k = 0; k < boardData.length; k++) {
+				for (let h = 0; h < boardData[k].tasks.length; h++) {
+					dnd.tasks[boardData[k].tasks[h].id] = boardData[k].tasks[h];
+				}
+			}
+			for (const col in dnd.columns) {
+				dnd.columnOrder.push(col);
+			}
+		}
 
-  useEffect(() => {
-    dispatch(loadBoard(boardId));
-  }, [forceRender]);
+		setData(dnd);
+	}, [board]);
 
-  useEffect(() => {}, [board]);
+	useEffect(() => {
+		dispatch(loadBoard(boardId));
+	}, [forceRender]);
 
-  useEffect(() => {
-    if (board) setBoardTitleInput(board.title);
-    if (board) setWidth(board.title.length - 2 + 'ch');
-  }, [board]);
+	function handleChange({target}) {
+		const value = target.value;
+		setNewCard({...newCard, title: value});
+	}
 
-  function handleChange({ target }) {
-    const value = target.value;
-    setNewCard({ ...newCard, title: value });
-  }
+	///// Functions /////
 
-  ///// Functions /////
+	function FilterBoard(ev, filter = null) {
+		ev.preventDefault();
 
-  function FilterBoard(ev, filter = null) {
-    ev.preventDefault();
+		let {name} = filter;
+		if (filter.name === '') {
+			setForceRender(!forceRender);
+		} else {
+			name = name.toLowerCase();
+			const newFilteredBoard = board;
+			// for (var i = 0; i < board.groups.length; i++) {
+			// 	for (var j = 0; j < board.groups[i].tasks.length; j++) {
+			// 		if (board.groups[i].tasks[j] !== newFilteredBoard.groups[i].tasks[j]) console.log('different');
+			// 	}
+			// }
+			// newFilteredBoard.groups = newFilteredBoard.groups.map((group) =>
+			// 	group.tasks.filter((task) => task.title.toLowerCase().includes(name))
+			// );
+			const filteredGroups = newFilteredBoard.groups.filter((group) => group.title.toLowerCase().includes(name));
 
-    let { name } = filter;
-    if (filter.name === '') {
-      setForceRender(!forceRender);
-    } else {
-      name = name.toLowerCase();
-      const newFilteredBoard = board;
-      // for (var i = 0; i < board.groups.length; i++) {
-      // 	for (var j = 0; j < board.groups[i].tasks.length; j++) {
-      // 		if (board.groups[i].tasks[j] !== newFilteredBoard.groups[i].tasks[j]) console.log('different');
-      // 	}
-      // }
-      // newFilteredBoard.groups = newFilteredBoard.groups.map((group) =>
-      // 	group.tasks.filter((task) => task.title.toLowerCase().includes(name))
-      // );
-      const filteredGroups = newFilteredBoard.groups.filter((group) =>
-        group.title.toLowerCase().includes(name)
-      );
+			// filteredBoard.groups = filteredGroups.forEach(group);
+			newFilteredBoard.groups = filteredGroups;
+			setFilteredBoard(newFilteredBoard);
+		}
+	}
 
-      // filteredBoard.groups = filteredGroups.forEach(group);
-      newFilteredBoard.groups = filteredGroups;
-      setFilteredBoard(newFilteredBoard);
-    }
-  }
+	const editNewCard = (list) => {
+		setNewCard({...newCard, id: utilService.makeId()});
+		list.editMode = true;
+	};
 
-  const editNewCard = (list) => {
-    setNewCard({ ...newCard, id: utilService.makeId() });
-    list.editMode = true;
-  };
+	// Tom funcs
 
-  // Tom funcs
+	const addCover = (cover) => {
+		setCover(cover);
+	};
 
-  function handleBoardTitleChange({ target }) {
-    if (!target) return;
-    console.log(target);
-    // const field = target.name;
-    const value = target.value;
-    setWidth(value.length + 'ch');
-    setBoardTitleInput(value);
-  }
+	//
 
-  const addCover = (cover) => {
-    setCover(cover);
-  };
+	const addNewCard = (list) => {
+		let listIdx = board.groups.findIndex((group) => group.id === list.id);
+		list.tasks.push(newCard);
+		const updatedBoard = {...board};
+		updatedBoard.groups[listIdx] = list;
+		updatedBoard.groups[listIdx].editMode = false;
+		dispatch(updateBoard(updatedBoard));
+	};
 
-  const updateBoardTitle = () => {
-    const updatedBoard = { ...board };
-    updatedBoard.title = boardTitleInput;
-    dispatch(updateBoard(updatedBoard));
-    setForceRender(!forceRender);
-  };
+	const openEditModal = (card) => {
+		toggleEditModal();
+		setSelectedCard(card);
+	};
 
-  const addNewCard = (list) => {
-    let listIdx = board.groups.findIndex((group) => group.id === list.id);
-    list.tasks.push(newCard);
-    const updatedBoard = { ...board };
-    updatedBoard.groups[listIdx] = list;
-    updatedBoard.groups[listIdx].editMode = false;
-    dispatch(updateBoard(updatedBoard));
-  };
+	const closeEditModal = () => {
+		setSelectedCard({});
+		setEditModal(false);
+		toggleEditModal();
+	};
 
-  const openEditModal = (card) => {
-    toggleEditModal();
-    setSelectedCard(card);
-  };
+	const handleNewList = ({target}) => {
+		const value = target.value;
+		setListName(value);
+	};
 
-  const closeEditModal = () => {
-    setSelectedCard({});
-    setEditModal(false);
-    toggleEditModal();
-  };
+	const addNewGroup = () => {
+		const updatedBoard = {...board};
+		const newGroup = {
+			id: utilService.makeId(),
+			style: {},
+			tasks: [],
+			title: listName,
+		};
+		updatedBoard.groups.push(newGroup);
+		dispatch(updateBoard(updatedBoard));
+		setNewList(false);
+	};
 
-  const handleNewList = ({ target }) => {
-    const value = target.value;
-    setListName(value);
-  };
+	const deleteList = (list) => {
+		const updatedBoard = {...board};
+		updatedBoard.groups = updatedBoard.groups.filter((group) => group.id !== list.id);
+		dispatch(updateBoard(updatedBoard));
+		setForceRender(!forceRender);
+	};
 
-  const addNewGroup = () => {
-    const updatedBoard = { ...board };
-    const newGroup = {
-      id: utilService.makeId(),
-      style: {},
-      tasks: [],
-      title: listName,
-    };
-    updatedBoard.groups.push(newGroup);
-    dispatch(updateBoard(updatedBoard));
-    setNewList(false);
-  };
+	const editCard = (list, card) => {
+		const editedCard = {...card, title: newCard.title};
+		setSelectedCard(editedCard);
+		let listIdx = board.groups.findIndex((group) => group.id === list.id);
+		let cardIdx = list.tasks.findIndex((task) => task.id === card.id);
+		const updatedBoard = {...board};
+		updatedBoard.groups[listIdx].tasks[cardIdx] = editedCard;
+		dispatch(updateBoard(updatedBoard));
+		closeEditModal(card);
+	};
 
-  const deleteList = (list) => {
-    const updatedBoard = { ...board };
-    updatedBoard.groups = updatedBoard.groups.filter(
-      (group) => group.id !== list.id
-    );
-    dispatch(updateBoard(updatedBoard));
-    setForceRender(!forceRender);
-  };
+	const toggleEditModal = () => {
+		setOverlay(!overlay);
+	};
 
-  const editCard = (list, card) => {
-    const editedCard = { ...card, title: newCard.title };
-    setSelectedCard(editedCard);
-    let listIdx = board.groups.findIndex((group) => group.id === list.id);
-    let cardIdx = list.tasks.findIndex((task) => task.id === card.id);
-    const updatedBoard = { ...board };
-    updatedBoard.groups[listIdx].tasks[cardIdx] = editedCard;
-    dispatch(updateBoard(updatedBoard));
-    closeEditModal(card);
-  };
+	const copyCard = (list, card) => {
+		const updatedBoard = {...board};
+		const copiedCard = {...card, id: utilService.makeId()};
+		let listIdx = updatedBoard.groups.findIndex((group) => group.id === list.id);
+		updatedBoard.groups[listIdx].tasks.push(copiedCard);
+		closeEditModal();
+		dispatch(updateBoard(updatedBoard));
+		setForceRender(!forceRender);
+	};
 
-  const toggleEditModal = () => {
-    setOverlay(!overlay);
-  };
+	const deleteCard = (list, card) => {
+		const updatedBoard = {...board};
+		let listIdx = updatedBoard.groups.findIndex((group) => group.id === list.id);
+		updatedBoard.groups[listIdx].tasks = updatedBoard.groups[listIdx].tasks.filter((task) => task.id !== card.id);
+		closeEditModal();
+		dispatch(updateBoard(updatedBoard));
+		setForceRender(!forceRender);
+	};
 
-  const copyCard = (list, card) => {
-    const updatedBoard = { ...board };
-    const copiedCard = { ...card, id: utilService.makeId() };
-    let listIdx = updatedBoard.groups.findIndex(
-      (group) => group.id === list.id
-    );
-    updatedBoard.groups[listIdx].tasks.push(copiedCard);
-    closeEditModal();
-    dispatch(updateBoard(updatedBoard));
-    setForceRender(!forceRender);
-  };
+	const onDragEnd = (res) => {
+		const {destination, source, draggableId, type} = res;
 
-  const deleteCard = (list, card) => {
-    const updatedBoard = { ...board };
-    let listIdx = updatedBoard.groups.findIndex(
-      (group) => group.id === list.id
-    );
-    updatedBoard.groups[listIdx].tasks = updatedBoard.groups[
-      listIdx
-    ].tasks.filter((task) => task.id !== card.id);
-    closeEditModal();
-    dispatch(updateBoard(updatedBoard));
-    setForceRender(!forceRender);
-  };
+		if (!destination) return;
+		if (destination.droppableId === source.droppableId && destination.index === source.index) {
+			return;
+		}
 
-  const onDragEnd = (res) => {
-    const { destination, source, draggableId, type } = res;
+		if (type === 'column') {
+			const newColumnOrder = [...data.columnOrder];
+			newColumnOrder.splice(source.index, 1);
+			newColumnOrder.splice(destination.index, 0, draggableId);
 
-    if (!destination) return;
-    if (
-      destination.droppableId === source.droppableId &&
-      destination.index === source.index
-    ) {
-      return;
-    }
+			const newData = {
+				...data,
+				columnOrder: newColumnOrder,
+			};
+			setData(newData);
+		}
 
-    if (type === 'column') {
-      const newColumnOrder = [...data.columnOrder];
-      newColumnOrder.splice(source.index, 1);
-      newColumnOrder.splice(destination.index, 0, draggableId);
+		const start = data.columns[source.droppableId];
+		const finish = data.columns[destination.droppableId];
 
-      const newData = {
-        ...data,
-        columnOrder: newColumnOrder,
-      };
-      setData(newData);
-    }
+		if (start === finish) {
+			const column = data.columns[source.droppableId];
+			const newTaskIds = Array.from(column.taskIds);
+			newTaskIds.splice(source.index, 1);
+			newTaskIds.splice(destination.index, 0, draggableId);
+			const newColumn = {...column, taskIds: newTaskIds};
+			const newData = {
+				...data,
+				columns: {...data.columns, [newColumn.id]: newColumn},
+			};
+			setData(newData);
+			return;
+		}
 
-    const start = data.columns[source.droppableId];
-    const finish = data.columns[destination.droppableId];
+		const startTaskIds = Array.from(start.taskIds);
+		startTaskIds.splice(source.index, 1);
+		const newStart = {
+			...start,
+			taskIds: startTaskIds,
+		};
+		const finishTaskIds = Array.from(finish.taskIds);
+		finishTaskIds.splice(destination.index, 0, draggableId);
+		const newFinish = {
+			...finish,
+			taskIds: finishTaskIds,
+		};
 
-    if (start === finish) {
-      const column = data.columns[source.droppableId];
-      const newTaskIds = Array.from(column.taskIds);
-      newTaskIds.splice(source.index, 1);
-      newTaskIds.splice(destination.index, 0, draggableId);
-      const newColumn = { ...column, taskIds: newTaskIds };
-      const newData = {
-        ...data,
-        columns: { ...data.columns, [newColumn.id]: newColumn },
-      };
-      setData(newData);
-      return;
-    }
+		const newData = {
+			...data,
+			columns: {
+				...data.columns,
+				[newStart.id]: newStart,
+				[newFinish.id]: newFinish,
+			},
+		};
+		setData(newData);
+	};
 
-    const startTaskIds = Array.from(start.taskIds);
-    startTaskIds.splice(source.index, 1);
-    const newStart = {
-      ...start,
-      taskIds: startTaskIds,
-    };
-    const finishTaskIds = Array.from(finish.taskIds);
-    finishTaskIds.splice(destination.index, 0, draggableId);
-    const newFinish = {
-      ...finish,
-      taskIds: finishTaskIds,
-    };
-
-    const newData = {
-      ...data,
-      columns: {
-        ...data.columns,
-        [newStart.id]: newStart,
-        [newFinish.id]: newFinish,
-      },
-    };
-    setData(newData);
-  };
-
-  return (
-    <section>
-      <div
-        className={overlay ? 'overlay' : 'overlay hidden'}
-        onClick={closeEditModal}
-      ></div>
-      {board ? (
-        <div style={{ backgroundColor: cover }}>
-          <header className='board-header'>
-            <div className='header-left-container flex-center'>
-              <input
-                style={{ width }}
-                onBlur={updateBoardTitle}
-                onChange={handleBoardTitleChange}
-                name='title'
-                value={boardTitleInput}
-                type='text-area'
-              />
-              <div className='board-header-div star-container flex-center'>
-                <span
-                  onClick={() => {
-                    toggleStarring();
-                  }}
-                  className={starStatus ? 'starOn' : 'star'}
-                >
-                  &#9734;
-                </span>
-              </div>
-
-              <div className='users-div flex-center'>
-                <div className='member-icons'>
-                  <div className='member-icon'>OK</div>
-                  <div className='member-icon'>NI</div>
-                  <div className='member-icon'>TR</div>
-                </div>
-                <div className='board-header-div invite-btn flex-center'>
-                  <img className='add-user-img' src={addUser} alt='' />
-                  <span>Invite</span>
-                </div>
-              </div>
-            </div>
-            <div className='actions-div flex'>
-              <div className='board-header-div dashboard flex-center'>
-                <span>Dashboard</span>
-              </div>
-              <div
-                className='board-header-div filter-div flex-center'
-                onClick={() => {
-                  toggleModal('filter');
-                }}
-              >
-                <span className='flex-center'>
-                  <img src={filterSvg} alt='filter-img' />
-                  Filter
-                </span>
-              </div>
-              <div className='menu board-header-div flex-center'>
-                <span
-                  onClick={() => {
-                    toggleModal('menu');
-                  }}
-                >
-                  ...Show menu
-                </span>
-              </div>
-            </div>
-          </header>
-          <div className='board flex pink'>
-            {data ? (
-              <DragDropContext onDragEnd={onDragEnd}>
-                <Droppable
-                  droppableId='all-columns'
-                  direction='horizontal'
-                  type='column'
-                >
-                  {(provided) => (
-                    <div
-                      className='Container flex'
-                      {...provided.droppableProps}
-                      ref={provided.innerRef}
-                    >
-                      {data.columnOrder.map((columnId, index) => {
-                        const column = data.columns[columnId];
-                        const tasks = column.taskIds.map(
-                          (taskId) => data.tasks[taskId]
-                        );
-                        return (
-                          <Group
-                            key={column.id}
-                            column={column}
-                            tasks={tasks}
-                            index={index}
-                            deleteList={deleteList}
-                            editNewCard={editNewCard}
-                            addNewCard={addNewCard}
-                            handleChange={handleChange}
-                            boardId={boardId}
-                            openEditModal={openEditModal}
-                            closeEditModal={closeEditModal}
-                            selectedCard={selectedCard}
-                            editCard={editCard}
-                            copyCard={copyCard}
-                            deleteCard={deleteCard}
-                          />
-                        );
-                      })}
-                      {provided.placeholder}
-                    </div>
-                  )}
-                </Droppable>
-              </DragDropContext>
-            ) : null}
-            {!newList ? (
-              <div className='add-list flex' onClick={() => setNewList(true)}>
-                add new group
-              </div>
-            ) : (
-              <div className='add-list-options flex-column'>
-                <input
-                  type='text'
-                  name='new-list-name'
-                  placeholder='Enter list title'
-                  onChange={handleNewList}
-                />
-                <div className='add-list-edit flex'>
-                  <div className='add-list-btn' onClick={addNewGroup}>
-                    Add List
-                  </div>
-                  <div
-                    className='add-list-btn'
-                    onClick={() => setNewList(false)}
-                  >
-                    X
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-          {filterModal && (
-            <BoardFilter FilterBoard={FilterBoard} toggleModal={toggleModal} />
-          )}
-          {menuModal && (
-            <BoardMenu
-              toggleModal={toggleModal}
-              setCover={setCover}
-              addCover={addCover}
-            />
-          )}
-          <Route
-            component={CardDetails}
-            path={`/board/:boardId/:cardId/:listId`}
-          />
-        </div>
-      ) : (
-        <div>Loading...</div>
-      )}
-      <div></div>
-    </section>
-  );
+	return (
+		<section>
+			<div className={overlay ? 'overlay' : 'overlay hidden'} onClick={closeEditModal}></div>
+			{board ? (
+				<div style={{backgroundColor: cover}}>
+					<BoardHeader
+						// Header
+						addCover={addCover}
+						board={board}
+						setForceRender={setForceRender}
+						// Filter
+						FilterBoard={FilterBoard}
+						// Menu
+						setCover={setCover}
+					/>
+					<div className='board flex pink'>
+						{data ? (
+							<DragDropContext onDragEnd={onDragEnd}>
+								<Droppable droppableId='all-columns' direction='horizontal' type='column'>
+									{(provided) => (
+										<div className='Container flex' {...provided.droppableProps} ref={provided.innerRef}>
+											{data.columnOrder.map((columnId, index) => {
+												const column = data.columns[columnId];
+												const tasks = column.taskIds.map((taskId) => data.tasks[taskId]);
+												return (
+													<Group
+														key={column.id}
+														column={column}
+														tasks={tasks}
+														index={index}
+														deleteList={deleteList}
+														editNewCard={editNewCard}
+														addNewCard={addNewCard}
+														handleChange={handleChange}
+														boardId={boardId}
+														openEditModal={openEditModal}
+														closeEditModal={closeEditModal}
+														selectedCard={selectedCard}
+														editCard={editCard}
+														copyCard={copyCard}
+														deleteCard={deleteCard}
+													/>
+												);
+											})}
+											{provided.placeholder}
+										</div>
+									)}
+								</Droppable>
+							</DragDropContext>
+						) : null}
+						{!newList ? (
+							<div className='add-list flex' onClick={() => setNewList(true)}>
+								add new group
+							</div>
+						) : (
+							<div className='add-list-options flex-column'>
+								<input type='text' name='new-list-name' placeholder='Enter list title' onChange={handleNewList} />
+								<div className='add-list-edit flex'>
+									<div className='add-list-btn' onClick={addNewGroup}>
+										Add List
+									</div>
+									<div className='add-list-btn' onClick={() => setNewList(false)}>
+										X
+									</div>
+								</div>
+							</div>
+						)}
+					</div>
+					<Route component={CardDetails} path={`/board/:boardId/:cardId/:listId`} />
+				</div>
+			) : (
+				<div>Loading...</div>
+			)}
+			<div></div>
+		</section>
+	);
 };

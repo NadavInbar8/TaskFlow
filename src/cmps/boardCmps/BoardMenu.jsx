@@ -5,7 +5,7 @@ import {Cover} from '../detailsModals/modals.jsx';
 // images
 import blackBoardImg from '../../assets/imgs/black-trello.svg';
 
-export const BoardMenu = ({toggleModal, setCover, addCover}) => {
+export const BoardMenu = ({toggleModal, addCover}) => {
 	const [coverModal, setCoverModal] = useState(false);
 
 	return (
