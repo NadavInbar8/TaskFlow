@@ -25,10 +25,6 @@
     text-align: center;
   }
 
-  .Attachment {
-    height: 200px;
-  }
-
   .Cover {
     padding-bottom: 20px;
 
@@ -264,6 +260,33 @@
         border-color: #3385ff;
         fill: #06f;
       }
+    }
+  }
+
+  .attachment {
+    .attachment-layout {
+      width: 90%;
+      margin: auto;
+    }
+    padding-bottom: 30px;
+    .attachment-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    button {
+      margin-top: 30px;
+      width: 100px;
+      height: 40px;
+      border-radius: 8px;
+      border: none;
+      background-color: rgba(9, 30, 66, 0.0392156862745098);
+      font-size: 1.3rem;
+      color: #172b4d;
+    }
+    button:hover {
+      cursor: pointer;
+      background-color: rgba(9, 30, 66, 0.0784313725490196);
     }
   }
 }

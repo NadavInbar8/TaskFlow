@@ -44,8 +44,64 @@ export function Checklist({ toggleModal, addCheckList }) {
   );
 }
 
-export function Attachment() {
-  return <div className='details-modal Attachment'>Attachment</div>;
+export function Attachment({ attachLink, toggleModal }) {
+  const [link, setLink] = useState('');
+  const [nameInputShown, setNameInputShown] = useState(false);
+  const [name, setName] = useState('');
+
+  function handleChange({ target }) {
+    setNameInputShown(true);
+    setLink(target.value);
+  }
+
+  function handleNameChange({ target }) {
+    setName(target.value);
+  }
+
+  function saveLink() {
+    const attachment = { link, name, createdAt: Date.now() };
+    console.log(attachment);
+    attachLink(attachment);
+    toggleModal('attachment');
+  }
+
+  return (
+    <div className='details-modal attachment'>
+      <div className='attachment-layout'>
+        <section className='attachment-top'>
+          <span> </span>
+          <h3>Attachment</h3>
+          <span
+            onClick={() => {
+              toggleModal('attachment');
+            }}
+          >
+            X
+          </span>
+        </section>
+        <hr />
+        <h3>Computer</h3>
+        <hr />
+        <section className='attachment-main'>
+          <h3>Attach a link</h3>
+          <input onChange={handleChange} name='link' value={link} type='text' />
+          {nameInputShown && (
+            <>
+              <h3>Link name (optional)</h3>
+              <input
+                onChange={handleNameChange}
+                name='name'
+                value={name}
+                type='text'
+              />
+            </>
+          )}
+          <br />
+          <button onClick={saveLink}>Attach</button>
+        </section>
+      </div>
+    </div>
+  );
 }
 
 export function Cover({ addCover, toggleModal }) {
@@ -63,7 +119,7 @@ export function Cover({ addCover, toggleModal }) {
     'turkiz',
   ];
   function saveCover(cover) {
-    addCover(cover);
+    addCover(cover, 'color');
     toggleModal('cover');
   }
 
