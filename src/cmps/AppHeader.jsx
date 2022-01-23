@@ -48,7 +48,7 @@ export function AppHeader() {
 		<header className='app-header'>
 			<div className='main-header flex'>
 				<div className='left-container flex'>
-					<div className='logo-container'>
+					<div className='logo-container flex align-center'>
 						<Link to='/workspace'>
 							<img src={logo} alt='taskflow logo' />
 						</Link>

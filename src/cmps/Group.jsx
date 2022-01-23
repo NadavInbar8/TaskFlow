@@ -21,6 +21,8 @@ const Group = ({
   deleteCard,
 }) => {
   const [edit, setEdit] = useState(false);
+  const [titleEdit, setTitleEdit] = useState(false);
+  const [title, setTitle] = useState(column.title);
   const grid = 8;
   const getListStyle = (isDraggingOver) => ({
     background: isDraggingOver ? 'lightgrey' : '#ebecf0',
@@ -31,6 +33,15 @@ const Group = ({
     padding: grid,
     width: 250,
   });
+  const ChangeName = (column) => {
+    console.log(column.title);
+    setTitleEdit(true);
+  };
+
+  function handleTitleChange({ target }) {
+    const value = target.value;
+    setTitleEdit(value);
+  }
   return (
     <Draggable draggableId={column.id} index={index}>
       {(provided) => (
@@ -41,11 +52,18 @@ const Group = ({
         >
           <div className='board-title flex'>
             <h3 className='Title' {...provided.dragHandleProps}>
-              {column.title}
+              {titleEdit ? (
+                <input type='text' defaultValue={column.title} />
+              ) : (
+                <span>{column.title}</span>
+              )}
             </h3>
             <div className='board-title-btn' onClick={() => deleteList(column)}>
               delete
             </div>
+            {/* <div className='board-title-btn' onClick={() => ChangeName(column)}>
+              edit
+            </div> */}
           </div>
           <Droppable droppableId={column.id} type='task'>
             {(provided, snapshot) => (
