@@ -27,6 +27,7 @@ export const BoardMenu = ({toggleModal}) => {
 					<div className='board-background-img align-center'></div>
 					&nbsp;
 					<h5>Change background</h5>
+					<hr></hr>
 				</div>
 				<div className='activity'>
 					<h2 className='acitivity-h2'>Activity</h2>
