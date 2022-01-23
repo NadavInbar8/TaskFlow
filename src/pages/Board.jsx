@@ -45,9 +45,6 @@ export const Board = () => {
 	const [data, setData] = useState({tasks: {}, columns: {}, columnOrder: []});
 	const dnd = {tasks: {}, columns: {}, columnOrder: []};
 
-	///// Tom useStates /////
-	const [cover, setCover] = useState(false);
-
 	///// useEffect /////
 
 	useEffect(() => {}, [filteredBoard]);
@@ -125,7 +122,9 @@ export const Board = () => {
 	// Tom funcs
 
 	const addCover = (cover) => {
-		setCover(cover);
+		const updatedBoard = {...board};
+		updatedBoard.style.backgroundColor = cover;
+		dispatch(updateBoard(updatedBoard));
 	};
 
 	//
@@ -274,7 +273,7 @@ export const Board = () => {
 		<section>
 			<div className={overlay ? 'overlay' : 'overlay hidden'} onClick={closeEditModal}></div>
 			{board ? (
-				<div style={{backgroundColor: cover}}>
+				<div style={{backgroundColor: board.style.backgroundColor}}>
 					<BoardHeader
 						// Header
 						addCover={addCover}
@@ -282,8 +281,6 @@ export const Board = () => {
 						setForceRender={setForceRender}
 						// Filter
 						FilterBoard={FilterBoard}
-						// Menu
-						setCover={setCover}
 					/>
 					<div className='board flex pink'>
 						{data ? (

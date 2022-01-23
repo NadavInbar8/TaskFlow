@@ -6,6 +6,7 @@ import {Cover} from '../detailsModals/modals.jsx';
 import blackBoardImg from '../../assets/imgs/black-trello.svg';
 
 export const BoardMenu = ({toggleModal, addCover}) => {
+	const {board} = useSelector((state) => ({board: state.boardModule.currBoard}), shallowEqual);
 	const [coverModal, setCoverModal] = useState(false);
 
 	return (
@@ -31,7 +32,9 @@ export const BoardMenu = ({toggleModal, addCover}) => {
 					onClick={() => {
 						setCoverModal(!coverModal);
 					}}>
-					<div className='board-background-img align-center'></div>
+					<div
+						className='board-background-img align-center'
+						style={{backgroundColor: board.style.backgroundColor}}></div>
 					&nbsp;
 					<h5>Change background</h5>
 					{coverModal && <Cover addCover={addCover} toggleModal={toggleModal} />}

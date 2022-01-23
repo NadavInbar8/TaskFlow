@@ -15,9 +15,9 @@ import addUser from '../../assets/imgs/add-user.png';
 import filterSvg from '../../assets/imgs/filter-svgs/filter.svg';
 
 // Funcs
-// import {board, addCover, } from '../../pages/Board.jsx'
 
-export const BoardHeader = ({addCover, board, setForceRender, filterBoard, setCover, forceRender}) => {
+export const BoardHeader = ({addCover, setForceRender, filterBoard, forceRender}) => {
+	const {board} = useSelector((state) => ({board: state.boardModule.currBoard}), shallowEqual);
 	const [width, setWidth] = useState('');
 	const [boardTitleInput, setBoardTitleInput] = useState('');
 	const [filterModal, setFilterModal] = useState(false);
@@ -127,7 +127,7 @@ export const BoardHeader = ({addCover, board, setForceRender, filterBoard, setCo
 						...Show menu
 					</span>
 				</div>
-				{menuModal && <BoardMenu toggleModal={toggleModal} setCover={setCover} addCover={addCover} />}
+				{menuModal && <BoardMenu toggleModal={toggleModal} addCover={addCover} />}
 			</div>
 		</header>
 	);
