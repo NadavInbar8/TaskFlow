@@ -73,7 +73,13 @@ export function Cover({ addCover, toggleModal }) {
         <div className='cover-modal-top'>
           <span> </span>
           <h3>Cover</h3>
-          <button>x</button>
+          <button
+            onClick={() => {
+              toggleModal('cover');
+            }}
+          >
+            x
+          </button>
         </div>
         <hr />
         <h3>Colors</h3>

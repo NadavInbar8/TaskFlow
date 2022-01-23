@@ -3,7 +3,7 @@
 	z-index: 1;
 	position: absolute;
 	margin-right: 10px;
-	top: 9.7%;
+	top: 10%;
 	right: 0;
 	background-color: white;
 	display: flex;
@@ -19,7 +19,7 @@
 	}
 
 	h5 {
-		margin: 7.5px 0 7.5px;
+		margin: 25px 0 10px;
 	}
 
 	hr {
@@ -47,7 +47,7 @@
 
 	span {
 		margin-left: 10px;
-		margin-bottom: 15px;
+		// margin-bottom: 15px;
 	}
 
 	.user-avatar {
@@ -75,7 +75,7 @@
 	}
 
 	select {
-		margin: 15px 0;
+		margin-bottom: 0;
 		height: 35px;
 		width: 80%;
 		border-radius: 8px;
@@ -91,9 +91,15 @@
 		margin-bottom: 10px;
 	}
 
+	.label-div:hover {
+		cursor: pointer;
+		opacity: 0.6;
+	}
+
 	.inner-label {
 		width: 100%;
 		height: 100%;
+		border-radius: 4px;
 	}
 
 	.green-label {
