@@ -1,75 +1,163 @@
 .board-menu {
-	padding-top: 10px;
-	z-index: 1;
-	position: absolute;
-	margin-right: 10px;
-	top: 10%;
-	right: 0;
-	background-color: white;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	align-items: flex-start;
-	width: 20vw;
-	height: 85vh;
-	min-width: 300px;
+  padding-top: 10px;
+  z-index: 1;
+  position: absolute;
+  margin-right: 10px;
+  top: 10%;
+  right: 0;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 20vw;
+  height: 85vh;
+  min-width: 300px;
 
-	.board-menu-inner {
-		height: 30%;
-	}
+  .board-menu-inner {
+    height: 30%;
+  }
 
-	div {
-		flex-wrap: wrap;
-		margin-left: 5px;
-	}
+  div {
+    flex-wrap: wrap;
+    margin-left: 5px;
+  }
 
-	.modal-top button {
-		font-size: 18px;
-	}
+  .modal-top button {
+    font-size: 18px;
+  }
 
-	h5 {
-		flex-grow: 1;
-		width: 80%;
-		margin: 25px 0 25px;
-	}
+  h5 {
+    flex-grow: 1;
+    width: 80%;
+    margin: 25px 0 25px;
+  }
 
-	span {
-		width: 100%;
-	}
+  span {
+    width: 100%;
+  }
 
-	hr {
-		position: absolute;
-		margin: 0 2.5%;
-		width: 90%;
-		top: 5%;
-	}
+  hr {
+    position: absolute;
+    margin: 0 2.5%;
+    width: 90%;
+    top: 5%;
+  }
 
-	.acitivity-h2 {
-		position: absolute;
-		margin-left: 2.5%;
-		text-align: left;
-		width: 95%;
-		top: 30%;
-	}
+  .acitivity-h2 {
+    position: absolute;
+    margin-left: 2.5%;
+    text-align: left;
+    width: 95%;
+    top: 30%;
+  }
 
-	.activity-hr {
-		position: absolute;
-		top: 37.5%;
-	}
+  .activity-hr {
+    position: absolute;
+    top: 37.5%;
+  }
 
-	.board-img {
-		margin-top: 5px;
-		border: 1px solid black;
-	}
+  .board-img {
+    margin-top: 5px;
+    border: 1px solid black;
+  }
 
-	h2 {
-		text-align: center;
-		margin: 10px 0;
-	}
+  h2 {
+    text-align: center;
+    margin: 10px 0;
+  }
 
-	.board-background-img {
-		height: 24px;
-		width: 24px;
-		background-color: lightcyan;
-	}
+  .board-background-img {
+    height: 24px;
+    width: 24px;
+    background-color: lightcyan;
+  }
+
+  .change-board-background {
+    position: relative;
+  }
+
+  .Cover {
+    position: absolute;
+    background-color: rgb(255, 255, 255);
+    border-radius: 7px;
+    border: black solid 1px;
+    top: 80%;
+    right: 0;
+    padding-bottom: 20px;
+    // overflow-x: visible;
+    // position: absolute;
+    // left: 70.5%;
+    width: 450px;
+    z-index: 4;
+
+    .cover-modal-layout {
+      width: 90%;
+      margin: auto;
+    }
+    .cover-modal-top {
+      display: flex;
+      justify-content: space-between;
+      button {
+        border: none;
+        background-color: inherit;
+      }
+    }
+    .cover-modal-colors {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+      grid-template-rows: repeat(auto-fill, minmax(50px, 1fr));
+      gap: 10px;
+      .cover-to-show {
+        height: 50px;
+        width: 70px;
+        border-radius: 7px;
+      }
+      .green-cover {
+        background-color: rgb(54, 199, 54);
+      }
+
+      // 'green',
+      // 'yellow',
+      // 'blue',
+      // 'dark-blue',
+      // 'purple',
+      // 'pink',
+      // 'orange',
+      // 'red',
+      // 'brown',
+      // 'light-blue',
+      // 'turkiz',
+      .yellow-cover {
+        background-color: rgb(252, 252, 78);
+      }
+      .blue-cover {
+        background-color: rgb(46, 46, 255);
+      }
+      .dark-blue-cover {
+        background-color: rgb(19, 19, 110);
+      }
+      .purple-cover {
+        background-color: rgb(102, 1, 102);
+      }
+      .pink-cover {
+        background-color: rgb(252, 162, 177);
+      }
+      .orange-cover {
+        background-color: rgb(253, 178, 39);
+      }
+      .red-cover {
+        background-color: rgb(243, 47, 47);
+      }
+      .brown-cover {
+        background-color: rgb(131, 33, 33);
+      }
+      .light-blue-cover {
+        background-color: rgb(50, 146, 255);
+      }
+      .turkiz-cover {
+        background-color: rgb(24, 206, 136);
+      }
+    }
+  }
 }

@@ -56,6 +56,7 @@ export const Board = () => {
 	///// Tom useStates /////
 	const [width, setWidth] = useState('');
 	const [boardTitleInput, setBoardTitleInput] = useState('');
+	const [cover, setCover] = useState(false);
 
 	const toggleStarring = () => {
 		setStarStatus(!starStatus);
@@ -153,6 +154,8 @@ export const Board = () => {
 		list.editMode = true;
 	};
 
+	// Tom funcs
+
 	function handleBoardTitleChange({target}) {
 		if (!target) return;
 		console.log(target);
@@ -161,6 +164,17 @@ export const Board = () => {
 		setWidth(value.length + 'ch');
 		setBoardTitleInput(value);
 	}
+
+	const updateBoardTitle = () => {
+		const updatedBoard = {...board};
+		updatedBoard.title = boardTitleInput;
+		dispatch(updateBoard(updatedBoard));
+		setForceRender(!forceRender);
+	};
+
+	const addCover = (cover) => {
+		setCover(cover);
+	};
 
 	const addNewCard = (list) => {
 		let listIdx = board.groups.findIndex((group) => group.id === list.id);
@@ -203,12 +217,6 @@ export const Board = () => {
 	const deleteList = (list) => {
 		const updatedBoard = {...board};
 		updatedBoard.groups = updatedBoard.groups.filter((group) => group.id !== list.id);
-		dispatch(updateBoard(updatedBoard));
-		setForceRender(!forceRender);
-	};
-	const updateBoardTitle = () => {
-		const updatedBoard = {...board};
-		updatedBoard.title = boardTitleInput;
 		dispatch(updateBoard(updatedBoard));
 		setForceRender(!forceRender);
 	};
@@ -338,7 +346,7 @@ export const Board = () => {
 		<section>
 			<div className={overlay ? 'overlay' : 'overlay hidden'} onClick={closeEditModal}></div>
 			{board ? (
-				<div>
+				<div style={{backgroundColor: cover}}>
 					<header className='board-header'>
 						<div className='header-left-container flex-center'>
 							<input
@@ -449,7 +457,7 @@ export const Board = () => {
 						)}
 					</div>
 					{filterModal && <BoardFilter FilterBoard={FilterBoard} toggleModal={toggleModal} />}
-					{menuModal && <BoardMenu toggleModal={toggleModal} />}
+					{menuModal && <BoardMenu toggleModal={toggleModal} setCover={setCover} addCover={addCover} />}
 					<Route component={CardDetails} path={`/board/:boardId/:cardId/:listId`} />
 				</div>
 			) : (
