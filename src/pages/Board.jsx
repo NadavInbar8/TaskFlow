@@ -15,12 +15,16 @@ import Group from '../cmps/Group.jsx';
 // Utils
 import {utilService} from '../services/util.service.js';
 
+// Services
+import addUser from '../assets/imgs/add-user.png';
+
 // Libs
 import {over} from 'lodash';
 import {DragDropContext, Droppable} from 'react-beautiful-dnd';
 import initialData from './initialData.js';
 
 // Images
+import filterSvg from '../assets/imgs/filter-svgs/filter.svg';
 
 export const Board = () => {
 	const {boardId} = useParams();
@@ -41,18 +45,42 @@ export const Board = () => {
 	const [memberModal, setMemeberModal] = useState(false);
 	const [labelsModal, setLabelsModal] = useState(false);
 	const [datesModal, setDatesModal] = useState(false);
+	const [filterModal, setFilterModal] = useState(false);
+	const [starStatus, setStarStatus] = useState(false);
+	const [menuModal, setMenuModal] = useState(false);
 
 	const [data, setData] = useState({tasks: {}, columns: {}, columnOrder: []});
 	const dnd = {tasks: {}, columns: {}, columnOrder: []};
+
+	///// Tom useStates /////
+	const [width, setWidth] = useState('');
+	const [boardTitleInput, setBoardTitleInput] = useState('');
+	const [cover, setCover] = useState(false);
+
+	const toggleStarring = () => {
+		setStarStatus(!starStatus);
+	};
+	const toggleModal = (type) => {
+		switch (type) {
+			case 'filter':
+				setFilterModal(!filterModal);
+				setMenuModal(false);
+				break;
+			case 'menu':
+				setMenuModal(!menuModal);
+				setFilterModal(false);
+				break;
+			default:
+		}
+	};
 
 	///// useEffect /////
 
 	useEffect(() => {}, [filteredBoard]);
 
-	useEffect(() => {}, [board]);
-
 	useEffect(() => {
 		dispatch(loadBoard(boardId));
+		if (board) setBoardTitleInput(board.title);
 	}, []);
 
 	useEffect(() => {
@@ -74,13 +102,19 @@ export const Board = () => {
 				dnd.columnOrder.push(col);
 			}
 		}
-
 		setData(dnd);
 	}, [board]);
 
 	useEffect(() => {
 		dispatch(loadBoard(boardId));
 	}, [forceRender]);
+
+	useEffect(() => {}, [board]);
+
+	useEffect(() => {
+		if (board) setBoardTitleInput(board.title);
+		if (board) setWidth(board.title.length - 2 + 'ch');
+	}, [board]);
 
 	function handleChange({target}) {
 		const value = target.value;
@@ -121,7 +155,25 @@ export const Board = () => {
 
 	// Tom funcs
 
-	//
+	// function handleBoardTitleChange({ target }) {
+	//   if (!target) return;
+	//   console.log(target);
+	//   // const field = target.name;
+	//   const value = target.value;
+	//   setWidth(value.length + 'ch');
+	//   setBoardTitleInput(value);
+	// }
+
+	// const addCover = (cover) => {
+	//   setCover(cover);
+	// };
+
+	// const updateBoardTitle = () => {
+	//   const updatedBoard = { ...board };
+	//   updatedBoard.title = boardTitleInput;
+	//   dispatch(updateBoard(updatedBoard));
+	//   setForceRender(!forceRender);
+	// };
 
 	const addNewCard = (list) => {
 		let listIdx = board.groups.findIndex((group) => group.id === list.id);
@@ -275,7 +327,7 @@ export const Board = () => {
 						// Filter
 						filterBoard={filterBoard}
 					/>
-					<div className='board flex'>
+					<div className='board flex pink'>
 						{data ? (
 							<DragDropContext onDragEnd={onDragEnd}>
 								<Droppable droppableId='all-columns' direction='horizontal' type='column'>
