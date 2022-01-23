@@ -50,12 +50,12 @@ export const BoardFilter = ({filterBoard, toggleModal}) => {
 						type='text'
 						placeholder='Enter a keyword...'
 					/>
-					<button
+					{/* <button
 						onClick={(ev) => {
 							filterBoard(ev, filter);
 						}}>
 						Submit
-					</button>
+					</button> */}
 					<p className='search-options'>Search cards, members, labels, and more.</p>
 				</div>
 				<div className='members'>
