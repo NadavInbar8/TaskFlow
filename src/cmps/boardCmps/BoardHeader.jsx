@@ -119,7 +119,7 @@ export const BoardHeader = ({addCover, board, setForceRender, filterBoard, setCo
 					</span>
 				</div>
 				{filterModal && <BoardFilter filterBoard={filterBoard} toggleModal={toggleModal} />}
-				<div className='menu board-header-div flex-center'>
+				<div className='menu-div board-header-div flex-center'>
 					<span
 						onClick={() => {
 							toggleModal('menu');
@@ -127,8 +127,8 @@ export const BoardHeader = ({addCover, board, setForceRender, filterBoard, setCo
 						...Show menu
 					</span>
 				</div>
+				{menuModal && <BoardMenu toggleModal={toggleModal} setCover={setCover} addCover={addCover} />}
 			</div>
-			{menuModal && <BoardMenu toggleModal={toggleModal} setCover={setCover} addCover={addCover} />}
 		</header>
 	);
 };
