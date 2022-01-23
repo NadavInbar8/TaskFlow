@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-
+import trash from '../../assets/imgs/archive.svg';
 export function DetailscheckList({
   getCheckListDontPrecents,
   card,
@@ -7,6 +7,8 @@ export function DetailscheckList({
   checkList,
   idx,
   updateCheckList,
+  deleteItemFromCheckList,
+  deleteCheckList,
 }) {
   const [isAddItemMode, setAddItemMode] = useState(false);
   const [item, setItem] = useState('');
@@ -38,11 +40,24 @@ export function DetailscheckList({
 
     return count / itemsNum;
   }
+
+  function deleteItem(itemIdx) {
+    deleteItemFromCheckList(idx, itemIdx);
+  }
+
   return (
     <div className='checklist'>
       {/* {console.log(checkList)} */}
       <div className='checklist'>
-        <h2>{checkList.title}</h2>
+        <div className='top'>
+          <h2>{checkList.title}</h2>
+          <img
+            onClick={() => {
+              deleteCheckList(idx);
+            }}
+            src={trash}
+          />
+        </div>
         <section className='meter-section'>
           <span>{Math.floor(getItemsDonePrecent() * 100)}%</span>
           <meter value={getItemsDonePrecent()}></meter>
@@ -52,14 +67,18 @@ export function DetailscheckList({
           <div>
             {checkList.items.map((item, idx) => {
               return (
-                <div key={idx}>
-                  <input
-                    onChange={() => handleCheckBoxChange(idx)}
-                    type='checkbox'
-                    checked={item.isDone}
-                    // value={true}
-                  />
-                  <span>{item.txt}</span>
+                <div className='checklist-item' key={idx}>
+                  <div>
+                    <input
+                      className='checkbox-checklist-input'
+                      onChange={() => handleCheckBoxChange(idx)}
+                      type='checkbox'
+                      checked={item.isDone}
+                      // value={true}
+                    />
+                    <span>{item.txt}</span>
+                  </div>
+                  <img onClick={() => deleteItem(idx)} src={trash} />
                 </div>
               );
             })}

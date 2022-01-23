@@ -149,6 +149,13 @@ export const CardDetails = () => {
     updateCard();
   }
 
+  function deleteLabel(idx) {
+    const currCard = card;
+    currCard.labels.splice(idx, 1);
+    setCard(currCard);
+    updateCard();
+  }
+
   // ADD CHECKLIST
   function addCheckList(checkList) {
     const currCard = card;
@@ -176,14 +183,31 @@ export const CardDetails = () => {
     updateCard();
   }
 
-  function getCheckListDontPrecents() {
-    return 0.6;
+  function deleteItemFromCheckList(listIdx, itemIdx) {
+    const currCard = card;
+    currCard.checkLists[listIdx].items.splice(itemIdx, 1);
+    setCard(currCard);
+    updateCard();
+  }
+
+  function deleteCheckList(checkListIdx) {
+    const currCard = card;
+    currCard.checkLists.splice(checkListIdx, 1);
+    setCard(currCard);
+    updateCard();
   }
 
   // COVER
   function addCover(cover) {
     const currCard = card;
     currCard.cover = cover;
+    setCard(currCard);
+    updateCard();
+  }
+
+  function deleteCover() {
+    const currCard = card;
+    delete currCard.cover;
     setCard(currCard);
     updateCard();
   }
@@ -212,10 +236,10 @@ export const CardDetails = () => {
               >
                 <span
                   onClick={() => {
-                    toggleModal('cover');
+                    deleteCover();
                   }}
                 >
-                  COVER
+                  Delete Cover
                 </span>
               </section>
             )}
@@ -262,6 +286,14 @@ export const CardDetails = () => {
                                 label.color
                               }
                             >
+                              <span
+                                onClick={() => {
+                                  deleteLabel(idx);
+                                }}
+                              >
+                                x
+                              </span>
+                              <br />
                               {label.name}
                             </div>
                           );
@@ -301,9 +333,10 @@ export const CardDetails = () => {
                           idx={idx}
                           card={card}
                           checkList={checkList}
-                          getCheckListDontPrecents={getCheckListDontPrecents}
                           saveItemToCheckList={saveItemToCheckList}
                           updateCheckList={updateCheckList}
+                          deleteItemFromCheckList={deleteItemFromCheckList}
+                          deleteCheckList={deleteCheckList}
                         />
                       );
                     })}
