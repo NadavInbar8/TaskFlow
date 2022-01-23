@@ -9,9 +9,12 @@ import {useSelector, useDispatch, shallowEqual} from 'react-redux';
 import {loadBoard, addCard, updateBoard} from '../store/board.action.js';
 
 // Cmps
-import {BoardFilter} from '../cmps/Boardfilter.jsx';
-import {utilService} from '../services/util.service.js';
+import {BoardFilter} from '../cmps/boardCmps/BoardFilter.jsx';
+import {BoardMenu} from '../cmps/boardCmps/BoardMenu.jsx';
 import Group from '../cmps/Group.jsx';
+
+// Utils
+import {utilService} from '../services/util.service.js';
 
 // Services
 import addUser from '../assets/imgs/add-user.png';
@@ -44,6 +47,7 @@ export const Board = () => {
 	const [labelsModal, setLabelsModal] = useState(false);
 	const [datesModal, setDatesModal] = useState(false);
 	const [filterModal, setFilterModal] = useState(false);
+	const [menuModal, setMenuModal] = useState(false);
 	const [starStatus, setStarStatus] = useState(false);
 
 	const [data, setData] = useState({tasks: {}, columns: {}, columnOrder: []});
@@ -57,7 +61,17 @@ export const Board = () => {
 		setStarStatus(!starStatus);
 	};
 	const toggleModal = (type) => {
-		type === 'filter' && setFilterModal(!filterModal);
+		switch (type) {
+			case 'filter':
+				setFilterModal(!filterModal);
+				setMenuModal(false);
+				break;
+			case 'menu':
+				setMenuModal(!menuModal);
+				setFilterModal(false);
+				break;
+			default:
+		}
 	};
 
 	///// useEffect /////
@@ -372,7 +386,12 @@ export const Board = () => {
 								</span>
 							</div>
 							<div className='menu board-header-div flex-center'>
-								<span>...Show menu</span>
+								<span
+									onClick={() => {
+										toggleModal('menu');
+									}}>
+									...Show menu
+								</span>
 							</div>
 						</div>
 					</header>
@@ -430,6 +449,7 @@ export const Board = () => {
 						)}
 					</div>
 					{filterModal && <BoardFilter FilterBoard={FilterBoard} toggleModal={toggleModal} />}
+					{menuModal && <BoardMenu toggleModal={toggleModal} />}
 					<Route component={CardDetails} path={`/board/:boardId/:cardId/:listId`} />
 				</div>
 			) : (

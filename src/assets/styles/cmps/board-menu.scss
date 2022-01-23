@@ -1,0 +1,58 @@
+.board-menu {
+	padding-top: 10px;
+	z-index: 1;
+	position: absolute;
+	margin-right: 10px;
+	top: 10%;
+	right: 0;
+	background-color: white;
+	display: flex;
+	flex-direction: column;
+	// justify-content: space-between;
+	align-items: flex-start;
+	width: 20vw;
+	height: 85vh;
+	min-width: 300px;
+
+	div {
+		margin-left: 5px;
+	}
+
+	.modal-top button {
+		font-size: 18px;
+	}
+
+	h5 {
+		flex-grow: 1;
+		margin: 25px 0 10px;
+	}
+
+	hr {
+		position: absolute;
+		margin-left: 2.5%;
+		width: 95%;
+		top: 5%;
+	}
+
+	.activity-hr {
+		position: absolute;
+		margin-left: 2.5%;
+		width: 95%;
+		top: 50%;
+	}
+
+	.board-img {
+		border: 1px solid black;
+	}
+
+	h2 {
+		text-align: center;
+		margin: 10px 0;
+	}
+
+	.board-background-img {
+		height: 24px;
+		width: 24px;
+		background-color: lightcyan;
+	}
+}
