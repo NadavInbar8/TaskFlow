@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useSelector, useDispatch, shallowEqual} from 'react-redux';
 import {loadBoards, addBoard} from '../store/board.action.js';
-import {Link} from 'react-router-dom';
+import {Link, useLocation} from 'react-router-dom';
 import boardsImg from '../assets/imgs/boards.svg';
 
 // import {WorkSpace} from '../pages/WorkSpace.jsx';
@@ -14,12 +14,27 @@ export function AppHeader() {
 	const [isCreateModalOpen, setCreateModal] = useState(false);
 	const [isUserModalOpen, setUserModal] = useState(false);
 	const {boards} = useSelector((state) => ({boards: state.boardModule.boards}), shallowEqual);
+	const {board} = useSelector((state) => ({board: state.boardModule.currBoard}), shallowEqual);
 
 	const dispatch = useDispatch();
+	const location = useLocation();
 
 	useEffect(() => {
 		dispatch(loadBoards());
 	}, []);
+
+	const getbackgroundcolor = () => {
+		if (location.pathname.includes('/board') && board) return 'rgba(0, 0, 0, 0.45)';
+		// return `${board.style.backgroundColor}`;
+		else if (location.pathname === '/') return 'lightcyan';
+		else if (location.pathname.includes('/workspace')) return '#026aa7';
+	};
+
+	// const getBackgroundOpacity = () => {
+	// 	// if (location.pathname.includes('/board')) return '0.45';
+	// 	// else if (location.pathname === '/') return 0.9;
+	// 	// return '1';
+	// };
 
 	const toggleModal = (type) => {
 		switch (type) {
@@ -44,8 +59,10 @@ export function AppHeader() {
 		}
 	};
 
+	// style={{backgroundColor: '#0000003d'}}
+
 	return (
-		<header className='app-header'>
+		<header className='app-header' style={{backgroundColor: getbackgroundcolor()}}>
 			<div className='main-header flex'>
 				<div className='left-container flex'>
 					<div className='logo-container flex align-center'>

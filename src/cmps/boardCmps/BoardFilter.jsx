@@ -12,7 +12,7 @@ import close from '../../assets/imgs/close.svg';
 
 // import {setFilterBy} from '../store/board.action.js';
 
-export const BoardFilter = ({FilterBoard, toggleModal}) => {
+export const BoardFilter = ({filterBoard, toggleModal}) => {
 	const [filter, setFilter] = useState({
 		name: '',
 	});
@@ -50,12 +50,12 @@ export const BoardFilter = ({FilterBoard, toggleModal}) => {
 						type='text'
 						placeholder='Enter a keyword...'
 					/>
-					{/* <button
-					onClick={(ev) => {
-						FilterBoard(ev, filter);
-					}}>
-					Submit
-				</button> */}
+					<button
+						onClick={(ev) => {
+							filterBoard(ev, filter);
+						}}>
+						Submit
+					</button>
 					<p className='search-options'>Search cards, members, labels, and more.</p>
 				</div>
 				<div className='members'>

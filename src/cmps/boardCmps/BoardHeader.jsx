@@ -16,7 +16,7 @@ import filterSvg from '../../assets/imgs/filter-svgs/filter.svg';
 
 // Funcs
 
-export const BoardHeader = ({addCover, setForceRender, filterBoard, forceRender}) => {
+export const BoardHeader = ({setForceRender, filterBoard, forceRender}) => {
 	const {board} = useSelector((state) => ({board: state.boardModule.currBoard}), shallowEqual);
 	const [width, setWidth] = useState('');
 	const [boardTitleInput, setBoardTitleInput] = useState('');
@@ -70,6 +70,25 @@ export const BoardHeader = ({addCover, setForceRender, filterBoard, forceRender}
 
 	const toggleStarring = () => {
 		setStarStatus(!starStatus);
+	};
+
+	const getColors = (color) => {
+		if (color === 'bc-blue') return 'rgb(0, 121, 191)';
+		else if (color === 'bc-orange') return 'rgb(210, 144, 52)';
+		else if (color === 'bc-dark-green') return 'rgb(81, 152, 57)';
+		else if (color === 'bc-red') return 'rgb(176, 70, 50)';
+		else if (color === 'bc-purple') return 'rgb(137, 96, 158)';
+		else if (color === 'bc-pink') return 'rgb(205, 90, 145)';
+		else if (color === 'bc-light-green') return 'rgb(75, 191, 107)';
+		else if (color === 'bc-cyan') return 'rgb(0, 174, 204)';
+		else if (color === 'bc-grey') return 'rgb(131, 140, 145)';
+	};
+
+	const addColor = (color) => {
+		const actualColor = getColors(color);
+		const updatedBoard = {...board};
+		updatedBoard.style.backgroundColor = actualColor;
+		dispatch(updateBoard(updatedBoard));
 	};
 
 	return (
@@ -127,7 +146,7 @@ export const BoardHeader = ({addCover, setForceRender, filterBoard, forceRender}
 						...Show menu
 					</span>
 				</div>
-				{menuModal && <BoardMenu toggleModal={toggleModal} addCover={addCover} />}
+				{menuModal && <BoardMenu toggleModal={toggleModal} addColor={addColor} />}
 			</div>
 		</header>
 	);

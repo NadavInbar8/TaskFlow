@@ -2,7 +2,7 @@
 import React, {useEffect, useState} from 'react';
 import {CardDetails} from './CardDetails.jsx';
 import {Route, Switch} from 'react-router';
-import {Link, useParams} from 'react-router-dom';
+import {Link, useParams, useLocation} from 'react-router-dom';
 import {useSelector, useDispatch, shallowEqual} from 'react-redux';
 
 // Redux
@@ -89,7 +89,7 @@ export const Board = () => {
 
 	///// Functions /////
 
-	function FilterBoard(ev, filter = null) {
+	function filterBoard(ev, filter = null) {
 		ev.preventDefault();
 
 		let {name} = filter;
@@ -120,12 +120,6 @@ export const Board = () => {
 	};
 
 	// Tom funcs
-
-	const addCover = (cover) => {
-		const updatedBoard = {...board};
-		updatedBoard.style.backgroundColor = cover;
-		dispatch(updateBoard(updatedBoard));
-	};
 
 	//
 
@@ -273,16 +267,15 @@ export const Board = () => {
 		<section>
 			<div className={overlay ? 'overlay' : 'overlay hidden'} onClick={closeEditModal}></div>
 			{board ? (
-				<div style={{backgroundColor: board.style.backgroundColor}}>
+				<div>
 					<BoardHeader
 						// Header
-						addCover={addCover}
 						board={board}
 						setForceRender={setForceRender}
 						// Filter
-						FilterBoard={FilterBoard}
+						filterBoard={filterBoard}
 					/>
-					<div className='board flex pink'>
+					<div className='board flex'>
 						{data ? (
 							<DragDropContext onDragEnd={onDragEnd}>
 								<Droppable droppableId='all-columns' direction='horizontal' type='column'>
