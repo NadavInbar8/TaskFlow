@@ -8,13 +8,18 @@
 	background-color: white;
 	display: flex;
 	flex-direction: column;
-	// justify-content: space-between;
+	justify-content: space-between;
 	align-items: flex-start;
 	width: 20vw;
 	height: 85vh;
 	min-width: 300px;
 
+	.board-menu-inner {
+		height: 30%;
+	}
+
 	div {
+		flex-wrap: wrap;
 		margin-left: 5px;
 	}
 
@@ -24,24 +29,36 @@
 
 	h5 {
 		flex-grow: 1;
-		margin: 25px 0 10px;
+		width: 80%;
+		margin: 25px 0 25px;
+	}
+
+	span {
+		width: 100%;
 	}
 
 	hr {
 		position: absolute;
-		margin-left: 2.5%;
-		width: 95%;
+		margin: 0 2.5%;
+		width: 90%;
 		top: 5%;
+	}
+
+	.acitivity-h2 {
+		position: absolute;
+		margin-left: 2.5%;
+		text-align: left;
+		width: 95%;
+		top: 30%;
 	}
 
 	.activity-hr {
 		position: absolute;
-		margin-left: 2.5%;
-		width: 95%;
-		top: 50%;
+		top: 37.5%;
 	}
 
 	.board-img {
+		margin-top: 5px;
 		border: 1px solid black;
 	}
 
