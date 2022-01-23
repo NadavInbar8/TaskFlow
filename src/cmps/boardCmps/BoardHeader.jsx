@@ -35,7 +35,7 @@ export const BoardHeader = ({setForceRender, filterBoard, forceRender}) => {
 		// if (board)
 		setBoardTitleInput(board.title);
 		// if (board)
-		setWidth(board.title.length - 2 + 'ch');
+		setWidth(board.title.length - 1 + 'ch');
 	}, [board]);
 
 	function handleBoardTitleChange({target}) {
@@ -94,7 +94,9 @@ export const BoardHeader = ({setForceRender, filterBoard, forceRender}) => {
 	return (
 		<header className='board-header'>
 			<div className='header-left-container flex-center'>
+				{/* <div className='board-header-div'> */}
 				<input
+					className='board-title'
 					style={{width}}
 					onBlur={updateBoardTitle}
 					onChange={handleBoardTitleChange}
@@ -102,6 +104,7 @@ export const BoardHeader = ({setForceRender, filterBoard, forceRender}) => {
 					value={boardTitleInput}
 					type='text-area'
 				/>
+				{/* </div> */}
 				<div className='board-header-div star-container flex-center'>
 					<span
 						onClick={() => {

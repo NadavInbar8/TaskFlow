@@ -74,13 +74,15 @@ export const BoardFilter = ({filterBoard, toggleModal}) => {
 						<span className='flex align-center'>Cards assigned to me</span>
 					</div>
 					<br></br>
-					<input className='checkbox' type='checkbox' />
-					<select>
-						<option value=''>Select Members</option>
-						<option value='1'>Oded Kovo</option>
-						<option value='2'>Nadav Inbar</option>
-						<option value='3'>Tom Ofek Rytt</option>
-					</select>
+					<div className='select-members-div flex flex-row'>
+						<input className='checkbox' type='checkbox' />
+						<select>
+							<option value=''>Select Members</option>
+							<option value='1'>Oded Kovo</option>
+							<option value='2'>Nadav Inbar</option>
+							<option value='3'>Tom Ofek Rytt</option>
+						</select>
+					</div>
 				</div>
 				<div className='dates-filter'>
 					<h5>Due date</h5>

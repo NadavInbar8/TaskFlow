@@ -12,8 +12,8 @@
 	justify-content: space-between;
 	align-items: flex-start;
 	width: 20vw;
-	height: 85vh;
 	min-width: 300px;
+	padding-bottom: 20px;
 
 	.modal-top button {
 		font-size: 18px;
@@ -41,7 +41,6 @@
 	}
 
 	form.filter-form {
-		height: 80vh;
 		width: 100%;
 		padding: 20px;
 	}
@@ -72,7 +71,8 @@
 	}
 
 	.checkbox {
-		margin-right: 20px;
+		margin: 0 20px 0 0;
+		align-self: center;
 	}
 
 	select {
