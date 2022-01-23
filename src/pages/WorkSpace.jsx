@@ -48,6 +48,7 @@ export const WorkSpace = () => {
 										<Link to={`/board/${board._id}`}>
 											<h3 className='workspace-board-title'>{board.title}</h3>
 											<img src={boardPreview} alt='' />
+											{/* <img src='https://source.unsplash.com/random/1920x1080/?wallpaper,landscape' alt='' /> */}
 										</Link>
 									</div>
 								);
