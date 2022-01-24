@@ -38,7 +38,7 @@
   color: white;
   border: none;
   box-shadow: none;
-  margin: 0 8px 8px 0;
+  margin: 0px $s-2 $s-2 0px;
   padding: 6px 12px;
 }
 
@@ -61,7 +61,7 @@
   border: none;
   color: $b1;
   box-shadow: none;
-  margin: 0 8px 8px 0;
+  margin: 0px $s-2 $s-2 0px;
   padding: 6px 12px;
 }
 .grey-btn:hover {
@@ -79,7 +79,7 @@
     border: none;
     background-color: inherit;
     color: '#5e6c84';
-    font-size: 13px;
+    font-size: $fs-5;
   }
   button:hover {
     cursor: pointer;
