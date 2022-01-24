@@ -1,6 +1,6 @@
 .app-header {
-	display: flex;
-	justify-content: flex-between;
+	// display: flex;
+
 	width: 100vw;
 	height: 5vh;
 	font-size: 1rem;
@@ -9,7 +9,7 @@
 	// background-color: rgba(0, 0, 0, 0.45);
 	color: #ffff;
 	// position: absolute;
-	// top: 0%;
+	// top: -10%;
 
 	.main-header {
 		margin-right: 10px;
@@ -148,6 +148,7 @@
 		display: flex;
 		align-items: center;
 		position: relative;
+		margin-right: 10px;
 	}
 
 	.user-avatar-btn {

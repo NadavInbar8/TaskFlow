@@ -1,10 +1,10 @@
 // React
 import React, {useEffect, useState} from 'react';
-import {Link, useParams} from 'react-router-dom';
+// import {Link, useParams} from 'react-router-dom';
 
 // Redux
 import {useSelector, useDispatch, shallowEqual} from 'react-redux';
-import {loadBoard, addCard, updateBoard} from '../../store/board.action.js';
+import {updateBoard, openModal} from '../../store/board.action.js';
 
 // Cmps
 import {BoardFilter} from '../../cmps/boardCmps/BoardFilter.jsx';
@@ -18,11 +18,12 @@ import filterSvg from '../../assets/imgs/filter-svgs/filter.svg';
 
 export const BoardHeader = ({setForceRender, filterBoard, forceRender}) => {
 	const {board} = useSelector((state) => ({board: state.boardModule.currBoard}), shallowEqual);
+	const {modal} = useSelector((state) => ({modal: state.boardModule.modal}));
 	const [width, setWidth] = useState('');
 	const [boardTitleInput, setBoardTitleInput] = useState('');
-	const [filterModal, setFilterModal] = useState(false);
+	// const [filterModal, setFilterModal] = useState(false);
 	const [starStatus, setStarStatus] = useState(false);
-	const [menuModal, setMenuModal] = useState(false);
+	// const [menuModal, setMenuModal] = useState(false);
 
 	const dispatch = useDispatch();
 
@@ -55,17 +56,18 @@ export const BoardHeader = ({setForceRender, filterBoard, forceRender}) => {
 	};
 
 	const toggleModal = (type) => {
-		switch (type) {
-			case 'filter':
-				setFilterModal(!filterModal);
-				setMenuModal(false);
-				break;
-			case 'menu':
-				setMenuModal(!menuModal);
-				setFilterModal(false);
-				break;
-			default:
-		}
+		dispatch(openModal(type));
+		// switch (type) {
+		// 	case 'filter':
+		// 		setFilterModal(!filterModal);
+		// 		setMenuModal(false);
+		// 		break;
+		// 	case 'menu':
+		// 		setMenuModal(!menuModal);
+		// 		setFilterModal(false);
+		// 		break;
+		// 	default:
+		// }
 	};
 
 	const toggleStarring = () => {
@@ -133,23 +135,23 @@ export const BoardHeader = ({setForceRender, filterBoard, forceRender}) => {
 				<div
 					className='board-header-div filter-div flex-center'
 					onClick={() => {
-						toggleModal('filter');
+						toggleModal('filterModal');
 					}}>
 					<span className='flex-center'>
 						<img src={filterSvg} alt='filter-img' />
 						Filter
 					</span>
 				</div>
-				{filterModal && <BoardFilter filterBoard={filterBoard} toggleModal={toggleModal} />}
+				{modal === 'filterModal' && <BoardFilter filterBoard={filterBoard} toggleModal={toggleModal} />}
 				<div className='menu-div board-header-div flex-center'>
 					<span
 						onClick={() => {
-							toggleModal('menu');
+							toggleModal('menuModal');
 						}}>
 						...Show menu
 					</span>
 				</div>
-				{menuModal && <BoardMenu toggleModal={toggleModal} addColor={addColor} />}
+				{modal === 'menuModal' && <BoardMenu toggleModal={toggleModal} addColor={addColor} />}
 			</div>
 		</header>
 	);
