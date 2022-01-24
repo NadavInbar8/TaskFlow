@@ -73,6 +73,7 @@ function _getEmptyBoard() {
         imgUrl: 'https://www.google.com',
       },
     ],
+    groupsOrder: ['g101', 'g102'],
     groups: [
       {
         id: 'g101',
