@@ -2,15 +2,15 @@
 
 .board {
   overflow-x: auto;
-  margin: 0 $s-8;
-  height: 90vh;
+  margin: 0 30px;
+  height: 90.3vh;
 }
 .board-list {
   justify-content: center;
   align-items: center;
   background-color: rgb(216, 216, 216);
-  border-radius: $br;
-  margin: $s-2;
+  border-radius: 4px;
+  margin: 8px;
 
   ul {
     padding: 0;
@@ -18,9 +18,9 @@
   }
   .board-card {
     background-color: whitesmoke;
-    margin: $s-2;
-    padding: $s-2;
-    border-radius: $br;
+    margin: 8px;
+    padding: 8px;
+    border-radius: 4px;
     position: relative;
   }
 }

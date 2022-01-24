@@ -1,13 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import {useSelector, useDispatch, shallowEqual} from 'react-redux';
-import {Cover} from '../detailsModals/modals.jsx';
+// import {Cover} from '../detailsModals/modals.jsx';
+import {Colors} from './Colors.jsx';
 
 // images
 import blackBoardImg from '../../assets/imgs/black-trello.svg';
-
-export const BoardMenu = ({toggleModal, addCover}) => {
+// addCover;
+export const BoardMenu = ({toggleModal, addColor}) => {
 	const {board} = useSelector((state) => ({board: state.boardModule.currBoard}), shallowEqual);
-	const [coverModal, setCoverModal] = useState(false);
+	const [colorModal, setColorModal] = useState(false);
 
 	return (
 		<section className='board-menu'>
@@ -30,14 +31,15 @@ export const BoardMenu = ({toggleModal, addCover}) => {
 				<div
 					className='change-board-background flex flex-row align-center justify-center pointer'
 					onClick={() => {
-						setCoverModal(!coverModal);
+						setColorModal(!colorModal);
 					}}>
 					<div
 						className='board-background-img align-center'
 						style={{backgroundColor: board.style.backgroundColor}}></div>
 					&nbsp;
 					<h5>Change background</h5>
-					{coverModal && <Cover addCover={addCover} toggleModal={toggleModal} />}
+					{/* {coverModal && <Cover addCover={addCover} toggleModal={toggleModal} />} */}
+					{colorModal && <Colors addColor={addColor} toggleModal={toggleModal} />}
 				</div>
 				<div className='activity'>
 					<h2 className='acitivity-h2'>Activity</h2>

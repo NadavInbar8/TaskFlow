@@ -36,8 +36,9 @@ async function getById(boardId) {
 }
 
 async function save(board) {
-  if (!board) {
-    const emptyBoard = _getEmptyBoard();
+  console.log(board);
+  if (!board.groups) {
+    const emptyBoard = _getEmptyBoard(board);
     return storageService.post('board', emptyBoard);
   } else {
     return storageService.put('board', board);
@@ -48,17 +49,18 @@ async function save(board) {
 //   localStorage.setItem(STORAGE_KEY_BOARD, JSON.stringify(board));
 // }
 
-function _getEmptyBoard() {
+function _getEmptyBoard(board) {
+  console.log(board);
   return {
     _id: utilService.makeId(),
-    title: 'Robot dev proj',
+    title: board.title,
     createdAt: 1589983468418,
     createdBy: {
       _id: 'u101',
       fullname: 'Abi Abambi',
       imgUrl: 'http://some-img',
     },
-    style: {},
+    style: { backgroundColor: board.backgroundColor },
     labels: [
       {
         id: 'l101',

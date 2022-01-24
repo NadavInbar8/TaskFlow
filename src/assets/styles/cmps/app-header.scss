@@ -1,12 +1,15 @@
 .app-header {
-	display: flex;
-	justify-content: flex-between;
+	// display: flex;
+
 	width: 100vw;
 	height: 5vh;
 	font-size: 1rem;
 	font-weight: 700;
-	background-color: rgba(0, 0, 0, 0.45);
+	background: #026aa7;
+	// background-color: rgba(0, 0, 0, 0.45);
 	color: #ffff;
+	// position: absolute;
+	// top: -10%;
 
 	.main-header {
 		margin-right: 10px;
@@ -145,6 +148,7 @@
 		display: flex;
 		align-items: center;
 		position: relative;
+		margin-right: 10px;
 	}
 
 	.user-avatar-btn {
@@ -156,6 +160,12 @@
 		background-color: royalblue;
 		border-radius: 50%;
 		color: $b1;
+	}
+
+	.new-board-colors {
+		display: grid;
+		height: 20px;
+		width: 20px;
 	}
 
 	// .user-avatar-btn:hover {

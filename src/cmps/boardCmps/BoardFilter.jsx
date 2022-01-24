@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useSelector, useDispatch, shallowEqual} from 'react-redux';
+import {openModal} from '../../store/board.action.js';
 
 // Images
 import userSmallSvg from '../../assets/imgs/filter-svgs/user-small-svg.svg';
@@ -12,10 +13,17 @@ import close from '../../assets/imgs/close.svg';
 
 // import {setFilterBy} from '../store/board.action.js';
 
-export const BoardFilter = ({FilterBoard, toggleModal}) => {
+export const BoardFilter = ({filterBoard}) => {
+	const {modal} = useSelector((state) => ({modal: state.boardModule.modal}));
 	const [filter, setFilter] = useState({
 		name: '',
 	});
+
+	const dispatch = useDispatch();
+
+	const toggleModal = (type) => {
+		dispatch(openModal(type));
+	};
 
 	// const {board} = useSelector((state) => ({board: state.boardModule.currBoard}), shallowEqual);
 
@@ -36,7 +44,7 @@ export const BoardFilter = ({FilterBoard, toggleModal}) => {
 			<div className='modal-top'>
 				<h3>Filter</h3>
 				{/* <img onClick={() => toggleModal('filter')} src={close} alt='' /> */}
-				<button onClick={() => toggleModal('filter')}>x</button>
+				<button onClick={() => toggleModal('filterModal')}>x</button>
 			</div>
 			<hr></hr>
 			<form className='filter-form'>
@@ -51,11 +59,11 @@ export const BoardFilter = ({FilterBoard, toggleModal}) => {
 						placeholder='Enter a keyword...'
 					/>
 					{/* <button
-					onClick={(ev) => {
-						FilterBoard(ev, filter);
-					}}>
-					Submit
-				</button> */}
+						onClick={(ev) => {
+							filterBoard(ev, filter);
+						}}>
+						Submit
+					</button> */}
 					<p className='search-options'>Search cards, members, labels, and more.</p>
 				</div>
 				<div className='members'>
@@ -74,13 +82,15 @@ export const BoardFilter = ({FilterBoard, toggleModal}) => {
 						<span className='flex align-center'>Cards assigned to me</span>
 					</div>
 					<br></br>
-					<input className='checkbox' type='checkbox' />
-					<select>
-						<option value=''>Select Members</option>
-						<option value='1'>Oded Kovo</option>
-						<option value='2'>Nadav Inbar</option>
-						<option value='3'>Tom Ofek Rytt</option>
-					</select>
+					<div className='select-members-div flex flex-row'>
+						<input className='checkbox' type='checkbox' />
+						<select>
+							<option value=''>Select Members</option>
+							<option value='1'>Oded Kovo</option>
+							<option value='2'>Nadav Inbar</option>
+							<option value='3'>Tom Ofek Rytt</option>
+						</select>
+					</div>
 				</div>
 				<div className='dates-filter'>
 					<h5>Due date</h5>
