@@ -25,6 +25,7 @@ import copy from '../assets/imgs/copy.svg';
 import archive from '../assets/imgs/archive.svg';
 import activity from '../assets/imgs/activity.svg';
 import title from '../assets/imgs/title.svg';
+import plus from '../assets/imgs/plus.svg';
 
 export const CardDetails = () => {
   // CURRBOARD
@@ -135,7 +136,15 @@ export const CardDetails = () => {
   // ADD DATE
   function addDate(date) {
     const currCard = card;
-    currCard.date = date;
+    currCard.date = { date, isComplete: false };
+    setCard(currCard);
+    updateCard();
+  }
+
+  function toggleDateComplete() {
+    console.log('changing');
+    const currCard = card;
+    currCard.date.isComplete = !currCard.date.isComplete;
     setCard(currCard);
     updateCard();
   }
@@ -222,7 +231,15 @@ export const CardDetails = () => {
       : (currCard.attachments = [link]);
     setCard(currCard);
     updateCard();
-    console.log(card);
+  }
+
+  function deleteAttachment(idx) {
+    console.log(idx);
+    const currCard = card;
+    if (currCard.attachments.length > 1) currCard.attachments.splice(1, idx);
+    else currCard.attachments.pop();
+    setCard(currCard);
+    updateCard();
   }
 
   function getStringTimeForImg(attachment) {
@@ -318,57 +335,86 @@ export const CardDetails = () => {
 
               <div className='card-details-main'>
                 <div className='edit-actions'>
-                  <div className='gap-right date-on-details'>
-                    {card.date && <h2>Due date:{card.date}</h2>}
-                  </div>
-
-                  <div>
-                    {card.labels && (
-                      <div className='gap-right labels-preview'>
-                        {card.labels.map((label, idx) => {
-                          return (
+                  <section className=' gap-right labels-date-section'>
+                    <section>
+                      {card.labels.length > 0 && (
+                        <div>
+                          <span className=''>Labels:</span>
+                          <div className='labels-preview'>
+                            {card.labels.map((label, idx) => {
+                              return (
+                                <div
+                                  onClick={() => {
+                                    deleteLabel(idx);
+                                  }}
+                                  key={idx}
+                                  className={
+                                    'card-details-labels-preview label-details-' +
+                                    label.color
+                                  }
+                                >
+                                  {label.name}
+                                </div>
+                              );
+                            })}
                             <div
-                              key={idx}
-                              className={
-                                'card-details-labels-preview label-details-' +
-                                label.color
-                              }
+                              onClick={() => {
+                                toggleModal('labels');
+                              }}
+                              className=' flex flex-center card-details-add-label'
                             >
-                              <span
-                                onClick={() => {
-                                  deleteLabel(idx);
-                                }}
-                              >
-                                x
-                              </span>
-                              <br />
-                              {label.name}
+                              <img src={plus} alt='' />
+                              {labelsModal && (
+                                <Labels
+                                  toggleModal={toggleModal}
+                                  addLabel={addLabel}
+                                />
+                              )}
                             </div>
-                          );
-                        })}
-                      </div>
-                    )}
-
-                    <div className='description'>
-                      <div className='description-title'>
-                        <img
-                          className='details-larger-svg'
-                          src={description}
-                          alt=''
-                        />
-                        <span>Description:</span>
-                      </div>
-                      <textarea
-                        className='gap-right'
-                        placeholder='Write your card description..'
-                        name='description'
-                        rows='10'
-                        value={card.description || ''}
-                        onChange={handleChange}
-                        onBlur={updateCard}
-                        type='text-box'
-                      />
+                          </div>
+                        </div>
+                      )}
+                    </section>
+                    <div className=' date-on-details'>
+                      {card.date && (
+                        <section className='date'>
+                          <span>Due date</span>
+                          <main>
+                            <input
+                              checked={card.date.isComplete}
+                              onChange={toggleDateComplete}
+                              type='checkbox'
+                            />
+                            {console.log(card.date.isComplete)}
+                            <span>{card.date.date}</span> &nbsp;
+                            {card.date.isComplete && (
+                              <span className='completed'> completed!</span>
+                            )}
+                          </main>
+                        </section>
+                      )}
                     </div>
+                  </section>
+
+                  <div className='description'>
+                    <div className='description-title'>
+                      <img
+                        className='details-larger-svg'
+                        src={description}
+                        alt=''
+                      />
+                      <span>Description:</span>
+                    </div>
+                    <textarea
+                      className='gap-right'
+                      placeholder='Write your card description..'
+                      name='description'
+                      rows='10'
+                      value={card.description || ''}
+                      onChange={handleChange}
+                      onBlur={updateCard}
+                      type='text-box'
+                    />
                   </div>
 
                   {card.attachments && (
@@ -386,19 +432,32 @@ export const CardDetails = () => {
                               <h4>
                                 Added
                                 {' ' + getStringTimeForImg(attachment) + ' '}
-                                <span style={{ textDecoration: 'underline' }}>
+                                <span
+                                  className='edit-cover-span'
+                                  style={{ textDecoration: 'underline' }}
+                                >
                                   Comment
                                 </span>
                                 -
-                                <span style={{ textDecoration: 'underline' }}>
+                                <span
+                                  onClick={() => {
+                                    deleteAttachment(idx);
+                                  }}
+                                  className='edit-cover-span'
+                                  style={{ textDecoration: 'underline' }}
+                                >
                                   Delete
                                 </span>
                                 -
-                                <span style={{ textDecoration: 'underline' }}>
+                                <span
+                                  className='edit-cover-span'
+                                  style={{ textDecoration: 'underline' }}
+                                >
                                   Edit
                                 </span>{' '}
                               </h4>
                               <h4
+                                className='edit-cover-span'
                                 onClick={() => {
                                   addCover(attachment.link, 'img');
                                 }}
