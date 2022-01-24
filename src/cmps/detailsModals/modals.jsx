@@ -179,6 +179,8 @@ export function Labels({ addLabel, toggleModal, board, updateLabelsList }) {
     name: 'choose',
   });
 
+  const [searchedLabel, setsearchedLabel] = useState('');
+
   function markChosen(label) {
     console.log(label);
     setEditLabel(label);
@@ -215,6 +217,13 @@ export function Labels({ addLabel, toggleModal, board, updateLabelsList }) {
     });
   }
 
+  function handleFilter({ target }) {
+    setsearchedLabel(target.value);
+    let newlLabels = labels.filter((label) => {
+      label.name.includes(target.value);
+    });
+    setLabels(newlLabels);
+  }
   // function changeLabel() {
   //   const newLabels = labels;
   //   newLabels.map((label) => {
@@ -236,7 +245,13 @@ export function Labels({ addLabel, toggleModal, board, updateLabelsList }) {
         {!editMode && (
           <div className='labels-modal-main'>
             <div className='labels-input'>
-              <input placeholder='Search labels...' type='text' />
+              <input
+                onChange={handleFilter}
+                placeholder='Search labels...'
+                name='name'
+                value={searchedLabel}
+                type='text'
+              />
             </div>
             <div className='labels-modal'>
               {labels.map((label, idx) => {
