@@ -14,18 +14,17 @@
   z-index: 4;
 }
 
+.Dates {
+  height: 350px;
+  width: 350px;
+  text-align: center;
+}
 .modals-container {
   overflow-x: visible;
 
   .members {
     height: 200px;
     width: 450px;
-  }
-
-  .Dates {
-    height: 350px;
-    width: 350px;
-    text-align: center;
   }
 
   .Cover {
