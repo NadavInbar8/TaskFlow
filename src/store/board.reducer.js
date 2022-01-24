@@ -60,7 +60,7 @@ export function boardReducer(state = initialState, action) {
 		case 'OPEN_MODAL':
 			newState = {
 				...state,
-				modal: state.modal !== action.modal ? action.modal : !state.modal,
+				modal: state.modal !== action.modal ? action.modal : null,
 			};
 			break;
 		default:

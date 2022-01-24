@@ -162,6 +162,12 @@
 		color: $b1;
 	}
 
+	.new-board-colors {
+		display: grid;
+		height: 20px;
+		width: 20px;
+	}
+
 	// .user-avatar-btn:hover {
 	// 	background-color: rgb(190, 190, 190);
 	// 	transition: 0.2s ease-in-out all;
