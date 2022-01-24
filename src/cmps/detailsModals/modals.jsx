@@ -155,18 +155,24 @@ export function Cover({ addCover, toggleModal }) {
   );
 }
 
-export function Labels({ addLabel, toggleModal }) {
+export function Labels({ addLabel, toggleModal, board, updateLabelsList }) {
   const [editMode, setEditMode] = useState(false);
+  let labelsforState;
+  // console.log(board);
+  if (board.labelOptions) labelsforState = board.labelOptions;
+  else
+    labelsforState = [
+      { id: 1, color: 'green', name: 'easy' },
+      { id: 2, color: 'yellow', name: 'medium' },
+      { id: 3, color: 'orange', name: 'hard' },
+      { id: 4, color: 'red', name: 'very hard' },
+      { id: 5, color: 'purple', name: 'company fun ' },
+      { id: 6, color: 'blue', name: 'night activity' },
+      { id: 7, color: 'dark-blue', name: 'urgent' },
+    ];
 
-  const [labels, setLabels] = useState([
-    { id: 1, color: 'green', name: 'light' },
-    { id: 2, color: 'yellow', name: 'soon' },
-    { id: 3, color: 'orange', name: 'company fun' },
-    { id: 4, color: 'red', name: 'important' },
-    { id: 5, color: 'purple', name: 'at night' },
-    { id: 6, color: 'blue', name: 'vacation' },
-    { id: 7, color: 'dark-blue', name: 'meeting' },
-  ]);
+  // console.log('labelsOptions', labelsforState);
+  const [labels, setLabels] = useState(labelsforState);
   const [editLabel, setEditLabel] = useState({
     id: 1234,
     color: 'red',
@@ -183,20 +189,34 @@ export function Labels({ addLabel, toggleModal }) {
   }
 
   function saveLabel() {
+    console.log('you are in labels list');
     console.log(editLabel);
-    console.log(labels);
+    // console.log(labels);
     let newLabels = labels;
+
     newLabels.map((label) => {
-      return label.id === editLabel.id ? editLabel : label;
+      console.log(label.id);
+      if (label.id === editLabel.id) return editLabel;
+      else return label;
     });
+    console.log(newLabels);
     setLabels(newLabels);
     addLabel(editLabel);
+    updateLabelsList(newLabels);
     setEditLabel({
       id: 1234,
       color: 'red',
       name: 'choose',
     });
   }
+
+  // function changeLabel() {
+  //   const newLabels = labels;
+  //   newLabels.map((label) => {
+  //     return label.id === editLabel.id ? editLabel : label;
+  //   });
+  //   setLabels(newLabels);
+  // }
 
   return (
     <div className='details-modal labels-modal'>
@@ -220,7 +240,9 @@ export function Labels({ addLabel, toggleModal }) {
                     <div
                       onClick={() => addLabel(label)}
                       className={' label label-' + label.color}
-                    ></div>
+                    >
+                      {label.name}
+                    </div>
                     <img onClick={() => setEditMode(!editMode)} src={paint} />
                     {/* <button onClick={() => setEditMode(!editMode)}>edit</button> */}
                   </div>
@@ -238,6 +260,7 @@ export function Labels({ addLabel, toggleModal }) {
               className='edit-label-input'
               onChange={handleEditLabelChange}
               value={editLabel.name}
+              // onBlur={changeLabel}
               placeholder='Name'
               type='text'
             />

@@ -14,6 +14,9 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { userService } from '../services/user.service.js';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
+
+import { setUser } from '../store/user.action.js';
 
 function Copyright(props) {
   return (
@@ -25,7 +28,7 @@ function Copyright(props) {
     >
       {'Copyright © '}
       <Link color='inherit' href='https://mui.com/'>
-        Your Website
+        taskflow
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -36,16 +39,22 @@ function Copyright(props) {
 const theme2 = createTheme();
 
 export function Login() {
+  const { loggedInUser } = useSelector(
+    (state) => ({ loggedInUser: state.userdModule.loggedInUser }),
+    shallowEqual
+  );
+  const dispatch = useDispatch();
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     // eslint-disable-next-line no-console
-    userService.login({
+    const user = {
       email: data.get('email'),
       password: data.get('password'),
-    });
-  };
+    };
 
+    dispatch(setUser(user));
+  };
   return (
     <section className='login-signup'>
       <ThemeProvider theme={theme2}>

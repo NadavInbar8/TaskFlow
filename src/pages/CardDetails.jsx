@@ -176,6 +176,14 @@ export const CardDetails = () => {
     updateCard();
   }
 
+  function updateLabelsList(newlabels) {
+    console.log('lalallalala');
+    console.log(newlabels);
+    const newBoard = board;
+    newBoard.labelOptions = newlabels;
+    dispatch(updateBoard(newBoard));
+  }
+
   // ADD CHECKLIST
   function addCheckList(checkList) {
     const currCard = card;
@@ -389,6 +397,8 @@ export const CardDetails = () => {
                               <img src={plus} alt='' />
                               {modal === 'labelsModalLeft' && (
                                 <Labels
+                                  updateLabelsList={updateLabelsList}
+                                  board={board}
                                   toggleModal={toggleModal}
                                   addLabel={addLabel}
                                 />
@@ -624,8 +634,10 @@ export const CardDetails = () => {
                         </span>
                         {modal === 'labelsModal' && (
                           <Labels
+                            board={board}
                             toggleModal={toggleModal}
                             addLabel={addLabel}
+                            updateLabelsList={updateLabelsList}
                           />
                         )}
                       </li>
