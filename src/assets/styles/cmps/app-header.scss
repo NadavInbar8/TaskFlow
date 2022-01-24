@@ -7,12 +7,12 @@
 	font-weight: 700;
 	background: #026aa7;
 	// background-color: rgba(0, 0, 0, 0.45);
-	color: #ffff;
+	// color: #ffff;
 	// position: absolute;
 	// top: -10%;
 
 	.main-header {
-		margin-right: 10px;
+		margin-right: $s-2;
 		justify-content: space-between;
 		width: 100vw;
 		align-items: center;
@@ -22,7 +22,7 @@
 		gap: 30px;
 	}
 	.logo-container {
-		margin-left: 10px;
+		margin-left: $s-2;
 	}
 	img {
 		width: 8rem;
@@ -32,7 +32,7 @@
 	.boards-img {
 		height: 16px;
 		width: 16px;
-		margin-right: 10px;
+		margin-right: $s-2;
 	}
 
 	ul {
@@ -79,12 +79,12 @@
 		top: 110%;
 		left: -5%;
 		min-width: 180px;
-		padding: 10px;
-		border-radius: 8px;
+		padding: $s-2;
+		border-radius: $s-2;
 	}
 
 	.boards-modal li {
-		margin-top: 10px;
+		margin-top: $s-2;
 		margin-left: 0;
 	}
 
@@ -93,7 +93,7 @@
 	}
 
 	.boards-modal li:last-child {
-		margin-bottom: 10px;
+		margin-bottom: $s-2;
 	}
 
 	// Create
@@ -102,7 +102,7 @@
 		position: relative;
 		span {
 			background-color: rgba(0, 0, 0, 0.1);
-			padding: 8px 10px;
+			padding: $s-2 $s-2;
 			border-radius: 4px;
 		}
 
@@ -125,8 +125,8 @@
 		align-items: flex-start;
 		left: -5%;
 		top: 110%;
-		padding: 10px;
-		border-radius: 8px;
+		padding: $s-2;
+		border-radius: $s-2;
 		font-size: 1.2rem;
 	}
 
@@ -143,20 +143,25 @@
 
 	.board-background {
 		.colors-grid {
-			padding: 10px;
+			padding: $s-2;
 			display: grid;
 			min-height: 100%;
 			grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
-			grid-template-rows: repeat(auto-fill, minmax(30px, 1fr));
-			gap: 10px;
+			grid-template-rows: repeat(auto-fill, minmax(32px, 1fr));
+			// gap: $s-2;
+			gap: $s-2;
 		}
 		span {
-			margin-bottom: 10px;
+			margin-bottom: $s-2;
+		}
+
+		input {
+			margin: &-2;
 		}
 	}
 
 	.new-board-colors {
-		height: 30px;
+		height: 32px;
 		width: 40px;
 	}
 
@@ -167,7 +172,7 @@
 		display: flex;
 		align-items: center;
 		position: relative;
-		margin-right: 10px;
+		margin-right: $s-2;
 	}
 
 	.user-avatar-btn {
@@ -201,8 +206,8 @@
 		align-items: flex-start;
 		right: 0.5%;
 		top: 6%;
-		padding: 10px;
-		border-radius: 8px;
+		padding: $s-2;
+		border-radius: $s-2;
 		font-size: 1rem;
 		font-weight: normal;
 	}
