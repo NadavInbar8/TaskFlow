@@ -45,43 +45,43 @@ export const Board = () => {
 	const [memberModal, setMemeberModal] = useState(false);
 	const [labelsModal, setLabelsModal] = useState(false);
 	const [datesModal, setDatesModal] = useState(false);
-	const [filterModal, setFilterModal] = useState(false);
-	const [starStatus, setStarStatus] = useState(false);
-	const [menuModal, setMenuModal] = useState(false);
+	// const [filterModal, setFilterModal] = useState(false);
+	// const [starStatus, setStarStatus] = useState(false);
+	// const [menuModal, setMenuModal] = useState(false);
 
 	const [data, setData] = useState({tasks: {}, columns: {}, columnOrder: []});
 	const dnd = {tasks: {}, columns: {}, columnOrder: []};
 
 	///// Tom useStates /////
-	const [width, setWidth] = useState('');
-	const [boardTitleInput, setBoardTitleInput] = useState('');
-	const [cover, setCover] = useState(false);
+	// const [width, setWidth] = useState('');
+	// const [boardTitleInput, setBoardTitleInput] = useState('');
+	// const [cover, setCover] = useState(false);
 
-	const toggleStarring = () => {
-		setStarStatus(!starStatus);
-	};
-	const toggleModal = (type) => {
-		switch (type) {
-			case 'filter':
-				setFilterModal(!filterModal);
-				setMenuModal(false);
-				break;
-			case 'menu':
-				setMenuModal(!menuModal);
-				setFilterModal(false);
-				break;
-			default:
-		}
-	};
+	// const toggleStarring = () => {
+	// 	setStarStatus(!starStatus);
+	// };
+	// const toggleModal = (type) => {
+	// 	switch (type) {
+	// 		case 'filter':
+	// 			setFilterModal(!filterModal);
+	// 			setMenuModal(false);
+	// 			break;
+	// 		case 'menu':
+	// 			setMenuModal(!menuModal);
+	// 			setFilterModal(false);
+	// 			break;
+	// 		default:
+	// 	}
+	// };
 
 	///// useEffect /////
 
 	useEffect(() => {}, [filteredBoard]);
 
-	useEffect(() => {
-		dispatch(loadBoard(boardId));
-		if (board) setBoardTitleInput(board.title);
-	}, []);
+	// useEffect(() => {
+	// 	dispatch(loadBoard(boardId));
+	// 	if (board) setBoardTitleInput(board.title);
+	// }, []);
 
 	useEffect(() => {
 		if (board) {
@@ -111,10 +111,10 @@ export const Board = () => {
 
 	useEffect(() => {}, [board]);
 
-	useEffect(() => {
-		if (board) setBoardTitleInput(board.title);
-		if (board) setWidth(board.title.length - 2 + 'ch');
-	}, [board]);
+	// useEffect(() => {
+	// 	if (board) setBoardTitleInput(board.title);
+	// 	if (board) setWidth(board.title.length - 2 + 'ch');
+	// }, [board]);
 
 	function handleChange({target}) {
 		const value = target.value;

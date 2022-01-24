@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useSelector, useDispatch, shallowEqual} from 'react-redux';
-import {loadBoards, addBoard} from '../store/board.action.js';
+import {loadBoards, addBoard, openModal} from '../store/board.action.js';
 import {Link, useLocation} from 'react-router-dom';
 import boardsImg from '../assets/imgs/boards.svg';
 
@@ -10,11 +10,12 @@ import boardsImg from '../assets/imgs/boards.svg';
 import logo from '../assets/imgs/logo/logo.svg';
 
 export function AppHeader() {
-	const [isBoardsModalOpen, setBoardsModal] = useState(false);
-	const [isCreateModalOpen, setCreateModal] = useState(false);
-	const [isUserModalOpen, setUserModal] = useState(false);
+	// const [isBoardsModalOpen, setBoardsModal] = useState(false);
+	// const [isCreateModalOpen, setCreateModal] = useState(false);
+	// const [isUserModalOpen, setUserModal] = useState(false);
 	const {boards} = useSelector((state) => ({boards: state.boardModule.boards}), shallowEqual);
 	const {board} = useSelector((state) => ({board: state.boardModule.currBoard}), shallowEqual);
+	const {modal} = useSelector((state) => ({modal: state.boardModule.modal}));
 
 	const dispatch = useDispatch();
 	const location = useLocation();
@@ -30,34 +31,38 @@ export function AppHeader() {
 		else if (location.pathname.includes('/workspace')) return '#026aa7';
 	};
 
+	const toggleModal = (type) => {
+		dispatch(openModal(type));
+	};
+
 	// const getBackgroundOpacity = () => {
 	// 	// if (location.pathname.includes('/board')) return '0.45';
 	// 	// else if (location.pathname === '/') return 0.9;
 	// 	// return '1';
 	// };
 
-	const toggleModal = (type) => {
-		switch (type) {
-			case 'boards':
-				setBoardsModal(!isBoardsModalOpen);
-				setCreateModal(false);
-				setUserModal(false);
-				break;
+	// const toggleModal = (type) => {
+	// 	switch (type) {
+	// 		case 'boards':
+	// 			setBoardsModal(!isBoardsModalOpen);
+	// 			setCreateModal(false);
+	// 			setUserModal(false);
+	// 			break;
 
-			case 'create':
-				setCreateModal(!isCreateModalOpen);
-				setBoardsModal(false);
-				setUserModal(false);
-				break;
+	// 		case 'create':
+	// 			setCreateModal(!isCreateModalOpen);
+	// 			setBoardsModal(false);
+	// 			setUserModal(false);
+	// 			break;
 
-			case 'user':
-				setUserModal(!isUserModalOpen);
-				setBoardsModal(false);
-				setCreateModal(false);
-				break;
-			default:
-		}
-	};
+	// 		case 'user':
+	// 			setUserModal(!isUserModalOpen);
+	// 			setBoardsModal(false);
+	// 			setCreateModal(false);
+	// 			break;
+	// 		default:
+	// 	}
+	// };
 
 	// style={{backgroundColor: '#0000003d'}}
 
@@ -73,20 +78,21 @@ export function AppHeader() {
 					{/* <nav className='flex'> */}
 					<ul>
 						<li className='boards'>
-							<span className='li-span flex-center' onClick={() => toggleModal('boards')}>
+							<span className='li-span flex-center' onClick={() => toggleModal('boardsModal')}>
 								<img className='boards-img' src={boardsImg} alt='' />
 								Boards
 							</span>
-							{isBoardsModalOpen && (
+							{console.log(modal)}
+							{modal === 'boardsModal' && (
 								<ul className='boards-modal flex'>
 									<div className='modal-top'>
 										<h3>Boards</h3>
-										<button onClick={() => toggleModal('boards')}>x</button>
+										<button onClick={() => toggleModal('boardsModal')}>x</button>
 									</div>
 									<hr></hr>
 									{boards.map((board) => {
 										return (
-											<Link onClick={() => toggleModal('boards')} key={board._id} to={`/board/${board._id}`}>
+											<Link onClick={() => toggleModal('boardsModal')} key={board._id} to={`/board/${board._id}`}>
 												<li>{board.title}</li>
 											</Link>
 										);
@@ -95,18 +101,18 @@ export function AppHeader() {
 							)}
 						</li>
 						<li className='create-li'>
-							<span onClick={() => toggleModal('create')}>Create</span>
-							{isCreateModalOpen && (
+							<span onClick={() => toggleModal('createModal')}>Create</span>
+							{modal === 'createModal' && (
 								<div className='create-modal flex'>
 									<div className='modal-top'>
 										<h3>Create</h3>
-										<button onClick={() => toggleModal('create')}>x</button>
+										<button onClick={() => toggleModal('createModal')}>x</button>
 									</div>
 									<hr></hr>
 									<div
 										onClick={() => {
 											dispatch(addBoard());
-											toggleModal('create');
+											toggleModal('createModal');
 										}}>
 										<span>Create Board</span>
 									</div>
@@ -119,7 +125,7 @@ export function AppHeader() {
 					<div
 						className='user-avatar-btn flex-center'
 						onClick={() => {
-							toggleModal('user');
+							toggleModal('userModal');
 						}}>
 						G
 					</div>
@@ -159,12 +165,12 @@ export function AppHeader() {
 					</div>
 				</div>
 			)} */}
-			{isUserModalOpen && (
+			{modal === 'userModal' && (
 				<div className='user-modal'>
 					<div>
 						<div className='modal-top'>
 							<h3>Account</h3>
-							<button onClick={() => toggleModal('user')}>x</button>
+							<button onClick={() => toggleModal('userModal')}>x</button>
 						</div>
 						<hr />
 						Logout
