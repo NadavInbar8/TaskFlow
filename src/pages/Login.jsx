@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -14,6 +14,9 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { userService } from '../services/user.service.js';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
+
+import { setUser } from '../store/user.action.js';
 
 function Copyright(props) {
   return (
@@ -25,7 +28,7 @@ function Copyright(props) {
     >
       {'Copyright © '}
       <Link color='inherit' href='https://mui.com/'>
-        Your Website
+        taskflow
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -36,20 +39,29 @@ function Copyright(props) {
 const theme2 = createTheme();
 
 export function Login() {
+  const { loggedInUser } = useSelector((state) => ({
+    loggedInUser: state.userModule.loggedInUser,
+  }));
+
+  // useEffect(() => {}, [loggedInUser]);
+
+  const dispatch = useDispatch();
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     // eslint-disable-next-line no-console
-    userService.login({
+    const user = {
       email: data.get('email'),
       password: data.get('password'),
-    });
-  };
+    };
 
+    dispatch(setUser(user));
+  };
   return (
     <section className='login-signup'>
       <ThemeProvider theme={theme2}>
         <Container component='main' maxWidth='xs'>
+          {loggedInUser && <h1>hello {' ' + loggedInUser.fullName}</h1>}
           <CssBaseline />
           <Box
             sx={{

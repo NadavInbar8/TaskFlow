@@ -61,6 +61,15 @@ function _getEmptyBoard(board) {
       imgUrl: 'http://some-img',
     },
     style: { backgroundColor: board.backgroundColor },
+    labelOptions: [
+      { id: 1, color: 'green', name: '' },
+      { id: 2, color: 'yellow', name: '' },
+      { id: 3, color: 'orange', name: '' },
+      { id: 4, color: 'red', name: '' },
+      { id: 5, color: 'purple', name: '' },
+      { id: 6, color: 'blue', name: '' },
+      { id: 7, color: 'dark-blue', name: '' },
+    ],
     labels: [
       {
         id: 'l101',
