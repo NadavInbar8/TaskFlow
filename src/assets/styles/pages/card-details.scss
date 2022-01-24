@@ -28,6 +28,43 @@
   margin-left: 40px;
 }
 
+.labels-date-section {
+  margin-top: 20px;
+  span {
+    font-size: 1.3rem;
+  }
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.date-on-details {
+  height: 100%;
+  .date {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    span {
+    }
+    main {
+      background-color: #eaecf0;
+      border-radius: 5px;
+      padding-left: 5px;
+      padding-right: 5px;
+      display: flex;
+      align-items: center;
+      // justify-content: ce;
+      height: 50px;
+      margin-top: 5px;
+      .completed {
+        padding: 7px;
+        border-radius: 7px;
+        background-color: rgb(40, 211, 40);
+      }
+    }
+  }
+}
+
 .card-details-cover {
   width: 100%;
   height: 100px;
@@ -165,7 +202,7 @@
     padding-left: 20px;
     transition: 0.2s;
     margin-left: 10px;
-    background-color: #dbdbdb;
+    background-color: #eaecf0;
   }
   li:hover {
     background-color: rgb(206, 199, 199);
@@ -195,6 +232,22 @@
     height: 50px;
     padding: 5px;
     border-radius: 7px;
+  }
+  .card-details-labels-preview:hover {
+    cursor: pointer;
+  }
+
+  .card-details-add-label {
+    position: relative;
+    height: 50px;
+    width: 50px;
+    padding: 5px;
+    background-color: #eaecf0;
+    border-radius: 8px;
+
+    img {
+      height: 20px;
+    }
   }
 }
 
@@ -235,6 +288,7 @@
     width: 90%;
     height: 150px;
     background-color: #eaecf0;
+
     border: none;
     border-radius: 7px;
     font-size: 1.3rem;
@@ -401,6 +455,10 @@
         text-decoration: underline;
         font-weight: bold;
         margin: 0;
+      }
+
+      .edit-cover-span:hover {
+        cursor: pointer;
       }
       h4 {
         margin: 0;
