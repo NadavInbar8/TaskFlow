@@ -160,11 +160,16 @@ export function AppHeader() {
 									<div>
 										<div className='board-background'>
 											<span className='bold'>Background</span>
-											{colors.map((color, idx) => {
-												return (
-													<div onClick={() => saveColor(color)} key={idx} className={color + ' new-board-colors'}></div>
-												);
-											})}
+											<div className='colors-grid'>
+												{colors.map((color, idx) => {
+													return (
+														<div
+															onClick={() => saveColor(color)}
+															key={idx}
+															className={color + ' new-board-colors' + ' ' + 'flex' + ' ' + 'flex-center'}></div>
+													);
+												})}
+											</div>
 										</div>
 										<div>
 											<span>Board title</span>

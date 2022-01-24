@@ -141,6 +141,25 @@
 		background-color: inherit;
 	}
 
+	.board-background {
+		.colors-grid {
+			padding: 10px;
+			display: grid;
+			min-height: 100%;
+			grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+			grid-template-rows: repeat(auto-fill, minmax(30px, 1fr));
+			gap: 10px;
+		}
+		span {
+			margin-bottom: 10px;
+		}
+	}
+
+	.new-board-colors {
+		height: 30px;
+		width: 40px;
+	}
+
 	// User
 
 	.user-avatar {
@@ -160,12 +179,6 @@
 		background-color: royalblue;
 		border-radius: 50%;
 		color: $b1;
-	}
-
-	.new-board-colors {
-		display: grid;
-		height: 20px;
-		width: 20px;
 	}
 
 	// .user-avatar-btn:hover {

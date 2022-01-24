@@ -47,7 +47,15 @@ export const WorkSpace = () => {
 									<div key={board._id} className='board-preview'>
 										<Link to={`/board/${board._id}`}>
 											<h3 className='workspace-board-title'>{board.title}</h3>
-											<img src={boardPreview} alt='' />
+											<div>
+												{board.style?.backgroundColor ? (
+													<div
+														className='board-background'
+														style={{backgroundColor: board.style.backgroundColor}}></div>
+												) : (
+													<img src={boardPreview} alt='' />
+												)}
+											</div>
 											{/* <img src='https://source.unsplash.com/random/1920x1080/?wallpaper,landscape' alt='' /> */}
 										</Link>
 									</div>
