@@ -13,7 +13,7 @@ import { userReducer } from './user.reducer.js';
 
 const rootReducer = combineReducers({
   boardModule: boardReducer,
-  usersModule: userReducer,
+  userModule: userReducer,
   // listModule: listReducer,
   //   userModule: userReducer,
 });

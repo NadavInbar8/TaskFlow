@@ -61,7 +61,6 @@ function _getEmptyBoard(board) {
       imgUrl: 'http://some-img',
     },
     style: { backgroundColor: board.backgroundColor },
-<<<<<<< HEAD
     labelOptions: [
       { id: 1, color: 'green', name: '' },
       { id: 2, color: 'yellow', name: '' },
@@ -71,8 +70,6 @@ function _getEmptyBoard(board) {
       { id: 6, color: 'blue', name: '' },
       { id: 7, color: 'dark-blue', name: '' },
     ],
-=======
->>>>>>> f8371f2b605eca5186764ca4a807c1b5ccc7ae5a
     labels: [
       {
         id: 'l101',
@@ -87,10 +84,7 @@ function _getEmptyBoard(board) {
         imgUrl: 'https://www.google.com',
       },
     ],
-<<<<<<< HEAD
-=======
     groupsOrder: ['g101', 'g102'],
->>>>>>> f8371f2b605eca5186764ca4a807c1b5ccc7ae5a
     groups: [
       {
         id: 'g101',

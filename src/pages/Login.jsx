@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -39,10 +39,12 @@ function Copyright(props) {
 const theme2 = createTheme();
 
 export function Login() {
-  const { loggedInUser } = useSelector(
-    (state) => ({ loggedInUser: state.userdModule.loggedInUser }),
-    shallowEqual
-  );
+  const { loggedInUser } = useSelector((state) => ({
+    loggedInUser: state.userModule.loggedInUser,
+  }));
+
+  // useEffect(() => {}, [loggedInUser]);
+
   const dispatch = useDispatch();
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -59,6 +61,7 @@ export function Login() {
     <section className='login-signup'>
       <ThemeProvider theme={theme2}>
         <Container component='main' maxWidth='xs'>
+          {loggedInUser && <h1>hello {' ' + loggedInUser.fullName}</h1>}
           <CssBaseline />
           <Box
             sx={{

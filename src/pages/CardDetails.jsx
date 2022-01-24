@@ -174,6 +174,7 @@ export const CardDetails = () => {
     currCard.labels.splice(idx, 1);
     setCard(currCard);
     updateCard();
+    console.log(currCard);
   }
 
   function updateLabelsList(newlabels) {
@@ -187,7 +188,7 @@ export const CardDetails = () => {
   // ADD CHECKLIST
   function addCheckList(checkList) {
     const currCard = card;
-    currCard.checkLists
+    currCard.checkLists?.length > 0
       ? currCard.checkLists.push(checkList)
       : (currCard.checkLists = [checkList]);
     setCard(currCard);

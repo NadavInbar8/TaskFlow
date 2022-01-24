@@ -190,14 +190,19 @@ export function Labels({ addLabel, toggleModal, board, updateLabelsList }) {
 
   function saveLabel() {
     console.log('you are in labels list');
-    console.log(editLabel);
-    // console.log(labels);
+    console.log(labels);
     let newLabels = labels;
+    let newLabel = editLabel;
+    console.log(editLabel);
 
     newLabels.map((label) => {
-      console.log(label.id);
-      if (label.id === editLabel.id) return editLabel;
-      else return label;
+      console.log(label.id, editLabel.id);
+      if (label.id === editLabel.id) {
+        console.log('same id');
+        console.log(editLabel);
+        label.name = editLabel.name;
+        return label;
+      } else return label;
     });
     console.log(newLabels);
     setLabels(newLabels);
