@@ -219,18 +219,15 @@ export function Labels({ addLabel, toggleModal, board, updateLabelsList }) {
 
   function handleFilter({ target }) {
     setsearchedLabel(target.value);
-    let newlLabels = labels.filter((label) => {
-      label.name.includes(target.value);
+    console.log(target.value);
+
+    let newlLabels = labelsforState.filter((label) => {
+      // console.log(label);
+      return label.name.includes(target.value);
     });
+    console.log(newlLabels);
     setLabels(newlLabels);
   }
-  // function changeLabel() {
-  //   const newLabels = labels;
-  //   newLabels.map((label) => {
-  //     return label.id === editLabel.id ? editLabel : label;
-  //   });
-  //   setLabels(newLabels);
-  // }
 
   return (
     <div className='details-modal labels-modal'>
@@ -246,6 +243,7 @@ export function Labels({ addLabel, toggleModal, board, updateLabelsList }) {
           <div className='labels-modal-main'>
             <div className='labels-input'>
               <input
+                autoComplete='false'
                 onChange={handleFilter}
                 placeholder='Search labels...'
                 name='name'
