@@ -1,104 +1,111 @@
 // Flex Helpers
 
 .flex {
-  display: flex;
+	display: flex;
 }
 
 .flex-column {
-  display: flex;
-  flex-direction: column;
+	display: flex;
+	flex-direction: column;
 }
 
 .flex-center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .flex-btn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .justify-center {
-  justify-content: center;
+	justify-content: center;
 }
 
 .align-center {
-  align-items: center;
+	align-items: center;
 }
 
 .pointer {
-  cursor: pointer;
+	cursor: pointer;
 }
 
 .blue-btn {
-  background-color: #2f80ed;
-  color: white;
-  border: none;
-  box-shadow: none;
-  margin: 0px $s-2 $s-2 0px;
-  padding: 6px 12px;
+	background-color: #2f80ed;
+	color: white;
+	border: none;
+	box-shadow: none;
+	margin: 0px $s-2 $s-2 0px;
+	padding: 6px 12px;
 }
 
 .blue-btn:hover {
-  //   transition-duration: 0.85;
-  background-color: #0079bf;
-  box-shadow: rgba(0, 0, 0, 0.05) 0 5px 30px, rgba(0, 0, 0, 0.05) 0 1px 4px;
-  cursor: pointer;
+	//   transition-duration: 0.85;
+	background-color: #0079bf;
+	box-shadow: rgba(0, 0, 0, 0.05) 0 5px 30px, rgba(0, 0, 0, 0.05) 0 1px 4px;
+	cursor: pointer;
 }
 .hidden {
-  display: none;
+	display: none;
 }
 .overlaySee {
-  z-index: 10;
+	z-index: 10;
 }
 // .grey-btn {
 
 .grey-btn {
-  background-color: rgba(9, 30, 66, 0.04);
-  border: none;
-  color: $b1;
-  box-shadow: none;
-  margin: 0px $s-2 $s-2 0px;
-  padding: 6px 12px;
+	background-color: rgba(9, 30, 66, 0.04);
+	border: none;
+	color: $b1;
+	box-shadow: none;
+	margin: 0px $s-2 $s-2 0px;
+	padding: 6px 12px;
 }
+
 .grey-btn:hover {
-  background-color: rgba(9, 30, 66, 0.08);
-  cursor: pointer;
+	background-color: rgba(9, 30, 66, 0.08);
+	cursor: pointer;
 }
 
 .modal-top {
-  display: flex;
-  justify-content: space-between;
-  flex-direction: row;
-  width: 100%;
-  font-weight: regular;
-  button {
-    border: none;
-    background-color: inherit;
-    color: '#5e6c84';
-    font-size: $fs-5;
-  }
-  button:hover {
-    cursor: pointer;
-  }
+	display: flex;
+	justify-content: space-between;
+	flex-direction: row;
+	width: 100%;
+	font-weight: regular;
+	button {
+		border: none;
+		background-color: inherit;
+		color: '#5e6c84';
+		font-size: $fs-5;
+	}
+	button:hover {
+		cursor: pointer;
+	}
 
-  h3 {
-    margin: 0 auto;
-    font-size: 1.2rem;
-  }
+	h3 {
+		margin: 0 auto;
+		font-size: 1.2rem;
+	}
+}
+
+//  margin-top and bottom
+.m-y-m {
+	margin: $s-2 0;
 }
 
 // for text areas
 .normalize-text {
-  white-space: normal;
+	white-space: normal;
 }
 
 .bold {
-  font-weight: bold;
+	font-weight: bold;
 }
+
 // <!-- HTML !-->
 // <button class="button-65" role="button">Button 65</button>
 
@@ -166,11 +173,11 @@
 //   }
 // }
 .go-back-container {
-  position: fixed;
-  display: flex;
-  height: 100vh;
-  width: 100vw;
-  background-color: rgba(0, 0, 0, 0.357);
-  top: 0;
-  left: 0;
+	position: fixed;
+	display: flex;
+	height: 100vh;
+	width: 100vw;
+	background-color: rgba(0, 0, 0, 0.357);
+	top: 0;
+	left: 0;
 }

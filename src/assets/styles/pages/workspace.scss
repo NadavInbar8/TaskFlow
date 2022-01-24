@@ -68,8 +68,13 @@ div.boards {
 .board-preview {
 	margin: auto;
 	img {
-		border-radius: 15px;
+		// border-radius: 15px;
 		height: 150px;
+	}
+
+	.board-background {
+		height: 150px;
+		width: 200px;
 	}
 }
 
