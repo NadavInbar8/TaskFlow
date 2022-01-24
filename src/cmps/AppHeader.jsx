@@ -16,6 +16,8 @@ export function AppHeader() {
 	const {boards} = useSelector((state) => ({boards: state.boardModule.boards}), shallowEqual);
 	const {board} = useSelector((state) => ({board: state.boardModule.currBoard}), shallowEqual);
 	const {modal} = useSelector((state) => ({modal: state.boardModule.modal}));
+	const [newBoard, setNewBoard] = useState({});
+	const [boardTitleInput, setBoardTitleInput] = useState('');
 
 	const dispatch = useDispatch();
 	const location = useLocation();
@@ -34,6 +36,53 @@ export function AppHeader() {
 	const toggleModal = (type) => {
 		dispatch(openModal(type));
 	};
+
+	// New board Funcs
+	const colors = [
+		'bc-blue',
+		'bc-orange',
+		'bc-dark-green',
+		'bc-red',
+		'bc-purple',
+		'bc-pink',
+		'bc-light-green',
+		'bc-cyan',
+		'bc-grey',
+	];
+
+	const getColors = (color) => {
+		if (color === 'bc-blue') return 'rgb(0, 121, 191)';
+		else if (color === 'bc-orange') return 'rgb(210, 144, 52)';
+		else if (color === 'bc-dark-green') return 'rgb(81, 152, 57)';
+		else if (color === 'bc-red') return 'rgb(176, 70, 50)';
+		else if (color === 'bc-purple') return 'rgb(137, 96, 158)';
+		else if (color === 'bc-pink') return 'rgb(205, 90, 145)';
+		else if (color === 'bc-light-green') return 'rgb(75, 191, 107)';
+		else if (color === 'bc-cyan') return 'rgb(0, 174, 204)';
+		else if (color === 'bc-grey') return 'rgb(131, 140, 145)';
+	};
+
+	const saveColor = (color) => {
+		const actualColor = getColors(color);
+		setNewBoard({...newBoard, backgroundColor: actualColor});
+		console.log(newBoard);
+	};
+
+	const updateBoardTitle = () => {
+		setNewBoard({...newBoard, title: boardTitleInput});
+		console.log(newBoard);
+	};
+
+	const saveNewBoard = () => {
+		dispatch(addBoard(newBoard));
+	};
+
+	function handleBoardTitleChange({target}) {
+		if (!target) return;
+		// console.log(target);
+		const value = target.value;
+		setBoardTitleInput(value);
+	}
 
 	// const getBackgroundOpacity = () => {
 	// 	// if (location.pathname.includes('/board')) return '0.45';
@@ -82,7 +131,6 @@ export function AppHeader() {
 								<img className='boards-img' src={boardsImg} alt='' />
 								Boards
 							</span>
-							{console.log(modal)}
 							{modal === 'boardsModal' && (
 								<ul className='boards-modal flex'>
 									<div className='modal-top'>
@@ -109,12 +157,34 @@ export function AppHeader() {
 										<button onClick={() => toggleModal('createModal')}>x</button>
 									</div>
 									<hr></hr>
-									<div
-										onClick={() => {
-											dispatch(addBoard());
-											toggleModal('createModal');
-										}}>
-										<span>Create Board</span>
+									<div>
+										<div className='board-background'>
+											<span className='bold'>Background</span>
+											{colors.map((color, idx) => {
+												return (
+													<div onClick={() => saveColor(color)} key={idx} className={color + ' new-board-colors'}></div>
+												);
+											})}
+										</div>
+										<div>
+											<span>Board title</span>
+											<input
+												className='board-title'
+												onBlur={updateBoardTitle}
+												onChange={handleBoardTitleChange}
+												name='title'
+												value={boardTitleInput}
+												type='text-area'
+											/>
+										</div>
+										<span
+											className='app-header-div'
+											onClick={() => {
+												toggleModal('createModal');
+												saveNewBoard();
+											}}>
+											Create Board
+										</span>
 									</div>
 								</div>
 							)}

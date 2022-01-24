@@ -12,6 +12,7 @@ export function loadBoards() {
 }
 
 export function addBoard(board) {
+	console.log(board);
 	return async (dispatch) => {
 		try {
 			const savedBoard = await boardService.save(board);
