@@ -22,257 +22,7 @@ $s-5: 20px;
 $s-6: 24px;
 $s-7: 28px;
 $s-8: 32px;
-
-// border-radius
-$br: 4px;
-
-// Other stuff
-$cg: linear-gradient(225deg, #f0f3f6 0%, #dde3eb 100%);
-
-$white: #ffffff;
-$c1: #ffffff; //
-$c1-d: #f9fafc;
-$c1-dd: #eff2f7;
-
-$c2: #e6ebf0;
-
-// $c3-l: #A0B1C7;
-// $c3:#506988; //
-// $c3-d:#36465B;
-
-$c3-l: #738cad;
-$c3: #506988; //
-$c3-d: #435772;
-$c3-s: #36465b;
-
-$c4-ll: #d5e7e8;
-$c4-l: #05a8aa; //regular
-$c4: #049496; //hover
-$c4-d: #048182; //selected
-
-$c5-l: #ff9a9a; // call to action
-$c5: #ff8080;
-$c5-d: #ff6767;
-
-$c6: #eff5f5; // green slected panel top
-$c6-d: #fbffff; // green slected panel content
-
-.c1 {
-  color: $c1;
-  fill: $c1 !important;
-}
-.c2 {
-  color: $c2;
-  fill: $c2 !important;
-}
-.c3 {
-  color: $c3;
-  fill: $c3 !important;
-}
-.c4 {
-  color: $c4;
-  fill: $c4 !important;
-}
-.c5 {
-  color: $c5;
-  fill: $c5 !important;
-}
-
-$disabled: #eff2f7; // background
-$disabled-d: #dde3eb; // text
-
-$gray-l: #dde3eb;
-$gray: #b9c6d6;
-$gray-d: #a0b1c7;
-
-$border: #c6d1dd;
-$border-width: 1px;
-$border-radius: 4px;
-
-$shadow: rgba(0, 0, 0, 0.2);
-$box-shadow: 0 1px 2px $shadow;
-
-$fw-1: 200;
-$fw-2: 400;
-$fw-3: 600;
-$fw-4: 700;
-
-$fs-1: 28px;
-$fs-2: 20px;
-$fs-3: 18px;
-$fs-4: 16px;
-$fs-5: 14px;
-h1 {
-  font-size: $fs-1;
-  font-weight: $fw-3;
-}
-h2 {
-  font-size: $fs-2;
-  font-weight: $fw-3;
-}
-h3 {
-  font-size: $fs-3;
-}
-h4 {
-  font-size: $fs-4;
-}
-h5 {
-  font-size: $fs-5;
-}
-$tr: 0.3s ease-in-out all;
-
-// display styles
-.fx {
-  display: flex;
-  &-s-s {
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
-  }
-  &-s-c {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-  }
-  &-s-e {
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-end;
-  }
-  &-c-s {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-  }
-  &-c-c {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  &-c-e {
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-  }
-  &-e-s {
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-start;
-  }
-  &-e-c {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-  }
-  &-e-e {
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-end;
-  }
-  &-sb-s {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-  }
-  &-sb-c {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  &-sb-e {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-  }
-  &-row {
-    display: flex;
-    flex-flow: row;
-  }
-  &-col {
-    display: flex;
-    flex-flow: column;
-  }
-}
-.rel {
-  position: relative;
-  .abs-c {
-    position: absolute;
-    top: 50%;
-    right: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 100;
-  }
-  .abs-r {
-    position: absolute;
-    right: 0;
-  }
-  .abs-l {
-    position: absolute;
-    left: 0;
-  }
-  .abs-t {
-    position: absolute;
-    top: 0;
-  }
-  .abs-b {
-    position: absolute;
-    bottom: 0;
-  }
-  .abs-tl {
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
-  .abs-tr {
-    position: absolute;
-    top: 0;
-    right: 0;
-    z-index: 100;
-  }
-  .abs-bl {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-  }
-  .abs-br {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-  }
-}
-.expand-x {
-  width: 100%;
-}
-.expand-y {
-  height: 100%;
-}
-
-.gap {
-  &-1 {
-    padding: $s-1 / 2;
-    & > div {
-      margin: $s-1 / 2;
-    }
-  }
-  &-2 {
-    padding: $s-1;
-    & > div {
-      margin: $s-1;
-    }
-  }
-  &-3 {
-    padding: $s-3 / 2;
-    & > div {
-      margin: $s-3 / 2;
-    }
-  }
-  &-4 {
-    padding: $s-2;
-    & > div {
-      margin: $s-2;
-    }
-  }
-}
+// $s-9: 64px;
 
 .m {
   &-a {
@@ -464,13 +214,28 @@ $tr: 0.3s ease-in-out all;
     }
   }
 }
+// border-radius
+$br: $s-1;
+
+//Font Weight
+$fw-1: 200;
+$fw-2: 400;
+$fw-3: 600;
+$fw-4: 700;
+
+// Font Size
+$fs-1: 28px;
+$fs-2: 20px;
+$fs-3: 18px;
+$fs-4: 16px;
+$fs-5: 14px;
 
 // global style
 html {
   font-family: 'Poppins', sans-serif;
   font-variant: tabular-nums;
   overflow: overlay;
-  color: $c3;
+  // color: $c3;
 }
 * {
   box-sizing: border-box;
@@ -482,6 +247,244 @@ a {
   display: contents;
   color: inherit;
   text-decoration: none;
+}
+
+// Other stuff
+$cg: linear-gradient(225deg, #f0f3f6 0%, #dde3eb 100%);
+
+$white: #ffffff;
+$c1: #ffffff; //
+$c1-d: #f9fafc;
+$c1-dd: #eff2f7;
+
+$c2: #e6ebf0;
+
+// $c3-l: #A0B1C7;
+// $c3:#506988; //
+// $c3-d:#36465B;
+
+$c3-l: #738cad;
+$c3: #506988; //
+$c3-d: #435772;
+$c3-s: #36465b;
+
+$c4-ll: #d5e7e8;
+$c4-l: #05a8aa; //regular
+$c4: #049496; //hover
+$c4-d: #048182; //selected
+
+$c5-l: #ff9a9a; // call to action
+$c5: #ff8080;
+$c5-d: #ff6767;
+
+$c6: #eff5f5; // green slected panel top
+$c6-d: #fbffff; // green slected panel content
+
+.c1 {
+  color: $c1;
+  fill: $c1 !important;
+}
+.c2 {
+  color: $c2;
+  fill: $c2 !important;
+}
+.c3 {
+  color: $c3;
+  fill: $c3 !important;
+}
+.c4 {
+  color: $c4;
+  fill: $c4 !important;
+}
+.c5 {
+  color: $c5;
+  fill: $c5 !important;
+}
+
+$disabled: #eff2f7; // background
+$disabled-d: #dde3eb; // text
+
+$gray-l: #dde3eb;
+$gray: #b9c6d6;
+$gray-d: #a0b1c7;
+
+$border: #c6d1dd;
+$border-width: 1px;
+$border-radius: 4px;
+
+$shadow: rgba(0, 0, 0, 0.2);
+$box-shadow: 0 1px 2px $shadow;
+
+h1 {
+  font-size: $fs-1;
+  font-weight: $fw-3;
+}
+h2 {
+  font-size: $fs-2;
+  font-weight: $fw-3;
+}
+h3 {
+  font-size: $fs-3;
+}
+h4 {
+  font-size: $fs-4;
+}
+h5 {
+  font-size: $fs-5;
+}
+$tr: 0.3s ease-in-out all;
+
+// display styles
+.fx {
+  display: flex;
+  &-s-s {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+  &-s-c {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  &-s-e {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+  }
+  &-c-s {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+  }
+  &-c-c {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  &-c-e {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+  }
+  &-e-s {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+  }
+  &-e-c {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  &-e-e {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+  }
+  &-sb-s {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  &-sb-c {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  &-sb-e {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  &-row {
+    display: flex;
+    flex-flow: row;
+  }
+  &-col {
+    display: flex;
+    flex-flow: column;
+  }
+}
+.rel {
+  position: relative;
+  .abs-c {
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+  }
+  .abs-r {
+    position: absolute;
+    right: 0;
+  }
+  .abs-l {
+    position: absolute;
+    left: 0;
+  }
+  .abs-t {
+    position: absolute;
+    top: 0;
+  }
+  .abs-b {
+    position: absolute;
+    bottom: 0;
+  }
+  .abs-tl {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  .abs-tr {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 100;
+  }
+  .abs-bl {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
+  .abs-br {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  }
+}
+.expand-x {
+  width: 100%;
+}
+.expand-y {
+  height: 100%;
+}
+
+.gap {
+  &-1 {
+    padding: $s-1 / 2;
+    & > div {
+      margin: $s-1 / 2;
+    }
+  }
+  &-2 {
+    padding: $s-1;
+    & > div {
+      margin: $s-1;
+    }
+  }
+  &-3 {
+    padding: $s-3 / 2;
+    & > div {
+      margin: $s-3 / 2;
+    }
+  }
+  &-4 {
+    padding: $s-2;
+    & > div {
+      margin: $s-2;
+    }
+  }
 }
 
 // h1 {font-size: $fs-1;}
