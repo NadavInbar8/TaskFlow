@@ -34,12 +34,21 @@
 }
 
 .blue-btn {
+<<<<<<< HEAD
 	background-color: #2f80ed;
 	color: white;
 	border: none;
 	box-shadow: none;
 	margin: 0 8px 8px 0;
 	padding: 6px 12px;
+=======
+  background-color: #2f80ed;
+  color: white;
+  border: none;
+  box-shadow: none;
+  margin: 0px $s-2 $s-2 0px;
+  padding: 6px 12px;
+>>>>>>> f8371f2b605eca5186764ca4a807c1b5ccc7ae5a
 }
 
 .blue-btn:hover {
@@ -57,12 +66,21 @@
 // .grey-btn {
 
 .grey-btn {
+<<<<<<< HEAD
 	background-color: rgba(9, 30, 66, 0.04);
 	border: none;
 	color: $b1;
 	box-shadow: none;
 	margin: 0 8px 8px 0;
 	padding: 6px 12px;
+=======
+  background-color: rgba(9, 30, 66, 0.04);
+  border: none;
+  color: $b1;
+  box-shadow: none;
+  margin: 0px $s-2 $s-2 0px;
+  padding: 6px 12px;
+>>>>>>> f8371f2b605eca5186764ca4a807c1b5ccc7ae5a
 }
 .grey-btn:hover {
 	background-color: rgba(9, 30, 66, 0.08);
@@ -70,6 +88,7 @@
 }
 
 .modal-top {
+<<<<<<< HEAD
 	display: flex;
 	justify-content: space-between;
 	flex-direction: row;
@@ -84,6 +103,22 @@
 	button:hover {
 		cursor: pointer;
 	}
+=======
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  width: 100%;
+  font-weight: regular;
+  button {
+    border: none;
+    background-color: inherit;
+    color: '#5e6c84';
+    font-size: $fs-5;
+  }
+  button:hover {
+    cursor: pointer;
+  }
+>>>>>>> f8371f2b605eca5186764ca4a807c1b5ccc7ae5a
 
 	h3 {
 		margin: 0 auto;
