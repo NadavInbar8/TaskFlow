@@ -57,7 +57,7 @@ export function Login() {
       email: data.get('email'),
       password: data.get('password'),
     };
-    history.push('/workspace');
+    if (user.email && user.password) history.push('/workspace');
     dispatch(setUser(user, 'login'));
   };
   return (
@@ -119,11 +119,11 @@ export function Login() {
                 Sign In
               </Button>
               <Grid container>
-                <Grid item xs>
+                {/* <Grid item xs>
                   <Link href='#' variant='body2'>
                     Forgot password?
                   </Link>
-                </Grid>
+                </Grid> */}
                 <Grid item>
                   <Link href='/signup' variant='body2'>
                     {"Don't have an account? Sign Up"}

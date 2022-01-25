@@ -1,19 +1,13 @@
 .card-details {
+  margin-top: 64px;
   font-weight: bold;
-  position: fixed;
-  padding-bottom: 30px;
-  // color: ;
-  color: #5e6c84;
-  top: 50%;
-  left: 50%;
-  height: 90vh;
-  // overflow: hidden;
-  // overflow-x: none;
-  // overflow-y: scroll;
-  // min-height: 90vh;
 
+  padding-bottom: 30px;
+  color: #5e6c84;
+  // min-height: 100%;
+  height: fit-content !important;
+  margin-bottom: 100px;
   width: 50vw;
-  transform: translate(-50%, -50%);
   background-color: #f4f5f7;
   z-index: 10;
   border-radius: 4px;
@@ -31,6 +25,9 @@
 }
 
 .labels-date-section {
+  .labels-details-section {
+    margin-right: 10px;
+  }
   margin-top: 20px;
   span {
     font-size: 1.3rem;
@@ -194,9 +191,9 @@
   &::-webkit-scrollbar {
     display: none;
   }
-  overflow-y: auto;
-  overflow-x: hidden;
-  max-height: 70vh;
+
+  // overflow-x: hidden;
+
   #scroll {
     direction: rtl;
   }
@@ -364,6 +361,7 @@
 
 .checklist {
   width: 100%;
+  margin-top: 20px;
 
   .top {
     width: 100%;

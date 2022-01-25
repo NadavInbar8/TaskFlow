@@ -30,6 +30,7 @@ import plus from '../assets/imgs/plus.svg';
 import { userService } from '../services/user.service.js';
 
 export const CardDetails = () => {
+  const history = useHistory();
   // CURRBOARD
   const { board } = useSelector(
     (state) => ({ board: state.boardModule.currBoard }),
@@ -56,7 +57,6 @@ export const CardDetails = () => {
 
   const { listId, cardId } = useParams();
   const dispatch = useDispatch();
-  const history = useHistory();
 
   // // MODALS
   // const [memberModal, toggleMemeberModal] = useState(false);
@@ -377,10 +377,18 @@ export const CardDetails = () => {
       {/* {console.log(loggedInUser)}
       {console.log(users)} */}
       {board.groups ? (
-        <div>
-          <Link className='go-back-container' to={`/board/${board._id}`} />
-
-          <section className='card-details'>
+        <div
+          className='go-back-container'
+          onClick={() => {
+            history.push(`/board/${board._id}`);
+          }}
+        >
+          <section
+            onClick={(ev) => {
+              ev.stopPropagation();
+            }}
+            className='card-details'
+          >
             {card.cover && (
               <div>
                 {/* {console.log(card.cover)}
@@ -478,7 +486,7 @@ export const CardDetails = () => {
                     )}
                     <section>
                       {card.labels?.length > 0 && (
-                        <div>
+                        <div className='labels-details-section'>
                           <span className=''>Labels:</span>
                           <div className='labels-preview'>
                             {card.labels.map((label, idx) => {
