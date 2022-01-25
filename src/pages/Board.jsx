@@ -30,7 +30,7 @@ import cardChecklist from '../assets/imgs/card-checklist.svg';
 import dueDate from '../assets/imgs/card-due.svg';
 import description from '../assets/imgs/card-desc.svg';
 import cardEdit from '../assets/imgs/card-edit.svg';
-
+import dotdotdot from '../assets/imgs/dotdotdot.svg';
 export const Board = () => {
   const { boardId } = useParams();
   const { board } = useSelector(
@@ -341,13 +341,13 @@ export const Board = () => {
   //   const overlayStyle = { 'z-index': 100 };
   const [openLabels, setOpenLabels] = useState(false);
   return (
-    <section>
+    <section className='flex-column h100'>
       <div
         className={overlay ? 'overlay' : 'overlay hidden'}
         onClick={closeEditModal}
       ></div>
       {board ? (
-        <div>
+        <>
           <BoardHeader
             // Header
             board={board}
@@ -355,12 +355,21 @@ export const Board = () => {
             // Filter
             filterBoard={filterBoard}
           />
-          <div className='board flex'>
+          <div
+            className='board flex'
+            onClick={(event) => event.stopPropagation()}
+          >
             {board.groups
               ? board.groups.map((list) => {
                   return (
                     <div key={list.id} className='board-list flex-column'>
                       <h3>{list.title}</h3>
+                      <img
+                        src={dotdotdot}
+                        className='list-menu'
+                        alt='list menu'
+                      />
+                      <div className={'board-list-modal'}></div>
                       <button onClick={() => deleteList(list)}>
                         delete list
                       </button>
@@ -531,27 +540,25 @@ export const Board = () => {
                             </li>
                           );
                         })}
-                        {list.editMode ? (
-                          <>
-                            <input
-                              type='text'
-                              name='newCard'
-                              onChange={handleChange}
-                              //   onBlur={updateCard}
-                            />
-                            <button onClick={() => addNewCard(list)}>
-                              add
-                            </button>
-                          </>
-                        ) : (
-                          <div
-                            className='add-card'
-                            onClick={() => editNewCard(list)}
-                          >
-                            + add new card
-                          </div>
-                        )}
                       </ul>
+                      {list.editMode ? (
+                        <>
+                          <input
+                            type='text'
+                            name='newCard'
+                            onChange={handleChange}
+                            //   onBlur={updateCard}
+                          />
+                          <button onClick={() => addNewCard(list)}>add</button>
+                        </>
+                      ) : (
+                        <div
+                          className='add-card'
+                          onClick={() => editNewCard(list)}
+                        >
+                          + add new card
+                        </div>
+                      )}
                     </div>
                   );
                 })
@@ -630,7 +637,7 @@ export const Board = () => {
             component={CardDetails}
             path={`/board/:boardId/:cardId/:listId`}
           />
-        </div>
+        </>
       ) : (
         <div>Loading...</div>
       )}
