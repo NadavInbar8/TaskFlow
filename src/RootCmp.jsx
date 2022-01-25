@@ -13,7 +13,7 @@ export function RootCmp() {
 
   const getbackgroundcolor = () => {
     // return `${board.style.backgroundColor}`;
-    if (location.pathname === '/') return 'lightcyan';
+    if (location.pathname === '/') return 'lightcya';
     else if (location.pathname.includes('/board') && board)
       return board.style.backgroundColor;
   };
