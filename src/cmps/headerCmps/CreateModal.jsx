@@ -71,7 +71,7 @@ export const CreateModal = () => {
 	return (
 		<div className='create-modal flex'>
 			<div className='modal-top'>
-				<h3>Create</h3>
+				<span>Create</span>
 				<button onClick={() => toggleModal('createModal')}>x</button>
 			</div>
 			<hr></hr>

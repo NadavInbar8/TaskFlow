@@ -42,7 +42,7 @@ export const BoardFilter = ({filterBoard}) => {
 	return (
 		<section className='board-filter'>
 			<div className='modal-top'>
-				<h3>Filter</h3>
+				<span>Filter</span>
 				{/* <img onClick={() => toggleModal('filter')} src={close} alt='' /> */}
 				<button onClick={() => toggleModal('filterModal')}>x</button>
 			</div>

@@ -30,6 +30,7 @@ export const BoardHeader = ({ setForceRender, filterBoard, forceRender }) => {
   const { loggedInUser } = useSelector((state) => ({
     loggedInUser: state.userModule.loggedInUser,
   }));
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -99,6 +100,22 @@ export const BoardHeader = ({ setForceRender, filterBoard, forceRender }) => {
     dispatch(updateBoard(updatedBoard));
   };
 
+  const getUserInitials = () => {
+    if (loggedInUser) {
+      let fullName = loggedInUser.fullName;
+      console.log(fullName);
+      fullName = fullName.split(' ');
+      const initials =
+        fullName[0].charAt(0).toUpperCase() +
+        fullName[1].charAt(0).toUpperCase();
+      return initials;
+    }
+  };
+
+  const openMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
+
   return (
     <header className='board-header'>
       <div className='header-left-container flex-center'>
@@ -125,7 +142,9 @@ export const BoardHeader = ({ setForceRender, filterBoard, forceRender }) => {
         </div>
         <div className='users-div flex-center'>
           <div className='member-icons'>
-            <div className='member-icon'>{loggedInUser.initials}</div>
+            <div className='member-icon'>
+              {loggedInUser ? loggedInUser.initials : 'OK'}
+            </div>
             <div className='member-icon'>NI</div>
             <div className='member-icon'>TR</div>
           </div>
@@ -156,15 +175,18 @@ export const BoardHeader = ({ setForceRender, filterBoard, forceRender }) => {
         <div className='menu-div board-header-div flex-center'>
           <span
             onClick={() => {
-              toggleModal('menuModal');
+              openMenu();
             }}
           >
             ...Show menu
           </span>
         </div>
-        {modal === 'menuModal' && (
-          <BoardMenu toggleModal={toggleModal} addColor={addColor} />
-        )}
+        <BoardMenu
+          toggleModal={toggleModal}
+          addColor={addColor}
+          menuOpen={menuOpen}
+          setMenuOpen={setMenuOpen}
+        />
       </div>
     </header>
   );
