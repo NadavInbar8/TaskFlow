@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useSelector, useDispatch, shallowEqual} from 'react-redux';
 import {loadBoards, addBoard, openModal} from '../store/board.action.js';
+import {setUser} from '../store/user.action.js';
 import {Link, useLocation} from 'react-router-dom';
 import boardsImg from '../assets/imgs/boards.svg';
 
@@ -41,14 +42,17 @@ export function AppHeader() {
 	};
 
 	const getFontColor = () => {
-		// return `${board.style.backgroundColor}`;
-		// console.log(location);
 		if (location.pathname === '/') return '#172b4';
 		else return '#ffff';
 	};
 
 	const toggleModal = (type) => {
 		dispatch(openModal(type));
+	};
+
+	const onLogOut = async () => {
+		dispatch(setUser(null));
+		window.location.replace('/login');
 	};
 
 	// New board Funcs
@@ -304,7 +308,7 @@ export function AppHeader() {
 							<div>
 								<div className='user-avatar'>
 									<div className='user-avatar-btn flex-center m-y-m'>
-										{loggedInUser.img ? <img src={loggedInUser.img} alt='' /> : <h2>{getUserInitials()}</h2>}
+										{loggedInUser.img ? <img src={loggedInUser.imgUrl} alt='' /> : <h2>{getUserInitials()}</h2>}
 									</div>
 								</div>
 								<span className='user-fullname'></span>
@@ -312,9 +316,13 @@ export function AppHeader() {
 								<span className='user-mail-or-username'>
 									{loggedInUser.email ? loggedInUser.email : loggedInUser.username}
 								</span>
-								<Link to='/login'>
-									<span className='logout pointer'>Logout</span>
-								</Link>
+								<span
+									className='logout pointer'
+									onClick={() => {
+										onLogOut();
+									}}>
+									Logout
+								</span>
 							</div>
 						) : (
 							<div className='flex flex-start'>

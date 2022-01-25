@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {openModal, addBoard} from '../../store/board.action.js';
 
 export const CreateModal = () => {
@@ -7,6 +7,9 @@ export const CreateModal = () => {
 
 	const [newBoard, setNewBoard] = useState({});
 	const [boardTitleInput, setBoardTitleInput] = useState('');
+	const {loggedInUser} = useSelector((state) => ({
+		loggedInUser: state.userModule.loggedInUser,
+	}));
 
 	const colors = [
 		'bc-blue',
@@ -44,7 +47,7 @@ export const CreateModal = () => {
 	};
 
 	const updateBoardTitle = () => {
-		setNewBoard({...newBoard, title: boardTitleInput});
+		setNewBoard({...newBoard, title: boardTitleInput, createdBy: loggedInUser});
 		console.log(newBoard);
 	};
 
