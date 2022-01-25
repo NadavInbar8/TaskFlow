@@ -21,9 +21,10 @@ export const BoardHeader = ({setForceRender, filterBoard, forceRender}) => {
 	const {modal} = useSelector((state) => ({modal: state.boardModule.modal}));
 	const [width, setWidth] = useState('');
 	const [boardTitleInput, setBoardTitleInput] = useState('');
-	// const [filterModal, setFilterModal] = useState(false);
 	const [starStatus, setStarStatus] = useState(false);
-	// const [menuModal, setMenuModal] = useState(false);
+	const {loggedInUser} = useSelector((state) => ({
+		loggedInUser: state.userModule.loggedInUser,
+	}));
 
 	const dispatch = useDispatch();
 
@@ -93,6 +94,16 @@ export const BoardHeader = ({setForceRender, filterBoard, forceRender}) => {
 		dispatch(updateBoard(updatedBoard));
 	};
 
+	const getUserInitials = () => {
+		if (loggedInUser) {
+			let fullName = loggedInUser.fullName;
+			console.log(fullName);
+			fullName = fullName.split(' ');
+			const initials = fullName[0].charAt(0).toUpperCase() + fullName[1].charAt(0).toUpperCase();
+			return initials;
+		}
+	};
+
 	return (
 		<header className='board-header'>
 			<div className='header-left-container flex-center'>
@@ -118,7 +129,7 @@ export const BoardHeader = ({setForceRender, filterBoard, forceRender}) => {
 				</div>
 				<div className='users-div flex-center'>
 					<div className='member-icons'>
-						<div className='member-icon'>OK</div>
+						<div className='member-icon'>{loggedInUser ? getUserInitials() : 'OK'}</div>
 						<div className='member-icon'>NI</div>
 						<div className='member-icon'>TR</div>
 					</div>

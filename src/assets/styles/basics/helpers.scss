@@ -106,6 +106,10 @@
 	font-weight: bold;
 }
 
+.disabled-btn:hover {
+	cursor: not-allowed;
+}
+
 // <!-- HTML !-->
 // <button class="button-65" role="button">Button 65</button>
 
