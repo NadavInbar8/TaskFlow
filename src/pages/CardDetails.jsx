@@ -422,8 +422,15 @@ export const CardDetails = () => {
                         <span>Members</span>
                         <section className='users-details-section'>
                           {card.users.map((user) => {
+                            const background =
+                              user._id === loggedInUser._id
+                                ? 'darkcyan'
+                                : 'red';
                             return (
-                              <div className='user-details-preview'>
+                              <div
+                                style={{ backgroundColor: background }}
+                                className='user-details-preview'
+                              >
                                 {user.initials}
                               </div>
                             );
