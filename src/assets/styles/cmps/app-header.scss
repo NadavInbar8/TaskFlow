@@ -133,6 +133,16 @@
 		}
 	}
 
+	.skeleton-div {
+		width: 200px;
+		height: 120px;
+
+		img {
+			width: unset;
+			height: unset;
+		}
+	}
+
 	.create-modal span {
 		cursor: pointer;
 		background-color: inherit;
@@ -192,6 +202,13 @@
 
 	// User
 
+	.user-details {
+		flex-wrap: wrap;
+	}
+
+	.user-details-text {
+		margin-left: $s-2;
+	}
 	.user-avatar {
 		right: 0;
 		display: flex;

@@ -149,43 +149,45 @@ export function AppHeader() {
 	// style={{backgroundColor: '#0000003d'}}
 
 	return (
-		<header className='app-header' style={{backgroundColor: getBackgroundcolor(), color: getFontColor()}}>
-			<div className='main-header flex'>
-				<div className='left-container flex'>
-					<div className='logo-container flex align-center'>
-						<Link to='/workspace'>
-							<img src={location.pathname === '/' ? blackLogo : whiteLogo} alt='taskflow logo' />
-						</Link>
-					</div>
-					{/* <nav className='flex'> */}
-					{location.pathname !== '/' && (
-						<ul>
-							<li className='boards'>
-								<span className='li-span flex-center' onClick={() => toggleModal('boardsModal')}>
-									<img className='boards-img' src={boardsImg} alt='' />
-									Boards
-								</span>
-								{modal === 'boardsModal' && (
-									<ul className='boards-modal flex'>
-										<div className='modal-top'>
-											<h3>Boards</h3>
-											<button onClick={() => toggleModal('boardsModal')}>x</button>
-										</div>
-										<hr></hr>
-										{boards.map((board) => {
-											return (
-												<Link onClick={() => toggleModal('boardsModal')} key={board._id} to={`/board/${board._id}`}>
-													<li>{board.title}</li>
-												</Link>
-											);
-										})}
-									</ul>
-								)}
-							</li>
-							<li className='create-li'>
-								<span onClick={() => toggleModal('createModal')}>Create</span>
-								{modal === 'createModal' && <CreateModal />}
-								{/* (
+		<>
+			{location.pathname !== '/login' && location.pathname !== '/signup' && (
+				<header className='app-header' style={{backgroundColor: getBackgroundcolor(), color: getFontColor()}}>
+					<div className='main-header flex'>
+						<div className='left-container flex'>
+							<div className='logo-container flex align-center'>
+								<Link to='/workspace'>
+									<img src={location.pathname === '/' ? blackLogo : whiteLogo} alt='taskflow logo' />
+								</Link>
+							</div>
+							{/* <nav className='flex'> */}
+							{location.pathname !== '/' && (
+								<ul>
+									<li className='boards'>
+										<span className='li-span flex-center' onClick={() => toggleModal('boardsModal')}>
+											<img className='boards-img' src={boardsImg} alt='' />
+											Boards
+										</span>
+										{modal === 'boardsModal' && (
+											<ul className='boards-modal flex'>
+												<div className='modal-top'>
+													<h3>Boards</h3>
+													<button onClick={() => toggleModal('boardsModal')}>x</button>
+												</div>
+												<hr></hr>
+												{boards.map((board) => {
+													return (
+														<Link onClick={() => toggleModal('boardsModal')} key={board._id} to={`/board/${board._id}`}>
+															<li>{board.title}</li>
+														</Link>
+													);
+												})}
+											</ul>
+										)}
+									</li>
+									<li className='create-li'>
+										<span onClick={() => toggleModal('createModal')}>Create</span>
+										{modal === 'createModal' && <CreateModal />}
+										{/* (
 									<div className='create-modal flex'>
 										<div className='modal-top'>
 											<h3>Create</h3>
@@ -233,34 +235,34 @@ export function AppHeader() {
 													Create Board
 												</button>
 											)} */}
-								{/* </div> */}
-								{/* </div> */}
-								{/* )} */}
-							</li>
-						</ul>
-					)}
-				</div>
-				{location.pathname === '/' ? (
-					<div>
-						<Link to='/login'>
-							<button className='login-btn blue-btn'>Login</button>
-						</Link>
-						<Link to='/signup'>
-							<button className='signup-btn blue-btn'>Signup</button>
-						</Link>
-					</div>
-				) : (
-					<div className='user-avatar'>
-						<div
-							className='user-avatar-btn flex-center'
-							onClick={() => {
-								toggleModal('userModal');
-							}}>
-							{loggedInUser ? loggedInUser.initials : 'G'}
+										{/* </div> */}
+										{/* </div> */}
+										{/* )} */}
+									</li>
+								</ul>
+							)}
 						</div>
-					</div>
-				)}
-				{/* {isUserModalOpen && (
+						{location.pathname === '/' ? (
+							<div>
+								<Link to='/login'>
+									<button className='login-btn blue-btn'>Login</button>
+								</Link>
+								<Link to='/signup'>
+									<button className='signup-btn blue-btn'>Signup</button>
+								</Link>
+							</div>
+						) : (
+							<div className='user-avatar'>
+								<div
+									className='user-avatar-btn flex-center'
+									onClick={() => {
+										toggleModal('userModal');
+									}}>
+									{loggedInUser ? loggedInUser.initials : 'G'}
+								</div>
+							</div>
+						)}
+						{/* {isUserModalOpen && (
 							<div className='user-modal'>
 								<span
 									onClick={() => {
@@ -271,9 +273,9 @@ export function AppHeader() {
 							</div>
 						)} */}
 
-				{/* </nav> */}
-			</div>
-			{/* {isBoardsModalOpen && (
+						{/* </nav> */}
+					</div>
+					{/* {isBoardsModalOpen && (
 				<ul className='boards-modal flex'>
 					{boards.map((board) => {
 						return (
@@ -285,7 +287,7 @@ export function AppHeader() {
 				</ul>
 			)} */}
 
-			{/* {isCreateModalOpen && (
+					{/* {isCreateModalOpen && (
 				<div className='create-modal flex'>
 					<div
 						onClick={() => {
@@ -296,49 +298,53 @@ export function AppHeader() {
 					</div>
 				</div>
 			)} */}
-			{modal === 'userModal' && (
-				<div className='user-modal'>
-					<div>
-						<div className='modal-top'>
-							<h3>Account</h3>
-							<button onClick={() => toggleModal('userModal')}>x</button>
-						</div>
-						<hr />
-						{loggedInUser ? (
+					{modal === 'userModal' && (
+						<div className='user-modal'>
 							<div>
-								<div className='user-avatar'>
-									<div className='user-avatar-btn flex-center m-y-m'>
-										{loggedInUser.img ? <img src={loggedInUser.imgUrl} alt='' /> : <h2>{loggedInUser.initials}</h2>}
-									</div>
+								<div className='modal-top'>
+									<h3>Account</h3>
+									<button onClick={() => toggleModal('userModal')}>x</button>
 								</div>
-								<span className='user-fullname'></span>
-								<br></br>
-								<span className='user-mail-or-username'>
-									{loggedInUser.email ? loggedInUser.email : loggedInUser.username}
-								</span>
-								<span
-									className='logout pointer'
-									onClick={() => {
-										onLogOut();
-									}}>
-									Logout
-								</span>
-							</div>
-						) : (
-							<div className='flex flex-start'>
-								<div className='user-avatar flex-column'>
-									<div className='user-avatar-btn flex-center m-y-m'>
-										<h2>G</h2>
+								<hr />
+								{loggedInUser ? (
+									<div>
+										<div className='user-details flex'>
+											<div className='user-avatar-btn flex-center m-y-m'>
+												{loggedInUser.img ? <img src={loggedInUser.imgUrl} alt='' /> : <h4>{loggedInUser.initials}</h4>}
+											</div>
+											<div className='user-details-text'>
+												<span className='user-fullname'>{loggedInUser.fullName}</span>
+												<br></br>
+												<span className='user-mail-or-username'>
+													{loggedInUser.email ? loggedInUser.email : loggedInUser.username}
+												</span>
+											</div>
+										</div>
+										<span
+											className='logout pointer'
+											onClick={() => {
+												onLogOut();
+											}}>
+											Logout
+										</span>
 									</div>
-									<Link to='/login'>
-										<span className='logout pointer'>Login</span>
-									</Link>
-								</div>
+								) : (
+									<div className='flex flex-start'>
+										<div className='user-avatar flex-column'>
+											<div className='user-avatar-btn flex-center m-y-m'>
+												<h2>G</h2>
+											</div>
+											<Link to='/login'>
+												<span className='logout pointer'>Login</span>
+											</Link>
+										</div>
+									</div>
+								)}
 							</div>
-						)}
-					</div>
-				</div>
+						</div>
+					)}
+				</header>
 			)}
-		</header>
+		</>
 	);
 }
