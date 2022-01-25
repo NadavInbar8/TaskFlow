@@ -6,6 +6,7 @@ import boardsImg from '../assets/imgs/boards.svg';
 
 // import {WorkSpace} from '../pages/WorkSpace.jsx';
 // import {Board} from '../pages/Board.jsx';
+import {CreateModal} from './headerCmps/CreateModal.jsx';
 
 import whiteLogo from '../assets/imgs/logo/whiteLogo.svg';
 import blackLogo from '../assets/imgs/logo/blackLogo.svg';
@@ -17,12 +18,16 @@ export function AppHeader() {
 	const {boards} = useSelector((state) => ({boards: state.boardModule.boards}), shallowEqual);
 	const {board} = useSelector((state) => ({board: state.boardModule.currBoard}), shallowEqual);
 	const {modal} = useSelector((state) => ({modal: state.boardModule.modal}));
-	const [newBoard, setNewBoard] = useState({});
-	const [boardTitleInput, setBoardTitleInput] = useState('');
+	const {loggedInUser} = useSelector((state) => ({
+		loggedInUser: state.userModule.loggedInUser,
+	}));
+
+	// const [newBoard, setNewBoard] = useState({});
+	// const [boardTitleInput, setBoardTitleInput] = useState('');
 
 	const dispatch = useDispatch();
 	const location = useLocation();
-	const user = null;
+	// const user = null;
 
 	useEffect(() => {
 		dispatch(loadBoards());
@@ -37,7 +42,7 @@ export function AppHeader() {
 
 	const getFontColor = () => {
 		// return `${board.style.backgroundColor}`;
-		console.log(location);
+		// console.log(location);
 		if (location.pathname === '/') return '#172b4';
 		else return '#ffff';
 	};
@@ -47,51 +52,66 @@ export function AppHeader() {
 	};
 
 	// New board Funcs
-	const colors = [
-		'bc-blue',
-		'bc-orange',
-		'bc-dark-green',
-		'bc-red',
-		'bc-purple',
-		'bc-pink',
-		'bc-light-green',
-		'bc-cyan',
-		'bc-grey',
-	];
+	// const colors = [
+	// 	'bc-blue',
+	// 	'bc-orange',
+	// 	'bc-dark-green',
+	// 	'bc-red',
+	// 	'bc-purple',
+	// 	'bc-pink',
+	// 	'bc-light-green',
+	// 	'bc-cyan',
+	// 	'bc-grey',
+	// ];
 
-	const getColors = (color) => {
-		if (color === 'bc-blue') return 'rgb(0, 121, 191)';
-		else if (color === 'bc-orange') return 'rgb(210, 144, 52)';
-		else if (color === 'bc-dark-green') return 'rgb(81, 152, 57)';
-		else if (color === 'bc-red') return 'rgb(176, 70, 50)';
-		else if (color === 'bc-purple') return 'rgb(137, 96, 158)';
-		else if (color === 'bc-pink') return 'rgb(205, 90, 145)';
-		else if (color === 'bc-light-green') return 'rgb(75, 191, 107)';
-		else if (color === 'bc-cyan') return 'rgb(0, 174, 204)';
-		else if (color === 'bc-grey') return 'rgb(131, 140, 145)';
+	// const getColors = (color) => {
+	// 	if (color === 'bc-blue') return 'rgb(0, 121, 191)';
+	// 	else if (color === 'bc-orange') return 'rgb(210, 144, 52)';
+	// 	else if (color === 'bc-dark-green') return 'rgb(81, 152, 57)';
+	// 	else if (color === 'bc-red') return 'rgb(176, 70, 50)';
+	// 	else if (color === 'bc-purple') return 'rgb(137, 96, 158)';
+	// 	else if (color === 'bc-pink') return 'rgb(205, 90, 145)';
+	// 	else if (color === 'bc-light-green') return 'rgb(75, 191, 107)';
+	// 	else if (color === 'bc-cyan') return 'rgb(0, 174, 204)';
+	// 	else if (color === 'bc-grey') return 'rgb(131, 140, 145)';
+	// };
+
+	// const saveColor = (color) => {
+	// 	const actualColor = getColors(color);
+	// 	setNewBoard({...newBoard, backgroundColor: actualColor});
+	// 	console.log(newBoard);
+	// };
+
+	// const updateBoardTitle = () => {
+	// 	setNewBoard({...newBoard, title: boardTitleInput});
+	// 	console.log(newBoard);
+	// };
+
+	// const saveNewBoard = () => {
+	// 	dispatch(addBoard(newBoard));
+	// };
+
+	// function handleBoardTitleChange({target}) {
+	// 	if (!target) return;
+	// 	// console.log(target);
+	// 	const value = target.value;
+	// 	setBoardTitleInput(value);
+	// }
+
+	const getUserInitials = () => {
+		if (loggedInUser) {
+			let fullName = loggedInUser.fullName;
+			// console.log(fullName);
+			fullName = fullName.split(' ');
+			const initials = fullName[0].charAt(0).toUpperCase() + fullName[1].charAt(0).toUpperCase();
+			return initials;
+		}
 	};
 
-	const saveColor = (color) => {
-		const actualColor = getColors(color);
-		setNewBoard({...newBoard, backgroundColor: actualColor});
-		console.log(newBoard);
-	};
-
-	const updateBoardTitle = () => {
-		setNewBoard({...newBoard, title: boardTitleInput});
-		console.log(newBoard);
-	};
-
-	const saveNewBoard = () => {
-		dispatch(addBoard(newBoard));
-	};
-
-	function handleBoardTitleChange({target}) {
-		if (!target) return;
-		// console.log(target);
-		const value = target.value;
-		setBoardTitleInput(value);
-	}
+	// const getBorderColor = () => {
+	// 	if (boardTitleInput.length === 0) return 'red';
+	// 	return 'grey';
+	// };
 
 	// const getBackgroundOpacity = () => {
 	// 	// if (location.pathname.includes('/board')) return '0.45';
@@ -160,7 +180,8 @@ export function AppHeader() {
 							</li>
 							<li className='create-li'>
 								<span onClick={() => toggleModal('createModal')}>Create</span>
-								{modal === 'createModal' && (
+								{modal === 'createModal' && <CreateModal />}
+								{/* (
 									<div className='create-modal flex'>
 										<div className='modal-top'>
 											<h3>Create</h3>
@@ -169,8 +190,8 @@ export function AppHeader() {
 										<hr></hr>
 										<div>
 											<div className='board-background'>
-												<span className='bold'>Background</span>
-												<div className='colors-grid'>
+												<h5>Background</h5>
+												<div className='colors-grid m-y-m'>
 													{colors.map((color, idx) => {
 														return (
 															<div
@@ -181,28 +202,36 @@ export function AppHeader() {
 													})}
 												</div>
 											</div>
-											<div>
-												<span>Board title</span>
+											<div className='create-board-title-div'>
+												<h5>Board title</h5>
 												<input
-													className='board-title'
+													className='board-title-header m-y-m'
 													onBlur={updateBoardTitle}
 													onChange={handleBoardTitleChange}
 													name='title'
 													value={boardTitleInput}
 													type='text-area'
+													style={{borderColor: getBorderColor()}}
 												/>
+												{boardTitleInput.length === 0 && <span>👋 Board title is required</span>}
 											</div>
-											<span
-												className='app-header-div'
-												onClick={() => {
-													toggleModal('createModal');
-													saveNewBoard();
-												}}>
-												Create Board
-											</span>
-										</div>
-									</div>
-								)}
+											{boardTitleInput.length === 0 ? (
+												<button disabled className='grey-btn disabled-btn create-board-btn m-y-m'>
+													Create Board
+												</button>
+											) : (
+												<button
+													className='blue-btn enabled-btn create-board-btn m-y-m'
+													onClick={() => {
+														toggleModal('createModal');
+														saveNewBoard();
+													}}>
+													Create Board
+												</button>
+											)} */}
+								{/* </div> */}
+								{/* </div> */}
+								{/* )} */}
 							</li>
 						</ul>
 					)}
@@ -223,7 +252,7 @@ export function AppHeader() {
 							onClick={() => {
 								toggleModal('userModal');
 							}}>
-							G
+							{loggedInUser ? getUserInitials() : 'G'}
 						</div>
 					</div>
 				)}
@@ -271,12 +300,18 @@ export function AppHeader() {
 							<button onClick={() => toggleModal('userModal')}>x</button>
 						</div>
 						<hr />
-						{user ? (
+						{loggedInUser ? (
 							<div>
-								<div className='user-avatar'>{user.img ? <img src={user.img} alt='' /> : <h2>{user.initials}</h2>}</div>
+								<div className='user-avatar'>
+									<div className='user-avatar-btn flex-center m-y-m'>
+										{loggedInUser.img ? <img src={loggedInUser.img} alt='' /> : <h2>{getUserInitials()}</h2>}
+									</div>
+								</div>
 								<span className='user-fullname'></span>
 								<br></br>
-								<span className='user-mail-or-username'>{user.email ? user.email : user.username}</span>
+								<span className='user-mail-or-username'>
+									{loggedInUser.email ? loggedInUser.email : loggedInUser.username}
+								</span>
 								<Link to='/login'>
 									<span className='logout pointer'>Logout</span>
 								</Link>
