@@ -21,7 +21,6 @@ import addUser from '../assets/imgs/add-user.png';
 // Libs
 import { over } from 'lodash';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
-import initialData from './initialData.js';
 
 // Images
 import filterSvg from '../assets/imgs/filter-svgs/filter.svg';
@@ -31,6 +30,9 @@ import dueDate from '../assets/imgs/card-due.svg';
 import description from '../assets/imgs/card-desc.svg';
 import cardEdit from '../assets/imgs/card-edit.svg';
 import dotdotdot from '../assets/imgs/dotdotdot.svg';
+import close from '../assets/imgs/close.svg';
+import plus from '../assets/imgs/plus.svg';
+import plusWhite from '../assets/imgs/plus-white.svg';
 export const Board = () => {
   const { boardId } = useParams();
   const { board } = useSelector(
@@ -42,6 +44,7 @@ export const Board = () => {
   ///// useStates /////
   const [filteredBoard, setFilteredBoard] = useState({});
   const [selectedCard, setSelectedCard] = useState({});
+  const [selectedList, setSelectedList] = useState({});
   const [newList, setNewList] = useState(false);
   const [listName, setListName] = useState('');
   const [newCard, setNewCard] = useState({});
@@ -57,8 +60,7 @@ export const Board = () => {
   // const [starStatus, setStarStatus] = useState(false);
   // const [menuModal, setMenuModal] = useState(false);
 
-  const [data, setData] = useState({ tasks: {}, columns: {}, columnOrder: [] });
-  const dnd = { tasks: {}, columns: {}, columnOrder: [] };
+  const [data, setData] = useState({});
 
   ///// Tom useStates /////
   // const [width, setWidth] = useState('');
@@ -93,26 +95,8 @@ export const Board = () => {
 
   useEffect(() => {
     if (board) {
-      const boardData = [...board.groups];
-      for (let i = 0; i < boardData.length; i++) {
-        dnd.columns[boardData[i].id] = boardData[i];
-        dnd.columns[boardData[i].id]['taskIds'] = [];
-        for (let j = 0; j < boardData[i].tasks.length; j++) {
-          dnd.columns[boardData[i].id]['taskIds'].push(
-            boardData[i].tasks[j].id
-          );
-        }
-      }
-      for (let k = 0; k < boardData.length; k++) {
-        for (let h = 0; h < boardData[k].tasks.length; h++) {
-          dnd.tasks[boardData[k].tasks[h].id] = boardData[k].tasks[h];
-        }
-      }
-      for (const col in dnd.columns) {
-        dnd.columnOrder.push(col);
-      }
+      setData(board.groups);
     }
-    setData(dnd);
   }, [board]);
 
   useEffect(() => {
@@ -197,8 +181,16 @@ export const Board = () => {
   };
 
   const openEditModal = (card) => {
-    toggleEditModal();
     setSelectedCard(card);
+    toggleEditModal();
+  };
+
+  const openListModal = (list) => {
+    setSelectedList(list);
+  };
+
+  const closeListModal = () => {
+    setSelectedList({});
   };
 
   const closeEditModal = () => {
@@ -261,6 +253,23 @@ export const Board = () => {
     setForceRender(!forceRender);
   };
 
+  const copyList = (list) => {
+    const updatedBoard = { ...board };
+    const copiedList = { ...list, id: utilService.makeId() };
+    const copiedTasks = [...copiedList.tasks];
+    copiedTasks.map((task) => {
+      task = { ...task, id: utilService.makeId() };
+    });
+    let listIdx = updatedBoard.groups.findIndex(
+      (group) => group.id === list.id
+    );
+    copiedList.tasks = copiedTasks;
+    updatedBoard.groups.splice(listIdx, 0, copiedList);
+    closeListModal();
+    dispatch(updateBoard(updatedBoard));
+    setForceRender(!forceRender);
+  };
+
   const deleteCard = (list, card) => {
     const updatedBoard = { ...board };
     let listIdx = updatedBoard.groups.findIndex(
@@ -274,72 +283,12 @@ export const Board = () => {
     setForceRender(!forceRender);
   };
 
-  const onDragEnd = (res) => {
-    const { destination, source, draggableId, type } = res;
-
-    if (!destination) return;
-    if (
-      destination.droppableId === source.droppableId &&
-      destination.index === source.index
-    ) {
-      return;
-    }
-
-    if (type === 'column') {
-      const newColumnOrder = [...data.columnOrder];
-      newColumnOrder.splice(source.index, 1);
-      newColumnOrder.splice(destination.index, 0, draggableId);
-
-      const newData = {
-        ...data,
-        columnOrder: newColumnOrder,
-      };
-      setData(newData);
-    }
-
-    const start = data.columns[source.droppableId];
-    const finish = data.columns[destination.droppableId];
-
-    if (start === finish) {
-      const column = data.columns[source.droppableId];
-      const newTaskIds = Array.from(column.taskIds);
-      newTaskIds.splice(source.index, 1);
-      newTaskIds.splice(destination.index, 0, draggableId);
-      const newColumn = { ...column, taskIds: newTaskIds };
-      const newData = {
-        ...data,
-        columns: { ...data.columns, [newColumn.id]: newColumn },
-      };
-      setData(newData);
-      return;
-    }
-
-    const startTaskIds = Array.from(start.taskIds);
-    startTaskIds.splice(source.index, 1);
-    const newStart = {
-      ...start,
-      taskIds: startTaskIds,
-    };
-    const finishTaskIds = Array.from(finish.taskIds);
-    finishTaskIds.splice(destination.index, 0, draggableId);
-    const newFinish = {
-      ...finish,
-      taskIds: finishTaskIds,
-    };
-
-    const newData = {
-      ...data,
-      columns: {
-        ...data.columns,
-        [newStart.id]: newStart,
-        [newFinish.id]: newFinish,
-      },
-    };
-    setData(newData);
-  };
-
   //   const overlayStyle = { 'z-index': 100 };
   const [openLabels, setOpenLabels] = useState(false);
+  const [listModal, setListModal] = useState(false);
+
+  console.log('data', data);
+
   return (
     <section className='flex-column h100'>
       <div
@@ -355,27 +304,44 @@ export const Board = () => {
             // Filter
             filterBoard={filterBoard}
           />
-          <div
-            className='board flex'
-            onClick={(event) => event.stopPropagation()}
-          >
+          <div className='board flex'>
             {board.groups
               ? board.groups.map((list) => {
                   return (
                     <div key={list.id} className='board-list flex-column'>
-                      <h3>{list.title}</h3>
-                      <img
-                        src={dotdotdot}
-                        className='list-menu'
-                        alt='list menu'
-                      />
-                      <div className={'board-list-modal'}></div>
-                      <button onClick={() => deleteList(list)}>
-                        delete list
-                      </button>
-                      <ul>
+                      <div className='list-options'>
+                        <span>{list.title}</span>
+                        <img
+                          src={dotdotdot}
+                          className='list-menu'
+                          alt='list menu'
+                          onClick={() => openListModal(list)}
+                        />
+                      </div>
+                      {selectedList.id === list.id ? (
+                        <div className='board-list-modal'>
+                          <div className=' modal-top'>
+                            <h3>List Modal</h3>
+                            <img
+                              onClick={closeListModal}
+                              className='closeBtn'
+                              src={close}
+                              alt='close'
+                            />
+                          </div>
+                          <hr></hr>
+                          <ul>
+                            <li onClick={() => copyList(list)}>Copy List</li>
+                            <li onClick={() => editNewCard(list)}>Add Card</li>
+                            <li onClick={() => deleteList(list)}>
+                              Delete List
+                            </li>
+                          </ul>
+                        </div>
+                      ) : null}
+
+                      <ul className='flex-column flex-center'>
                         {list.tasks.map((card) => {
-                          console.log('card', card);
                           return selectedCard.id !== card.id ? (
                             <li
                               key={card.id}
@@ -437,7 +403,9 @@ export const Board = () => {
                                   </Link>
                                   <div
                                     className='board-card-edit-btn '
-                                    onClick={() => openEditModal(card)}
+                                    onClick={() => {
+                                      openEditModal(card);
+                                    }}
                                   >
                                     <img src={cardEdit} alt='edit' />
                                   </div>
@@ -465,7 +433,6 @@ export const Board = () => {
                                   ) : null}
                                   {card.checkLists ? (
                                     <div className='board-card-checklist'>
-                                      {console.log(card.checkLists)}
                                       {card.checkLists.map((checkList, idx) => {
                                         let checkListCounter = 0;
 
@@ -541,75 +508,36 @@ export const Board = () => {
                           );
                         })}
                       </ul>
+
                       {list.editMode ? (
-                        <>
-                          <input
+                        <div className='add-new-card-edit'>
+                          <textarea
                             type='text'
                             name='newCard'
                             onChange={handleChange}
-                            //   onBlur={updateCard}
-                          />
-                          <button onClick={() => addNewCard(list)}>add</button>
-                        </>
+                          ></textarea>
+                          <div
+                            className='add-new-card-edit-btn'
+                            onClick={() => addNewCard(list)}
+                          >
+                            add
+                          </div>
+                        </div>
                       ) : (
                         <div
-                          className='add-card'
+                          className='add-new-card'
                           onClick={() => editNewCard(list)}
                         >
-                          + add new card
+                          <img src={plus} alt='+' /> <span>Add new card</span>
                         </div>
                       )}
                     </div>
                   );
                 })
               : null}
-            {/* {data ? (
-              <DragDropContext onDragEnd={onDragEnd}>
-                <Droppable
-                  droppableId='all-columns'
-                  direction='horizontal'
-                  type='column'
-                >
-                  {(provided) => (
-                    <div
-                      className='Container flex'
-                      {...provided.droppableProps}
-                      ref={provided.innerRef}
-                    >
-                      {data.columnOrder.map((columnId, index) => {
-                        const column = data.columns[columnId];
-                        const tasks = column.taskIds.map(
-                          (taskId) => data.tasks[taskId]
-                        );
-                        return (
-                          <Group
-                            key={column.id}
-                            column={column}
-                            tasks={tasks}
-                            index={index}
-                            deleteList={deleteList}
-                            editNewCard={editNewCard}
-                            addNewCard={addNewCard}
-                            handleChange={handleChange}
-                            boardId={boardId}
-                            openEditModal={openEditModal}
-                            closeEditModal={closeEditModal}
-                            selectedCard={selectedCard}
-                            editCard={editCard}
-                            copyCard={copyCard}
-                            deleteCard={deleteCard}
-                          />
-                        );
-                      })}
-                      {provided.placeholder}
-                    </div>
-                  )}
-                </Droppable>
-              </DragDropContext>
-            ) : null} */}
             {!newList ? (
-              <div className='add-list flex' onClick={() => setNewList(true)}>
-                add new group
+              <div className='add-list' onClick={() => setNewList(true)}>
+                <img src={plusWhite} alt='+' /> Add new group
               </div>
             ) : (
               <div className='add-list-options flex-column'>

@@ -15,9 +15,46 @@
   min-width: 272px;
   margin: 0px $s-1;
   max-height: 80vh;
+  position: relative;
+
+  .list-options {
+    height: $s-8;
+    padding: $s-2;
+    font-size: $fs-5;
+    font-weight: $fw-4;
+    span {
+      margin-left: $s-3;
+    }
+  }
+
+  .board-list-modal {
+    position: absolute;
+    background-color: white;
+    top: 0px;
+    width: 280px;
+    right: -288px;
+    border-radius: $br;
+
+    .closeBtn {
+      margin-right: $s-2;
+      margin-top: $s-2;
+      cursor: pointer;
+      height: $s-2;
+    }
+    li {
+      cursor: pointer;
+      padding: $s-1;
+    }
+    li:hover {
+      background-color: #091e420a;
+    }
+  }
 
   .list-menu {
     height: 14px;
+    position: absolute;
+    top: $s-2;
+    right: $s-2;
   }
 
   ul {
@@ -27,12 +64,16 @@
   }
   .board-card {
     background-color: whitesmoke;
-    margin: $s-2;
+    margin-bottom: $s-1;
     border-radius: $br;
+    padding: $s-1;
     position: relative;
     width: 240px;
     height: fit-content;
     min-height: 40px;
+  }
+  .board-card:first-child {
+    margin-top: $s-1;
   }
   .board-card-details {
     padding: 6px $s-2 2px $s-2;
@@ -175,8 +216,17 @@
 
 .add-new-card {
   padding: $s-2;
-  margin-top: $s-4;
+  padding-left: $s-2;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  span {
+    margin-left: $s-1;
+  }
+  img {
+    height: 12px;
+    padding-left: $s-2;
+  }
 }
 .add-new-card:hover {
   background-color: #d9dce2;
@@ -187,14 +237,14 @@
   padding: $s-2;
   margin-top: $s-4;
   width: 100%;
-  height: 120px;
+  // height: 120px;
   textarea {
     border-radius: $br;
     width: 100%;
     overflow: none;
-    height: inherit;
     resize: none;
     border: none;
+    height: 54px !important;
   }
   textarea:focus-visible {
     outline: 2px solid #0079bf;
@@ -319,7 +369,8 @@
 }
 
 .add-list {
-  margin-top: $fs-4;
+  display: flex;
+  align-items: center;
   padding: $s-2;
   border-radius: $br;
   background-color: rgba(0, 0, 0, 0.219);
@@ -328,6 +379,10 @@
   font-weight: bold;
   cursor: pointer;
   font-size: $fs-4;
+  img {
+    height: $s-4;
+    margin-right: $s-2;
+  }
 }
 .add-list:hover {
   background-color: rgba(0, 0, 0, 0.383);
