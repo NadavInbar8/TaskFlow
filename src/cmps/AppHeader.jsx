@@ -102,15 +102,15 @@ export function AppHeader() {
 	// 	setBoardTitleInput(value);
 	// }
 
-	const getUserInitials = () => {
-		if (loggedInUser) {
-			let fullName = loggedInUser.fullName;
-			// console.log(fullName);
-			fullName = fullName.split(' ');
-			const initials = fullName[0].charAt(0).toUpperCase() + fullName[1].charAt(0).toUpperCase();
-			return initials;
-		}
-	};
+	// const getUserInitials = () => {
+	// 	if (loggedInUser) {
+	// 		let fullName = loggedInUser.fullName;
+	// 		// console.log(fullName);
+	// 		fullName = fullName.split(' ');
+	// 		const initials = fullName[0].charAt(0).toUpperCase() + fullName[1].charAt(0).toUpperCase();
+	// 		return initials;
+	// 	}
+	// };
 
 	// const getBorderColor = () => {
 	// 	if (boardTitleInput.length === 0) return 'red';
@@ -256,7 +256,7 @@ export function AppHeader() {
 							onClick={() => {
 								toggleModal('userModal');
 							}}>
-							{loggedInUser ? getUserInitials() : 'G'}
+							{loggedInUser ? loggedInUser.initials : 'G'}
 						</div>
 					</div>
 				)}
@@ -308,7 +308,7 @@ export function AppHeader() {
 							<div>
 								<div className='user-avatar'>
 									<div className='user-avatar-btn flex-center m-y-m'>
-										{loggedInUser.img ? <img src={loggedInUser.imgUrl} alt='' /> : <h2>{getUserInitials()}</h2>}
+										{loggedInUser.img ? <img src={loggedInUser.imgUrl} alt='' /> : <h2>{loggedInUser.initials}</h2>}
 									</div>
 								</div>
 								<span className='user-fullname'></span>

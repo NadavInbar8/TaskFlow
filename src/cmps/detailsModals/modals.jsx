@@ -84,7 +84,13 @@ export function Attachment({ attachLink, toggleModal }) {
         <hr />
         <section className='attachment-main'>
           <h3>Attach a link</h3>
-          <input onChange={handleChange} name='link' value={link} type='text' />
+          <input
+            placeholder='Attach any link here...'
+            onChange={handleChange}
+            name='link'
+            value={link}
+            type='text'
+          />
           {nameInputShown && (
             <>
               <h3>Link name (optional)</h3>
@@ -219,18 +225,15 @@ export function Labels({ addLabel, toggleModal, board, updateLabelsList }) {
 
   function handleFilter({ target }) {
     setsearchedLabel(target.value);
-    let newlLabels = labels.filter((label) => {
-      label.name.includes(target.value);
+    console.log(target.value);
+
+    let newlLabels = labelsforState.filter((label) => {
+      // console.log(label);
+      return label.name.includes(target.value);
     });
+    console.log(newlLabels);
     setLabels(newlLabels);
   }
-  // function changeLabel() {
-  //   const newLabels = labels;
-  //   newLabels.map((label) => {
-  //     return label.id === editLabel.id ? editLabel : label;
-  //   });
-  //   setLabels(newLabels);
-  // }
 
   return (
     <div className='details-modal labels-modal'>
@@ -246,6 +249,7 @@ export function Labels({ addLabel, toggleModal, board, updateLabelsList }) {
           <div className='labels-modal-main'>
             <div className='labels-input'>
               <input
+                autoComplete='false'
                 onChange={handleFilter}
                 placeholder='Search labels...'
                 name='name'
@@ -302,6 +306,109 @@ export function Labels({ addLabel, toggleModal, board, updateLabelsList }) {
           </div>
         )}
       </section>
+    </div>
+  );
+}
+
+export function Move({ board, moveCardToOtherList, toggleModal, type }) {
+  const [selectedGroup, setSelectedGroup] = useState(board.groups[0]);
+  const [selectedPosition, setSelectedPosition] = useState(0);
+
+  function handleListChange({ target }) {
+    // console.log(target.value);
+    let selectedGroup = board.groups.find((group) => group.id === target.value);
+    // console.log(selectedGroup);
+    setSelectedGroup(selectedGroup);
+  }
+
+  function handlePositionChange({ target }) {
+    // console.log(target.value);
+    setSelectedPosition(target.value);
+  }
+
+  function moveCard() {
+    // console.log(selectedGroup);
+    // console.log(selectedPosition);
+    moveCardToOtherList(selectedGroup, selectedPosition, 'move');
+    toggleModal('moveModal');
+  }
+
+  function copyCard() {
+    moveCardToOtherList(selectedGroup, selectedPosition, 'copy');
+    toggleModal('moveModalCopy');
+  }
+
+  return (
+    <div className='details-modal move-modal'>
+      <div className='move-modal-layout'>
+        {type === 'move' && (
+          <section className='move-modal-top'>
+            <span> </span>
+            <h3>Move</h3>
+            <span onClick={() => toggleModal('moveModal')}>x</span>
+          </section>
+        )}
+        {type === 'copy' && (
+          <section className='move-modal-top'>
+            <span> </span>
+            <h3>Copy</h3>
+            <span onClick={() => toggleModal('moveModalCopy')}>x</span>
+          </section>
+        )}
+        <hr />
+
+        <main>
+          <h3> Select Destination</h3>
+          <div className='board-name'>
+            <h5>Board</h5>
+            <span>{board.title}</span>
+          </div>
+          <section className='move-to'>
+            <select
+              onChange={handleListChange}
+              className='move-to-list'
+              name='list'
+              id=''
+            >
+              {board.groups.map((group, idx) => {
+                return (
+                  <option key={idx} value={group.id}>
+                    {group.title}
+                  </option>
+                );
+              })}
+            </select>
+
+            <select
+              onChange={handlePositionChange}
+              className='move-to-position'
+              name='position'
+            >
+              {selectedGroup.tasks.map((task, idx) => {
+                return (
+                  <option key={idx} value={idx}>
+                    {idx + 1}
+                  </option>
+                );
+              })}
+              <option value={selectedGroup.tasks.length + 1}>
+                {selectedGroup.tasks.length + 1}
+              </option>
+            </select>
+          </section>
+        </main>
+
+        {type === 'move' && (
+          <section className='move-button'>
+            <button onClick={moveCard}>MOVE</button>
+          </section>
+        )}
+        {type === 'copy' && (
+          <section className='move-button'>
+            <button onClick={copyCard}>Copy</button>
+          </section>
+        )}
+      </div>
     </div>
   );
 }

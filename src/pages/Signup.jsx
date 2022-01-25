@@ -39,12 +39,13 @@ export function Signup() {
 		const firstName = data.get('firstName');
 		const lastName = data.get('lastName');
 		let fullName = firstName + ' ' + lastName;
+		let initials = firstName.charAt(0).toUpperCase() + lastName.charAt(0).toUpperCase();
 
 		userService.signup({
 			email: data.get('email'),
 			password: data.get('password'),
 			fullName: fullName,
-			initials: firstName.charAt(0).toUpperCase() + lastName(0).charAt(0).toUpperCase(),
+			initials,
 		});
 	};
 
