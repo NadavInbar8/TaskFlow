@@ -1,8 +1,8 @@
 .app-header {
 	// display: flex;
 
-	width: 100vw;
-	height: 5vh;
+	// width: 100vw;
+	min-height: 44px;
 	// font-size: 1rem;
 	font-weight: 700;
 	background: #026aa7;
@@ -12,7 +12,7 @@
 	// top: -10%;
 
 	.main-header {
-		margin-right: $s-2;
+		padding: 0 $s-2;
 		justify-content: space-between;
 		width: 100vw;
 		align-items: center;
@@ -26,12 +26,12 @@
 	}
 	img {
 		width: 8rem;
-		height: 4vh;
+		height: $s-8;
 	}
 
 	.boards-img {
-		height: 16px;
-		width: 16px;
+		height: $s-4;
+		width: $s-4;
 		margin-right: $s-2;
 	}
 
@@ -47,10 +47,10 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
+		height: 44px;
 	}
 
 	li.boards {
-		height: 5vh;
 		display: flex;
 		justify-content: flex-start;
 		justify-content: center;

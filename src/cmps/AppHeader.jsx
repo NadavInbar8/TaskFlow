@@ -51,7 +51,7 @@ export function AppHeader() {
 	};
 
 	const onLogOut = async () => {
-		dispatch(setUser(null));
+		dispatch(setUser(null, 'login'));
 		window.location.replace('/login');
 	};
 
