@@ -90,6 +90,7 @@ function _getEmptyBoard(board) {
         _id: 'u101',
         fullname: 'Tal Tarablus',
         imgUrl: 'https://www.google.com',
+        initials: 'TT',
       },
     ],
     groupsOrder: ['g101', 'g102'],
@@ -126,10 +127,12 @@ function _getEmptyBoard(board) {
             comments: [
               {
                 id: 'ZdPnm',
+                initials: 'YB',
                 txt: 'also @yaronb please CR this',
                 createdAt: 1590999817436.0,
                 byMember: {
                   _id: 'u101',
+                  initials: 'TT',
                   fullname: 'Tal Tarablus',
                   imgUrl:
                     'http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg',
@@ -154,6 +157,7 @@ function _getEmptyBoard(board) {
                 _id: 'u101',
                 username: 'Tal',
                 fullname: 'Tal Tarablus',
+                initials: 'TT',
                 imgUrl:
                   'http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg',
               },
@@ -165,6 +169,7 @@ function _getEmptyBoard(board) {
               _id: 'u101',
               username: 'Tal',
               fullname: 'Tal Tarablus',
+              initials: 'TT',
               imgUrl:
                 'http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg',
             },
@@ -186,6 +191,7 @@ function _getEmptyBoard(board) {
           _id: 'u101',
           fullname: 'Abi Abambi',
           imgUrl: 'http://some-img',
+          initials: 'AA',
         },
         task: {
           id: 'c101',

@@ -58,6 +58,11 @@ export const WorkSpace = () => {
 
     dispatch(updateBoard(newBoard));
   }
+  function connectUser() {
+    if (loggedInUser === null) userService.connectGuestUser();
+    else return;
+  }
+
   return (
     <div className='work-space'>
       {console.log('render')}
@@ -82,7 +87,7 @@ export const WorkSpace = () => {
                 >
                   <div
                     onClick={() => {
-                      userService.connectGuestUser();
+                      connectUser();
                       history.push(`/board/${staredBoard._id}`);
                     }}
                     className='star-board-preview'
@@ -114,7 +119,7 @@ export const WorkSpace = () => {
                     {board.style?.backgroundColor && (
                       <div
                         onClick={() => {
-                          userService.connectGuestUser();
+                          connectUser();
                           history.push(`/board/${board._id}`);
                         }}
                         className='board-background'

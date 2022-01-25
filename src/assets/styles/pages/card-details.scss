@@ -337,26 +337,6 @@
   font-size: 1.5rem;
 }
 
-// COMMENTS
-.add-comment-form {
-  margin-top: 10px;
-  input {
-    margin-top: 7px;
-    width: 100%;
-    height: 50px;
-    border-radius: 7px;
-    // background-color: #f4f5f7;
-    font-size: 1.2rem;
-    border: none;
-    padding-inline-start: 10px;
-    background-color: #eaecf0;
-  }
-
-  input:focus {
-    border: solid 1px grey;
-  }
-}
-
 // checkList
 
 .checklist {
@@ -540,5 +520,95 @@
       cursor: pointer;
       background-color: #ced0d3;
     }
+  }
+}
+
+// COMMENTS
+
+.comments {
+  ul {
+    margin-left: 0;
+    padding-left: 30px;
+  }
+
+  .comment {
+    display: flex;
+    border-radius: 7px;
+    width: 100%;
+    margin-top: 20px;
+    height: 80px;
+
+    .comment-user-content {
+      display: flex;
+    }
+
+    .comment-content {
+      // height: 55px;
+      display: flex;
+      flex-direction: column;
+      // align-items: flex-start;
+      border-radius: 7px;
+      // span {
+      //   margin-left: 20px;
+      // }
+      .comment-user-fullname {
+        font-size: 1.1rem;
+        display: flex;
+        align-items: center;
+        height: 55px;
+      }
+      .comment-txt {
+        // padding-top: 20px;
+        span {
+          margin-left: 20px;
+        }
+        height: 55px;
+        background-color: #fff;
+        height: 100%;
+        display: flex;
+        align-items: center;
+      }
+      width: 100%;
+    }
+  }
+
+  .comment:hover {
+    background-color: #eaecf0;
+    // img {
+    //   display: block;
+    // }
+  }
+
+  .user-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    width: 40px;
+    // margin-top: 10px;
+    // margin-bottom: 10px;
+    margin-right: 5px;
+    color: rgb(253, 253, 253);
+    background-color: red;
+    // background-color: rgb(214, 163, 163);
+    border-radius: 50%;
+  }
+}
+.add-comment-form {
+  margin-top: 10px;
+  input {
+    margin-top: 7px;
+    width: 100%;
+    height: 50px;
+    border-radius: 7px;
+    // background-color: #f4f5f7;
+    font-size: 1.2rem;
+    border: none;
+    padding-inline-start: 10px;
+    background-color: #eaecf0;
+  }
+
+  input:focus {
+    border: solid 1px grey;
   }
 }
