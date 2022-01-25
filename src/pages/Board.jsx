@@ -25,6 +25,11 @@ import initialData from './initialData.js';
 
 // Images
 import filterSvg from '../assets/imgs/filter-svgs/filter.svg';
+import attachment from '../assets/imgs/card-attach.svg';
+import cardChecklist from '../assets/imgs/card-checklist.svg';
+import dueDate from '../assets/imgs/card-due.svg';
+import description from '../assets/imgs/card-desc.svg';
+import cardEdit from '../assets/imgs/card-edit.svg';
 
 export const Board = () => {
   const { boardId } = useParams();
@@ -333,6 +338,8 @@ export const Board = () => {
     setData(newData);
   };
 
+  //   const overlayStyle = { 'z-index': 100 };
+  const [openLabels, setOpenLabels] = useState(false);
   return (
     <section>
       <div
@@ -359,22 +366,135 @@ export const Board = () => {
                       </button>
                       <ul>
                         {list.tasks.map((card) => {
+                          console.log('card', card);
                           return selectedCard.id !== card.id ? (
-                            <li key={card.id} className='board-card'>
-                              <Link
-                                to={`/board/${boardId}/${card.id}/${list.id}`}
-                              >
-                                {card.title}
-                              </Link>{' '}
-                              <div
-                                className='board-card-edit-btn'
-                                onClick={() => openEditModal(card)}
-                              >
-                                edit
+                            <li
+                              key={card.id}
+                              className='board-card flex-column'
+                            >
+                              {card.cover ? (
+                                <div
+                                  className='card-cover'
+                                  style={
+                                    card.cover.type == 'color'
+                                      ? { backgroundColor: card.cover.cover }
+                                      : null
+                                  }
+                                >
+                                  {card.cover.type == 'img' ? (
+                                    <img
+                                      src={card.cover.cover}
+                                      className='card-img-cover'
+                                    />
+                                  ) : null}
+                                </div>
+                              ) : null}
+                              <div className='board-card-details'>
+                                {card.labels ? (
+                                  <div
+                                    className={
+                                      openLabels
+                                        ? 'card-labels-open flex'
+                                        : 'card-labels flex'
+                                    }
+                                  >
+                                    <ul>
+                                      {card.labels.map((label, idx) => {
+                                        return (
+                                          <li
+                                            key={idx}
+                                            className='label'
+                                            onClick={() =>
+                                              setOpenLabels(!openLabels)
+                                            }
+                                            style={{
+                                              backgroundColor: label.color,
+                                            }}
+                                          >
+                                            {openLabels
+                                              ? `${label.name}`
+                                              : null}
+                                          </li>
+                                        );
+                                      })}
+                                    </ul>
+                                  </div>
+                                ) : null}
+                                <div className='card-title flex'>
+                                  <Link
+                                    to={`/board/${boardId}/${card.id}/${list.id}`}
+                                  >
+                                    {card.title}
+                                  </Link>
+                                  <div
+                                    className='board-card-edit-btn '
+                                    onClick={() => openEditModal(card)}
+                                  >
+                                    <img src={cardEdit} alt='edit' />
+                                  </div>
+                                </div>
+                                <div className='card-options flex'>
+                                  {card.date ? (
+                                    <div
+                                      className='card-date flex'
+                                      style={
+                                        !card.date.overDue
+                                          ? { backgroundColor: '#61BD4F' }
+                                          : { backgroundColor: '#EB5A46' }
+                                      }
+                                    >
+                                      <img src={dueDate} />
+                                      {card.date.date}
+                                    </div>
+                                  ) : null}
+                                  {card.description ? (
+                                    <img
+                                      className='board-card-description'
+                                      src={description}
+                                      title='this card has description'
+                                    />
+                                  ) : null}
+                                  {card.checkLists ? (
+                                    <div className='board-card-checklist'>
+                                      {console.log(card.checkLists)}
+                                      {card.checkLists.map((checkList, idx) => {
+                                        let checkListCounter = 0;
+
+                                        checkList.items.forEach(
+                                          (checkListItem) => {
+                                            if (checkListItem.isDone) {
+                                              checkListCounter++;
+                                            }
+                                          }
+                                        );
+                                        return (
+                                          <span
+                                            className=' flex-center'
+                                            key={idx}
+                                          >
+                                            {checkListCounter}/
+                                            {checkList.items.length}
+                                            <img src={cardChecklist} />
+                                          </span>
+                                        );
+                                      })}
+                                    </div>
+                                  ) : null}
+                                  {card.attachments
+                                    ? card.attachments.map((attachmentX) => {
+                                        return (
+                                          <div className='board-card-attachment flex-center'>
+                                            {card.attachments.length}
+                                            <img src={attachment} />
+                                          </div>
+                                        );
+                                      })
+                                    : null}
+                                </div>
                               </div>
                             </li>
                           ) : (
-                            <li key={card.id} className='board-card'>
+                            <li key={card.id} className='board-card overlaySee'>
                               <input
                                 type='text'
                                 defaultValue={card.title}
