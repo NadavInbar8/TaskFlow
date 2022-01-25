@@ -2,7 +2,7 @@
 
 .board {
   overflow-x: auto;
-  margin: 0 30px;
+  padding: 0 $s-3;
   flex: 1;
   overflow-y: hidden;
   // min-height: ;
@@ -14,8 +14,7 @@
   height: min-content;
   min-width: 272px;
   margin: 0px $s-1;
-  overflow: auto;
-  max-height: 600px;
+  max-height: 80vh;
 
   .list-menu {
     height: 14px;
@@ -24,6 +23,7 @@
   ul {
     padding: 0;
     margin: 0;
+    overflow: auto;
   }
   .board-card {
     background-color: whitesmoke;

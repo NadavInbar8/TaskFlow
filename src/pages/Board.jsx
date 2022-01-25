@@ -540,27 +540,25 @@ export const Board = () => {
                             </li>
                           );
                         })}
-                        {list.editMode ? (
-                          <>
-                            <input
-                              type='text'
-                              name='newCard'
-                              onChange={handleChange}
-                              //   onBlur={updateCard}
-                            />
-                            <button onClick={() => addNewCard(list)}>
-                              add
-                            </button>
-                          </>
-                        ) : (
-                          <div
-                            className='add-card'
-                            onClick={() => editNewCard(list)}
-                          >
-                            + add new card
-                          </div>
-                        )}
                       </ul>
+                      {list.editMode ? (
+                        <>
+                          <input
+                            type='text'
+                            name='newCard'
+                            onChange={handleChange}
+                            //   onBlur={updateCard}
+                          />
+                          <button onClick={() => addNewCard(list)}>add</button>
+                        </>
+                      ) : (
+                        <div
+                          className='add-card'
+                          onClick={() => editNewCard(list)}
+                        >
+                          + add new card
+                        </div>
+                      )}
                     </div>
                   );
                 })
