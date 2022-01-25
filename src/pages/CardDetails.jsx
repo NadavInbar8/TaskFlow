@@ -10,6 +10,7 @@ import {
   Dates,
   Attachment,
   Cover,
+  Move,
 } from '../cmps/detailsModals/modals.jsx';
 import { DetailscheckList } from '../cmps/detailsCmps/DetailsCmps.jsx';
 
@@ -291,6 +292,30 @@ export const CardDetails = () => {
 
     return str;
   }
+
+  // Move
+
+  function moveCardToOtherList(chosenGroup, idx, type) {
+    let currCard = card;
+    let listIdx = board.groups.findIndex((group) => group.id === listId);
+    let currCardIdx = board.groups[listIdx].tasks.findIndex(
+      (task) => task.id === cardId
+    );
+    let newBoard = board;
+
+    if (type === 'move') {
+      // splicing from the list
+      newBoard.groups[listIdx].tasks.splice(currCardIdx, 1);
+    }
+    // adding to list
+    let chosenGroupIdx = newBoard.groups.findIndex(
+      (group) => group.id === chosenGroup.id
+    );
+    newBoard.groups[chosenGroupIdx].tasks.splice(idx, 0, currCard);
+
+    dispatch(updateBoard(newBoard));
+  }
+
   // TOGLLING ALL MODALS
   function toggleModal(type) {
     // console.log('hi');
@@ -711,15 +736,40 @@ export const CardDetails = () => {
                     </ul>
                     <ul>
                       <li className='title-li'>Actions</li>
-                      <li>
-                        {' '}
-                        <img className='details-svg' src={move} alt='' />
-                        Move
+                      <li className='details-li'>
+                        <span
+                          className='li-span'
+                          onClick={() => toggleModal('moveModal')}
+                        >
+                          <img className='details-svg' src={move} alt='' />
+                          Move
+                        </span>
+                        {modal === 'moveModal' && (
+                          <Move
+                            type='move'
+                            board={board}
+                            moveCardToOtherList={moveCardToOtherList}
+                            toggleModal={toggleModal}
+                          />
+                        )}
                       </li>
-                      <li>
-                        {' '}
-                        <img className='details-svg' src={copy} alt='' />
-                        Copy
+
+                      <li className='details-li'>
+                        <span
+                          className='li-span'
+                          onClick={() => toggleModal('moveModalCopy')}
+                        >
+                          <img className='details-svg' src={copy} alt='' />
+                          Copy
+                        </span>
+                        {modal === 'moveModalCopy' && (
+                          <Move
+                            type='copy'
+                            board={board}
+                            moveCardToOtherList={moveCardToOtherList}
+                            toggleModal={toggleModal}
+                          />
+                        )}
                       </li>
                       <li onClick={deleteCard}>
                         <img className='details-svg' src={archive} alt='' />
