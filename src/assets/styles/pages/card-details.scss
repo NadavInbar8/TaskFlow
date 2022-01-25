@@ -27,7 +27,7 @@
   }
 }
 .gap-right {
-  margin-left: 40px;
+  margin-left: 30px;
 }
 
 .labels-date-section {
@@ -37,10 +37,11 @@
   }
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  margin-right: 10px;
 }
 
 .date-on-details {
+  margin-right: 10px;
   height: 100%;
   .date {
     height: 100%;
@@ -510,6 +511,7 @@
 
 // users
 .users-section {
+  margin-right: 20px;
   display: flex;
   justify-content: space-between;
   flex-direction: column;
@@ -528,6 +530,17 @@
       color: white;
       // background-color: rgb(214, 163, 163);
       border-radius: 50%;
+      img {
+        height: 50%;
+      }
+    }
+    .add-user-button {
+      position: relative;
+      background-color: #eaecf0;
+    }
+    .add-user-button:hover {
+      cursor: pointer;
+      background-color: #ced0d3;
     }
   }
 }

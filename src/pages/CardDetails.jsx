@@ -332,10 +332,32 @@ export const CardDetails = () => {
 
   function addUserToCard(user) {
     const currCard = card;
-    currCard.users ? currCard.users.push(user) : (currCard.users = [user]);
-    setCard(currCard);
-    console.log(currCard);
-    updateCard();
+    if (currCard.users) {
+      const doesUserExist = currCard.users.some((currCardUser) => {
+        return currCardUser._id === user._id;
+      });
+      if (doesUserExist) {
+        const userIdx = currCard.users.findIndex((currCardUser) => {
+          return currCardUser._id === user._id;
+        });
+
+        currCard.users.splice(userIdx, 1);
+        setCard(currCard);
+        console.log(currCard);
+        updateCard();
+      } else {
+        console.log(doesUserExist);
+        currCard.users ? currCard.users.push(user) : (currCard.users = [user]);
+        setCard(currCard);
+        console.log(currCard);
+        updateCard();
+      }
+    } else {
+      currCard.users = [user];
+      setCard(currCard);
+      console.log(currCard);
+      updateCard();
+    }
   }
 
   // TOGLLING ALL MODALS
@@ -375,7 +397,7 @@ export const CardDetails = () => {
                         deleteCover();
                       }}
                     >
-                      Delete Cover
+                      {/* Delete Cover */}
                     </span>
                   </section>
                 )}
@@ -417,7 +439,7 @@ export const CardDetails = () => {
               <div className='card-details-main'>
                 <div className='edit-actions'>
                   <section className=' gap-right labels-date-section'>
-                    {card.users?.length && (
+                    {card.users?.length > 0 && (
                       <section className='users-section'>
                         <span>Members</span>
                         <section className='users-details-section'>
@@ -435,6 +457,22 @@ export const CardDetails = () => {
                               </div>
                             );
                           })}
+                          <div
+                            onClick={() => {
+                              toggleModal('memberModalLeft');
+                            }}
+                            className='user-details-preview add-user-button'
+                          >
+                            <img src={plus} alt='' />
+
+                            {modal === 'memberModalLeft' && (
+                              <Members
+                                users={users}
+                                addUserToCard={addUserToCard}
+                                loggedInUser={loggedInUser}
+                              />
+                            )}
+                          </div>
                         </section>
                       </section>
                     )}
@@ -660,22 +698,6 @@ export const CardDetails = () => {
                       </ul>
                     )}
                   </div>
-
-                  {/* <section className='modals-container'> */}
-                  {/* {memberModal && <Members />}
-                    {labelsModal && <Labels addLabel={addLabel} />}
-                    {checklistModal && (
-                      <Checklist
-                        toggleModal={toggleModal}
-                        addCheckList={addCheckList}
-                      />
-                    )}
-                    {datesModal && (
-                      <Dates toggleModal={toggleModal} addDate={addDate} />
-                    )}
-                    {attachmentModal && <Attachment />}
-                    {coverModal && <Cover />} */}
-                  {/* </section> */}
                 </div>
 
                 <div className='add-to-card'>
