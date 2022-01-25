@@ -6,7 +6,6 @@ const STORAGE_KEY_BOARD = 'board';
 // var gWatchedUser = null;
 
 export const boardService = {
-<<<<<<< HEAD
   // login,
   // logout,
   // signup,
@@ -14,21 +13,9 @@ export const boardService = {
   query,
   getById,
   save,
-  // remove,
+  remove,
   // update,
   // changeScore
-=======
-	// login,
-	// logout,
-	// signup,
-	// getLoggedinUser,
-	query,
-	getById,
-	save,
-	remove,
-	// update,
-	// changeScore
->>>>>>> a1aef424edca86957697f15e84af11c7e975fdce
 };
 
 // To help debugging from console
@@ -59,8 +46,8 @@ async function save(board) {
 }
 
 function remove(boardId) {
-	return storageService.remove('board', boardId);
-	// return httpService.delete(`user/${userId}`);
+  return storageService.remove('board', boardId);
+  // return httpService.delete(`user/${userId}`);
 }
 
 // function _saveToStorage() {
