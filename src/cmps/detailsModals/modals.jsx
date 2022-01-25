@@ -3,9 +3,77 @@ import DayPicker from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
 import paint from '../../assets/imgs/paint.svg';
 import arrowleft from '../../assets/imgs/arrowleft.svg';
+import { utilService } from '../../services/util.service.js';
 
-export function Members() {
-  return <div className='details-modal members'>this is the members modal</div>;
+export function Members({ users, loggedInUser, addUserToCard }) {
+  const [usersMinusLoggedInUser, setUsers] = useState();
+
+  function setUsersMinusLoggedInUser() {
+    console.log(loggedInUser._id);
+    let newUsers = users.filter((user) => {
+      return user._id !== loggedInUser._id;
+    });
+    console.log(newUsers);
+    setUsers(newUsers);
+  }
+
+  useEffect(() => {
+    setUsersMinusLoggedInUser();
+  }, []);
+
+  function addUser(user) {
+    addUserToCard(user);
+  }
+
+  return (
+    <div>
+      {usersMinusLoggedInUser && (
+        <div className='details-modal members'>
+          <div className='members-modal-layout'>
+            <section className='members-modal-top'>
+              <span></span>
+              <h3>Members</h3>
+              <span>x</span>
+            </section>
+            <hr />
+            <main>
+              <input type='text' placeholder='Search..' />
+              <h3>Board Members</h3>
+              <ul>
+                <li
+                  onClick={() => {
+                    addUser(loggedInUser);
+                  }}
+                >
+                  <div
+                    style={{ color: 'black', backgroundColor: 'darkcyan' }}
+                    className='user-logo'
+                  >
+                    {loggedInUser.initials}
+                  </div>
+                  {loggedInUser.fullName}
+                </li>
+
+                {usersMinusLoggedInUser.map((user, idx) => {
+                  return (
+                    <li onClick={() => addUser(user)} key={idx}>
+                      <div
+                        style={{ backgroundColor: 'red' }}
+                        className='user-logo'
+                      >
+                        {user.initials}
+                      </div>
+                      {user.fullName}
+                    </li>
+                  );
+                })}
+              </ul>
+            </main>
+          </div>
+        </div>
+      )}
+    </div>
+  );
 }
 
 export function Checklist({ toggleModal, addCheckList }) {

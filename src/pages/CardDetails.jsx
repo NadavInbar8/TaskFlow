@@ -27,6 +27,7 @@ import archive from '../assets/imgs/archive.svg';
 import activity from '../assets/imgs/activity.svg';
 import title from '../assets/imgs/title.svg';
 import plus from '../assets/imgs/plus.svg';
+import { userService } from '../services/user.service.js';
 
 export const CardDetails = () => {
   // CURRBOARD
@@ -35,6 +36,19 @@ export const CardDetails = () => {
     shallowEqual
   );
 
+  const [loggedInUser, setLoggedInUser] = useState(
+    userService.getLoggedinUser()
+  );
+  const [users, setUsers] = useState([]);
+
+  async function getUsers() {
+    const users = await userService.getUsers();
+    setUsers(users);
+  }
+
+  useEffect(() => {
+    getUsers();
+  }, []);
   // Modal state
   const { modal } = useSelector((state) => ({
     modal: state.boardModule.modal,
@@ -316,6 +330,36 @@ export const CardDetails = () => {
     dispatch(updateBoard(newBoard));
   }
 
+  function addUserToCard(user) {
+    const currCard = card;
+    if (currCard.users) {
+      const doesUserExist = currCard.users.some((currCardUser) => {
+        return currCardUser._id === user._id;
+      });
+      if (doesUserExist) {
+        const userIdx = currCard.users.findIndex((currCardUser) => {
+          return currCardUser._id === user._id;
+        });
+
+        currCard.users.splice(userIdx, 1);
+        setCard(currCard);
+        console.log(currCard);
+        updateCard();
+      } else {
+        console.log(doesUserExist);
+        currCard.users ? currCard.users.push(user) : (currCard.users = [user]);
+        setCard(currCard);
+        console.log(currCard);
+        updateCard();
+      }
+    } else {
+      currCard.users = [user];
+      setCard(currCard);
+      console.log(currCard);
+      updateCard();
+    }
+  }
+
   // TOGLLING ALL MODALS
   function toggleModal(type) {
     // console.log('hi');
@@ -330,6 +374,8 @@ export const CardDetails = () => {
 
   return (
     <div>
+      {/* {console.log(loggedInUser)}
+      {console.log(users)} */}
       {board.groups ? (
         <div>
           <Link className='go-back-container' to={`/board/${board._id}`} />
@@ -351,7 +397,7 @@ export const CardDetails = () => {
                         deleteCover();
                       }}
                     >
-                      Delete Cover
+                      {/* Delete Cover */}
                     </span>
                   </section>
                 )}
@@ -393,6 +439,43 @@ export const CardDetails = () => {
               <div className='card-details-main'>
                 <div className='edit-actions'>
                   <section className=' gap-right labels-date-section'>
+                    {card.users?.length > 0 && (
+                      <section className='users-section'>
+                        <span>Members</span>
+                        <section className='users-details-section'>
+                          {card.users.map((user) => {
+                            const background =
+                              user._id === loggedInUser._id
+                                ? 'darkcyan'
+                                : 'red';
+                            return (
+                              <div
+                                style={{ backgroundColor: background }}
+                                className='user-details-preview'
+                              >
+                                {user.initials}
+                              </div>
+                            );
+                          })}
+                          <div
+                            onClick={() => {
+                              toggleModal('memberModalLeft');
+                            }}
+                            className='user-details-preview add-user-button'
+                          >
+                            <img src={plus} alt='' />
+
+                            {modal === 'memberModalLeft' && (
+                              <Members
+                                users={users}
+                                addUserToCard={addUserToCard}
+                                loggedInUser={loggedInUser}
+                              />
+                            )}
+                          </div>
+                        </section>
+                      </section>
+                    )}
                     <section>
                       {card.labels?.length > 0 && (
                         <div>
@@ -615,22 +698,6 @@ export const CardDetails = () => {
                       </ul>
                     )}
                   </div>
-
-                  {/* <section className='modals-container'> */}
-                  {/* {memberModal && <Members />}
-                    {labelsModal && <Labels addLabel={addLabel} />}
-                    {checklistModal && (
-                      <Checklist
-                        toggleModal={toggleModal}
-                        addCheckList={addCheckList}
-                      />
-                    )}
-                    {datesModal && (
-                      <Dates toggleModal={toggleModal} addDate={addDate} />
-                    )}
-                    {attachmentModal && <Attachment />}
-                    {coverModal && <Cover />} */}
-                  {/* </section> */}
                 </div>
 
                 <div className='add-to-card'>
@@ -647,7 +714,13 @@ export const CardDetails = () => {
                           <img className='details-svg' src={user} alt='' />
                           Members
                         </span>
-                        {modal === 'memberModal' && <Members />}
+                        {modal === 'memberModal' && (
+                          <Members
+                            users={users}
+                            addUserToCard={addUserToCard}
+                            loggedInUser={loggedInUser}
+                          />
+                        )}
                       </li>
                       {/* /////////////////////////////////////////////////////////////////// */}
                       <li className='details-li'>
