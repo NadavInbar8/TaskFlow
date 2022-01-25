@@ -1,80 +1,97 @@
 .work-space {
-	width: 80%;
-	margin: auto;
-	display: flex;
-	color: $b1;
+  width: 80%;
+  margin: auto;
+  display: flex;
+  color: $b1;
 }
 
 .work-space .nav {
-	color: $b1;
-	//   height: 80vh;
-	//   background-color: rgb(240, 208, 208);
-	li {
-		border-radius: 8px;
-		font-size: 1.3rem;
-		padding: 8px;
-		transition: 0.2s;
-		margin-top: 10px;
-	}
+  color: $b1;
+  //   height: 80vh;
+  //   background-color: rgb(240, 208, 208);
+  li {
+    border-radius: 8px;
+    font-size: 1.3rem;
+    padding: 8px;
+    transition: 0.2s;
+    margin-top: 10px;
+  }
 
-	li:first-child {
-		margin-top: 30px;
-	}
-	li:hover {
-		background-color: rgba(207, 197, 197, 0.712);
-		cursor: pointer;
-	}
+  li:first-child {
+    margin-top: 30px;
+  }
+  li:hover {
+    background-color: rgba(207, 197, 197, 0.712);
+    cursor: pointer;
+  }
 }
 
 .workspaces-boards {
-	height: 80vh;
-	width: 70%;
-	display: flex;
-	gap: 10px;
-	//   background-color: rgb(230, 240, 208);
+  height: 80vh;
+  width: 70%;
+  display: flex;
+  gap: 10px;
+  //   background-color: rgb(230, 240, 208);
 }
 
 .headline {
-	margin-left: 15px;
-	text-align: center;
-	display: flex;
-	align-items: center;
-	width: 400px;
+  margin-left: 15px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  width: 400px;
 
-	h1 {
-		line-height: 32px;
-		letter-spacing: 2px;
-	}
+  h1 {
+    line-height: 32px;
+    letter-spacing: 2px;
+  }
 }
 
 div.boards {
-	//   background-color: rgb(219, 206, 23);
-	margin-left: 100px;
-	height: 400px;
-	width: 90%;
-	margin: 0 auto;
-	margin-top: 10px;
+  //   background-color: rgb(219, 206, 23);
+  margin-left: 100px;
+  height: 400px;
+  width: 90%;
+  margin: 0 auto;
+  margin-top: 10px;
 }
 
 .boards-container {
-	max-height: 80vh;
-	width: 100%;
-	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-	grid-template-rows: repeat(auto-fill, minmax(200px, 1fr));
-	gap: 20px;
+  max-height: 80vh;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-rows: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.adding {
+  margin: auto;
+  .add-board-div {
+    background-color: rgb(218, 218, 218);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 150px;
+    width: 200px;
+  }
 }
 
 .board-preview {
-	margin: auto;
-	img {
-		border-radius: 15px;
-		height: 150px;
-	}
+  margin: auto;
+  img {
+    // border-radius: 15px;
+    height: 150px;
+  }
+
+  .board-background {
+    height: 150px;
+    width: 200px;
+  }
 }
 
 .board-preview img:hover {
-	opacity: 0.7;
+  opacity: 0.7;
 }
 
 // .workspace-board-title {
@@ -82,5 +99,5 @@ div.boards {
 // }
 
 .usersvg {
-	height: 80px;
+  height: 80px;
 }

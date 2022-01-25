@@ -3,9 +3,77 @@ import DayPicker from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
 import paint from '../../assets/imgs/paint.svg';
 import arrowleft from '../../assets/imgs/arrowleft.svg';
+import { utilService } from '../../services/util.service.js';
 
-export function Members() {
-  return <div className='details-modal members'>this is the members modal</div>;
+export function Members({ users, loggedInUser, addUserToCard }) {
+  const [usersMinusLoggedInUser, setUsers] = useState();
+
+  function setUsersMinusLoggedInUser() {
+    console.log(loggedInUser._id);
+    let newUsers = users.filter((user) => {
+      return user._id !== loggedInUser._id;
+    });
+    console.log(newUsers);
+    setUsers(newUsers);
+  }
+
+  useEffect(() => {
+    setUsersMinusLoggedInUser();
+  }, []);
+
+  function addUser(user) {
+    addUserToCard(user);
+  }
+
+  return (
+    <div>
+      {usersMinusLoggedInUser && (
+        <div className='details-modal members'>
+          <div className='members-modal-layout'>
+            <section className='members-modal-top'>
+              <span></span>
+              <h3>Members</h3>
+              <span>x</span>
+            </section>
+            <hr />
+            <main>
+              <input type='text' placeholder='Search..' />
+              <h3>Board Members</h3>
+              <ul>
+                <li
+                  onClick={() => {
+                    addUser(loggedInUser);
+                  }}
+                >
+                  <div
+                    style={{ color: 'black', backgroundColor: 'darkcyan' }}
+                    className='user-logo'
+                  >
+                    {loggedInUser.initials}
+                  </div>
+                  {loggedInUser.fullName}
+                </li>
+
+                {usersMinusLoggedInUser.map((user, idx) => {
+                  return (
+                    <li onClick={() => addUser(user)} key={idx}>
+                      <div
+                        style={{ backgroundColor: 'red' }}
+                        className='user-logo'
+                      >
+                        {user.initials}
+                      </div>
+                      {user.fullName}
+                    </li>
+                  );
+                })}
+              </ul>
+            </main>
+          </div>
+        </div>
+      )}
+    </div>
+  );
 }
 
 export function Checklist({ toggleModal, addCheckList }) {
@@ -84,7 +152,13 @@ export function Attachment({ attachLink, toggleModal }) {
         <hr />
         <section className='attachment-main'>
           <h3>Attach a link</h3>
-          <input onChange={handleChange} name='link' value={link} type='text' />
+          <input
+            placeholder='Attach any link here...'
+            onChange={handleChange}
+            name='link'
+            value={link}
+            type='text'
+          />
           {nameInputShown && (
             <>
               <h3>Link name (optional)</h3>
@@ -155,23 +229,31 @@ export function Cover({ addCover, toggleModal }) {
   );
 }
 
-export function Labels({ addLabel, toggleModal }) {
+export function Labels({ addLabel, toggleModal, board, updateLabelsList }) {
   const [editMode, setEditMode] = useState(false);
+  let labelsforState;
+  // console.log(board);
+  if (board.labelOptions) labelsforState = board.labelOptions;
+  else
+    labelsforState = [
+      { id: 1, color: 'green', name: 'easy' },
+      { id: 2, color: 'yellow', name: 'medium' },
+      { id: 3, color: 'orange', name: 'hard' },
+      { id: 4, color: 'red', name: 'very hard' },
+      { id: 5, color: 'purple', name: 'company fun ' },
+      { id: 6, color: 'blue', name: 'night activity' },
+      { id: 7, color: 'dark-blue', name: 'urgent' },
+    ];
 
-  const [labels, setLabels] = useState([
-    { id: 1, color: 'green', name: 'light' },
-    { id: 2, color: 'yellow', name: 'soon' },
-    { id: 3, color: 'orange', name: 'company fun' },
-    { id: 4, color: 'red', name: 'important' },
-    { id: 5, color: 'purple', name: 'at night' },
-    { id: 6, color: 'blue', name: 'vacation' },
-    { id: 7, color: 'dark-blue', name: 'meeting' },
-  ]);
+  // console.log('labelsOptions', labelsforState);
+  const [labels, setLabels] = useState(labelsforState);
   const [editLabel, setEditLabel] = useState({
     id: 1234,
     color: 'red',
     name: 'choose',
   });
+
+  const [searchedLabel, setsearchedLabel] = useState('');
 
   function markChosen(label) {
     console.log(label);
@@ -183,19 +265,42 @@ export function Labels({ addLabel, toggleModal }) {
   }
 
   function saveLabel() {
-    console.log(editLabel);
+    console.log('you are in labels list');
     console.log(labels);
     let newLabels = labels;
+    let newLabel = editLabel;
+    console.log(editLabel);
+
     newLabels.map((label) => {
-      return label.id === editLabel.id ? editLabel : label;
+      console.log(label.id, editLabel.id);
+      if (label.id === editLabel.id) {
+        console.log('same id');
+        console.log(editLabel);
+        label.name = editLabel.name;
+        return label;
+      } else return label;
     });
+    console.log(newLabels);
     setLabels(newLabels);
     addLabel(editLabel);
+    updateLabelsList(newLabels);
     setEditLabel({
       id: 1234,
       color: 'red',
       name: 'choose',
     });
+  }
+
+  function handleFilter({ target }) {
+    setsearchedLabel(target.value);
+    console.log(target.value);
+
+    let newlLabels = labelsforState.filter((label) => {
+      // console.log(label);
+      return label.name.includes(target.value);
+    });
+    console.log(newlLabels);
+    setLabels(newlLabels);
   }
 
   return (
@@ -211,7 +316,14 @@ export function Labels({ addLabel, toggleModal }) {
         {!editMode && (
           <div className='labels-modal-main'>
             <div className='labels-input'>
-              <input placeholder='Search labels...' type='text' />
+              <input
+                autoComplete='false'
+                onChange={handleFilter}
+                placeholder='Search labels...'
+                name='name'
+                value={searchedLabel}
+                type='text'
+              />
             </div>
             <div className='labels-modal'>
               {labels.map((label, idx) => {
@@ -220,7 +332,9 @@ export function Labels({ addLabel, toggleModal }) {
                     <div
                       onClick={() => addLabel(label)}
                       className={' label label-' + label.color}
-                    ></div>
+                    >
+                      {label.name}
+                    </div>
                     <img onClick={() => setEditMode(!editMode)} src={paint} />
                     {/* <button onClick={() => setEditMode(!editMode)}>edit</button> */}
                   </div>
@@ -238,6 +352,7 @@ export function Labels({ addLabel, toggleModal }) {
               className='edit-label-input'
               onChange={handleEditLabelChange}
               value={editLabel.name}
+              // onBlur={changeLabel}
               placeholder='Name'
               type='text'
             />
@@ -259,6 +374,109 @@ export function Labels({ addLabel, toggleModal }) {
           </div>
         )}
       </section>
+    </div>
+  );
+}
+
+export function Move({ board, moveCardToOtherList, toggleModal, type }) {
+  const [selectedGroup, setSelectedGroup] = useState(board.groups[0]);
+  const [selectedPosition, setSelectedPosition] = useState(0);
+
+  function handleListChange({ target }) {
+    // console.log(target.value);
+    let selectedGroup = board.groups.find((group) => group.id === target.value);
+    // console.log(selectedGroup);
+    setSelectedGroup(selectedGroup);
+  }
+
+  function handlePositionChange({ target }) {
+    // console.log(target.value);
+    setSelectedPosition(target.value);
+  }
+
+  function moveCard() {
+    // console.log(selectedGroup);
+    // console.log(selectedPosition);
+    moveCardToOtherList(selectedGroup, selectedPosition, 'move');
+    toggleModal('moveModal');
+  }
+
+  function copyCard() {
+    moveCardToOtherList(selectedGroup, selectedPosition, 'copy');
+    toggleModal('moveModalCopy');
+  }
+
+  return (
+    <div className='details-modal move-modal'>
+      <div className='move-modal-layout'>
+        {type === 'move' && (
+          <section className='move-modal-top'>
+            <span> </span>
+            <h3>Move</h3>
+            <span onClick={() => toggleModal('moveModal')}>x</span>
+          </section>
+        )}
+        {type === 'copy' && (
+          <section className='move-modal-top'>
+            <span> </span>
+            <h3>Copy</h3>
+            <span onClick={() => toggleModal('moveModalCopy')}>x</span>
+          </section>
+        )}
+        <hr />
+
+        <main>
+          <h3> Select Destination</h3>
+          <div className='board-name'>
+            <h5>Board</h5>
+            <span>{board.title}</span>
+          </div>
+          <section className='move-to'>
+            <select
+              onChange={handleListChange}
+              className='move-to-list'
+              name='list'
+              id=''
+            >
+              {board.groups.map((group, idx) => {
+                return (
+                  <option key={idx} value={group.id}>
+                    {group.title}
+                  </option>
+                );
+              })}
+            </select>
+
+            <select
+              onChange={handlePositionChange}
+              className='move-to-position'
+              name='position'
+            >
+              {selectedGroup.tasks.map((task, idx) => {
+                return (
+                  <option key={idx} value={idx}>
+                    {idx + 1}
+                  </option>
+                );
+              })}
+              <option value={selectedGroup.tasks.length + 1}>
+                {selectedGroup.tasks.length + 1}
+              </option>
+            </select>
+          </section>
+        </main>
+
+        {type === 'move' && (
+          <section className='move-button'>
+            <button onClick={moveCard}>MOVE</button>
+          </section>
+        )}
+        {type === 'copy' && (
+          <section className='move-button'>
+            <button onClick={copyCard}>Copy</button>
+          </section>
+        )}
+      </div>
     </div>
   );
 }

@@ -19,9 +19,10 @@ export const userService = {
 // To help debugging from console
 window.userService = userService;
 
-function getUsers() {
-  return storageService.query('user');
+async function getUsers() {
   // return httpService.get(`user`)
+  const users = await storageService.query('user');
+  return users;
 }
 
 async function getById(userId) {

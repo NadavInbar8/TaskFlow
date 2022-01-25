@@ -348,13 +348,13 @@ export const Board = () => {
       ></div>
       {board ? (
         <div>
-          {/* <BoardHeader
-						// Header
-						board={board}
-						setForceRender={setForceRender}
-						// Filter
-						filterBoard={filterBoard}
-					/> */}
+          <BoardHeader
+            // Header
+            board={board}
+            setForceRender={setForceRender}
+            // Filter
+            filterBoard={filterBoard}
+          />
           <div className='board flex'>
             {board.groups
               ? board.groups.map((list) => {

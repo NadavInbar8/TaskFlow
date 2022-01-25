@@ -7,6 +7,7 @@ html {
 	font-family: 'segoe', sans-serif;
 	background-color: lightcyan;
 	line-height: 20px;
+	color: $b1;
 }
 
 body {
@@ -28,4 +29,13 @@ hr {
 	height: 1px;
 	width: 100%;
 	color: $b1;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	margin: 0;
 }

@@ -10,6 +10,7 @@ import {
   Dates,
   Attachment,
   Cover,
+  Move,
 } from '../cmps/detailsModals/modals.jsx';
 import { DetailscheckList } from '../cmps/detailsCmps/DetailsCmps.jsx';
 
@@ -26,6 +27,7 @@ import archive from '../assets/imgs/archive.svg';
 import activity from '../assets/imgs/activity.svg';
 import title from '../assets/imgs/title.svg';
 import plus from '../assets/imgs/plus.svg';
+import { userService } from '../services/user.service.js';
 
 export const CardDetails = () => {
   // CURRBOARD
@@ -34,6 +36,19 @@ export const CardDetails = () => {
     shallowEqual
   );
 
+  const [loggedInUser, setLoggedInUser] = useState(
+    userService.getLoggedinUser()
+  );
+  const [users, setUsers] = useState([]);
+
+  async function getUsers() {
+    const users = await userService.getUsers();
+    setUsers(users);
+  }
+
+  useEffect(() => {
+    getUsers();
+  }, []);
   // Modal state
   const { modal } = useSelector((state) => ({
     modal: state.boardModule.modal,
@@ -174,12 +189,21 @@ export const CardDetails = () => {
     currCard.labels.splice(idx, 1);
     setCard(currCard);
     updateCard();
+    console.log(currCard);
+  }
+
+  function updateLabelsList(newlabels) {
+    console.log('lalallalala');
+    console.log(newlabels);
+    const newBoard = board;
+    newBoard.labelOptions = newlabels;
+    dispatch(updateBoard(newBoard));
   }
 
   // ADD CHECKLIST
   function addCheckList(checkList) {
     const currCard = card;
-    currCard.checkLists
+    currCard.checkLists?.length > 0
       ? currCard.checkLists.push(checkList)
       : (currCard.checkLists = [checkList]);
     setCard(currCard);
@@ -282,6 +306,38 @@ export const CardDetails = () => {
 
     return str;
   }
+
+  // Move
+
+  function moveCardToOtherList(chosenGroup, idx, type) {
+    let currCard = card;
+    let listIdx = board.groups.findIndex((group) => group.id === listId);
+    let currCardIdx = board.groups[listIdx].tasks.findIndex(
+      (task) => task.id === cardId
+    );
+    let newBoard = board;
+
+    if (type === 'move') {
+      // splicing from the list
+      newBoard.groups[listIdx].tasks.splice(currCardIdx, 1);
+    }
+    // adding to list
+    let chosenGroupIdx = newBoard.groups.findIndex(
+      (group) => group.id === chosenGroup.id
+    );
+    newBoard.groups[chosenGroupIdx].tasks.splice(idx, 0, currCard);
+
+    dispatch(updateBoard(newBoard));
+  }
+
+  function addUserToCard(user) {
+    const currCard = card;
+    currCard.users ? currCard.users.push(user) : (currCard.users = [user]);
+    setCard(currCard);
+    console.log(currCard);
+    updateCard();
+  }
+
   // TOGLLING ALL MODALS
   function toggleModal(type) {
     // console.log('hi');
@@ -296,6 +352,8 @@ export const CardDetails = () => {
 
   return (
     <div>
+      {/* {console.log(loggedInUser)}
+      {console.log(users)} */}
       {board.groups ? (
         <div>
           <Link className='go-back-container' to={`/board/${board._id}`} />
@@ -359,6 +417,27 @@ export const CardDetails = () => {
               <div className='card-details-main'>
                 <div className='edit-actions'>
                   <section className=' gap-right labels-date-section'>
+                    {card.users?.length && (
+                      <section className='users-section'>
+                        <span>Members</span>
+                        <section className='users-details-section'>
+                          {card.users.map((user) => {
+                            const background =
+                              user._id === loggedInUser._id
+                                ? 'darkcyan'
+                                : 'red';
+                            return (
+                              <div
+                                style={{ backgroundColor: background }}
+                                className='user-details-preview'
+                              >
+                                {user.initials}
+                              </div>
+                            );
+                          })}
+                        </section>
+                      </section>
+                    )}
                     <section>
                       {card.labels?.length > 0 && (
                         <div>
@@ -389,6 +468,8 @@ export const CardDetails = () => {
                               <img src={plus} alt='' />
                               {modal === 'labelsModalLeft' && (
                                 <Labels
+                                  updateLabelsList={updateLabelsList}
+                                  board={board}
                                   toggleModal={toggleModal}
                                   addLabel={addLabel}
                                 />
@@ -611,7 +692,13 @@ export const CardDetails = () => {
                           <img className='details-svg' src={user} alt='' />
                           Members
                         </span>
-                        {modal === 'memberModal' && <Members />}
+                        {modal === 'memberModal' && (
+                          <Members
+                            users={users}
+                            addUserToCard={addUserToCard}
+                            loggedInUser={loggedInUser}
+                          />
+                        )}
                       </li>
                       {/* /////////////////////////////////////////////////////////////////// */}
                       <li className='details-li'>
@@ -624,8 +711,10 @@ export const CardDetails = () => {
                         </span>
                         {modal === 'labelsModal' && (
                           <Labels
+                            board={board}
                             toggleModal={toggleModal}
                             addLabel={addLabel}
+                            updateLabelsList={updateLabelsList}
                           />
                         )}
                       </li>
@@ -698,15 +787,40 @@ export const CardDetails = () => {
                     </ul>
                     <ul>
                       <li className='title-li'>Actions</li>
-                      <li>
-                        {' '}
-                        <img className='details-svg' src={move} alt='' />
-                        Move
+                      <li className='details-li'>
+                        <span
+                          className='li-span'
+                          onClick={() => toggleModal('moveModal')}
+                        >
+                          <img className='details-svg' src={move} alt='' />
+                          Move
+                        </span>
+                        {modal === 'moveModal' && (
+                          <Move
+                            type='move'
+                            board={board}
+                            moveCardToOtherList={moveCardToOtherList}
+                            toggleModal={toggleModal}
+                          />
+                        )}
                       </li>
-                      <li>
-                        {' '}
-                        <img className='details-svg' src={copy} alt='' />
-                        Copy
+
+                      <li className='details-li'>
+                        <span
+                          className='li-span'
+                          onClick={() => toggleModal('moveModalCopy')}
+                        >
+                          <img className='details-svg' src={copy} alt='' />
+                          Copy
+                        </span>
+                        {modal === 'moveModalCopy' && (
+                          <Move
+                            type='copy'
+                            board={board}
+                            moveCardToOtherList={moveCardToOtherList}
+                            toggleModal={toggleModal}
+                          />
+                        )}
                       </li>
                       <li onClick={deleteCard}>
                         <img className='details-svg' src={archive} alt='' />
