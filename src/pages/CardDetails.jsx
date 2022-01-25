@@ -27,6 +27,7 @@ import archive from '../assets/imgs/archive.svg';
 import activity from '../assets/imgs/activity.svg';
 import title from '../assets/imgs/title.svg';
 import plus from '../assets/imgs/plus.svg';
+import { userService } from '../services/user.service.js';
 
 export const CardDetails = () => {
   // CURRBOARD
@@ -35,6 +36,19 @@ export const CardDetails = () => {
     shallowEqual
   );
 
+  const [loggedInUser, setLoggedInUser] = useState(
+    userService.getLoggedinUser()
+  );
+  const [users, setUsers] = useState([]);
+
+  async function getUsers() {
+    const users = await userService.getUsers();
+    setUsers(users);
+  }
+
+  useEffect(() => {
+    getUsers();
+  }, []);
   // Modal state
   const { modal } = useSelector((state) => ({
     modal: state.boardModule.modal,
@@ -330,6 +344,8 @@ export const CardDetails = () => {
 
   return (
     <div>
+      {console.log(loggedInUser)}
+      {console.log(users)}
       {board.groups ? (
         <div>
           <Link className='go-back-container' to={`/board/${board._id}`} />
@@ -647,7 +663,7 @@ export const CardDetails = () => {
                           <img className='details-svg' src={user} alt='' />
                           Members
                         </span>
-                        {modal === 'memberModal' && <Members />}
+                        {modal === 'memberModal' && <Members users={users} />}
                       </li>
                       {/* /////////////////////////////////////////////////////////////////// */}
                       <li className='details-li'>

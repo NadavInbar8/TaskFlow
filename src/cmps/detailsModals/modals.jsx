@@ -3,9 +3,38 @@ import DayPicker from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
 import paint from '../../assets/imgs/paint.svg';
 import arrowleft from '../../assets/imgs/arrowleft.svg';
+import { utilService } from '../../services/util.service.js';
 
-export function Members() {
-  return <div className='details-modal members'>this is the members modal</div>;
+export function Members({ users }) {
+  return (
+    <div className='details-modal members'>
+      <div className='members-modal-layout'>
+        <section className='members-modal-top'>
+          <span></span>
+          <h3>Members</h3>
+          <span>x</span>
+        </section>
+        <hr />
+        <main>
+          <input type='text' placeholder='Search..' />
+          <h3>Board Members</h3>
+          <ul>
+            {users.map((user, idx) => {
+              return (
+                <li key={idx}>
+                  <div
+                    style={{ backgroundColor: utilService.getRandomColor() }}
+                    className='user-logo'
+                  ></div>
+                  {user.fullName}
+                </li>
+              );
+            })}
+          </ul>
+        </main>
+      </div>
+    </div>
+  );
 }
 
 export function Checklist({ toggleModal, addCheckList }) {
