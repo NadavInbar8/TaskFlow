@@ -330,6 +330,14 @@ export const CardDetails = () => {
     dispatch(updateBoard(newBoard));
   }
 
+  function addUserToCard(user) {
+    const currCard = card;
+    currCard.users ? currCard.users.push(user) : (currCard.users = [user]);
+    setCard(currCard);
+    console.log(currCard);
+    updateCard();
+  }
+
   // TOGLLING ALL MODALS
   function toggleModal(type) {
     // console.log('hi');
@@ -344,8 +352,8 @@ export const CardDetails = () => {
 
   return (
     <div>
-      {console.log(loggedInUser)}
-      {console.log(users)}
+      {/* {console.log(loggedInUser)}
+      {console.log(users)} */}
       {board.groups ? (
         <div>
           <Link className='go-back-container' to={`/board/${board._id}`} />
@@ -409,6 +417,20 @@ export const CardDetails = () => {
               <div className='card-details-main'>
                 <div className='edit-actions'>
                   <section className=' gap-right labels-date-section'>
+                    {card.users?.length && (
+                      <section className='users-section'>
+                        <span>Members</span>
+                        <section className='users-details-section'>
+                          {card.users.map((user) => {
+                            return (
+                              <div className='user-details-preview'>
+                                {user.initials}
+                              </div>
+                            );
+                          })}
+                        </section>
+                      </section>
+                    )}
                     <section>
                       {card.labels?.length > 0 && (
                         <div>
@@ -663,7 +685,13 @@ export const CardDetails = () => {
                           <img className='details-svg' src={user} alt='' />
                           Members
                         </span>
-                        {modal === 'memberModal' && <Members users={users} />}
+                        {modal === 'memberModal' && (
+                          <Members
+                            users={users}
+                            addUserToCard={addUserToCard}
+                            loggedInUser={loggedInUser}
+                          />
+                        )}
                       </li>
                       {/* /////////////////////////////////////////////////////////////////// */}
                       <li className='details-li'>

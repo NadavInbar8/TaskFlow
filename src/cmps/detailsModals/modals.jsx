@@ -5,34 +5,73 @@ import paint from '../../assets/imgs/paint.svg';
 import arrowleft from '../../assets/imgs/arrowleft.svg';
 import { utilService } from '../../services/util.service.js';
 
-export function Members({ users }) {
+export function Members({ users, loggedInUser, addUserToCard }) {
+  const [usersMinusLoggedInUser, setUsers] = useState();
+
+  function setUsersMinusLoggedInUser() {
+    console.log(loggedInUser._id);
+    let newUsers = users.filter((user) => {
+      return user._id !== loggedInUser._id;
+    });
+    console.log(newUsers);
+    setUsers(newUsers);
+  }
+
+  useEffect(() => {
+    setUsersMinusLoggedInUser();
+  }, []);
+
+  function addUser(user) {
+    addUserToCard(user);
+  }
+
   return (
-    <div className='details-modal members'>
-      <div className='members-modal-layout'>
-        <section className='members-modal-top'>
-          <span></span>
-          <h3>Members</h3>
-          <span>x</span>
-        </section>
-        <hr />
-        <main>
-          <input type='text' placeholder='Search..' />
-          <h3>Board Members</h3>
-          <ul>
-            {users.map((user, idx) => {
-              return (
-                <li key={idx}>
+    <div>
+      {usersMinusLoggedInUser && (
+        <div className='details-modal members'>
+          <div className='members-modal-layout'>
+            <section className='members-modal-top'>
+              <span></span>
+              <h3>Members</h3>
+              <span>x</span>
+            </section>
+            <hr />
+            <main>
+              <input type='text' placeholder='Search..' />
+              <h3>Board Members</h3>
+              <ul>
+                <li
+                  onClick={() => {
+                    addUser(loggedInUser);
+                  }}
+                >
                   <div
-                    style={{ backgroundColor: utilService.getRandomColor() }}
+                    style={{ color: 'black', backgroundColor: 'darkcyan' }}
                     className='user-logo'
-                  ></div>
-                  {user.fullName}
+                  >
+                    {loggedInUser.initials}
+                  </div>
+                  {loggedInUser.fullName}
                 </li>
-              );
-            })}
-          </ul>
-        </main>
-      </div>
+
+                {usersMinusLoggedInUser.map((user, idx) => {
+                  return (
+                    <li onClick={() => addUser(user)} key={idx}>
+                      <div
+                        style={{ backgroundColor: 'red' }}
+                        className='user-logo'
+                      >
+                        {user.initials}
+                      </div>
+                      {user.fullName}
+                    </li>
+                  );
+                })}
+              </ul>
+            </main>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

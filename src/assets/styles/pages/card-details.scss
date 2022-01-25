@@ -237,6 +237,8 @@
     color: #5e6c84;
     background-color: inherit;
     font-size: 1.4rem;
+    // margin-top: 0;
+    padding-top: 0;
   }
   .title-li:hover {
     background-color: inherit;
@@ -502,6 +504,27 @@
       h4 {
         margin: 0;
       }
+    }
+  }
+}
+
+// users
+.users-section {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  .users-details-section {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    .user-details-preview {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 50px;
+      width: 50px;
+      background-color: rgb(214, 163, 163);
+      border-radius: 50%;
     }
   }
 }
