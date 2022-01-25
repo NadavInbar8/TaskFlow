@@ -8,6 +8,7 @@ import { Link, useHistory } from 'react-router-dom';
 import usersvg from '../assets/imgs/usersvg.svg';
 import star from '../assets/imgs/star.svg';
 import goldStar from '../assets/imgs/goldStar.svg';
+import blackStar from '../assets/imgs/blackStar.svg';
 import { updateBoard } from '../store/board.action.js';
 
 export const WorkSpace = () => {
@@ -61,7 +62,13 @@ export const WorkSpace = () => {
     <div className='work-space'>
       {console.log('render')}
       <div className='boards'>
-        <h2>Star boards:</h2>
+        <h2 className='flex flex-center'>
+          <img
+            style={{ height: '30px', paddingRight: '20px' }}
+            src={blackStar}
+          />
+          Star boards:
+        </h2>
         <div className='star-boards-container'>
           {staredBoards &&
             staredBoards.map((staredBoard, idx) => {
