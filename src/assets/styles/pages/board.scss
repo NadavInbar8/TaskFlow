@@ -3,15 +3,23 @@
 .board {
   overflow-x: auto;
   margin: 0 30px;
-  height: 90.3vh;
+  flex: 1;
+  overflow-y: hidden;
+  // min-height: ;
 }
 .board-list {
   box-sizing: border-box;
   background-color: #ebecf0;
   border-radius: $br;
-  height: fit-content;
-  width: 272px;
+  height: min-content;
+  min-width: 272px;
   margin: 0px $s-1;
+  overflow: auto;
+  max-height: 600px;
+
+  .list-menu {
+    height: 14px;
+  }
 
   ul {
     padding: 0;
