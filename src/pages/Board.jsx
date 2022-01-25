@@ -341,7 +341,7 @@ export const Board = () => {
   //   const overlayStyle = { 'z-index': 100 };
   const [openLabels, setOpenLabels] = useState(false);
   return (
-    <section className='flex-column'>
+    <section className='flex-column h100'>
       <div
         className={overlay ? 'overlay' : 'overlay hidden'}
         onClick={closeEditModal}

@@ -26,7 +26,7 @@ export function RootCmp() {
 
   return (
     <main
-      className='flex-column'
+      className='h100 flex-column'
       style={{ backgroundColor: getbackgroundcolor() }}
     >
       <AppHeader style={{ backgroundColor: getHeaderColor() }} />
