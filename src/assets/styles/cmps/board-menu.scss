@@ -1,9 +1,8 @@
 .board-menu {
 	color: $b1;
-	padding-top: 10px;
+	padding-top: $s-3;
 	z-index: 1;
-	position: absolute;
-	margin-right: 10px;
+	position: fixed;
 	top: 10%;
 	right: 0;
 	background-color: white;
@@ -12,8 +11,15 @@
 	justify-content: space-between;
 	align-items: flex-start;
 	width: 20vw;
-	height: 85vh;
+	height: 95vh;
 	min-width: 300px;
+	transform: translatex(101%);
+	transition: 0.3s all;
+
+	&.shown {
+		transform: translateX(0);
+		transition: 0.3s all;
+	}
 
 	.board-menu-inner {
 		height: 30%;
@@ -25,10 +31,6 @@
 		margin-left: 5px;
 	}
 
-	.modal-top button {
-		font-size: 18px;
-	}
-
 	h5 {
 		flex-grow: 1;
 		width: 80%;
@@ -36,15 +38,15 @@
 	}
 
 	span {
-		width: 100%;
+		// width: 100%;
 		margin-left: 6px;
 	}
 
 	hr {
-		position: absolute;
+		// position: absolute;
 		margin: 0 2.5%;
 		width: 92.5%;
-		top: 5%;
+		// top: 5%;
 	}
 
 	.acitivity-h2 {
@@ -80,31 +82,33 @@
 		position: relative;
 	}
 
-	.Cover {
-		position: absolute;
-		background-color: rgb(255, 255, 255);
-		border-radius: 7px;
-		border: black solid 1px;
-		top: 80%;
-		right: 0;
-		padding-bottom: 20px;
-		// overflow-x: visible;
-		// position: absolute;
-		// left: 70.5%;
-		width: 450px;
-		z-index: 4;
+	// Background Menu
 
-		.cover-modal-layout {
-			width: 90%;
-			margin: auto;
+	.color-modal-colors {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+		grid-template-rows: repeat(auto-fill, minmax(50px, 1fr));
+		gap: 10px;
+		.color-to-show {
+			height: 50px;
+			width: 70px;
+			border-radius: 7px;
 		}
-		.cover-modal-top {
-			display: flex;
-			justify-content: space-between;
-			button {
-				border: none;
-				background-color: inherit;
-			}
+		.color-to-show:hover {
+			opacity: 0.8;
+		}
+	}
+
+	.color-modal-layout {
+		width: 90%;
+		margin: auto;
+	}
+	.color-modal-top {
+		display: flex;
+		justify-content: space-between;
+		button {
+			border: none;
+			background-color: inherit;
 		}
 	}
 }

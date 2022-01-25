@@ -13,7 +13,7 @@ export const boardService = {
 	query,
 	getById,
 	save,
-	// remove,
+	remove,
 	// update,
 	// changeScore
 };
@@ -43,6 +43,11 @@ async function save(board) {
 	} else {
 		return storageService.put('board', board);
 	}
+}
+
+function remove(boardId) {
+	return storageService.remove('board', boardId);
+	// return httpService.delete(`user/${userId}`);
 }
 
 // function _saveToStorage() {
@@ -188,11 +193,6 @@ function _getEmptyBoard(board) {
 		cmpsOrder: ['status-picker', 'member-picker', 'date-picker'],
 	};
 }
-
-// function remove(userId) {
-//     // return storageService.remove('user', userId)
-//     return httpService.delete(`user/${userId}`)
-// }
 
 // async function update(user) {
 //     // await storageService.put('user', user)

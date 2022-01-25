@@ -170,7 +170,7 @@ export function AppHeader() {
 										{modal === 'boardsModal' && (
 											<ul className='boards-modal flex'>
 												<div className='modal-top'>
-													<h3>Boards</h3>
+													<span>Boards</span>
 													<button onClick={() => toggleModal('boardsModal')}>x</button>
 												</div>
 												<hr></hr>
@@ -302,7 +302,7 @@ export function AppHeader() {
 						<div className='user-modal'>
 							<div>
 								<div className='modal-top'>
-									<h3>Account</h3>
+									<span>Account</span>
 									<button onClick={() => toggleModal('userModal')}>x</button>
 								</div>
 								<hr />

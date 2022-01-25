@@ -17,11 +17,11 @@ export function Colors({addColor, toggleModal}) {
 	}
 
 	return (
-		<div className='details-modal Cover'>
-			<section className='cover-modal-layout'>
-				<div className='cover-modal-top'>
+		<div className='color-modal'>
+			<section className='color-modal-layout'>
+				<div className='modal-top'>
 					<span> </span>
-					<h3>Colors</h3>
+					<span>Colors</span>
 					<button
 						onClick={() => {
 							toggleModal('color');
@@ -31,11 +31,11 @@ export function Colors({addColor, toggleModal}) {
 				</div>
 				<h3>Colors</h3>
 				<hr />
-				<section className='cover-modal-colors'>
+				<section className='color-modal-colors'>
 					{console.log(colors)}
 					{colors.map((color, idx) => {
 						console.log(color);
-						return <div onClick={() => saveColor(color)} key={idx} className={color + ' ' + 'cover-to-show'}></div>;
+						return <div onClick={() => saveColor(color)} key={idx} className={color + ' ' + 'color-to-show'}></div>;
 					})}
 				</section>
 			</section>
