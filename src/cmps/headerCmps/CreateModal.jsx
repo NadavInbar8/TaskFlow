@@ -2,6 +2,8 @@ import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {openModal, addBoard} from '../../store/board.action.js';
 
+import boardPreviewSkeleton from '../../assets/imgs/board-preview-skeleton.svg';
+
 export const CreateModal = () => {
 	const dispatch = useDispatch();
 
@@ -74,6 +76,9 @@ export const CreateModal = () => {
 			</div>
 			<hr></hr>
 			<div>
+				<div className='skeleton-div flex flex-center' style={{backgroundColor: newBoard.backgroundColor || 'white'}}>
+					<img src={boardPreviewSkeleton} alt='' />
+				</div>
 				<div className='board-background'>
 					<h5>Background</h5>
 					<div className='colors-grid m-y-m'>
@@ -81,6 +86,7 @@ export const CreateModal = () => {
 							return (
 								<div
 									onClick={() => saveColor(color)}
+									// Add a V inisde the div based
 									key={idx}
 									className={color + ' new-board-colors' + ' ' + 'flex' + ' ' + 'flex-center'}></div>
 							);

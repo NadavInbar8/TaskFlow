@@ -1,6 +1,7 @@
 // GENERAL MODALS
 
 .details-modal {
+  padding-top: 20px;
   position: absolute;
   background-color: rgb(255, 255, 255);
   border-radius: 7px;
@@ -11,13 +12,28 @@
   // position: absolute;
   // left: 70.5%;
   width: 450px;
-  z-index: 4;
+  z-index: 5;
 }
 
 .Dates {
-  height: 350px;
+  // height: 350px;
   width: 350px;
   text-align: center;
+
+  button {
+    margin-top: 30px;
+    width: 100px;
+    height: 40px;
+    border-radius: 8px;
+    border: none;
+    background-color: #eaecf0;
+    font-size: 1.3rem;
+    color: #5e6c84;
+  }
+  button:hover {
+    background-color: #d4d6da;
+    cursor: pointer;
+  }
 }
 .modals-container {
   overflow-x: visible;
@@ -376,7 +392,9 @@
 }
 
 .members {
-  width: 450px;
+  color: #5e6c84;
+
+  width: 350px;
   padding-bottom: 30px;
   .members-modal-layout {
     width: 90%;

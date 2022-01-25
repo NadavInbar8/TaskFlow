@@ -42,13 +42,12 @@ export const BoardHeader = ({ setForceRender, filterBoard, forceRender }) => {
     // if (board)
     setBoardTitleInput(board.title);
     // if (board)
-    console.log('board title length', board);
-    setWidth(board.title.length + 1 + 'ch');
+    setWidth(board.title.length + 'ch');
   }, [board]);
 
   function handleBoardTitleChange({ target }) {
-    if (!target) return;
     console.log(target);
+    if (!target || target.value.length === 0 || target == ' ') return;
     // const field = target.name;
     const value = target.value;
     setWidth(value.length + 'ch');
