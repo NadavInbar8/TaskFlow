@@ -194,7 +194,7 @@ export function AppHeader() {
 											<ul className='boards-modal flex'>
 												<div className='modal-top'>
 													<span>Boards</span>
-													<button onClick={() => toggleModal('boardsModal')}>x</button>
+													<button onClick={() => toggleModal()}>x</button>
 												</div>
 												<hr></hr>
 												{boards.map((board) => {
@@ -338,7 +338,7 @@ export function AppHeader() {
 							<div>
 								<div className='modal-top'>
 									<span>Account</span>
-									<button onClick={() => toggleModal('userModal')}>x</button>
+									<button onClick={() => toggleModal()}>x</button>
 								</div>
 								<hr />
 								{loggedInUser ? (

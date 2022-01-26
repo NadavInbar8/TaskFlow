@@ -44,8 +44,7 @@ export const BoardHeader = ({setForceRender, filterBoard, forceRender}) => {
 	}, [board]);
 
 	function handleBoardTitleChange({target}) {
-		console.log(target);
-		if (!target || target.value.length === 0 || target == ' ') return;
+		if (!target || target == ' ') return;
 		// const field = target.name;
 		const value = target.value;
 		setWidth(value.length + 'ch');
@@ -55,7 +54,12 @@ export const BoardHeader = ({setForceRender, filterBoard, forceRender}) => {
 	const updateBoardTitle = () => {
 		const updatedBoard = {...board};
 		updatedBoard.title = boardTitleInput;
+		// console.log(board.title.length);
+		// console.log(updatedBoard.title.length);
+		// if (updatedBoard.title.length - board.title.length > 5) return;
+		// else {
 		dispatch(updateBoard(updatedBoard));
+		// }
 		setForceRender(!forceRender);
 	};
 

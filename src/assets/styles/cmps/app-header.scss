@@ -11,6 +11,10 @@
 	// position: absolute;
 	// top: -10%;
 
+	button {
+		padding-top: $s-2;
+	}
+
 	.main-header {
 		padding: 0 $s-2;
 		justify-content: space-between;
