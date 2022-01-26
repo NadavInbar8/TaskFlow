@@ -377,6 +377,7 @@ export const CardDetails = () => {
 
   // TOGLLING ALL MODALS
   function toggleModal(type) {
+    // ev.stopPropagation();
     // console.log('hi');
     dispatch(openModal(type));
     // type === 'member' && toggleMemeberModal(!memberModal);

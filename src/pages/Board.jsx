@@ -96,7 +96,7 @@ export const Board = () => {
 
   ///// useEffect /////
 
-  useEffect(() => {}, [filteredBoard]);
+  // useEffect(() => {}, [filteredBoard]);
 
   // useEffect(() => {
   // 	dispatch(loadBoard(boardId));
@@ -118,6 +118,10 @@ export const Board = () => {
   useEffect(() => {
     dispatch(loadBoard(boardId));
   }, [forceRender]);
+
+  useEffect(() => {
+    dispatch(loadBoard(boardId));
+  }, []);
 
   // useEffect(() => {}, [board]);
 
