@@ -119,7 +119,7 @@ export const BoardFilter = ({filterBoard}) => {
 				</div>
 
 				<h5>Labels</h5>
-				<div className='no-labels-div flex flex-row'>
+				<div className='no-labels-div flex flex-row align-center'>
 					<input className='checkbox' type='checkbox' />
 					<div className='filter-container-svg justify-center'>
 						<img src={noLabels} alt='no-labels-img' />
