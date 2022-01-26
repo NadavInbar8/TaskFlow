@@ -210,12 +210,12 @@ export const Board = () => {
   };
 
   const openListModal = (group) => {
-    group.style.zIndex = 'high';
+    // group.style.zIndex = 'high';
     setSelectedList(group);
   };
 
   const closeListModal = (group) => {
-    group.style.zIndex = 'low';
+    // group.style.zIndex = 'low';
     setSelectedList({});
   };
 
@@ -264,7 +264,7 @@ export const Board = () => {
 
   const editCard = (list, card) => {
     const editedCard = { ...card, title: newCard.title };
-    setSelectedCard(editedCard);
+    setSelectedCard('copiedTasks', editedCard);
     let listIdx = board.groups.findIndex((group) => group.id === list.id);
     let cardIdx = list.tasks.findIndex((task) => task.id === card.id);
     const updatedBoard = { ...board };
@@ -292,10 +292,11 @@ export const Board = () => {
   const copyList = (list) => {
     const updatedBoard = { ...board };
     const copiedList = { ...list, id: utilService.makeId() };
-    const copiedTasks = [...copiedList.tasks];
-    copiedTasks.map((task) => {
-      task = { ...task, id: utilService.makeId() };
+    let copiedTasks = [...copiedList.tasks];
+    copiedTasks = copiedTasks.map((task) => {
+      return { ...task, id: utilService.makeId() };
     });
+    copiedList.tasksIds = copiedTasks.map((task) => task.id);
     copiedList.tasks = copiedTasks;
     updatedBoard.groups.push(copiedList);
     updatedBoard.groupsOrder.push(copiedList.id);
@@ -447,7 +448,7 @@ export const Board = () => {
                       }
                       return (
                         <Group
-                          style={{ zIndex: group.style.zIndex }}
+                          // style={{ zIndex: group.style.zIndex }}
                           key={group.id}
                           group={group}
                           index={index}

@@ -49,9 +49,9 @@ const Group = ({
       {(provided, snapshot) => (
         <div
           className={
-            group.style.zIndex === 'high'
-              ? 'board-list seeOverlay flex-column'
-              : 'board-list flex-column'
+            // group.style.zIndex === 'high'
+            // ? 'board-list seeOverlay flex-column'
+            'board-list flex-column'
           }
           {...provided.draggableProps}
           ref={provided.innerRef}
