@@ -51,6 +51,7 @@ export const Board = () => {
     shallowEqual
   );
   const dispatch = useDispatch();
+
   const [data, setData] = useState(null);
 
   ///// useStates /////
@@ -102,6 +103,9 @@ export const Board = () => {
   // 	dispatch(loadBoard(boardId));
   // 	if (board) setBoardTitleInput(board.title);
   // }, []);
+  useEffect(() => {
+    dispatch(loadBoard(boardId));
+  }, [boardId]);
 
   useEffect(() => {
     if (board) {
@@ -252,6 +256,8 @@ export const Board = () => {
     );
     updatedBoard.groups.splice(groupIdx, 1);
     updatedBoard.groupsOrder.splice(groupIdx, 1);
+    console.log('updatedBoard.groups', updatedBoard.groups);
+    console.log('updatedBoard.groupsOrder', updatedBoard.groupsOrder);
     // updatedBoard.groups = updatedBoard.groups.filter(
     //   (group) => group.id !== list.id
     // );
