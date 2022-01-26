@@ -1,19 +1,25 @@
 .board-filter {
 	color: $b1;
-	padding-top: 10px;
 	z-index: 1;
 	position: absolute;
 	margin-right: 10px;
-	top: 10%;
+	top: 44px;
 	right: 0;
 	background-color: white;
 	display: flex;
 	flex-direction: column;
-	justify-content: space-between;
+
 	align-items: flex-start;
-	width: 20vw;
-	min-width: 300px;
-	padding-bottom: 20px;
+	height: 95vh;
+	width: 350px;
+	padding: 10px $s-3 $s-5;
+	border-radius: 4px;
+
+	.filter-content-div {
+		gap: 5px;
+		margin-bottom: 8px;
+		align-items: center;
+	}
 
 	.modal-top button {
 		font-size: 18px;
@@ -42,11 +48,10 @@
 
 	form.filter-form {
 		width: 100%;
-		padding: 20px;
 	}
 
 	span {
-		margin-left: 10px;
+		// margin-left: 10px;
 		// margin-bottom: 15px;
 	}
 
@@ -70,26 +75,112 @@
 		margin-right: 5px;
 	}
 
+	.filter-search {
+		.input-text {
+			margin: 0;
+			height: 36px;
+			width: 100%;
+			padding: $s-2 $s-3;
+			font-weight: 400;
+			font-size: 1rem;
+			background-color: #fafbfc;
+			box-shadow: inset 0 0 0 2px #dfe1e6;
+			border-radius: $s-1;
+			transition-property: background-color, border-color, box-shadow;
+			transition-duration: 85ms;
+			transition-timing-function: ease;
+		}
+
+		p.keyword-p {
+			color: #5e6c84;
+			font-size: 12px;
+			font-weight: 600;
+			line-height: 16px;
+			margin-top: 16px;
+			margin-bottom: 8px;
+		}
+
+		.input-text:focus {
+			background-color: #ffffff;
+			box-shadow: inset 0 0 0 2px #0079bf;
+		}
+
+		.input-text:hover {
+			background-color: #ebecf0;
+			box-shadow: inset 0 0 0 2px #dfe1e6;
+		}
+	}
+
 	.checkbox {
-		margin: 0 20px 0 0;
+		// margin: 0 20px 0 0;
 		align-self: center;
 	}
 
 	select {
 		margin-bottom: 0;
 		height: 35px;
-		width: 80%;
-		border-radius: 8px;
-		background-color: #eaecf0;
+		width: 100%;
+		border-radius: 4px;
+		background-color: #f4f5f7;
 		border: none;
 		padding-left: 10px;
 		color: $b1;
 	}
 
+	.members {
+		padding: 0;
+		width: 100%;
+	}
+
+	.no-members-wrapper {
+		width: 24px;
+		height: 24px;
+		background-color: #ebecf0;
+		flex-shrink: 0;
+		border-radius: 50%;
+		display: flex;
+		justify-items: center;
+		align-items: center;
+	}
+
+	.no-dates-wrapper {
+		width: 24px;
+		height: 24px;
+		background-color: #ebecf0;
+		flex-shrink: 0;
+		border-radius: 50%;
+		display: flex;
+		justify-items: center;
+		align-items: center;
+	}
+
+	.overdue-wrapper {
+		width: 24px;
+		height: 24px;
+		background-color: #eb5a46;
+		flex-shrink: 0;
+		border-radius: 50%;
+		display: flex;
+		justify-items: center;
+		align-items: center;
+	}
+
+	.due-tommorow-wrapper {
+		width: 24px;
+		height: 24px;
+		background-color: #f2d600;
+		flex-shrink: 0;
+		border-radius: 50%;
+		display: flex;
+		justify-items: center;
+		align-items: center;
+	}
+
 	.label-div {
-		width: 93%;
-		height: 20px;
-		margin-bottom: 10px;
+		width: 100%;
+		height: 100%;
+		height: $s-8;
+		margin-bottom: $s-1;
 	}
 
 	.label-div:hover {
@@ -100,7 +191,8 @@
 	.inner-label {
 		width: 100%;
 		height: 100%;
-		border-radius: 4px;
+		border-radius: $s-1;
+		margin-left: $s-1;
 	}
 
 	.green-label {
