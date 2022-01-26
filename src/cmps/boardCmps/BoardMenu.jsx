@@ -53,7 +53,8 @@ export const BoardMenu = ({menuOpen, setMenuOpen}) => {
 			updatedBoard.style.backgroundColor = entity;
 			updatedBoard.style.userClicked = true;
 		} else if (entityType === 'img') {
-			updatedBoard.style.imgUrl = entity;
+			updatedBoard.style.imgUrl = entity.full;
+			updatedBoard.style.previewImgUrl = entity.preview;
 			updatedBoard.style.userClicked = false;
 		}
 		dispatch(updateBoard(updatedBoard));

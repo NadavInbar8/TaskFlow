@@ -27,7 +27,6 @@ export function RootCmp() {
 	return (
 		<main
 			className='root-cmp-main h100 flex-column'
-			onClick={(ev) => console.log(ev)}
 			style={board?.style?.userClicked ? {backgroundColor: getBackground()} : {backgroundImage: getBackground()}}>
 			{console.log(getBackground())}
 			<AppHeader style={{backgroundColor: getHeaderColor()}} />
