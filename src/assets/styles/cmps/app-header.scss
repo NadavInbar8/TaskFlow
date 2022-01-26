@@ -4,18 +4,27 @@
 	// width: 100vw;
 	min-height: 44px;
 	// font-size: 1rem;
-	font-weight: 700;
+	// font-weight: 700;
 	background: #026aa7;
 	// background-color: rgba(0, 0, 0, 0.45);
 	// color: #ffff;
 	// position: absolute;
 	// top: -10%;
 
-	button {
-		padding-top: $s-2;
+	.login-signup-buttons-div {
+		height: 100%;
+
+		button {
+			margin: 0 $s-2;
+		}
 	}
 
+	// button {
+	// 	padding-top: $s-2;
+	// }
+
 	.main-header {
+		height: 100%;
 		padding: 0 $s-2;
 		justify-content: space-between;
 		width: 100vw;
@@ -111,7 +120,7 @@
 		position: relative;
 		span {
 			background-color: rgba(0, 0, 0, 0.1);
-			padding: $s-2 $s-2;
+			padding: $s-2 $s-4;
 			border-radius: 4px;
 		}
 
@@ -233,7 +242,7 @@
 		width: fit-content;
 		position: absolute;
 		align-items: flex-start;
-		right: 0.5%;
+		right: 1%;
 		top: 6%;
 		padding: $s-2;
 		border-radius: $s-2;

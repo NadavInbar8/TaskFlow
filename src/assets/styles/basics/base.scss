@@ -47,6 +47,13 @@ hr {
 	color: $b1;
 }
 
+input,
+textarea {
+	font-family: unset;
+	font-size: 14px;
+	color: unset;
+}
+
 .root-cmp-main {
 	background-position: auto;
 	background-repeat: auto;

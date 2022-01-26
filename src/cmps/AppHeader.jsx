@@ -196,7 +196,7 @@ export function AppHeader() {
 													<span>Boards</span>
 													<button onClick={() => toggleModal()}>x</button>
 												</div>
-												<hr></hr>
+												<hr />
 												{boards.map((board) => {
 													return (
 														<li
@@ -228,7 +228,7 @@ export function AppHeader() {
 											<h3>Create</h3>
 											<button onClick={() => toggleModal('createModal')}>x</button>
 										</div>
-										<hr></hr>
+										<hr/>
 										<div>
 											<div className='board-background'>
 												<h5>Background</h5>
@@ -278,7 +278,7 @@ export function AppHeader() {
 							)}
 						</div>
 						{location.pathname === '/' ? (
-							<div>
+							<div className='login-signup-buttons-div flex align-center'>
 								<Link to='/login'>
 									<button className='login-btn blue-btn'>Login</button>
 								</Link>
@@ -287,14 +287,26 @@ export function AppHeader() {
 								</Link>
 							</div>
 						) : (
-							<div className='user-avatar'>
-								<div
-									className='user-avatar-btn flex-center'
-									onClick={() => {
-										toggleModal('userModal');
-									}}>
-									{loggedInUser ? loggedInUser.initials : 'G'}
-								</div>
+							<div className='user-profile-div'>
+								{loggedInUser?.imgUrl ? (
+									<div
+										className='user-avatar'
+										onClick={() => {
+											toggleModal('userModal');
+										}}>
+										<img className='user-avatar-btn flex-center' src={loggedInUser.imgUrl} alt='' />
+									</div>
+								) : (
+									<div className='user-avatar'>
+										<div
+											className='user-avatar-btn flex-center'
+											onClick={() => {
+												toggleModal('userModal');
+											}}>
+											{loggedInUser ? loggedInUser.initials : 'G'}
+										</div>
+									</div>
+								)}
 							</div>
 						)}
 						{/* {isUserModalOpen && (
@@ -345,7 +357,11 @@ export function AppHeader() {
 									<div>
 										<div className='user-details flex'>
 											<div className='user-avatar-btn flex-center m-y-m'>
-												{loggedInUser.img ? <img src={loggedInUser.imgUrl} alt='' /> : <h4>{loggedInUser.initials}</h4>}
+												{loggedInUser.imgUrl ? (
+													<img className='roundImg' src={loggedInUser.imgUrl} alt='' />
+												) : (
+													<h4>{loggedInUser.initials}</h4>
+												)}
 											</div>
 											<div className='user-details-text'>
 												<span className='user-fullname'>{loggedInUser.fullName}</span>
@@ -364,7 +380,7 @@ export function AppHeader() {
 										</span>
 									</div>
 								) : (
-									<div className='flex flex-start'>
+									<div className='flex flex-start '>
 										<div className='user-avatar flex-column'>
 											<div className='user-avatar-btn flex-center m-y-m'>
 												<h2>G</h2>

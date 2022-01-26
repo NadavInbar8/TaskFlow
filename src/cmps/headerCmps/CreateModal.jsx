@@ -77,7 +77,7 @@ export const CreateModal = () => {
 				<span>Create</span>
 				<button onClick={() => toggleModal('createModal')}>x</button>
 			</div>
-			<hr></hr>
+			<hr />
 			<div>
 				<div className='skeleton-div flex flex-center' style={{backgroundColor: newBoard.backgroundColor || 'white'}}>
 					<img src={boardPreviewSkeleton} alt='' />
