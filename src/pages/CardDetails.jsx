@@ -12,6 +12,7 @@ import {
   Cover,
   Move,
 } from '../cmps/detailsModals/modals.jsx';
+import { utilService } from '../services/util.service.js';
 import { DetailscheckList } from '../cmps/detailsCmps/DetailsCmps.jsx';
 
 import description from '../assets/imgs/description.svg';
@@ -27,6 +28,7 @@ import trash from '../assets/imgs/trash.svg';
 import activity from '../assets/imgs/activity.svg';
 import title from '../assets/imgs/title.svg';
 import plus from '../assets/imgs/plus.svg';
+import xsvg from '../assets/imgs/x.svg';
 import { userService } from '../services/user.service.js';
 
 export const CardDetails = () => {
@@ -141,7 +143,7 @@ export const CardDetails = () => {
     console.log(new Date().toString());
     const newComment = {
       ...comment,
-      createdAt: new Date().toDateString(),
+      createdAt: Date.now(),
     };
     const currCard = card;
     currCard.comments
@@ -331,6 +333,7 @@ export const CardDetails = () => {
     let chosenGroupIdx = newBoard.groups.findIndex(
       (group) => group.id === chosenGroup.id
     );
+    currCard.id = utilService.makeId();
     newBoard.groups[chosenGroupIdx].tasks.splice(idx, 0, currCard);
 
     dispatch(updateBoard(newBoard));
@@ -438,7 +441,7 @@ export const CardDetails = () => {
                 </div>
 
                 <Link to={`/board/${board._id}`}>
-                  <button>x</button>
+                  <img src={xsvg} />
                 </Link>
               </div>
 
@@ -684,16 +687,14 @@ export const CardDetails = () => {
                     onSubmit={addComment}
                     action=''
                   >
-                    <label>
-                      <br />
-                      <input
-                        value={comment.txt}
-                        name='comment'
-                        onChange={handleCommentChange}
-                        type='text'
-                        placeholder='Write comment...'
-                      />
-                    </label>
+                    <div className='user-logo'>{loggedInUser.initials}</div>
+                    <input
+                      value={comment.txt}
+                      name='comment'
+                      onChange={handleCommentChange}
+                      type='text'
+                      placeholder='Write comment...'
+                    />
                   </form>
 
                   <div className='comments'>
@@ -712,7 +713,9 @@ export const CardDetails = () => {
                               <div className='comment-content'>
                                 <span className='comment-user-fullname'>
                                   {comment.byMember.fullname} At-
-                                  <span>&nbsp;{comment.createdAt}</span>
+                                  <span>
+                                    &nbsp;{getStringTimeForImg(comment)}
+                                  </span>
                                 </span>
                                 <span className='comment-txt'>
                                   <span>{comment.txt}</span>
