@@ -111,7 +111,14 @@ export const WorkSpace = () => {
                   >
                     <h3>{starredBoard.title}</h3>
                     <div className='star-svg'>
-                      <img className='star-svg-img' src={goldStar} alt='' />
+                      <img
+                        onClick={(ev) => {
+                          starBoard(ev, starredBoard);
+                        }}
+                        className='star-svg-img'
+                        src={goldStar}
+                        alt=''
+                      />
                     </div>
                   </div>
                 </div>
