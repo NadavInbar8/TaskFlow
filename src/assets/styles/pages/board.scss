@@ -51,7 +51,7 @@
   }
 
   .list-menu {
-    height: 14px;
+    height: $s-4;
     position: absolute;
     top: $s-2;
     right: $s-2;
@@ -61,7 +61,6 @@
   ul {
     padding: 0;
     margin: 0;
-    overflow: auto;
     min-height: $s-3;
   }
   .board-card {

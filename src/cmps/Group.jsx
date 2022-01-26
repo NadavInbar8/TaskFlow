@@ -47,140 +47,150 @@ const Group = ({
   return (
     <Draggable draggableId={group.id} index={index}>
       {(provided, snapshot) => (
-        <div
-          className={
-            // group.style.zIndex === 'high'
-            // ? 'board-list seeOverlay flex-column'
-            'board-list flex-column'
-          }
-          {...provided.draggableProps}
-          ref={provided.innerRef}
-        >
-          <div className='list-options' {...provided.dragHandleProps}>
-            <span>{group.title}</span>
-            <img
-              src={dotdotdot}
-              className='list-menu'
-              alt='list menu'
-              onClick={() => {
-                toggleBoardModal('groupModal', group);
-              }}
-            />
-          </div>
-          {selectedList.id === group.id && modal === 'groupModal' ? (
-            <div className='board-list-modal'>
-              <div className=' modal-top'>
-                <h3>Group Modal</h3>
-                <img
-                  onClick={() => closeListModal(group)}
-                  className='closeBtn'
-                  src={close}
-                  alt='close'
-                />
-              </div>
-              <hr />
-              <ul>
-                <li onClick={() => copyList(group)}>Copy List</li>
-                <li onClick={() => editNewCard(group)}>Add Card</li>
-                <li onClick={() => deleteList(group)}>Delete List</li>
-              </ul>
+        <>
+          <div
+            className={
+              // group.style.zIndex === 'high'
+              // ? 'board-list seeOverlay flex-column'
+              'board-list flex-column'
+            }
+            {...provided.draggableProps}
+            ref={provided.innerRef}
+          >
+            <div className='list-options' {...provided.dragHandleProps}>
+              <span>{group.title}</span>
+              <img
+                src={dotdotdot}
+                className='list-menu'
+                alt='list menu'
+                onClick={() => {
+                  toggleBoardModal('groupModal', group);
+                }}
+              />
             </div>
-          ) : null}
-          <Droppable droppableId={group.id} type='task'>
-            {(provided) => (
-              <>
-                <ul
-                  ref={provided.innerRef}
-                  className='flex-column flex-center'
-                  {...provided.droppableProps}
-                >
-                  {group.tasks.length > 0
-                    ? group.tasksIds.map((taskId, index) => {
-                        const taskObj = tasks.find(
-                          (temp) => temp.id === taskId
-                        );
-                        return selectedCard.id !== taskObj.id ? (
-                          <Task1
-                            key={taskId}
-                            task={taskObj}
-                            index={index}
-                            openLabels={openLabels}
-                            setOpenLabels={setOpenLabels}
-                            openEditModal={openEditModal}
-                            cardEdit={cardEdit}
-                            groupId={group.id}
-                          />
-                        ) : (
-                          <li
-                            key={taskObj.id}
-                            className='board-card overlaySee'
-                          >
-                            <input
-                              type='text'
-                              defaultValue={taskObj.title}
-                              onChange={handleChange}
-                            />
-                            <div
-                              className='add-card'
-                              onClick={() => editCard(group, taskObj)}
-                            >
-                              save
-                            </div>
-                            <div className='edit-modal'>
-                              <ul>
-                                <li>
-                                  <Link
-                                    onClick={closeEditModal}
-                                    to={`/board/${boardId}/${taskObj.id}/${group.id}`}
-                                  >
-                                    Open Card
-                                  </Link>
-                                </li>
-                                <li>Edit Labels</li>
-                                <li>Change Members</li>
-                                <li>Change Cover</li>
-                                <li onClick={() => copyCard(group, taskObj)}>
-                                  Copy
-                                </li>
-                                <li>Edit Dates</li>
-                                <li onClick={() => deleteCard(group, taskObj)}>
-                                  Archive
-                                </li>
-                              </ul>
-                            </div>
-                          </li>
-                        );
-                      })
-                    : null}
-                  {provided.placeholder}
-                </ul>
 
-                {group.editMode ? (
-                  <div className='add-new-card-edit'>
-                    <textarea
-                      type='text'
-                      name='newCard'
-                      onChange={handleChange}
-                    ></textarea>
-                    <div
-                      className='add-new-card-edit-btn'
-                      onClick={() => addNewCard(group)}
-                    >
-                      add
-                    </div>
-                  </div>
-                ) : (
-                  <div
-                    className='add-new-card'
-                    onClick={() => editNewCard(group)}
+            <Droppable droppableId={group.id} type='task'>
+              {(provided) => (
+                <>
+                  <ul
+                    ref={provided.innerRef}
+                    className='flex-column flex-center'
+                    {...provided.droppableProps}
+                    style={
+                      !selectedCard.id
+                        ? { overflowY: 'scroll' }
+                        : { overflowX: 'visible', height: 'auto' }
+                    }
                   >
-                    <img src={plus} alt='+' /> <span>Add new card</span>
-                  </div>
-                )}
-              </>
-            )}
-          </Droppable>
-        </div>
+                    {group.tasks.length > 0
+                      ? group.tasksIds.map((taskId, index) => {
+                          const taskObj = tasks.find(
+                            (temp) => temp.id === taskId
+                          );
+                          return selectedCard.id !== taskObj.id ? (
+                            <Task1
+                              key={taskId}
+                              task={taskObj}
+                              index={index}
+                              openLabels={openLabels}
+                              setOpenLabels={setOpenLabels}
+                              openEditModal={openEditModal}
+                              cardEdit={cardEdit}
+                              groupId={group.id}
+                            />
+                          ) : (
+                            <li
+                              key={taskObj.id}
+                              className='board-card overlaySee'
+                            >
+                              <input
+                                type='text'
+                                defaultValue={taskObj.title}
+                                onChange={handleChange}
+                              />
+                              <div
+                                className='add-card'
+                                onClick={() => editCard(group, taskObj)}
+                              >
+                                save
+                              </div>
+                              <div className='edit-modal'>
+                                <ul>
+                                  <li>
+                                    <Link
+                                      onClick={closeEditModal}
+                                      to={`/board/${boardId}/${taskObj.id}/${group.id}`}
+                                    >
+                                      Open Card
+                                    </Link>
+                                  </li>
+                                  <li>Edit Labels</li>
+                                  <li>Change Members</li>
+                                  <li>Change Cover</li>
+                                  <li onClick={() => copyCard(group, taskObj)}>
+                                    Copy
+                                  </li>
+                                  <li>Edit Dates</li>
+                                  <li
+                                    onClick={() => deleteCard(group, taskObj)}
+                                  >
+                                    Archive
+                                  </li>
+                                </ul>
+                              </div>
+                            </li>
+                          );
+                        })
+                      : null}
+                    {provided.placeholder}
+                  </ul>
+
+                  {group.editMode ? (
+                    <div className='add-new-card-edit'>
+                      <textarea
+                        type='text'
+                        name='newCard'
+                        onChange={handleChange}
+                      ></textarea>
+                      <div
+                        className='add-new-card-edit-btn'
+                        onClick={() => addNewCard(group)}
+                      >
+                        add
+                      </div>
+                    </div>
+                  ) : (
+                    <div
+                      className='add-new-card'
+                      onClick={() => editNewCard(group)}
+                    >
+                      <img src={plus} alt='+' /> <span>Add new card</span>
+                    </div>
+                  )}
+                </>
+              )}
+            </Droppable>
+            {selectedList.id === group.id && modal === 'groupModal' ? (
+              <div className='board-list-modal seeOverlay'>
+                <div className=' modal-top'>
+                  <h3>Group Modal</h3>
+                  <img
+                    onClick={() => closeListModal(group)}
+                    className='closeBtn'
+                    src={close}
+                    alt='close'
+                  />
+                </div>
+                <hr />
+                <ul>
+                  <li onClick={() => copyList(group)}>Copy List</li>
+                  <li onClick={() => editNewCard(group)}>Add Card</li>
+                  <li onClick={() => deleteList(group)}>Delete List</li>
+                </ul>
+              </div>
+            ) : null}
+          </div>
+        </>
       )}
     </Draggable>
   );
