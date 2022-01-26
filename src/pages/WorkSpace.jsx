@@ -95,7 +95,7 @@ export const WorkSpace = () => {
 											? {backgroundColor: getBackground(starredBoard)}
 											: {backgroundImage: getBackground(starredBoard)}
 									}
-									className='board-background-div'>
+									className='board-background-div preview-cover'>
 									<div
 										onClick={() => {
 											connectUser();
@@ -127,7 +127,7 @@ export const WorkSpace = () => {
 												? {backgroundColor: getBackground(board)}
 												: {backgroundImage: getBackground(board)}
 										}
-										className='board-background-div'>
+										className='board-background-div preview-cover'>
 										{board.style?.backgroundColor && (
 											<div
 												onClick={() => {
