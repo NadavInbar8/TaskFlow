@@ -6,6 +6,7 @@ const STORAGE_KEY_BOARD = 'board';
 // var gWatchedUser = null;
 
 export const boardService = {
+<<<<<<< HEAD
   // login,
   // logout,
   // signup,
@@ -16,6 +17,18 @@ export const boardService = {
   // remove,
   // update,
   // changeScore
+=======
+	// login,
+	// logout,
+	// signup,
+	// getLoggedinUser,
+	query,
+	getById,
+	save,
+	remove,
+	// update,
+	// changeScore
+>>>>>>> 9e84dcf3ecba8969125a7b0fff95ef0e90e4a065
 };
 
 // To help debugging from console
@@ -45,160 +58,166 @@ async function save(board) {
   }
 }
 
+function remove(boardId) {
+	return storageService.remove('board', boardId);
+	// return httpService.delete(`user/${userId}`);
+}
+
 // function _saveToStorage() {
 //   localStorage.setItem(STORAGE_KEY_BOARD, JSON.stringify(board));
 // }
 
 function _getEmptyBoard(board) {
-  console.log(board);
-  return {
-    _id: utilService.makeId(),
-    title: board.title,
-    createdAt: 1589983468418,
-    createdBy: board.createdBy
-      ? board.createdBy
-      : {
-          _id: 'u101',
-          fullname: 'Guest Guestosh',
-          imgUrl: 'https://avatarfiles.alphacoders.com/196/196630.jpg',
-        },
-    style: { backgroundColor: board.backgroundColor },
-    labelOptions: [
-      { id: 1, color: 'green', name: '' },
-      { id: 2, color: 'yellow', name: '' },
-      { id: 3, color: 'orange', name: '' },
-      { id: 4, color: 'red', name: '' },
-      { id: 5, color: 'purple', name: '' },
-      { id: 6, color: 'blue', name: '' },
-      { id: 7, color: 'dark-blue', name: '' },
-    ],
-    labels: [
-      {
-        id: 'l101',
-        title: 'Done',
-        color: '#61bd4f',
-      },
-    ],
-    members: [
-      {
-        _id: 'u101',
-        fullname: 'Tal Tarablus',
-        imgUrl: 'https://www.google.com',
-      },
-    ],
-    groupsOrder: ['g101', 'g102'],
-    groups: [
-      {
-        id: 'g101',
-        title: 'Group 1',
-        tasks: [
-          {
-            id: 'c101',
-            title: 'Replace logo',
-          },
-          {
-            id: 'c102',
-            title: 'Add Samples',
-          },
-        ],
+	console.log(board);
+	return {
+		_id: utilService.makeId(),
+		title: board.title,
+		starred: false,
+		createdAt: 1589983468418,
+		createdBy: board.createdBy
+			? board.createdBy
+			: {
+					_id: 'u101',
+					fullname: 'Guest Guestosh',
+					imgUrl: 'https://avatarfiles.alphacoders.com/196/196630.jpg',
+			  },
+		style: {
+			backgroundColor: board.backgroundColor,
+			userclicked: true,
+		},
+		labelOptions: [
+			{id: 1, color: 'green', name: ''},
+			{id: 2, color: 'yellow', name: ''},
+			{id: 3, color: 'orange', name: ''},
+			{id: 4, color: 'red', name: ''},
+			{id: 5, color: 'purple', name: ''},
+			{id: 6, color: 'blue', name: ''},
+			{id: 7, color: 'dark-blue', name: ''},
+		],
+		labels: [
+			{
+				id: 'l101',
+				title: 'Done',
+				color: '#61bd4f',
+			},
+		],
+		members: [
+			{
+				_id: 'u101',
+				fullname: 'Tal Tarablus',
+				imgUrl: 'https://www.google.com',
+				initials: 'TT',
+			},
+		],
+		groupsOrder: ['g101', 'g102'],
+		groups: [
+			{
+				id: 'g101',
+				title: 'Group 1',
         tasksIds: ['c101', 'c102'],
-        style: {},
-        editMode: false,
-      },
-      {
-        id: 'g102',
-        title: 'Group 2',
-        tasks: [
-          {
-            id: 'c103',
-            title: 'Do that',
-          },
-
-          {
-            id: 'c104',
-            title: 'Help me',
-            status: 'in-progress',
-            description: 'description',
-            comments: [
-              {
-                id: 'ZdPnm',
-                txt: 'also @yaronb please CR this',
-                createdAt: 1590999817436.0,
-                byMember: {
-                  _id: 'u101',
-                  fullname: 'Tal Tarablus',
-                  imgUrl:
-                    'http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg',
-                },
-              },
-            ],
-            checklists: [
-              {
-                id: 'YEhmF',
-                title: 'Checklist',
-                todos: [
-                  {
-                    id: '212jX',
-                    title: 'To Do 1',
-                    isDone: false,
-                  },
-                ],
-              },
-            ],
-            members: [
-              {
-                _id: 'u101',
-                username: 'Tal',
-                fullname: 'Tal Tarablus',
-                imgUrl:
-                  'http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg',
-              },
-            ],
-            labelIds: ['l101', 'l102'],
-            createdAt: 1590999730348,
-            dueDate: 16156215211,
-            byMember: {
-              _id: 'u101',
-              username: 'Tal',
-              fullname: 'Tal Tarablus',
-              imgUrl:
-                'http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg',
-            },
-            style: {
-              bgColor: '#26de81',
-            },
-          },
-        ],
+				tasks: [
+					{
+						id: 'c101',
+						title: 'Replace logo',
+					},
+					{
+						id: 'c102',
+						title: 'Add Samples',
+					},
+				],
+				style: {},
+				editMode: false,
+			},
+			{
+				id: 'g102',
+				title: 'Group 2',
         tasksIds: ['c103', 'c104'],
-        style: {},
-        editMode: false,
-      },
-    ],
-    activities: [
-      {
-        id: 'a101',
-        txt: 'Changed Color',
-        createdAt: 154514,
-        byMember: {
-          _id: 'u101',
-          fullname: 'Abi Abambi',
-          imgUrl: 'http://some-img',
-        },
-        task: {
-          id: 'c101',
-          title: 'Replace Logo',
-        },
-      },
-    ],
-    // for monday
-    cmpsOrder: ['status-picker', 'member-picker', 'date-picker'],
-  };
+				tasks: [
+					{
+						id: 'c103',
+						title: 'Do that',
+					},
+					{
+						id: 'c104',
+						title: 'Help me',
+						status: 'in-progress',
+						description: 'description',
+						comments: [
+							{
+								id: 'ZdPnm',
+								initials: 'YB',
+								txt: 'also @yaronb please CR this',
+								createdAt: 1590999817436.0,
+								byMember: {
+									_id: 'u101',
+									initials: 'TT',
+									fullname: 'Tal Tarablus',
+									imgUrl: 'http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg',
+								},
+							},
+						],
+						checklists: [
+							{
+								id: 'YEhmF',
+								title: 'Checklist',
+								todos: [
+									{
+										id: '212jX',
+										title: 'To Do 1',
+										isDone: false,
+									},
+								],
+							},
+						],
+						members: [
+							{
+								_id: 'u101',
+								username: 'Tal',
+								fullname: 'Tal Tarablus',
+								initials: 'TT',
+								imgUrl: 'http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg',
+							},
+						],
+						labelIds: ['l101', 'l102'],
+						createdAt: 1590999730348,
+						dueDate: 16156215211,
+						byMember: {
+							_id: 'u101',
+							username: 'Tal',
+							fullname: 'Tal Tarablus',
+							initials: 'TT',
+							imgUrl: 'http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg',
+						},
+						style: {
+							bgColor: '#26de81',
+						},
+					},
+				],
+				style: {},
+				editMode: false,
+			},
+		],
+		activities: [
+			{
+				id: 'a101',
+				txt: 'Changed Color',
+				createdAt: 154514,
+				byMember: {
+					_id: 'u101',
+					fullname: 'Abi Abambi',
+					imgUrl: 'http://some-img',
+					initials: 'AA',
+				},
+				task: {
+					id: 'c101',
+					title: 'Replace Logo',
+				},
+			},
+		],
+		// for monday
+		cmpsOrder: ['status-picker', 'member-picker', 'date-picker'],
+	};
 }
-
-// function remove(userId) {
-//     // return storageService.remove('user', userId)
-//     return httpService.delete(`user/${userId}`)
-// }
 
 // async function update(user) {
 //     // await storageService.put('user', user)

@@ -71,29 +71,30 @@ export function updateBoard(board) {
 //   }
 // }
 
-// export function removeToy(toyId) {
-//   return (dispatch) => {
-//     ToyService.remove(toyId)
-//       .then(() => {
-//         dispatch({ type: 'REMOVE_TOY', toyId });
-//       })
-//       .catch((err) => {
-//         console.log('cannot delete toy');
-//       });
-//   };
-// }
+export function removeBoard(boardId) {
+	return (dispatch) => {
+		boardService
+			.remove(boardId)
+			.then(() => {
+				dispatch({type: 'REMOVE_BOARD', boardId});
+			})
+			.catch((err) => {
+				console.log('cannot delete board');
+			});
+	};
+}
 
-// export function updateToy(toy) {
-//   console.log('inside the updated', toy);
+// export function updateBoard(board) {
+//   console.log('inside the updated', board);
 //   return (dispatch) => {
-//     ToyService.save(toy)
-//       .then((savedToy) => {
+//     BoardService.save(board)
+//       .then((savedBoard) => {
 //         console.log('Added Succesfully!');
-//         console.log(savedToy);
-//         dispatch({ type: 'UPDATE_TOY', savedToy });
+//         console.log(savedBoard);
+//         dispatch({ type: 'UPDATE_BOARD', savedBoard });
 //       })
 //       .catch((err) => {
-//         console.log('cannot upadte toy from 49', err);
+//         console.log('cannot upadte board from 49', err);
 //       });
 //   };
 // }

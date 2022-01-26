@@ -4,8 +4,8 @@ import 'react-day-picker/lib/style.css';
 import paint from '../../assets/imgs/paint.svg';
 import arrowleft from '../../assets/imgs/arrowleft.svg';
 import { utilService } from '../../services/util.service.js';
-
-export function Members({ users, loggedInUser, addUserToCard }) {
+import xsvg from '../../assets/imgs/x.svg';
+export function Members({ users, loggedInUser, addUserToCard, toggleModal }) {
   const [usersMinusLoggedInUser, setUsers] = useState();
 
   function setUsersMinusLoggedInUser() {
@@ -31,9 +31,9 @@ export function Members({ users, loggedInUser, addUserToCard }) {
         <div className='details-modal members'>
           <div className='members-modal-layout'>
             <section className='members-modal-top'>
-              <span></span>
+              <span> &nbsp; &nbsp;</span>
               <h3>Members</h3>
-              <span>x</span>
+              <img onClick={() => toggleModal('memberModal')} src={xsvg} />
             </section>
             <hr />
             <main>
@@ -99,15 +99,31 @@ export function Checklist({ toggleModal, addCheckList }) {
 
   return (
     <div className='details-modal cheklist'>
-      <h4>Checklist</h4>
-      <hr />
-      <div className='cheklist-content'>
-        <h5>Title</h5>
-        <form onSubmit={saveCheckList}>
-          <input value={checkList.title} onChange={handleChange} type='text' />
-          <button>Add</button>
-        </form>
-      </div>
+      <section className='checklist-modal-layout'>
+        <div className='checklist-top'>
+          <span> &nbsp;</span>
+          <h3>Checklist</h3>
+          <img
+            onClick={() => {
+              toggleModal('checklist');
+            }}
+            src={xsvg}
+            alt=''
+          />
+        </div>
+        <hr />
+        <div className='cheklist-content'>
+          <h5>Title</h5>
+          <form onSubmit={saveCheckList}>
+            <input
+              value={checkList.title}
+              onChange={handleChange}
+              type='text'
+            />
+            <button>Add</button>
+          </form>
+        </div>
+      </section>
     </div>
   );
 }
@@ -137,7 +153,7 @@ export function Attachment({ attachLink, toggleModal }) {
     <div className='details-modal attachment'>
       <div className='attachment-layout'>
         <section className='attachment-top'>
-          <span> </span>
+          <span> &nbsp; </span>
           <h3>Attachment</h3>
           <span
             onClick={() => {
@@ -201,15 +217,14 @@ export function Cover({ addCover, toggleModal }) {
     <div className='details-modal Cover'>
       <section className='cover-modal-layout'>
         <div className='cover-modal-top'>
-          <span> </span>
+          <span> &nbsp; </span>
           <h3>Cover</h3>
-          <button
+          <img
             onClick={() => {
               toggleModal('cover');
             }}
-          >
-            x
-          </button>
+            src={xsvg}
+          />
         </div>
         <hr />
         <h3>Colors</h3>
@@ -309,7 +324,7 @@ export function Labels({ addLabel, toggleModal, board, updateLabelsList }) {
         <section className='labels-modal-top'>
           <img onClick={() => setEditMode(!editMode)} src={arrowleft} />
           <h3> Labels</h3>
-          <button onClick={() => toggleModal('labels')}>X</button>
+          <img onClick={() => toggleModal('labels')} src={xsvg} />
         </section>
         <hr />
 
@@ -411,16 +426,16 @@ export function Move({ board, moveCardToOtherList, toggleModal, type }) {
       <div className='move-modal-layout'>
         {type === 'move' && (
           <section className='move-modal-top'>
-            <span> </span>
+            <span> &nbsp;</span>
             <h3>Move</h3>
-            <span onClick={() => toggleModal('moveModal')}>x</span>
+            <img src={xsvg} onClick={() => toggleModal('moveModal')} />
           </section>
         )}
         {type === 'copy' && (
           <section className='move-modal-top'>
             <span> </span>
             <h3>Copy</h3>
-            <span onClick={() => toggleModal('moveModalCopy')}>x</span>
+            <img src={xsvg} onClick={() => toggleModal('moveModalCopy')} />
           </section>
         )}
         <hr />
@@ -499,19 +514,32 @@ export class Dates extends React.Component {
   saveDate = () => {
     console.log(this.state.selectedDay);
     this.props.addDate(this.state.selectedDay);
+    console.log(this.state.selectedDay);
     this.props.toggleModal('dates');
   };
 
   render() {
     return (
       <div className='details-modal Dates'>
-        <DayPicker
-          selectedDays={this.state.selectedDay}
-          onDayClick={this.handleDayClick}
-        />
-        <p>
-          <button onClick={this.saveDate}>save</button>
-        </p>
+        <div className='date-modal-layout'>
+          <section className='date-modal-top'>
+            <span>&nbsp;</span>
+            <h3>Date</h3>
+            <img
+              onCLick={() => this.props.toggleModal('dates')}
+              src={xsvg}
+              alt=''
+            />
+          </section>
+          <hr />
+          <DayPicker
+            selectedDays={this.state.selectedDay}
+            onDayClick={this.handleDayClick}
+          />
+          <p>
+            <button onClick={this.saveDate}>save</button>
+          </p>
+        </div>
       </div>
     );
   }

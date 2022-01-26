@@ -25,6 +25,8 @@ import addUser from '../assets/imgs/add-user.png';
 
 // Libs
 import { over } from 'lodash';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import initialData from './initialData.js';
 
 // Images
 import filterSvg from '../assets/imgs/filter-svgs/filter.svg';
@@ -37,8 +39,6 @@ import dotdotdot from '../assets/imgs/dotdotdot.svg';
 import close from '../assets/imgs/close.svg';
 import plus from '../assets/imgs/plus.svg';
 import plusWhite from '../assets/imgs/plus-white.svg';
-import { DragDropContext } from 'react-beautiful-dnd';
-import { Droppable } from 'react-beautiful-dnd';
 
 ////// DND IMPORTS ///////
 

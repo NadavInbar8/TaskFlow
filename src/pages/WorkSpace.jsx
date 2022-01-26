@@ -1,99 +1,170 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch, shallowEqual } from 'react-redux';
-import { loadBoards, openModal } from '../store/board.action.js';
+import React, {useEffect, useState} from 'react';
+import {useSelector, useDispatch, shallowEqual} from 'react-redux';
+import {loadBoards, openModal} from '../store/board.action.js';
 // import {loadBoards, addBoard, openModal} from '../store/';
-
+import {userService} from '../services/user.service.js';
 import boardPreview from '../assets/imgs/boardPreview.jpg';
-import { Link } from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 import usersvg from '../assets/imgs/usersvg.svg';
+import star from '../assets/imgs/star.svg';
+import goldStar from '../assets/imgs/goldStar.svg';
+import blackStar from '../assets/imgs/blackStar.svg';
+import {updateBoard} from '../store/board.action.js';
 
 export const WorkSpace = () => {
-  const { boards } = useSelector(
-    (state) => ({ boards: state.boardModule.boards }),
-    shallowEqual
-  );
+	const history = useHistory();
+	const {boards} = useSelector((state) => ({
+		boards: state.boardModule.boards,
+	}));
 
-  const { modal } = useSelector((state) => ({
-    modal: state.boardModule.modal,
-  }));
+	const {modal} = useSelector((state) => ({
+		modal: state.boardModule.modal,
+	}));
 
-  const dispatch = useDispatch();
+	const dispatch = useDispatch();
+	const loggedInUser = userService.getLoggedinUser();
+	// console.log(loggedInUser);
+	if (loggedInUser === null) userService.connectGuestUser();
 
-  useEffect(() => {
-    dispatch(loadBoards());
-  }, []);
+	useEffect(() => {
+		dispatch(loadBoards());
+	}, []);
+	useEffect(() => {
+		getStarredBoards();
+	}, [boards]);
 
-  function toggleModal(type) {
-    dispatch(openModal());
-  }
+	const [starredBoards, setStarredBoards] = useState([]);
 
-  return (
-    <div className='work-space'>
-      <div className='nav'>
-        <ul>
-          <li>Boards</li>
-          <li>Templates</li>
-          <li>Home</li>
-          <li>work-space</li>
-        </ul>
+	function getStarredBoards() {
+		const boardsStarred = boards.filter((board) => {
+			return board.starred === true;
+		});
+		setStarredBoards(boardsStarred);
+	}
+	function toggleModal(type) {
+		dispatch(openModal());
+	}
 
-        <ul>
-          <li>Boards</li>
-          <li>hightlights</li>
-          <li>WorkSpace table</li>
-          <li>Members</li>
-          <li>Settings</li>
-        </ul>
-      </div>
+	function starBoard(ev, board) {
+		ev.stopPropagation();
+		console.log(board);
+		let newBoard = board;
+		if (newBoard.starred === true) {
+			newBoard.starred = false;
+		} else {
+			newBoard.starred = true;
+			console.log(newBoard);
+		}
 
-      <div className='workspaces-boards'>
-        <div className='boards'>
-          <div className='headline'>
-            <img className='usersvg' src={usersvg} alt='' />
-            <h1 className='headline'> Workspaces boards</h1>
-          </div>
+		dispatch(updateBoard(newBoard));
+	}
+	function connectUser() {
+		if (loggedInUser === null) userService.connectGuestUser();
+		else return;
+	}
 
-          <div className='boards-container'>
-            {boards.length &&
-              boards.map((board) => {
-                return (
-                  <div key={board._id} className='board-preview'>
-                    <Link to={`/board/${board._id}`}>
-                      <h3 className='workspace-board-title'>{board.title}</h3>
-                      <div>
-                        {board.style?.backgroundColor ? (
-                          <div
-                            className='board-background'
-                            style={{
-                              backgroundColor: board.style.backgroundColor,
-                            }}
-                          ></div>
-                        ) : (
-                          <img src={boardPreview} alt='' />
-                        )}
-                      </div>
-                      {/* <img src='https://source.unsplash.com/random/1920x1080/?wallpaper,landscape' alt='' /> */}
-                    </Link>
-                  </div>
-                );
-              })}
-            <div className='adding'>
-              <h3>Add Board</h3>
-              <div
-                onClick={() => {
-                  toggleModal('createModal2');
-                }}
-                className='add-board-div'
-              ></div>
-              {/* {modal==='createModal2'&&(
+	return (
+		<div className='work-space'>
+			{console.log('render')}
+			<div className='boards'>
+				<h2 className='flex flex-center'>
+					<img style={{height: '30px', paddingRight: '20px'}} src={blackStar} />
+					Star boards:
+				</h2>
+				<div className='star-boards-container'>
+					{starredBoards &&
+						starredBoards.map((starredBoard, idx) => {
+							return (
+								<div
+									key={idx}
+									style={{
+										backgroundColor: starredBoard.style.backgroundColor,
+									}}
+									className='hover-opacity'>
+									<div
+										onClick={() => {
+											connectUser();
+											history.push(`/board/${starredBoard._id}`);
+										}}
+										className='star-board-preview'>
+										<h3>{starredBoard.title}</h3>
+										<div className='star-svg'>
+											<img className='star-svg-img' src={goldStar} alt='' />
+										</div>
+									</div>
+								</div>
+							);
+						})}
+				</div>
 
-				)} */}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+				<h2>Work Space:</h2>
+				<div className='boards-container'>
+					{boards.length &&
+						boards.map((board, idx) => {
+							return (
+								<div
+									key={idx}
+									// onClick={() => history.push(`/board/${board._id}`)}
+									className='board-preview'>
+									<div style={{backgroundColor: board.style.backgroundColor}} className='hover-opacity'>
+										{board.style?.backgroundColor && (
+											<div
+												onClick={() => {
+													connectUser();
+													history.push(`/board/${board._id}`);
+												}}
+												className='board-background'
+												// style={{ backgroundColor: board.style.backgroundColor }}
+											>
+												<h3 className='workspace-board-title'>{board.title}</h3>
+												<div className='star-svg'>
+													{board.starred === false && (
+														<img
+															onClick={(ev) => {
+																starBoard(ev, board);
+															}}
+															className='star-svg-img'
+															src={star}
+															alt=''
+														/>
+													)}
+
+													{board.starred === true && (
+														<img
+															onClick={(ev) => {
+																starBoard(ev, board);
+															}}
+															className='star-svg-img'
+															src={goldStar}
+															alt=''
+														/>
+													)}
+												</div>
+											</div>
+										)}
+									</div>
+									{!board.style?.backgroundColor && (
+										<div>
+											<img src={boardPreview} alt='' />
+											<div className='star-svg'>
+												<img src={star} alt='' />
+											</div>
+										</div>
+									)}
+								</div>
+							);
+						})}
+					<div
+						onClick={() => {
+							toggleModal('createModal2');
+						}}
+						className='add-board-div'>
+						<h3>Add Board</h3>
+					</div>
+				</div>
+			</div>
+		</div>
+	);
 };
 
 // function mapStateToProps({ boardModule }) {

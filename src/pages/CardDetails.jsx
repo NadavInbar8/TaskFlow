@@ -12,6 +12,7 @@ import {
   Cover,
   Move,
 } from '../cmps/detailsModals/modals.jsx';
+import { utilService } from '../services/util.service.js';
 import { DetailscheckList } from '../cmps/detailsCmps/DetailsCmps.jsx';
 
 import description from '../assets/imgs/description.svg';
@@ -23,10 +24,11 @@ import attachment from '../assets/imgs/attachment.svg';
 import cover from '../assets/imgs/cover.svg';
 import move from '../assets/imgs/move.svg';
 import copy from '../assets/imgs/copy.svg';
-import archive from '../assets/imgs/archive.svg';
+import trash from '../assets/imgs/trash.svg';
 import activity from '../assets/imgs/activity.svg';
 import title from '../assets/imgs/title.svg';
 import plus from '../assets/imgs/plus.svg';
+import xsvg from '../assets/imgs/x.svg';
 import { userService } from '../services/user.service.js';
 
 export const CardDetails = () => {
@@ -131,19 +133,25 @@ export const CardDetails = () => {
   function handleCommentChange({ target }) {
     const field = target.name;
     const value = target.value;
-    setComment({ by: 'guest', txt: value });
+    setComment({ byMember: loggedInUser, txt: value });
   }
 
   // ADD COMMENTS
   function addComment(ev) {
     ev.preventDefault();
+    console.log(comment);
+    console.log(new Date().toString());
+    const newComment = {
+      ...comment,
+      createdAt: Date.now(),
+    };
     const currCard = card;
     currCard.comments
-      ? currCard.comments.push(comment)
-      : (currCard.comments = [comment]);
+      ? currCard.comments.push(newComment)
+      : (currCard.comments = [newComment]);
     setCard(currCard);
     updateCard();
-    setComment({ by: 'guest', txt: '' });
+    setComment({ byMember: loggedInUser, txt: '' });
   }
   // ADD DATE
   function addDate(date) {
@@ -151,7 +159,7 @@ export const CardDetails = () => {
     const isOverDue = date.getTime() - Date.now() > 0 ? false : true;
     const currCard = card;
     currCard.date = {
-      date: date.toLocaleDateString(),
+      date: date.toDateString(),
       isComplete: false,
       overDue: isOverDue,
     };
@@ -325,6 +333,7 @@ export const CardDetails = () => {
     let chosenGroupIdx = newBoard.groups.findIndex(
       (group) => group.id === chosenGroup.id
     );
+    currCard.id = utilService.makeId();
     newBoard.groups[chosenGroupIdx].tasks.splice(idx, 0, currCard);
 
     dispatch(updateBoard(newBoard));
@@ -432,7 +441,7 @@ export const CardDetails = () => {
                 </div>
 
                 <Link to={`/board/${board._id}`}>
-                  <button>x</button>
+                  <img src={xsvg} />
                 </Link>
               </div>
 
@@ -678,16 +687,14 @@ export const CardDetails = () => {
                     onSubmit={addComment}
                     action=''
                   >
-                    <label>
-                      <br />
-                      <input
-                        value={comment.txt}
-                        name='comment'
-                        onChange={handleCommentChange}
-                        type='text'
-                        placeholder='Write comment...'
-                      />
-                    </label>
+                    <div className='user-logo'>{loggedInUser.initials}</div>
+                    <input
+                      value={comment.txt}
+                      name='comment'
+                      onChange={handleCommentChange}
+                      type='text'
+                      placeholder='Write comment...'
+                    />
                   </form>
 
                   <div className='comments'>
@@ -695,11 +702,25 @@ export const CardDetails = () => {
                       <ul>
                         {card.comments.map((comment, idx) => {
                           return (
-                            <li key={idx}>
-                              {comment.by}:{comment.txt}
-                              <button onClick={() => deleteComment(idx)}>
-                                delete
-                              </button>
+                            <li className='comment' key={idx}>
+                              <section className='comment-user-content'>
+                                {console.log(comment)}
+                                <div className='user-logo'>
+                                  {comment.byMember.initials}
+                                </div>
+                              </section>
+
+                              <div className='comment-content'>
+                                <span className='comment-user-fullname'>
+                                  {comment.byMember.fullname} At-
+                                  <span>
+                                    &nbsp;{getStringTimeForImg(comment)}
+                                  </span>
+                                </span>
+                                <span className='comment-txt'>
+                                  <span>{comment.txt}</span>
+                                </span>
+                              </div>
                             </li>
                           );
                         })}
@@ -725,6 +746,7 @@ export const CardDetails = () => {
                         {modal === 'memberModal' && (
                           <Members
                             users={users}
+                            toggleModal={toggleModal}
                             addUserToCard={addUserToCard}
                             loggedInUser={loggedInUser}
                           />
@@ -853,7 +875,7 @@ export const CardDetails = () => {
                         )}
                       </li>
                       <li onClick={deleteCard}>
-                        <img className='details-svg' src={archive} alt='' />
+                        <img className='details-svg' src={trash} alt='' />
                         Archive
                       </li>
                     </ul>
