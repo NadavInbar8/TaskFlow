@@ -318,24 +318,30 @@ export const CardDetails = () => {
   // Move
 
   function moveCardToOtherList(chosenGroup, idx, type) {
-    let currCard = card;
+    let currCard = { ...card };
     let listIdx = board.groups.findIndex((group) => group.id === listId);
     let currCardIdx = board.groups[listIdx].tasks.findIndex(
       (task) => task.id === cardId
     );
-    let newBoard = board;
+
+    let newBoard = { ...board };
+    const copiedCards = [...newBoard.groups[listIdx].tasks];
+    console.log(copiedCards);
 
     if (type === 'move') {
-      // splicing from the list
       newBoard.groups[listIdx].tasks.splice(currCardIdx, 1);
+      newBoard.groups[listIdx].tasksIds.splice(currCardIdx, 1);
     }
+
     // adding to list
     let chosenGroupIdx = newBoard.groups.findIndex(
       (group) => group.id === chosenGroup.id
     );
     currCard.id = utilService.makeId();
-    newBoard.groups[chosenGroupIdx].tasks.splice(idx, 0, currCard);
+    newBoard.groups[chosenGroupIdx].tasksIds.splice(idx, 0, currCard.id);
 
+    newBoard.groups[chosenGroupIdx].tasks.splice(idx, 0, currCard);
+    console.log(newBoard);
     dispatch(updateBoard(newBoard));
   }
 
