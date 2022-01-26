@@ -50,13 +50,13 @@ export const WorkSpace = () => {
 
   function starBoard(ev, board) {
     ev.stopPropagation();
-    console.log(board);
+    // console.log(board);
     let newBoard = board;
     if (newBoard.starred === true) {
       newBoard.starred = false;
     } else {
       newBoard.starred = true;
-      console.log(newBoard);
+      // console.log(newBoard);
     }
 
     dispatch(updateBoard(newBoard));
@@ -67,20 +67,19 @@ export const WorkSpace = () => {
     else return;
   }
 
-  const getBackground = async (board) => {
+  const getBackground = (board) => {
     // return `${board.style.backgroundColor}`;
     // if (location.pathname === '/') return 'lightcyan';
-
-    return (await board.style?.userClicked)
-      ? board.style?.backgroundColor
-      : `url(${board.style?.previewImgUrl})`;
+    return board.style.userClicked
+      ? board.style.backgroundColor
+      : `url(${board.style.previewImgUrl})`;
     // console.log(background);
     // return background;
   };
 
   return (
     <div className='work-space'>
-      {console.log('render')}
+      {/* {console.log('render')} */}
       <div className='boards'>
         <h2 className='flex flex-center'>
           <img
@@ -100,7 +99,7 @@ export const WorkSpace = () => {
                       ? { backgroundColor: getBackground(starredBoard) }
                       : { backgroundImage: getBackground(starredBoard) }
                   }
-                  className='board-background-div'
+                  className='board-background-div preview-cover'
                 >
                   <div
                     onClick={() => {
@@ -130,6 +129,7 @@ export const WorkSpace = () => {
         <div className='boards-container'>
           {boards.length &&
             boards.map((board, idx) => {
+              console.log(board);
               return (
                 <div
                   key={idx}
@@ -142,7 +142,7 @@ export const WorkSpace = () => {
                         ? { backgroundColor: getBackground(board) }
                         : { backgroundImage: getBackground(board) }
                     }
-                    className='board-background-div'
+                    className='board-background-div preview-cover'
                   >
                     {board.style?.backgroundColor && (
                       <div
@@ -153,7 +153,7 @@ export const WorkSpace = () => {
                         className='board-title-div'
                         // style={{ backgroundColor: board.style.backgroundColor }}
                       >
-                        {/* {console.log(board)} */}
+                        {console.log(board)}
                         <h3 className='workspace-board-title'>{board.title}</h3>
                         <div className='star-svg'>
                           {board.starred === false && (

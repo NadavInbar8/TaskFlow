@@ -247,14 +247,19 @@ export const Board = () => {
 
   const deleteList = (list) => {
     const updatedBoard = { ...board };
-    updatedBoard.groups = updatedBoard.groups.filter(
-      (group) => group.id !== list.id
+    const groupIdx = updatedBoard.groups.findIndex(
+      (group) => group.id === list.id
     );
-    updatedBoard.groupsOrder = updatedBoard.groupsOrder.filter(
-      (groupId) => groupId !== list.id
-    );
-    dispatch(updateBoard(updatedBoard));
+    updatedBoard.groups.splice(groupIdx, 1);
+    updatedBoard.groupsOrder.splice(groupIdx, 1);
+    // updatedBoard.groups = updatedBoard.groups.filter(
+    //   (group) => group.id !== list.id
+    // );
+    // updatedBoard.groupsOrder = updatedBoard.groupsOrder.filter(
+    //   (groupId) => groupId !== list.id
+    // );
     setForceRender(!forceRender);
+    dispatch(updateBoard(updatedBoard));
   };
 
   const editCard = (list, card) => {

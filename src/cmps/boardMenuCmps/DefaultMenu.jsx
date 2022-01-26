@@ -5,6 +5,15 @@ import backBtn from '../../assets/imgs/back-btn.svg';
 import trash from '../../assets/imgs/trash.svg';
 
 export const DefaultMenu = ({onSetMenuTitle, onSetCmpToRender, onOpenArchive, onRemoveBoard, board}) => {
+	const getBackground = () => {
+		// return `${board.style.backgroundColor}`;
+		// if (location.pathname === '/') return 'lightcyan';
+
+		return board.style.userClicked ? board.style.backgroundColor : `url(${board.style.previewImgUrl})`;
+		// console.log(background);
+		// return background;
+	};
+
 	return (
 		<section className='default-menu-cmp'>
 			<div className='about-board flex flex-row align-center justify-center'>
@@ -22,7 +31,11 @@ export const DefaultMenu = ({onSetMenuTitle, onSetCmpToRender, onOpenArchive, on
 					onSetMenuTitle('Change background');
 					onSetCmpToRender('changeBackground');
 				}}>
-				<div className='board-background-img align-center' style={{backgroundColor: board.style.backgroundColor}}></div>
+				<div
+					className='board-background-img align-center preview-cover'
+					style={
+						board?.style?.userClicked ? {backgroundColor: getBackground()} : {backgroundImage: getBackground()}
+					}></div>
 				&nbsp;
 				<h5>Change background</h5>
 			</div>
