@@ -55,6 +55,7 @@
     position: absolute;
     top: $s-2;
     right: $s-2;
+    z-index: 5000;
   }
 
   ul {
@@ -416,4 +417,8 @@
   .add-list-edit {
   }
   background-color: #ebecf0;
+}
+
+.seeOverlay {
+  z-index: 50;
 }

@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams, useLocation } from 'react-router-dom';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 
 import dotdotdot from '../assets/imgs/dotdotdot.svg';
 import close from '../assets/imgs/close.svg';
 import plus from '../assets/imgs/plus.svg';
 
 import { Droppable, Draggable } from 'react-beautiful-dnd';
+import { openModal } from '../store/board.action';
 import Task1 from './Task1.jsx';
 
 const Group = ({
@@ -31,12 +33,26 @@ const Group = ({
   addNewCard,
 }) => {
   const { boardId } = useParams();
+  const { modal } = useSelector((state) => ({
+    modal: state.boardModule.modal,
+  }));
+  const dispatch = useDispatch();
 
+  const toggleBoardModal = (modalType, group) => {
+    openListModal(group);
+    dispatch(openModal(modalType));
+  };
+
+  //style={{ zIndex: group.style.zIndex, backgroundColor: 'red' }}
   return (
     <Draggable draggableId={group.id} index={index}>
-      {(provided) => (
+      {(provided, snapshot) => (
         <div
-          className='board-list flex-column'
+          className={
+            group.style.zIndex === 'high'
+              ? 'board-list seeOverlay flex-column'
+              : 'board-list flex-column'
+          }
           {...provided.draggableProps}
           ref={provided.innerRef}
         >
@@ -46,15 +62,17 @@ const Group = ({
               src={dotdotdot}
               className='list-menu'
               alt='list menu'
-              onClick={() => openListModal(group)}
+              onClick={() => {
+                toggleBoardModal('groupModal', group);
+              }}
             />
           </div>
-          {selectedList.id === group.id ? (
+          {selectedList.id === group.id && modal === 'groupModal' ? (
             <div className='board-list-modal'>
               <div className=' modal-top'>
                 <h3>Group Modal</h3>
                 <img
-                  onClick={closeListModal}
+                  onClick={() => closeListModal(group)}
                   className='closeBtn'
                   src={close}
                   alt='close'

@@ -193,10 +193,10 @@ export const Board = () => {
     console.log('list', list);
     list.tasksIds.push(newCard.id);
     console.log('list.tasksIds', list.tasksIds);
-
     const updatedBoard = { ...board };
     updatedBoard.groups[listIdx] = list;
     updatedBoard.groups[listIdx].editMode = false;
+    setForceRender(!forceRender);
     dispatch(updateBoard(updatedBoard));
   };
 
@@ -205,11 +205,13 @@ export const Board = () => {
     toggleEditModal();
   };
 
-  const openListModal = (list) => {
-    setSelectedList(list);
+  const openListModal = (group) => {
+    group.style.zIndex = 'high';
+    setSelectedList(group);
   };
 
-  const closeListModal = () => {
+  const closeListModal = (group) => {
+    group.style.zIndex = 'low';
     setSelectedList({});
   };
 
@@ -436,6 +438,7 @@ export const Board = () => {
                       }
                       return (
                         <Group
+                          style={{ zIndex: group.style.zIndex }}
                           key={group.id}
                           group={group}
                           index={index}
