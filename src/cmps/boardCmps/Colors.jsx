@@ -25,7 +25,7 @@ export function Colors({saveColor, parentCmp, changeBG}) {
 		const actualColor = getColors(color);
 		if (parentCmp === 'createModal') {
 			saveColor(actualColor);
-		} else if (parentCmp === 'sideMenu') {
+		} else if (parentCmp === 'boardMenu') {
 			changeBG('color', actualColor);
 		}
 	};

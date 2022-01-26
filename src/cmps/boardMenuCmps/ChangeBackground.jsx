@@ -54,7 +54,7 @@ export const ChangeBackground = ({changeBG}) => {
 			</div>
 			<hr></hr>
 			<div className='colors'>
-				<Colors parentCmp='sideMenu' changeBG={changeBG} />
+				<Colors parentCmp='boardMenu' changeBG={changeBG} />
 			</div>
 		</section>
 	);

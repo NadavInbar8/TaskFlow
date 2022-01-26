@@ -14,7 +14,7 @@
 	cursor: pointer;
 }
 
-.colors-grid-sideMenu {
+.colors-grid-boardMenu {
 	display: flex;
 	flex-wrap: wrap;
 	flex-direction: row;
@@ -23,7 +23,7 @@
 	gap: $s-1;
 }
 
-.color-div-sideMenu {
+.color-div-boardMenu {
 	height: 105px;
 	width: 49%;
 	border-radius: $s-2;
@@ -31,7 +31,7 @@
 	cursor: pointer;
 }
 
-.color-div-sideMenu:hover {
+.color-div-boardMenu:hover {
 	opacity: 0.8;
 }
 
