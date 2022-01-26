@@ -324,6 +324,7 @@ export const Board = () => {
 	const [openLabels, setOpenLabels] = useState(false);
 	return (
 		<section className='flex-column h100'>
+			{console.log(boardId)}
 			<div className={overlay ? 'overlay' : 'overlay hidden'} onClick={closeEditModal}></div>
 			{board ? (
 				<>
@@ -345,7 +346,7 @@ export const Board = () => {
 											<button onClick={() => deleteList(list)}>delete list</button>
 											<ul>
 												{list.tasks.map((card) => {
-													console.log('card', card);
+													// console.log('card', card);
 													return selectedCard.id !== card.id ? (
 														<li key={card.id} className='board-card flex-column'>
 															{card.cover ? (
