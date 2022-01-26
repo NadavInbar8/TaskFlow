@@ -154,34 +154,12 @@
 		background-color: inherit;
 	}
 
-	.board-background {
-		.colors-grid {
-			// padding: $s-2;
-			display: grid;
-			min-height: 100%;
-			grid-template-columns: repeat(3, 40px);
-			grid-template-rows: repeat(3, 32px);
-			justify-content: center;
-			// gap: $s-2;
-			gap: $s-2;
-		}
-
-		.new-board-colors {
-			height: 32px;
-			width: 40px;
-			cursor: pointer;
-		}
-
-		.new-board-colors:hover {
-			opacity: 0.8;
-		}
-	}
-
 	.create-board-title-div {
 		input {
 			// margin-bottom: $s-2;
 			border-radius: 0;
 			height: 32px;
+			width: 100%;
 		}
 
 		span {
