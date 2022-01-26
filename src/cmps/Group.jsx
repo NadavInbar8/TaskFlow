@@ -1,168 +1,165 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams, useLocation } from 'react-router-dom';
+
+import dotdotdot from '../assets/imgs/dotdotdot.svg';
+import close from '../assets/imgs/close.svg';
+import plus from '../assets/imgs/plus.svg';
 
 import { Droppable, Draggable } from 'react-beautiful-dnd';
-import Task from './Task.jsx';
+import Task1 from './Task1.jsx';
 
 const Group = ({
-  column,
-  tasks,
   index,
+  group,
+  tasks,
+  openListModal,
+  selectedList,
+  closeListModal,
+  copyList,
   deleteList,
   editNewCard,
-  addNewCard,
-  handleChange,
-  boardId,
-  openEditModal,
   selectedCard,
+  openLabels,
+  setOpenLabels,
+  openEditModal,
+  cardEdit,
+  handleChange,
   editCard,
-  copyCard,
   closeEditModal,
+  copyCard,
   deleteCard,
+  addNewCard,
 }) => {
-  const [edit, setEdit] = useState(false);
-  const [titleEdit, setTitleEdit] = useState(false);
-  const [title, setTitle] = useState(column.title);
-  const grid = 8;
-  const getListStyle = (isDraggingOver) => ({
-    background: isDraggingOver ? 'lightgrey' : '#ebecf0',
-    // minHeight: '100px',
-    minWidth: '100px',
-    Height: 'fit-content',
+  const { boardId } = useParams();
 
-    padding: grid,
-    width: 250,
-  });
-  const ChangeName = (column) => {
-    console.log(column.title);
-    setTitleEdit(true);
-  };
-
-  function handleTitleChange({ target }) {
-    const value = target.value;
-    setTitleEdit(value);
-  }
   return (
-    <Draggable draggableId={column.id} index={index}>
+    <Draggable draggableId={group.id} index={index}>
       {(provided) => (
         <div
-          className='Container'
+          className='board-list flex-column'
           {...provided.draggableProps}
           ref={provided.innerRef}
         >
-          <div className='board-title flex'>
-            <h3 className='Title' {...provided.dragHandleProps}>
-              {titleEdit ? (
-                <input type='text' defaultValue={column.title} />
-              ) : (
-                <span>{column.title}</span>
-              )}
-            </h3>
-            <div className='board-title-btn' onClick={() => deleteList(column)}>
-              delete
-            </div>
-            {/* <div className='board-title-btn' onClick={() => ChangeName(column)}>
-              edit
-            </div> */}
+          <div className='list-options' {...provided.dragHandleProps}>
+            <span>{group.title}</span>
+            <img
+              src={dotdotdot}
+              className='list-menu'
+              alt='list menu'
+              onClick={() => openListModal(group)}
+            />
           </div>
-          <Droppable droppableId={column.id} type='task'>
-            {(provided, snapshot) => (
-              <div
-                className='TaskList'
-                ref={provided.innerRef}
-                {...provided.droppableProps}
-                style={getListStyle(snapshot.isDraggingOver)}
-              >
-                {tasks.map((task, index) => {
-                  return selectedCard.id !== task.id ? (
-                    <>
-                      <Task
-                        key={task.id}
-                        task={task}
-                        index={index}
-                        openEditModal={openEditModal}
-                        boardId={boardId}
-                        column={column}
-                      />
-                    </>
-                  ) : (
-                    <div key={task.id} className='board-card overlaySee'>
-                      <div className='board-card-options flex-column'>
-                        <textarea
-                          type='text'
-                          defaultValue={task.title}
-                          onChange={handleChange}
-                        ></textarea>
-                        <div
-                          className='add-card'
-                          onClick={() => editCard(column, task)}
-                        >
-                          Save
-                        </div>
-                      </div>
-                      <div className='edit-modal'>
-                        <ul>
-                          <li>
-                            <Link
-                              onClick={closeEditModal}
-                              to={`/board/${boardId}/${task.id}/${column.id}`}
+          {selectedList.id === group.id ? (
+            <div className='board-list-modal'>
+              <div className=' modal-top'>
+                <h3>Group Modal</h3>
+                <img
+                  onClick={closeListModal}
+                  className='closeBtn'
+                  src={close}
+                  alt='close'
+                />
+              </div>
+              <hr></hr>
+              <ul>
+                <li onClick={() => copyList(group)}>Copy List</li>
+                <li onClick={() => editNewCard(group)}>Add Card</li>
+                <li onClick={() => deleteList(group)}>Delete List</li>
+              </ul>
+            </div>
+          ) : null}
+          <Droppable droppableId={group.id} type='task'>
+            {(provided) => (
+              <>
+                <ul
+                  ref={provided.innerRef}
+                  className='flex-column flex-center'
+                  {...provided.droppableProps}
+                >
+                  {group.tasks.length > 0
+                    ? group.tasksIds.map((taskId, index) => {
+                        const taskObj = tasks.find(
+                          (temp) => temp.id === taskId
+                        );
+                        return selectedCard.id !== taskObj.id ? (
+                          <Task1
+                            key={taskId}
+                            task={taskObj}
+                            index={index}
+                            openLabels={openLabels}
+                            setOpenLabels={setOpenLabels}
+                            openEditModal={openEditModal}
+                            cardEdit={cardEdit}
+                            groupId={group.id}
+                          />
+                        ) : (
+                          <li
+                            key={taskObj.id}
+                            className='board-card overlaySee'
+                          >
+                            <input
+                              type='text'
+                              defaultValue={taskObj.title}
+                              onChange={handleChange}
+                            />
+                            <div
+                              className='add-card'
+                              onClick={() => editCard(group, taskObj)}
                             >
-                              Open Card
-                            </Link>
+                              save
+                            </div>
+                            <div className='edit-modal'>
+                              <ul>
+                                <li>
+                                  <Link
+                                    onClick={closeEditModal}
+                                    to={`/board/${boardId}/${taskObj.id}/${group.id}`}
+                                  >
+                                    Open Card
+                                  </Link>
+                                </li>
+                                <li>Edit Labels</li>
+                                <li>Change Members</li>
+                                <li>Change Cover</li>
+                                <li onClick={() => copyCard(group, taskObj)}>
+                                  Copy
+                                </li>
+                                <li>Edit Dates</li>
+                                <li onClick={() => deleteCard(group, taskObj)}>
+                                  Archive
+                                </li>
+                              </ul>
+                            </div>
                           </li>
-                          <li>Edit Labels</li>
-                          <li>Change Members</li>
-                          <li>Change Cover</li>
-                          <li onClick={() => copyCard(column, task)}>Copy</li>
-                          <li>Edit Dates</li>
-                          <li onClick={() => deleteCard(column, task)}>
-                            Archive
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  );
-                })}
-                {provided.placeholder}
-                {edit ? (
-                  <div className='add-new-card-edit flex-column'>
+                        );
+                      })
+                    : null}
+                  {provided.placeholder}
+                </ul>
+
+                {group.editMode ? (
+                  <div className='add-new-card-edit'>
                     <textarea
                       type='text'
                       name='newCard'
                       onChange={handleChange}
-                      placeholder='Enter a title for this card...'
-                      //   onBlur={updateCard}
                     ></textarea>
-                    <div className='new-card-edit-options flex'>
-                      <div
-                        className='add-new-card-edit-btn'
-                        onClick={() => {
-                          addNewCard(column);
-                          setEdit(false);
-                        }}
-                      >
-                        Add
-                      </div>
-                      <div
-                        className='add-new-card-edit-btn'
-                        onClick={() => setEdit(false)}
-                      >
-                        X
-                      </div>
+                    <div
+                      className='add-new-card-edit-btn'
+                      onClick={() => addNewCard(group)}
+                    >
+                      add
                     </div>
                   </div>
                 ) : (
                   <div
                     className='add-new-card'
-                    onClick={() => {
-                      editNewCard(column);
-                      setEdit(true);
-                    }}
+                    onClick={() => editNewCard(group)}
                   >
-                    + Add a card
+                    <img src={plus} alt='+' /> <span>Add new card</span>
                   </div>
                 )}
-              </div>
+              </>
             )}
           </Droppable>
         </div>

@@ -6,7 +6,12 @@ import { Link, useParams, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 
 // Redux
-import { loadBoard, addCard, updateBoard } from '../store/board.action.js';
+import {
+  loadBoard,
+  addCard,
+  updateBoard,
+  openModal,
+} from '../store/board.action.js';
 
 // Cmps
 import { BoardHeader } from '../cmps/boardCmps/BoardHeader.jsx';
@@ -20,7 +25,6 @@ import addUser from '../assets/imgs/add-user.png';
 
 // Libs
 import { over } from 'lodash';
-import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 
 // Images
 import filterSvg from '../assets/imgs/filter-svgs/filter.svg';
@@ -33,6 +37,13 @@ import dotdotdot from '../assets/imgs/dotdotdot.svg';
 import close from '../assets/imgs/close.svg';
 import plus from '../assets/imgs/plus.svg';
 import plusWhite from '../assets/imgs/plus-white.svg';
+import { DragDropContext } from 'react-beautiful-dnd';
+import { Droppable } from 'react-beautiful-dnd';
+
+////// DND IMPORTS ///////
+
+////////////////////////////////////////////////////
+
 export const Board = () => {
   const { boardId } = useParams();
   const { board } = useSelector(
@@ -40,6 +51,7 @@ export const Board = () => {
     shallowEqual
   );
   const dispatch = useDispatch();
+  const [data, setData] = useState(null);
 
   ///// useStates /////
   const [filteredBoard, setFilteredBoard] = useState({});
@@ -59,8 +71,6 @@ export const Board = () => {
   // const [filterModal, setFilterModal] = useState(false);
   // const [starStatus, setStarStatus] = useState(false);
   // const [menuModal, setMenuModal] = useState(false);
-
-  const [data, setData] = useState({});
 
   ///// Tom useStates /////
   // const [width, setWidth] = useState('');
@@ -95,15 +105,21 @@ export const Board = () => {
 
   useEffect(() => {
     if (board) {
-      setData(board.groups);
+      setData({ ...board });
     }
   }, [board]);
+
+  const [tempBoard, setTempBoard] = useState({});
+
+  // useEffect(() => {
+  //   dispatch(loadBoard(boardId));
+  // }, [board]);
 
   useEffect(() => {
     dispatch(loadBoard(boardId));
   }, [forceRender]);
 
-  useEffect(() => {}, [board]);
+  // useEffect(() => {}, [board]);
 
   // useEffect(() => {
   // 	if (board) setBoardTitleInput(board.title);
@@ -145,7 +161,7 @@ export const Board = () => {
   }
 
   const editNewCard = (list) => {
-    setNewCard({ ...newCard, id: utilService.makeId() });
+    setNewCard({ ...newCard, id: utilService.makeId(), tasksId: [] });
     list.editMode = true;
   };
 
@@ -174,6 +190,10 @@ export const Board = () => {
   const addNewCard = (list) => {
     let listIdx = board.groups.findIndex((group) => group.id === list.id);
     list.tasks.push(newCard);
+    console.log('list', list);
+    list.tasksIds.push(newCard.id);
+    console.log('list.tasksIds', list.tasksIds);
+
     const updatedBoard = { ...board };
     updatedBoard.groups[listIdx] = list;
     updatedBoard.groups[listIdx].editMode = false;
@@ -210,17 +230,22 @@ export const Board = () => {
       id: utilService.makeId(),
       style: {},
       tasks: [],
+      tasksIds: [],
       title: listName,
     };
+    updatedBoard.groupsOrder.push(newGroup.id);
     updatedBoard.groups.push(newGroup);
-    dispatch(updateBoard(updatedBoard));
     setNewList(false);
+    dispatch(updateBoard(updatedBoard));
   };
 
   const deleteList = (list) => {
     const updatedBoard = { ...board };
     updatedBoard.groups = updatedBoard.groups.filter(
       (group) => group.id !== list.id
+    );
+    updatedBoard.groupsOrder = updatedBoard.groupsOrder.filter(
+      (groupId) => groupId !== list.id
     );
     dispatch(updateBoard(updatedBoard));
     setForceRender(!forceRender);
@@ -260,11 +285,9 @@ export const Board = () => {
     copiedTasks.map((task) => {
       task = { ...task, id: utilService.makeId() };
     });
-    let listIdx = updatedBoard.groups.findIndex(
-      (group) => group.id === list.id
-    );
     copiedList.tasks = copiedTasks;
-    updatedBoard.groups.splice(listIdx, 0, copiedList);
+    updatedBoard.groups.push(copiedList);
+    updatedBoard.groupsOrder.push(copiedList.id);
     closeListModal();
     dispatch(updateBoard(updatedBoard));
     setForceRender(!forceRender);
@@ -287,289 +310,192 @@ export const Board = () => {
   const [openLabels, setOpenLabels] = useState(false);
   const [listModal, setListModal] = useState(false);
 
-  console.log('data', data);
+  const onDragEnd = (result) => {
+    const { draggableId, type, source, destination } = result;
+    if (!destination) return;
+    if (
+      destination.droppableId === source.droppableId &&
+      destination.index === source.index
+    ) {
+      return;
+    }
 
-  return (
+    if (type === 'column') {
+      const newGroupsOrder = [...data.groupsOrder];
+      newGroupsOrder.splice(source.index, 1);
+      newGroupsOrder.splice(destination.index, 0, draggableId);
+      const newData = {
+        ...data,
+        groupsOrder: newGroupsOrder,
+      };
+      setData(newData);
+      dispatch(updateBoard(newData));
+      return;
+    }
+
+    const startGroupIdx = data.groups.findIndex(
+      (fGroup) => fGroup.id === source.droppableId
+    );
+    const finishGroupIdx = data.groups.findIndex(
+      (fGroup) => fGroup.id === destination.droppableId
+    );
+
+    const groupStart = data.groups[startGroupIdx];
+    const groupFinish = data.groups[finishGroupIdx];
+    if (groupStart === groupFinish) {
+      const newTaskIds = [...groupStart.tasksIds];
+      newTaskIds.splice(source.index, 1);
+      newTaskIds.splice(destination.index, 0, draggableId);
+      const newGroup = { ...groupStart, tasksIds: newTaskIds };
+      const newGroups = [...data.groups];
+      newGroups[startGroupIdx] = newGroup;
+      const newData = {
+        ...data,
+        groups: newGroups,
+      };
+      setData(newData);
+      dispatch(updateBoard(newData));
+      return;
+    } else {
+      const startTaskIds = [...groupStart.tasksIds];
+      startTaskIds.splice(source.index, 1);
+      const newStart = {
+        ...groupStart,
+        tasksIds: startTaskIds,
+      };
+      newStart.tasks.tasksIds = startTaskIds;
+
+      const startTaskIdx = newStart.tasks.findIndex(
+        (task) => task.id === draggableId
+      );
+      const startTask = newStart.tasks.splice(startTaskIdx, 1);
+      const finishTaskIds = [...groupFinish.tasksIds];
+      finishTaskIds.splice(destination.index, 0, draggableId);
+      const newFinish = {
+        ...groupFinish,
+        tasksIds: finishTaskIds,
+      };
+      newFinish.tasks.tasksIds = finishTaskIds;
+
+      // const endTaskIdx = newStart.findIndex(
+      //   (task) => task.id === draggableId
+      // );
+      newFinish.tasks.splice(destination.index, 0, ...startTask);
+
+      const newGroups = [...data.groups];
+      newGroups[startGroupIdx] = newStart;
+      newGroups[finishGroupIdx] = newFinish;
+      const newData = {
+        ...data,
+        groups: newGroups,
+      };
+      setData(newData);
+      dispatch(updateBoard(newData));
+    }
+    // const group = data.groups[source.drop]
+  };
+  return data ? (
     <section className='flex-column h100'>
       <div
         className={overlay ? 'overlay' : 'overlay hidden'}
         onClick={closeEditModal}
       ></div>
       {board ? (
-        <>
-          <BoardHeader
-            // Header
-            board={board}
-            setForceRender={setForceRender}
-            // Filter
-            filterBoard={filterBoard}
-          />
-          <div className='board flex'>
-            {board.groups
-              ? board.groups.map((list) => {
-                  return (
-                    <div key={list.id} className='board-list flex-column'>
-                      <div className='list-options'>
-                        <span>{list.title}</span>
-                        <img
-                          src={dotdotdot}
-                          className='list-menu'
-                          alt='list menu'
-                          onClick={() => openListModal(list)}
+        <BoardHeader
+          // Header
+          board={board}
+          setForceRender={setForceRender}
+          // Filter
+          filterBoard={filterBoard}
+        />
+      ) : null}
+      <div className='board flex'>
+        <DragDropContext onDragEnd={onDragEnd}>
+          <Droppable
+            droppableId='all-columns'
+            direction='horizontal'
+            type='column'
+          >
+            {(provided) => (
+              <div
+                className='flex'
+                {...provided.droppableProps}
+                ref={provided.innerRef}
+              >
+                {data
+                  ? data.groupsOrder.map((groupId, index) => {
+                      const groupInx = data.groups.findIndex(
+                        (sGroup) => sGroup.id === groupId
+                      );
+                      const group = data.groups[groupInx];
+                      const tasks = [];
+                      for (let i = 0; i < data.groups.length; i++) {
+                        for (let j = 0; j < data.groups[i].tasks.length; j++) {
+                          tasks.push(data.groups[i].tasks[j]);
+                        }
+                      }
+                      return (
+                        <Group
+                          key={group.id}
+                          group={group}
+                          index={index}
+                          tasks={tasks}
+                          openListModal={openListModal}
+                          selectedList={selectedList}
+                          closeListModal={closeListModal}
+                          copyList={copyList}
+                          editNewCard={editNewCard}
+                          deleteList={deleteList}
+                          selectedCard={selectedCard}
+                          openLabels={openLabels}
+                          setOpenLabels={setOpenLabels}
+                          openEditModal={openEditModal}
+                          cardEdit={cardEdit}
+                          handleChange={handleChange}
+                          editCard={editCard}
+                          closeEditModal={closeEditModal}
+                          copyCard={copyCard}
+                          deleteCard={deleteCard}
+                          addNewCard={addNewCard}
                         />
-                      </div>
-                      {selectedList.id === list.id ? (
-                        <div className='board-list-modal'>
-                          <div className=' modal-top'>
-                            <h3>List Modal</h3>
-                            <img
-                              onClick={closeListModal}
-                              className='closeBtn'
-                              src={close}
-                              alt='close'
-                            />
-                          </div>
-                          <hr></hr>
-                          <ul>
-                            <li onClick={() => copyList(list)}>Copy List</li>
-                            <li onClick={() => editNewCard(list)}>Add Card</li>
-                            <li onClick={() => deleteList(list)}>
-                              Delete List
-                            </li>
-                          </ul>
-                        </div>
-                      ) : null}
-
-                      <ul className='flex-column flex-center'>
-                        {list.tasks.map((card) => {
-                          return selectedCard.id !== card.id ? (
-                            <li
-                              key={card.id}
-                              className='board-card flex-column'
-                            >
-                              {card.cover ? (
-                                <div
-                                  className='card-cover'
-                                  style={
-                                    card.cover.type == 'color'
-                                      ? { backgroundColor: card.cover.cover }
-                                      : null
-                                  }
-                                >
-                                  {card.cover.type == 'img' ? (
-                                    <img
-                                      src={card.cover.cover}
-                                      className='card-img-cover'
-                                    />
-                                  ) : null}
-                                </div>
-                              ) : null}
-                              <div className='board-card-details'>
-                                {card.labels ? (
-                                  <div
-                                    className={
-                                      openLabels
-                                        ? 'card-labels-open flex'
-                                        : 'card-labels flex'
-                                    }
-                                  >
-                                    <ul>
-                                      {card.labels.map((label, idx) => {
-                                        return (
-                                          <li
-                                            key={idx}
-                                            className='label'
-                                            onClick={() =>
-                                              setOpenLabels(!openLabels)
-                                            }
-                                            style={{
-                                              backgroundColor: label.color,
-                                            }}
-                                          >
-                                            {openLabels
-                                              ? `${label.name}`
-                                              : null}
-                                          </li>
-                                        );
-                                      })}
-                                    </ul>
-                                  </div>
-                                ) : null}
-                                <div className='card-title flex'>
-                                  <Link
-                                    to={`/board/${boardId}/${card.id}/${list.id}`}
-                                  >
-                                    {card.title}
-                                  </Link>
-                                  <div
-                                    className='board-card-edit-btn '
-                                    onClick={() => {
-                                      openEditModal(card);
-                                    }}
-                                  >
-                                    <img src={cardEdit} alt='edit' />
-                                  </div>
-                                </div>
-                                <div className='card-options flex'>
-                                  {card.date ? (
-                                    <div
-                                      className='card-date flex'
-                                      style={
-                                        !card.date.overDue
-                                          ? { backgroundColor: '#61BD4F' }
-                                          : { backgroundColor: '#EB5A46' }
-                                      }
-                                    >
-                                      <img src={dueDate} />
-                                      {card.date.date}
-                                    </div>
-                                  ) : null}
-                                  {card.description ? (
-                                    <img
-                                      className='board-card-description'
-                                      src={description}
-                                      title='this card has description'
-                                    />
-                                  ) : null}
-                                  {card.checkLists ? (
-                                    <div className='board-card-checklist'>
-                                      {card.checkLists.map((checkList, idx) => {
-                                        let checkListCounter = 0;
-
-                                        checkList.items.forEach(
-                                          (checkListItem) => {
-                                            if (checkListItem.isDone) {
-                                              checkListCounter++;
-                                            }
-                                          }
-                                        );
-                                        return (
-                                          <span
-                                            className=' flex-center'
-                                            key={idx}
-                                          >
-                                            {checkListCounter}/
-                                            {checkList.items.length}
-                                            <img src={cardChecklist} />
-                                          </span>
-                                        );
-                                      })}
-                                    </div>
-                                  ) : null}
-                                  {card.attachments
-                                    ? card.attachments.map((attachmentX) => {
-                                        return (
-                                          <div className='board-card-attachment flex-center'>
-                                            {card.attachments.length}
-                                            <img src={attachment} />
-                                          </div>
-                                        );
-                                      })
-                                    : null}
-                                </div>
-                              </div>
-                            </li>
-                          ) : (
-                            <li key={card.id} className='board-card overlaySee'>
-                              <input
-                                type='text'
-                                defaultValue={card.title}
-                                onChange={handleChange}
-                              />
-                              <div
-                                className='add-card'
-                                onClick={() => editCard(list, card)}
-                              >
-                                save
-                              </div>
-                              <div className='edit-modal'>
-                                <ul>
-                                  <li>
-                                    <Link
-                                      onClick={closeEditModal}
-                                      to={`/board/${boardId}/${card.id}/${list.id}`}
-                                    >
-                                      Open Card
-                                    </Link>
-                                  </li>
-                                  <li>Edit Labels</li>
-                                  <li>Change Members</li>
-                                  <li>Change Cover</li>
-                                  <li onClick={() => copyCard(list, card)}>
-                                    Copy
-                                  </li>
-                                  <li>Edit Dates</li>
-                                  <li onClick={() => deleteCard(list, card)}>
-                                    Archive
-                                  </li>
-                                </ul>
-                              </div>
-                            </li>
-                          );
-                        })}
-                      </ul>
-
-                      {list.editMode ? (
-                        <div className='add-new-card-edit'>
-                          <textarea
-                            type='text'
-                            name='newCard'
-                            onChange={handleChange}
-                          ></textarea>
-                          <div
-                            className='add-new-card-edit-btn'
-                            onClick={() => addNewCard(list)}
-                          >
-                            add
-                          </div>
-                        </div>
-                      ) : (
-                        <div
-                          className='add-new-card'
-                          onClick={() => editNewCard(list)}
-                        >
-                          <img src={plus} alt='+' /> <span>Add new card</span>
-                        </div>
-                      )}
-                    </div>
-                  );
-                })
-              : null}
-            {!newList ? (
-              <div className='add-list' onClick={() => setNewList(true)}>
-                <img src={plusWhite} alt='+' /> Add new group
-              </div>
-            ) : (
-              <div className='add-list-options flex-column'>
-                <input
-                  type='text'
-                  name='new-list-name'
-                  placeholder='Enter list title'
-                  onChange={handleNewList}
-                />
-                <div className='add-list-edit flex'>
-                  <div className='add-list-btn' onClick={addNewGroup}>
-                    Add List
-                  </div>
-                  <div
-                    className='add-list-btn'
-                    onClick={() => setNewList(false)}
-                  >
-                    X
-                  </div>
-                </div>
+                      );
+                    })
+                  : null}
+                {provided.placeholder}
               </div>
             )}
-          </div>
+          </Droppable>
+
+          {!newList ? (
+            <div className='add-list' onClick={() => setNewList(true)}>
+              <img src={plusWhite} alt='+' /> Add new group
+            </div>
+          ) : (
+            <div className='add-list-options flex-column'>
+              <input
+                type='text'
+                name='new-list-name'
+                placeholder='Enter list title'
+                onChange={handleNewList}
+              />
+              <div className='add-list-edit flex'>
+                <div className='add-list-btn' onClick={addNewGroup}>
+                  Add List
+                </div>
+                <div className='add-list-btn' onClick={() => setNewList(false)}>
+                  X
+                </div>
+              </div>
+            </div>
+          )}
           <Route
             component={CardDetails}
             path={`/board/:boardId/:cardId/:listId`}
           />
-        </>
-      ) : (
-        <div>Loading...</div>
-      )}
-      <div></div>
+        </DragDropContext>
+      </div>
     </section>
+  ) : (
+    <div>Loading...</div>
   );
 };
