@@ -44,7 +44,7 @@ async function save(board) {
     const emptyBoard = _getEmptyBoard(board);
     return await httpService.post('board', emptyBoard);
   } else {
-    return await httpService.put('board', board);
+    return await httpService.put(`board/${board._id}`, board);
   }
 }
 
