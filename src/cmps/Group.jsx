@@ -78,7 +78,7 @@ const Group = ({
                   alt='close'
                 />
               </div>
-              <hr></hr>
+              <hr />
               <ul>
                 <li onClick={() => copyList(group)}>Copy List</li>
                 <li onClick={() => editNewCard(group)}>Add Card</li>
