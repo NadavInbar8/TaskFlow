@@ -67,6 +67,7 @@ export const CreateModal = () => {
 	};
 
 	const saveNewBoard = () => {
+		console.log(newBoard);
 		dispatch(addBoard(newBoard));
 	};
 

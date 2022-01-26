@@ -36,11 +36,12 @@
 		// border-radius: 15px;
 		height: 120px;
 		width: 240px;
+
 		img {
 			height: 150px;
 		}
 
-		.board-background {
+		.board-title-div {
 			position: relative;
 			display: flex;
 			justify-content: space-between;
@@ -50,8 +51,9 @@
 			border-radius: 7px;
 			transition: 0.2;
 		}
-		.board-background:hover {
+		.board-title-div:hover {
 			background-color: rgba(0, 0, 0, 0.178);
+			cursor: pointer;
 			.star-svg {
 				visibility: visible;
 				right: 10px;
@@ -59,7 +61,9 @@
 		}
 	}
 
-	.hover-opacity {
+	.board-background-div {
+		background-size: cover;
+		background-repeat: no-repeat;
 		position: relative;
 		height: 100%;
 		width: 100%;
@@ -81,11 +85,11 @@
 
 	.star-boards-container {
 		width: 100%;
-
 		display: grid;
 		grid-template-columns: repeat(auto-fit, 240px);
 		grid-template-rows: repeat(auto-fit, 120px);
 		gap: 10px;
+
 		.star-board-preview {
 			position: relative;
 			display: flex;

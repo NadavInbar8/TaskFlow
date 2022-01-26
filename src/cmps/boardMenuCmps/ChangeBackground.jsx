@@ -47,7 +47,7 @@ export const ChangeBackground = ({changeBG}) => {
 			/>
 			<div className='imgs'>
 				{imgs.map((img) => (
-					<div key={img.id} className='img-container flex flex-center' onClick={() => changeBG('img', img.full)}>
+					<div key={img.id} className='img-container flex flex-center' onClick={() => changeBG('img', img)}>
 						<img className='unsplash-img' src={img.preview} alt={img.id} />
 					</div>
 				))}

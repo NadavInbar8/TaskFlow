@@ -4,7 +4,7 @@ import {loadBoards, openModal} from '../store/board.action.js';
 // import {loadBoards, addBoard, openModal} from '../store/';
 import {userService} from '../services/user.service.js';
 import boardPreview from '../assets/imgs/boardPreview.jpg';
-import {Link, useHistory} from 'react-router-dom';
+import {Link, useHistory, useLocation} from 'react-router-dom';
 import usersvg from '../assets/imgs/usersvg.svg';
 import star from '../assets/imgs/star.svg';
 import goldStar from '../assets/imgs/goldStar.svg';
@@ -22,7 +22,10 @@ export const WorkSpace = () => {
 	}));
 
 	const dispatch = useDispatch();
+	const location = useLocation();
+
 	const loggedInUser = userService.getLoggedinUser();
+
 	// console.log(loggedInUser);
 	if (loggedInUser === null) userService.connectGuestUser();
 
@@ -58,10 +61,20 @@ export const WorkSpace = () => {
 
 		dispatch(updateBoard(newBoard));
 	}
+
 	function connectUser() {
 		if (loggedInUser === null) userService.connectGuestUser();
 		else return;
 	}
+
+	const getBackground = (board) => {
+		// return `${board.style.backgroundColor}`;
+		// if (location.pathname === '/') return 'lightcyan';
+
+		return board.style.userClicked ? board.style.backgroundColor : `url(${board.style.previewImgUrl})`;
+		// console.log(background);
+		// return background;
+	};
 
 	return (
 		<div className='work-space'>
@@ -77,10 +90,12 @@ export const WorkSpace = () => {
 							return (
 								<div
 									key={idx}
-									style={{
-										backgroundColor: starredBoard.style.backgroundColor,
-									}}
-									className='hover-opacity'>
+									style={
+										starredBoard?.style?.userClicked
+											? {backgroundColor: getBackground(starredBoard)}
+											: {backgroundImage: getBackground(starredBoard)}
+									}
+									className='board-background-div'>
 									<div
 										onClick={() => {
 											connectUser();
@@ -106,16 +121,23 @@ export const WorkSpace = () => {
 									key={idx}
 									// onClick={() => history.push(`/board/${board._id}`)}
 									className='board-preview'>
-									<div style={{backgroundColor: board.style.backgroundColor}} className='hover-opacity'>
+									<div
+										style={
+											board?.style?.userClicked
+												? {backgroundColor: getBackground(board)}
+												: {backgroundImage: getBackground(board)}
+										}
+										className='board-background-div'>
 										{board.style?.backgroundColor && (
 											<div
 												onClick={() => {
 													connectUser();
 													history.push(`/board/${board._id}`);
 												}}
-												className='board-background'
+												className='board-title-div'
 												// style={{ backgroundColor: board.style.backgroundColor }}
 											>
+												{console.log(board)}
 												<h3 className='workspace-board-title'>{board.title}</h3>
 												<div className='star-svg'>
 													{board.starred === false && (
