@@ -690,7 +690,7 @@ export const CardDetails = () => {
                     <span>Activity</span>
                   </div>
                   <form
-                    className='gap-right add-comment-form'
+                    className=' add-comment-form'
                     onSubmit={addComment}
                     action=''
                   >

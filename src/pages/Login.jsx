@@ -1,4 +1,6 @@
 import React, { useEffect } from 'react';
+import ReactDOM from 'react-dom';
+import GoogleLogin from 'react-google-login';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -60,6 +62,16 @@ export function Login() {
     if (user.email && user.password) history.push('/workspace');
     dispatch(setUser(user, 'login'));
   };
+  const responseGoogle = (response) => {
+    console.log(response);
+    const user = {
+      email: response.profileObj.email,
+      password: 11111,
+    };
+    if (user.email && user.password) history.push('/workspace');
+    dispatch(setUser(user, 'login'));
+  };
+
   return (
     <section className='login-signup'>
       <ThemeProvider theme={theme2}>
@@ -106,9 +118,15 @@ export function Login() {
                 id='password'
                 autoComplete='current-password'
               />
-              <FormControlLabel
-                control={<Checkbox value='remember' color='primary' />}
-                label='Remember me'
+
+              <GoogleLogin
+                clientId={
+                  '1009800341332-rucoje3gjell9n316gm6fel98pp78ovp.apps.googleusercontent.com'
+                }
+                buttonText='Login with Google'
+                onSuccess={responseGoogle}
+                onFailure={responseGoogle}
+                cookiePolicy={'single_host_origin'}
               />
               <Button
                 type='submit'
@@ -118,6 +136,7 @@ export function Login() {
               >
                 Sign In
               </Button>
+
               <Grid container>
                 {/* <Grid item xs>
                   <Link href='#' variant='body2'>

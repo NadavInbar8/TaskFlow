@@ -1,4 +1,6 @@
 import * as React from 'react';
+import GoogleLogin from 'react-google-login';
+
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -62,6 +64,23 @@ export function Signup() {
     };
     dispatch(setUser(user, 'signup'));
     history.push('/workspace');
+  };
+
+  const responseGoogle = (response) => {
+    console.log(response);
+    const user = {
+      email: response.profileObj.email,
+      password: 11111,
+      fullName:
+        response.profileObj.givenName + ' ' + response.profileObj.familyName,
+      initials:
+        response.profileObj.givenName.charAt(0).toUpperCase() +
+        response.profileObj.familyName.charAt(0).toUpperCase(),
+      imgUrl: response.profileObj.imageUrl || null,
+    };
+    console.log(user);
+    if (user.email && user.password) history.push('/workspace');
+    dispatch(setUser(user, 'signup'));
   };
 
   return (
@@ -141,6 +160,15 @@ export function Signup() {
                   />
                 </Grid>
               </Grid>
+              <GoogleLogin
+                clientId={
+                  '1009800341332-rucoje3gjell9n316gm6fel98pp78ovp.apps.googleusercontent.com'
+                }
+                buttonText='Signup with Google'
+                onSuccess={responseGoogle}
+                onFailure={responseGoogle}
+                cookiePolicy={'single_host_origin'}
+              />
               <Button
                 type='submit'
                 fullWidth

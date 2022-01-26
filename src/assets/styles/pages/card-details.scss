@@ -21,12 +21,52 @@
     align-self: center;
   }
 }
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 1480px) {
   .card-details {
-    width: 90vw;
+    width: 60vw;
   }
   .add-to-card {
     width: 40%;
+  }
+}
+@media screen and (max-width: 1280px) {
+  .card-details {
+    width: 60vw;
+    // flex-direction: column;
+  }
+  .card-details-main {
+    // width: 60vw;
+    flex-direction: column;
+  }
+  .modals-container {
+    width: 100%;
+    display: flex;
+    li {
+      width: 250px;
+    }
+  }
+}
+
+@media screen and (max-width: 940px) {
+  .card-details {
+    width: 60vw;
+  }
+  .modals-container {
+    flex-direction: column;
+    align li {
+      width: 350px;
+    }
+  }
+}
+@media screen and (max-width: 720px) {
+  .card-details {
+    width: 60vw;
+  }
+  .modals-container {
+    flex-direction: column;
+    li {
+      width: 350px;
+    }
   }
 }
 
@@ -538,13 +578,13 @@
 .comments {
   ul {
     margin-left: 0;
-    padding-left: 30px;
+    padding-left: 0px;
   }
 
   .comment {
     display: flex;
     border-radius: 7px;
-    width: 100%;
+    width: 95%;
     margin-top: 20px;
     height: 80px;
 
@@ -553,14 +593,10 @@
     }
 
     .comment-content {
-      // height: 55px;
       display: flex;
       flex-direction: column;
-      // align-items: flex-start;
       border-radius: 7px;
-      // span {
-      //   margin-left: 20px;
-      // }
+
       .comment-user-fullname {
         font-size: 1.1rem;
         display: flex;
@@ -598,13 +634,10 @@
     align-items: center;
     height: 40px;
     width: 40px;
-    // margin-top: 10px;
-    // margin-bottom: 10px;
-    margin-right: 5px;
     color: rgb(253, 253, 253);
     background-color: red;
-    // background-color: rgb(214, 163, 163);
     border-radius: 50%;
+    margin-right: 15px;
   }
 }
 .add-comment-form {
@@ -630,14 +663,14 @@
     border: solid 1px grey;
   }
   .user-logo {
+    margin-right: 15px;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 40px;
-    width: 40px;
+    min-height: 40px;
+    min-width: 40px;
     color: rgb(253, 253, 253);
     background-color: darkcyan;
     border-radius: 50%;
-    margin-right: 5px;
   }
 }
