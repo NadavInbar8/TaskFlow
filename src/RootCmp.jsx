@@ -26,7 +26,7 @@ export function RootCmp() {
 
 	return (
 		<main
-			className='h100 flex-column'
+			className='root-cmp-main h100 flex-column'
 			onClick={(ev) => console.log(ev)}
 			style={board?.style?.userClicked ? {backgroundColor: getBackground()} : {backgroundImage: getBackground()}}>
 			{console.log(getBackground())}

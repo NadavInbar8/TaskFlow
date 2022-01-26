@@ -27,7 +27,7 @@ export const DefaultMenu = ({onSetMenuTitle, onSetCmpToRender, onOpenArchive, on
 				<h5>Change background</h5>
 			</div>
 			<div
-				className='menu-board-actions flex flex-row align-center justify-center'
+				className='menu-board-actions flex flex-row align-center justify-center pointer'
 				onClick={() => {
 					onSetMenuTitle('Archive');
 					onSetCmpToRender('Archive');
@@ -36,7 +36,9 @@ export const DefaultMenu = ({onSetMenuTitle, onSetCmpToRender, onOpenArchive, on
 				&nbsp;
 				<h5>Archive</h5>
 			</div>
-			<div className='menu-board-actions flex flex-row align-center justify-center' onClick={() => onRemoveBoard()}>
+			<div
+				className='menu-board-actions flex flex-row align-center justify-center pointer'
+				onClick={() => onRemoveBoard()}>
 				<img src={trash} alt='' />
 				&nbsp;
 				<h5>Remove board</h5>
