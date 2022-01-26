@@ -95,7 +95,7 @@ export const WorkSpace = () => {
 											? {backgroundColor: getBackground(starredBoard)}
 											: {backgroundImage: getBackground(starredBoard)}
 									}
-									className='hover-opacity'>
+									className='board-background-div'>
 									<div
 										onClick={() => {
 											connectUser();
@@ -127,14 +127,14 @@ export const WorkSpace = () => {
 												? {backgroundColor: getBackground(board)}
 												: {backgroundImage: getBackground(board)}
 										}
-										className='hover-opacity'>
+										className='board-background-div'>
 										{board.style?.backgroundColor && (
 											<div
 												onClick={() => {
 													connectUser();
 													history.push(`/board/${board._id}`);
 												}}
-												className='board-background'
+												className='board-title-div'
 												// style={{ backgroundColor: board.style.backgroundColor }}
 											>
 												{console.log(board)}
