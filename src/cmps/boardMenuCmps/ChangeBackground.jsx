@@ -24,7 +24,7 @@ export const ChangeBackground = ({changeBG}) => {
 	const handleChange = ({target}) => {
 		const {value} = target;
 		setSearchVal(value);
-		if (value.length < 3) searchImgs();
+		if (value.length > 3) searchImgs();
 		else getImgs();
 	};
 
