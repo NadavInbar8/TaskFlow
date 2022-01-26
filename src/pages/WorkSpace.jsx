@@ -9,6 +9,7 @@ import usersvg from '../assets/imgs/usersvg.svg';
 import star from '../assets/imgs/star.svg';
 import goldStar from '../assets/imgs/goldStar.svg';
 import blackStar from '../assets/imgs/blackStar.svg';
+import logo from '../assets/imgs/favicon/taskflow-favicon.svg';
 import { updateBoard } from '../store/board.action.js';
 
 export const WorkSpace = () => {
@@ -125,7 +126,10 @@ export const WorkSpace = () => {
             })}
         </div>
 
-        <h2>Work Space:</h2>
+        <h2 className='flex flex-center'>
+          <img className='workspace-logo' src={logo} />
+          WorkSpace:
+        </h2>
         <div className='boards-container'>
           {boards.length &&
             boards.map((board, idx) => {
