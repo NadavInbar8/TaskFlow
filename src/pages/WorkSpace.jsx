@@ -50,13 +50,13 @@ export const WorkSpace = () => {
 
 	function starBoard(ev, board) {
 		ev.stopPropagation();
-		console.log(board);
+		// console.log(board);
 		let newBoard = board;
 		if (newBoard.starred === true) {
 			newBoard.starred = false;
 		} else {
 			newBoard.starred = true;
-			console.log(newBoard);
+			// console.log(newBoard);
 		}
 
 		dispatch(updateBoard(newBoard));
@@ -70,7 +70,6 @@ export const WorkSpace = () => {
 	const getBackground = (board) => {
 		// return `${board.style.backgroundColor}`;
 		// if (location.pathname === '/') return 'lightcyan';
-
 		return board.style.userClicked ? board.style.backgroundColor : `url(${board.style.previewImgUrl})`;
 		// console.log(background);
 		// return background;
@@ -78,7 +77,7 @@ export const WorkSpace = () => {
 
 	return (
 		<div className='work-space'>
-			{console.log('render')}
+			{/* {console.log('render')} */}
 			<div className='boards'>
 				<h2 className='flex flex-center'>
 					<img style={{height: '30px', paddingRight: '20px'}} src={blackStar} />
@@ -116,6 +115,7 @@ export const WorkSpace = () => {
 				<div className='boards-container'>
 					{boards.length &&
 						boards.map((board, idx) => {
+							console.log(board);
 							return (
 								<div
 									key={idx}
