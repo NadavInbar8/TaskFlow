@@ -17,6 +17,7 @@ export const WorkSpace = () => {
   const { boards } = useSelector((state) => ({
     boards: state.boardModule.boards,
   }));
+  const [starredBoards, setStarredBoards] = useState([]);
 
   const { modal } = useSelector((state) => ({
     modal: state.boardModule.modal,
@@ -36,8 +37,6 @@ export const WorkSpace = () => {
   useEffect(() => {
     getStarredBoards();
   }, [boards]);
-
-  const [starredBoards, setStarredBoards] = useState([]);
 
   function getStarredBoards() {
     const boardsStarred = boards.filter((board) => {
@@ -87,7 +86,7 @@ export const WorkSpace = () => {
             style={{ height: '30px', paddingRight: '20px' }}
             src={blackStar}
           />
-          Star boards:
+          Starred boards:
         </h2>
         <div className='star-boards-container'>
           {starredBoards &&
@@ -127,11 +126,12 @@ export const WorkSpace = () => {
         </div>
 
         <h2 className='flex flex-center'>
+          {' '}
           <img className='workspace-logo' src={logo} />
-          WorkSpace:
+          Work Space:
         </h2>
         <div className='boards-container'>
-          {boards.length &&
+          {boards.length > 0 &&
             boards.map((board, idx) => {
               console.log(board);
               return (

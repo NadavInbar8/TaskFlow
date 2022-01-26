@@ -12,6 +12,7 @@ import {ChangeBackground} from '../boardMenuCmps/ChangeBackground.jsx';
 
 // images
 import backBtn from '../../assets/imgs/back-btn.svg';
+import closeBtn from '../../assets/imgs/close.svg';
 // import blackBoardImg from '../../assets/imgs/black-trello.svg';
 // import archive from '../../assets/imgs/archive.svg';
 // import trash from '../../assets/imgs/trash.svg';
@@ -77,9 +78,9 @@ export const BoardMenu = ({menuOpen, setMenuOpen}) => {
 					)}
 					<span>{menuTitle}</span>
 					{/* <img onClick={() => toggleModal('menu')} src={close} alt='' /> */}
-					<button onClick={() => setMenuOpen(!menuOpen)}>x</button>
+					<img src={closeBtn} className='close-btn pointer' alt='close' onClick={() => setMenuOpen(!menuOpen)}></img>
 				</div>
-				<hr></hr>
+				<hr />
 				{cmpToRender === 'defaultMenu' && (
 					<DefaultMenu
 						onSetCmpToRender={onSetCmpToRender}

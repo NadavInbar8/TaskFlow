@@ -13,6 +13,11 @@ import {BoardMenu} from '../../cmps/boardCmps/BoardMenu.jsx';
 // imgs
 import addUser from '../../assets/imgs/add-user.png';
 import filterSvg from '../../assets/imgs/filter-svgs/filter.svg';
+import whiteStar from '../../assets/imgs/whiteStar.svg';
+import goldStar from '../../assets/imgs/goldStar.svg';
+import blackStar from '../../assets/imgs/blackStar.svg';
+import fullStar from '../../assets/imgs/starFill.svg';
+import menuDots from '../../assets/imgs/menuDots.svg';
 
 // Funcs
 
@@ -34,6 +39,7 @@ export const BoardHeader = ({setForceRender, filterBoard, forceRender}) => {
 	useEffect(() => {
 		// if (board)
 		setBoardTitleInput(board.title);
+		setStarStatus(board.starred);
 	}, []);
 
 	useEffect(() => {
@@ -79,7 +85,8 @@ export const BoardHeader = ({setForceRender, filterBoard, forceRender}) => {
 	};
 
 	const toggleStarring = () => {
-		setStarStatus(!starStatus);
+		board.starred = !board.starred;
+		setStarStatus(board.starred);
 	};
 
 	const getColors = (color) => {
@@ -131,14 +138,16 @@ export const BoardHeader = ({setForceRender, filterBoard, forceRender}) => {
 					type='text-area'
 				/>
 				{/* </div> */}
-				<div className='board-header-div star-container flex-center'>
-					<span
-						onClick={() => {
-							toggleStarring();
-						}}
-						className={starStatus ? 'starOn' : 'star'}>
-						&#9734;
-					</span>
+				<div
+					className='board-header-div star-container flex-center'
+					onClick={() => {
+						toggleStarring();
+					}}>
+					{/* // className={starStatus ? 'starOn' : 'star'}> */}
+
+					{starStatus && <img className='star' src={fullStar}></img>}
+					{!starStatus && <img className='star' src={whiteStar}></img>}
+					{/* </div> */}
 				</div>
 				<div className='users-div flex-center'>
 					<div className='member-icons'>
@@ -167,13 +176,13 @@ export const BoardHeader = ({setForceRender, filterBoard, forceRender}) => {
 					</span>
 				</div>
 				{modal === 'filterModal' && <BoardFilter filterBoard={filterBoard} toggleModal={toggleModal} />}
-				<div className='menu-div board-header-div flex-center'>
-					<span
-						onClick={() => {
-							openMenu();
-						}}>
-						...Show menu
-					</span>
+				<div
+					className='menu-div board-header-div flex-center'
+					onClick={() => {
+						openMenu();
+					}}>
+					<img src={menuDots} alt='' />
+					<span>Show menu</span>
 				</div>
 				<BoardMenu toggleModal={toggleModal} addColor={addColor} menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
 			</div>
