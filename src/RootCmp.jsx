@@ -11,8 +11,8 @@ export function RootCmp() {
 
 	const getBackground = () => {
 		// return `${board.style.backgroundColor}`;
-		if (location.pathname === '/') return 'lightcyan';
-		else if (location.pathname.includes('/board') && board) {
+		// if (location.pathname === '/') return 'lightcyan';
+		if (location.pathname.includes('/board') && board) {
 			return board.style.userClicked ? board.style.backgroundColor : `url(${board.style.imgUrl})`;
 			// console.log(background);
 			// return background;

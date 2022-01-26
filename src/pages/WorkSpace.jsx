@@ -58,13 +58,18 @@ export const WorkSpace = () => {
 
 		dispatch(updateBoard(newBoard));
 	}
+	function connectUser() {
+		if (loggedInUser === null) userService.connectGuestUser();
+		else return;
+	}
+
 	return (
 		<div className='work-space'>
 			{console.log('render')}
 			<div className='boards'>
 				<h2 className='flex flex-center'>
 					<img style={{height: '30px', paddingRight: '20px'}} src={blackStar} />
-					Starred boards:
+					Star boards:
 				</h2>
 				<div className='star-boards-container'>
 					{starredBoards &&
@@ -73,25 +78,18 @@ export const WorkSpace = () => {
 								<div
 									key={idx}
 									style={{
-										backgroundColor: starredBoard.style?.backgroundColor,
+										backgroundColor: starredBoard.style.backgroundColor,
 									}}
-									className='hover-opacity pointer'>
+									className='hover-opacity'>
 									<div
 										onClick={() => {
-											userService.connectGuestUser();
+											connectUser();
 											history.push(`/board/${starredBoard._id}`);
 										}}
 										className='star-board-preview'>
 										<h3>{starredBoard.title}</h3>
 										<div className='star-svg'>
-											<img
-												className='star-svg-img'
-												src={goldStar}
-												alt=''
-												onClick={(ev) => {
-													starBoard(ev, starredBoard);
-												}}
-											/>
+											<img className='star-svg-img' src={goldStar} alt='' />
 										</div>
 									</div>
 								</div>
@@ -108,11 +106,11 @@ export const WorkSpace = () => {
 									key={idx}
 									// onClick={() => history.push(`/board/${board._id}`)}
 									className='board-preview'>
-									<div style={{backgroundColor: board.style?.backgroundColor}} className='hover-opacity pointer'>
+									<div style={{backgroundColor: board.style.backgroundColor}} className='hover-opacity'>
 										{board.style?.backgroundColor && (
 											<div
 												onClick={() => {
-													userService.connectGuestUser();
+													connectUser();
 													history.push(`/board/${board._id}`);
 												}}
 												className='board-background'

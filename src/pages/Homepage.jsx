@@ -3,6 +3,7 @@ import board from '../assets/imgs/board.png';
 import hero from '../assets/imgs/homePageImg.jpg';
 import { Link } from 'react-router-dom';
 import { userService } from '../services/user.service.js';
+import blackLogo from '../assets/imgs/logo/blackLogo.svg';
 
 export const Homepage = () => {
   //   ComponentWillUnmount = () => {
@@ -14,7 +15,8 @@ export const Homepage = () => {
       <section className='hero'>
         <article className='hero-introduce'>
           <div className='hero-headline'>
-            Taskflow helps teams move
+            <img style={{ height: '40px' }} src={blackLogo} alt='' /> helps
+            teams move
             <br />
             work forward.
           </div>

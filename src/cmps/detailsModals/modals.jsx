@@ -5,7 +5,7 @@ import paint from '../../assets/imgs/paint.svg';
 import arrowleft from '../../assets/imgs/arrowleft.svg';
 import { utilService } from '../../services/util.service.js';
 
-export function Members({ users, loggedInUser, addUserToCard }) {
+export function Members({ users, loggedInUser, addUserToCard, toggleModal }) {
   const [usersMinusLoggedInUser, setUsers] = useState();
 
   function setUsersMinusLoggedInUser() {
@@ -33,7 +33,7 @@ export function Members({ users, loggedInUser, addUserToCard }) {
             <section className='members-modal-top'>
               <span></span>
               <h3>Members</h3>
-              <span>x</span>
+              <span onClick={() => toggleModal('memberModal')}>x</span>
             </section>
             <hr />
             <main>
@@ -499,6 +499,7 @@ export class Dates extends React.Component {
   saveDate = () => {
     console.log(this.state.selectedDay);
     this.props.addDate(this.state.selectedDay);
+    console.log(this.state.selectedDay);
     this.props.toggleModal('dates');
   };
 
