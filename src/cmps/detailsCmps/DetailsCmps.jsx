@@ -55,7 +55,7 @@ export function DetailscheckList({
         <section className='top-title'>
           <div className='flex left-container'>
             <img className='details-larger-svg' src={checklistSvg} alt='' />
-            <h2>{checkList.title}</h2>
+            <h3>{checkList.title}</h3>
           </div>
           <span
             className='flex-center pointer'
@@ -69,7 +69,7 @@ export function DetailscheckList({
         </section>
       </div>
 
-      <main className='gap-right'>
+      <main className='checklist-container'>
         <section className='meter-section'>
           <span>{Math.floor(getItemsDonePrecent() * 100)}%</span>
           <meter

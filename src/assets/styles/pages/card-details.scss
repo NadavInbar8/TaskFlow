@@ -16,7 +16,8 @@
     margin-right: 5px;
   }
   .details-larger-svg {
-    width: 25px;
+    max-width: 25px;
+    height: 25px;
     align-self: center;
   }
 }
@@ -379,7 +380,13 @@
     display: flex;
 
     .left-container {
+      align-items: center;
       gap: 10px;
+      h3 {
+        font-size: 16px;
+        line-height: 20px;
+        font-weight: 600;
+      }
     }
 
     .top-title {
@@ -393,7 +400,9 @@
     }
   }
 
-  main {
+  .checklist-container {
+    margin-left: 34px;
+    margin-top: 10px;
     width: 100%;
   }
   .meter-section {
