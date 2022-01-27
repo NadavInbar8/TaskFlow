@@ -31,7 +31,7 @@
   .labels-details-section {
     margin-right: 10px;
   }
-  margin-top: 20px;
+  // margin-top: 20px;
   display: flex;
   flex-wrap: wrap;
 }
@@ -60,9 +60,6 @@
       align-items: center;
       height: 100%;
       height: 32px;
-
-      // justify-content: ce;
-      // height: 50px;
 
       .chosen-date:hover {
         cursor: pointer;
@@ -249,7 +246,7 @@
     padding-left: 0;
 
     background-color: inherit;
-    // margin-top: 0;
+
     padding-top: 0;
   }
   .title-li:hover {
@@ -334,7 +331,6 @@
 
 // descrition
 .description {
-  margin-top: 70px;
   .description-title {
     display: flex;
     gap: 10px;
@@ -342,7 +338,7 @@
   }
   textarea {
     font-family: segoe;
-    margin-top: 10px;
+
     width: 90%;
     height: 150px;
     background-color: #eaecf0;
@@ -352,7 +348,7 @@
   }
   textarea:focus {
     font-family: segoe;
-    margin-top: 10px;
+
     width: 90%;
     height: 150px;
     background-color: #fbfcfd;
@@ -373,7 +369,6 @@
 
 .checklist {
   width: 100%;
-  margin-top: 20px;
 
   .top {
     width: 100%;
@@ -418,12 +413,11 @@
 
   textarea {
     font-family: segoe;
-    // margin-top: 10px;
+
     width: 90%;
     height: 40px;
     background-color: rgb(255, 255, 255);
     border: 1px solid #0066ff;
-    // border: none;
     border-radius: 7px;
   }
   .checklist-item {
@@ -477,7 +471,7 @@
   width: 100%;
 
   .card-details-link {
-    margin-top: 30px;
+    // margin-top: 30px;
     max-height: 150px;
     display: flex;
     justify-content: flex-start;
@@ -565,7 +559,7 @@
     display: flex;
     border-radius: 7px;
     width: 95%;
-    margin-top: 20px;
+    // margin-top: 20px;
     height: 80px;
 
     .comment-user-content {
@@ -620,12 +614,12 @@
   }
 }
 .add-comment-form {
-  margin-top: 10px;
+  // margin-top: 10px;
   display: flex;
   width: 95%;
   align-items: flex-end;
   input {
-    margin-top: 20px;
+    // margin-top: 20px;
     width: 100%;
     height: 40px;
     border-radius: 5px;
