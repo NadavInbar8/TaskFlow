@@ -21,10 +21,6 @@
   }
 }
 
-.gap-right {
-  margin-left: 30px;
-}
-
 .labels-date-section {
   .labels-details-section {
     margin-right: 10px;
@@ -32,6 +28,11 @@
   margin-top: 20px;
   display: flex;
   flex-wrap: wrap;
+}
+
+.list-id-to-show {
+  color: #5e6c84;
+  margin: 0 0 8px 45px;
 }
 
 .date-on-details {
@@ -137,11 +138,10 @@
 }
 
 .card-details-top {
-  height: 50px;
-  margin-top: 20px;
   display: flex;
-  gap: 10px;
+  justify-content: center;
   align-items: center;
+  padding: 20px 8px 0 16px;
 
   .card-details-top-healine {
     width: 100%;

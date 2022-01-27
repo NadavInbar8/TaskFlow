@@ -175,11 +175,25 @@ export const CardDetails = () => {
   }
   // ADD DATE
   function addDate(date) {
+    const months = [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December',
+    ];
     console.log(Date.now() - date.getTime());
     const isOverDue = date.getTime() - Date.now() > 0 ? false : true;
     const currCard = card;
     currCard.date = {
-      date: date.toDateString(),
+      date: months[date.getMonth()] + ' ' + date.getDate(),
       isComplete: false,
       overDue: isOverDue,
     };
@@ -522,7 +536,7 @@ export const CardDetails = () => {
                 </Link>
               </div>
 
-              <div className='gap-right'>
+              <div className='list-id-to-show'>
                 In list:
                 <span> </span>
                 <span style={{ textDecoration: 'underline' }}>
@@ -532,7 +546,7 @@ export const CardDetails = () => {
 
               <div className='card-details-main'>
                 <div className='edit-actions'>
-                  <section className=' gap-right labels-date-section'>
+                  <section className='labels-date-section'>
                     {card.users?.length > 0 && (
                       <section className='users-section'>
                         <span>Members</span>
@@ -658,7 +672,7 @@ export const CardDetails = () => {
                       <span>Description:</span>
                     </div>
                     <textarea
-                      className='gap-right'
+                      className=''
                       placeholder='Write your card description..'
                       name='description'
                       rows='10'
@@ -670,7 +684,7 @@ export const CardDetails = () => {
                   </div>
 
                   {card.attachments && (
-                    <section className='gap-right card-details-attachments'>
+                    <section className='card-details-attachments'>
                       {card.attachments.map((attachment, idx) => {
                         return (
                           <div key={idx} className='card-details-link'>
