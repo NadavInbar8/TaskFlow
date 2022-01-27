@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Link, useHistory, useParams, useRouteMatch } from 'react-router-dom';
+import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
+
 import { updateBoard, openModal } from '../store/board.action.js';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import {
@@ -11,11 +13,13 @@ import {
   Attachment,
   Cover,
   Move,
+  EditAttachmentName,
 } from '../cmps/detailsModals/modals.jsx';
 import { utilService } from '../services/util.service.js';
 import { DetailscheckList } from '../cmps/detailsCmps/DetailsCmps.jsx';
 
 import description from '../assets/imgs/description.svg';
+import mapsvg from '../assets/imgs/map.svg';
 import user from '../assets/imgs/usersvg.svg';
 import label from '../assets/imgs/label.svg';
 import checklist from '../assets/imgs/checklist.svg';
@@ -89,6 +93,12 @@ export const CardDetails = () => {
     setCard(getCard());
   }, []);
 
+  const [isMapShown, setIsMapShown] = useState(false);
+
+  useEffect(async () => {
+    if (card.location) setIsMapShown(true);
+  }, [card]);
+
   // GET CARD FROM CURR BOARD USING PARAMS
   function getCard() {
     if (!board) return;
@@ -106,27 +116,37 @@ export const CardDetails = () => {
 
   // DELETING...
   function deleteCard() {
+    console.log(board);
     let listIdx = board.groups.findIndex((group) => group.id === listId);
     let currCardIdx = board.groups[listIdx].tasks.findIndex(
       (task) => task.id === cardId
     );
+    console.log(listIdx);
+    console.log(currCardIdx);
+    // console.log(board);
     const updatedBoard = { ...board };
     updatedBoard.groups[listIdx].tasks.length > 1
       ? updatedBoard.groups[listIdx].tasks.splice(currCardIdx, 1)
       : updatedBoard.groups[listIdx].tasks.pop();
+    updatedBoard.groups[listIdx].tasksIds.splice(currCardIdx, 1);
+    console.log(updatedBoard);
+    // console.log(board);
+    // console.log('listIdx', listIdx);
+    // console.log('currCardIdx', currCardIdx);
+    // console.log('updatedBoard', updatedBoard);
     dispatch(updateBoard(updatedBoard));
     history.push(`/board/${board._id}`);
   }
 
   // UPDATING CARD,CURRBOARD IN STORE ,BOARDS IN STORE , AND ALL BOARDS IN DATABASE
-  function updateCard() {
+  function updateCard(activity) {
     let listIdx = board.groups.findIndex((group) => group.id === listId);
     let currCardIdx = board.groups[listIdx].tasks.findIndex(
       (task) => task.id === cardId
     );
     const updatedBoard = { ...board };
     updatedBoard.groups[listIdx].tasks[currCardIdx] = card;
-    dispatch(updateBoard(updatedBoard));
+    dispatch(updateBoard(updatedBoard, activity));
   }
 
   // CREATING COMMENT
@@ -296,6 +316,14 @@ export const CardDetails = () => {
     console.log(card);
   }
 
+  function updateAttachmentName(name, idx) {
+    toggleModal('editAttachment');
+    const currCard = card;
+    currCard.attachments[idx].name = name;
+    setCard(currCard);
+    updateCard();
+  }
+
   function getStringTimeForImg(attachment) {
     let diff = Date.now() - attachment.createdAt;
     let str = '';
@@ -343,6 +371,7 @@ export const CardDetails = () => {
     newBoard.groups[chosenGroupIdx].tasks.splice(idx, 0, currCard);
     console.log(newBoard);
     dispatch(updateBoard(newBoard));
+    history.push(`/board/${board._id}`);
   }
 
   function addUserToCard(user) {
@@ -388,11 +417,43 @@ export const CardDetails = () => {
     // type === 'cover' && toggleCoverModal(!coverModal);
   }
 
+  const containerStyle = {
+    width: '500px',
+    height: '300px',
+  };
+
+  const center = {
+    lat: 32.109333,
+    lng: 34.855499,
+  };
+
+  const { isLoaded } = useJsApiLoader({
+    id: 'google-map-script',
+    googleMapsApiKey: 'AIzaSyCyEVnrvvJpRys_Tzl0T2eg79GxEVj0JlQ',
+  });
+
+  const [map, setMap] = React.useState(null);
+
+  const onLoad = React.useCallback(function callback(map) {
+    const bounds = new window.google.maps.LatLngBounds();
+    map.fitBounds(bounds);
+    setMap(map);
+  }, []);
+
+  const onUnmount = React.useCallback(function callback(map) {
+    setMap(null);
+  }, []);
+
+  function addMarker(lat, lng) {
+    const currCard = card;
+    currCard.location = { lat, lng };
+    setCard(currCard);
+    updateCard();
+  }
+
   return (
     <div>
-      {/* {console.log(loggedInUser)}
-      {console.log(users)} */}
-      {board.groups ? (
+      {board ? (
         <div
           className='go-back-container'
           onClick={() => {
@@ -407,9 +468,6 @@ export const CardDetails = () => {
           >
             {card.cover && (
               <div>
-                {/* {console.log(card.cover)}
-                {console.log(card.cover.cover)} */}
-
                 {card.cover.type === 'color' && (
                   <section
                     className={
@@ -632,10 +690,23 @@ export const CardDetails = () => {
                                 </span>
                                 -
                                 <span
-                                  className='edit-cover-span'
+                                  className='edit-cover-span edit-name'
                                   style={{ textDecoration: 'underline' }}
+                                  onClick={() => {
+                                    toggleModal(`editAttachment${idx}`);
+                                  }}
                                 >
                                   Edit
+                                  {modal === `editAttachment${idx}` && (
+                                    <EditAttachmentName
+                                      updateAttachmentName={
+                                        updateAttachmentName
+                                      }
+                                      toggleModal={toggleModal}
+                                      idx={idx}
+                                      attachment={attachment}
+                                    />
+                                  )}
                                 </span>{' '}
                               </h4>
                               <h4
@@ -671,6 +742,24 @@ export const CardDetails = () => {
                         );
                       })}
                   </div>
+                  {isMapShown && (
+                    <section className='map'>
+                      {isLoaded && (
+                        <GoogleMap
+                          mapContainerStyle={containerStyle}
+                          center={center}
+                          zoom={8}
+                          // onLoad={onLoad}
+                          onUnmount={onUnmount}
+                          onClick={(ev) => {
+                            addMarker(ev.latLng.lat(), ev.latLng.lng());
+                          }}
+                        >
+                          <Marker position={card.location} />
+                        </GoogleMap>
+                      )}
+                    </section>
+                  )}
 
                   {/* {card.checkLists && (
                     <div className='checklist'>
@@ -841,6 +930,15 @@ export const CardDetails = () => {
                             toggleModal={toggleModal}
                           />
                         )}
+                      </li>
+                      <li className='details-li'>
+                        <span
+                          className='li-span'
+                          onClick={() => setIsMapShown(!isMapShown)}
+                        >
+                          <img className='details-svg' src={mapsvg} alt='' />
+                          Location
+                        </span>
                       </li>
                       {/* /////////////////////////////////////////////// */}
                     </ul>

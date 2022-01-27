@@ -3,7 +3,6 @@ import DayPicker from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
 import paint from '../../assets/imgs/paint.svg';
 import arrowleft from '../../assets/imgs/arrowleft.svg';
-import { utilService } from '../../services/util.service.js';
 import xsvg from '../../assets/imgs/x.svg';
 export function Members({ users, loggedInUser, addUserToCard, toggleModal }) {
   const [usersMinusLoggedInUser, setUsers] = useState();
@@ -142,12 +141,38 @@ export function Attachment({ attachLink, toggleModal }) {
     setName(target.value);
   }
 
+  function uploadImg(ev) {
+    const CLOUD_NAME = 'odedcloud';
+    const UPLOAD_URL = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`;
+
+    const formData = new FormData();
+    formData.append('file', ev.target.files[0]);
+    formData.append('upload_preset', 'odedkovo7644');
+
+    return fetch(UPLOAD_URL, {
+      method: 'POST',
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        // console.log(res);
+        attachLink({ link: res.url, name: res.original_filename });
+        toggleModal('attachment');
+      })
+      .catch((err) => console.error(err));
+  }
+
   function saveLink() {
     const attachment = { link, name, createdAt: Date.now() };
     console.log(attachment);
     attachLink(attachment);
     toggleModal('attachment');
   }
+
+  // <label>
+  //   Upload your image to cloudinary!
+  //   <input onChange={(event) => uploadImg(event)} type='file' />
+  // </label>;
 
   return (
     <div className='details-modal attachment'>
@@ -164,7 +189,10 @@ export function Attachment({ attachLink, toggleModal }) {
           </span>
         </section>
         <hr />
-        <h3>Computer</h3>
+
+        <h3 className='add-img-from-computer'>
+          Computer <input onChange={(event) => uploadImg(event)} type='file' />
+        </h3>
         <hr />
         <section className='attachment-main'>
           <h3>Attach a link</h3>
@@ -191,6 +219,54 @@ export function Attachment({ attachLink, toggleModal }) {
         </section>
       </div>
     </div>
+  );
+}
+
+export function EditAttachmentName({
+  toggleModal,
+  updateAttachmentName,
+  idx,
+  attachment,
+}) {
+  const [name, setName] = useState(attachment.name);
+
+  function handleChange({ target }) {
+    setName(target.value);
+  }
+  return (
+    <section
+      onClick={(ev) => {
+        ev.stopPropagation();
+      }}
+      className='details-modal edit-attachment'
+    >
+      <div className='edit-layout'>
+        <section className='edit-attachment-top'>
+          <span>&nbsp;</span>
+          <h3>Edit attachment</h3>
+          <img
+            onClick={() => {
+              toggleModal('editAttachment');
+            }}
+            src={xsvg}
+          />
+        </section>
+        <hr />
+        <main>
+          <h3>Change name:</h3>
+          <input
+            onChange={handleChange}
+            name='name'
+            value={name}
+            onChang={handleChange}
+            type='text'
+          />
+          <button onClick={() => updateAttachmentName(name, idx)}>
+            Update
+          </button>
+        </main>
+      </div>
+    </section>
   );
 }
 

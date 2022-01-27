@@ -338,24 +338,31 @@
 
 .label-details-green {
   background-color: rgb(94, 240, 94);
+  color: white;
 }
 .label-details-red {
   background-color: rgb(245, 73, 73);
+  color: white;
 }
 .label-details-orange {
   background-color: rgb(243, 180, 64);
+  color: rgb(0, 0, 0);
 }
 .label-details-yellow {
   background-color: rgb(252, 252, 19);
+  color: rgb(0, 0, 0);
 }
 .label-details-purple {
   background-color: rgb(219, 102, 219);
+  color: white;
 }
 .label-details-blue {
   background-color: rgb(75, 75, 245);
+  color: white;
 }
 .label-details-dark-blue {
   background-color: rgb(34, 34, 128);
+  color: white;
 }
 
 // descrition
@@ -542,6 +549,9 @@
       .edit-cover-span:hover {
         cursor: pointer;
       }
+      .edit-name {
+        position: relative;
+      }
       h4 {
         margin: 0;
       }
@@ -685,4 +695,12 @@
     background-color: darkcyan;
     border-radius: 50%;
   }
+}
+
+.map {
+  border-radius: 5px;
+  min-width: 90%;
+  margin: auto;
+  display: flex;
+  justify-content: center;
 }
