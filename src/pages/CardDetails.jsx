@@ -433,7 +433,7 @@ export const CardDetails = () => {
 
   const containerStyle = {
     width: '500px',
-    height: '300px',
+    height: '200px',
   };
 
   const center = {
@@ -788,7 +788,7 @@ export const CardDetails = () => {
 
                   <div className='activity'>
                     <img className='details-larger-svg' src={activity} />
-                    <span>Activity</span>
+                    <h3>Activity</h3>
                   </div>
                   <form
                     className=' add-comment-form'

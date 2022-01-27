@@ -128,7 +128,7 @@ const Task1 = ({
                 ) : null}
               </div>
               <div className='flex board-card-members'>
-                {console.log(task.members)}
+                {/* {console.log(task.members)} */}
                 {task.members &&
                   task.members.map((member) => {
                     return (
