@@ -11,6 +11,7 @@ import {
   Attachment,
   Cover,
   Move,
+  EditAttachmentName,
 } from '../cmps/detailsModals/modals.jsx';
 import { utilService } from '../services/util.service.js';
 import { DetailscheckList } from '../cmps/detailsCmps/DetailsCmps.jsx';
@@ -106,27 +107,37 @@ export const CardDetails = () => {
 
   // DELETING...
   function deleteCard() {
+    console.log(board);
     let listIdx = board.groups.findIndex((group) => group.id === listId);
     let currCardIdx = board.groups[listIdx].tasks.findIndex(
       (task) => task.id === cardId
     );
+    console.log(listIdx);
+    console.log(currCardIdx);
+    // console.log(board);
     const updatedBoard = { ...board };
     updatedBoard.groups[listIdx].tasks.length > 1
       ? updatedBoard.groups[listIdx].tasks.splice(currCardIdx, 1)
       : updatedBoard.groups[listIdx].tasks.pop();
+    updatedBoard.groups[listIdx].tasksIds.splice(currCardIdx, 1);
+    console.log(updatedBoard);
+    // console.log(board);
+    // console.log('listIdx', listIdx);
+    // console.log('currCardIdx', currCardIdx);
+    // console.log('updatedBoard', updatedBoard);
     dispatch(updateBoard(updatedBoard));
     history.push(`/board/${board._id}`);
   }
 
   // UPDATING CARD,CURRBOARD IN STORE ,BOARDS IN STORE , AND ALL BOARDS IN DATABASE
-  function updateCard() {
+  function updateCard(activity) {
     let listIdx = board.groups.findIndex((group) => group.id === listId);
     let currCardIdx = board.groups[listIdx].tasks.findIndex(
       (task) => task.id === cardId
     );
     const updatedBoard = { ...board };
     updatedBoard.groups[listIdx].tasks[currCardIdx] = card;
-    dispatch(updateBoard(updatedBoard));
+    dispatch(updateBoard(updatedBoard, activity));
   }
 
   // CREATING COMMENT
@@ -296,6 +307,14 @@ export const CardDetails = () => {
     console.log(card);
   }
 
+  function updateAttachmentName(name, idx) {
+    toggleModal('editAttachment');
+    const currCard = card;
+    currCard.attachments[idx].name = name;
+    setCard(currCard);
+    updateCard();
+  }
+
   function getStringTimeForImg(attachment) {
     let diff = Date.now() - attachment.createdAt;
     let str = '';
@@ -343,6 +362,7 @@ export const CardDetails = () => {
     newBoard.groups[chosenGroupIdx].tasks.splice(idx, 0, currCard);
     console.log(newBoard);
     dispatch(updateBoard(newBoard));
+    history.push(`/board/${board._id}`);
   }
 
   function addUserToCard(user) {
@@ -392,7 +412,7 @@ export const CardDetails = () => {
     <div>
       {/* {console.log(loggedInUser)}
       {console.log(users)} */}
-      {board.groups ? (
+      {board ? (
         <div
           className='go-back-container'
           onClick={() => {
@@ -632,10 +652,23 @@ export const CardDetails = () => {
                                 </span>
                                 -
                                 <span
-                                  className='edit-cover-span'
+                                  className='edit-cover-span edit-name'
                                   style={{ textDecoration: 'underline' }}
+                                  onClick={() => {
+                                    toggleModal(`editAttachment${idx}`);
+                                  }}
                                 >
                                   Edit
+                                  {modal === `editAttachment${idx}` && (
+                                    <EditAttachmentName
+                                      updateAttachmentName={
+                                        updateAttachmentName
+                                      }
+                                      toggleModal={toggleModal}
+                                      idx={idx}
+                                      attachment={attachment}
+                                    />
+                                  )}
                                 </span>{' '}
                               </h4>
                               <h4
