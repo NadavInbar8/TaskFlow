@@ -1,14 +1,13 @@
 .card-details {
   margin-top: 52px;
-  font-weight: bold;
-  min-width: 00px;
+
   padding-bottom: 30px;
   color: #5e6c84;
   // min-height: 100%;
   min-height: 90vh;
   height: fit-content !important;
   margin-bottom: 100px;
-  width: 50vw;
+  width: 768px;
   background-color: #f4f5f7;
   z-index: 10;
   border-radius: 4px;
@@ -25,7 +24,7 @@
   .card-details {
     width: 60vw;
   }
-  .add-to-card {
+  .actions {
     width: 100%;
   }
 }
@@ -34,7 +33,7 @@
     width: 60vw;
     // flex-direction: column;
   }
-  .add-to-card {
+  .actions {
     width: 100%;
   }
   .card-details-main {
@@ -54,7 +53,7 @@
   .card-details {
     width: 60vw;
   }
-  .add-to-card {
+  .actions {
     min-width: 90%;
   }
   .modals-container {
@@ -71,7 +70,7 @@
   .card-details {
     width: 60vw;
   }
-  .add-to-card {
+  .actions {
     width: 100%;
   }
   .modals-container {
@@ -92,7 +91,6 @@
   }
   margin-top: 20px;
   span {
-    font-size: 1.3rem;
   }
   display: flex;
   flex-wrap: wrap;
@@ -138,15 +136,22 @@
 }
 
 .card-details-cover {
-  width: 100%;
+  min-width: 100%;
   height: 100px;
 }
 .cover-img {
-  width: 100%;
+  min-width: 100%;
   height: 100px;
   background-color: rgba(128, 128, 128, 0.781);
+  display: flex;
 
-  img {
+  .exit-details {
+    height: 30px;
+    justify-self: center;
+  }
+
+  .cover-img-to-show {
+    justify-self: center;
     max-height: 100px;
   }
 }
@@ -194,11 +199,6 @@
   }
 }
 
-.card-details-layout {
-  width: 92%;
-  margin: auto;
-}
-
 .card-details-top {
   height: 50px;
   margin-top: 20px;
@@ -221,7 +221,6 @@
     background-color: inherit;
     border: none;
     background-color: rgb(209, 207, 207);
-    font-size: 1.6rem;
     border-radius: 50%;
   }
   button:hover {
@@ -231,7 +230,6 @@
   input {
     color: #5e6c84;
     height: 50px;
-    font-size: 1.5rem;
     background-color: inherit;
     border: none;
     width: 100%;
@@ -265,11 +263,11 @@
   background-color: #f4f5f7;
 }
 
-.add-to-card {
-  width: 30%;
+.actions {
+  width: 168px;
+  padding: 0 $s-4 $s-2 $s-2;
   height: 100%;
   background-color: #f4f5f7;
-  font-size: 1.2rem;
   ul {
     padding: 0;
     // display: flex;
@@ -296,7 +294,6 @@
     padding-left: 0;
     color: #5e6c84;
     background-color: inherit;
-    font-size: 1.4rem;
     // margin-top: 0;
     padding-top: 0;
   }
@@ -373,7 +370,6 @@
     gap: 10px;
     margin: 0;
   }
-  font-size: 1.5rem;
   textarea {
     font-family: segoe;
     margin-top: 10px;
@@ -383,7 +379,6 @@
 
     border: none;
     border-radius: 7px;
-    font-size: 1.3rem;
   }
   textarea:focus {
     font-family: segoe;
@@ -393,7 +388,6 @@
     background-color: #fbfcfd;
     border: 1px #3385ff solid;
     border-radius: 7px;
-    font-size: 1.3rem;
   }
 }
 
@@ -403,7 +397,6 @@
   }
   display: flex;
   gap: 10px;
-  font-size: 1.5rem;
 }
 
 // checkList
@@ -462,12 +455,10 @@
     border: 1px solid #0066ff;
     // border: none;
     border-radius: 7px;
-    font-size: 1.3rem;
   }
   .checklist-item {
     width: 90%;
     height: 2rem;
-    font-size: 1.3rem;
     margin-bottom: 15px;
     display: flex;
     justify-content: space-between;
@@ -540,9 +531,7 @@
       flex-direction: column;
       justify-content: space-between;
       .name {
-        font-size: 1.5rem;
         text-decoration: underline;
-        font-weight: bold;
         margin: 0;
       }
 
@@ -620,7 +609,6 @@
       border-radius: 7px;
 
       .comment-user-fullname {
-        font-size: 1.1rem;
         display: flex;
         align-items: center;
         height: 55px;

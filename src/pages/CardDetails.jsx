@@ -467,25 +467,37 @@ export const CardDetails = () => {
             className='card-details'
           >
             {card.cover && (
-              <div>
+              <div className='cover-container'>
                 {card.cover.type === 'color' && (
                   <section
                     className={
                       card.cover.cover + '-cover' + ' ' + 'card-details-cover'
                     }
                   >
-                    <span
+                    <img
                       onClick={() => {
                         deleteCover();
                       }}
-                    >
-                      {/* Delete Cover */}
-                    </span>
+                      src={xsvg}
+                      alt=''
+                    />
                   </section>
                 )}
                 {card.cover.type === 'img' && (
-                  <section className='cover-img flex flex-center'>
-                    <img src={card.cover.cover} alt='' />
+                  <section className='cover-img'>
+                    <img
+                      className='cover-img-to-show'
+                      src={card.cover.cover}
+                      alt=''
+                    />
+                    <img
+                      className='exit-details'
+                      onClick={() => {
+                        deleteCover();
+                      }}
+                      src={xsvg}
+                      alt=''
+                    />
                   </section>
                 )}
               </div>
@@ -825,7 +837,7 @@ export const CardDetails = () => {
                   </div>
                 </div>
 
-                <div className='add-to-card'>
+                <div className='actions'>
                   <section className='modals-container'>
                     <ul>
                       {/* /////////////////////////////////////////////// */}

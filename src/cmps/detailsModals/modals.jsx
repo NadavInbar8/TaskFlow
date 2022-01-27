@@ -156,7 +156,11 @@ export function Attachment({ attachLink, toggleModal }) {
       .then((res) => res.json())
       .then((res) => {
         // console.log(res);
-        attachLink({ link: res.url, name: res.original_filename });
+        attachLink({
+          link: res.url,
+          name: res.original_filename,
+          createdAt: Date.now(),
+        });
         toggleModal('attachment');
       })
       .catch((err) => console.error(err));
