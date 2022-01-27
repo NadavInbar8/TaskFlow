@@ -27,6 +27,7 @@ const Task1 = ({
           {...provided.dragHandleProps}
           ref={provided.innerRef}
         >
+          {console.log('task.cover', task.cover)}
           {task.cover ? (
             <div
               className='card-cover'
