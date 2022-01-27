@@ -23,7 +23,8 @@
 }
 
 .labels-date-section {
-  margin-left: 34px;
+  margin: 24px 0 24px 34px;
+
   h3 {
     font-size: 12px;
     font-weight: 600;
@@ -343,19 +344,19 @@
     gap: 10px;
   }
   textarea {
-    margin-left: 34px;
+    margin: 10px 0 10px 34px;
+    padding: 10px;
     font-family: segoe;
     width: 90%;
-    height: 150px;
+    height: 80px;
     background-color: #eaecf0;
     border: none;
     border-radius: 7px;
   }
   textarea:focus {
     font-family: segoe;
-
     width: 90%;
-    height: 150px;
+    height: 120px;
     background-color: #fbfcfd;
     border: 1px #3385ff solid;
     border-radius: 7px;
@@ -436,7 +437,7 @@
   .checklist-item {
     width: 90%;
     height: 2rem;
-    margin-bottom: 15px;
+
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -461,10 +462,10 @@
   }
 
   button {
-    width: 120px;
-    height: 40px;
-    border-radius: 7px;
-
+    width: 40px;
+    height: 20px;
+    padding: 6px 12px;
+    border-radius: 4px;
     background-color: #eaecf0;
 
     border: none;
