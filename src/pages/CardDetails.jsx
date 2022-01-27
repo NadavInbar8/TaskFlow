@@ -736,7 +736,6 @@ export const CardDetails = () => {
                     </section>
                   )}
 
-                  <br />
                   <div className='check-lists-container'>
                     {card.checkLists &&
                       card.checkLists.map((checkList, idx) => {
@@ -773,19 +772,6 @@ export const CardDetails = () => {
                     </section>
                   )}
 
-                  {/* {card.checkLists && (
-                    <div className='checklist'>
-                      <h2>{card.checkLists[0].title}</h2>
-
-                      <meter value={getCheckListDontPrecents()}></meter>
-                      <br />
-                      <button>Add an item</button>
-                    </div>
-                  )} */}
-                  <br />
-                  <br />
-                  <br />
-                  <br />
                   <div className='activity'>
                     <img className='details-larger-svg' src={activity} />
                     <span>Activity</span>
