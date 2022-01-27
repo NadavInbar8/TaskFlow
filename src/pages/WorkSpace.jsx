@@ -45,7 +45,7 @@ export const WorkSpace = () => {
     setStarredBoards(boardsStarred);
   }
   function toggleModal(type) {
-    dispatch(openModal());
+    dispatch(openModal(type));
   }
 
   function starBoard(ev, board) {
@@ -126,7 +126,6 @@ export const WorkSpace = () => {
         </div>
 
         <h2 className='flex flex-center'>
-          {' '}
           <img className='workspace-logo' src={logo} />
           Work Space:
         </h2>
@@ -202,7 +201,7 @@ export const WorkSpace = () => {
             })}
           <div
             onClick={() => {
-              toggleModal('createModal2');
+              toggleModal('createModal');
             }}
             className='add-board-div'
           >
