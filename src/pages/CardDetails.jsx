@@ -176,8 +176,8 @@ export const CardDetails = () => {
   // ADD DATE
   function addDate(date) {
     const months = [
-      'January',
-      'February',
+      'Jan',
+      'Feb',
       'March',
       'April',
       'May',
@@ -549,7 +549,7 @@ export const CardDetails = () => {
                   <section className='labels-date-section'>
                     {card.users?.length > 0 && (
                       <section className='users-section'>
-                        <span>Members</span>
+                        <h3>Members</h3>
                         <section className='users-details-section'>
                           {card.users.map((user) => {
                             const background =
@@ -587,7 +587,7 @@ export const CardDetails = () => {
                     <section>
                       {card.labels?.length > 0 && (
                         <div className='labels-details-section'>
-                          <span className=''>Labels:</span>
+                          <h3>Labels</h3>
                           <div className='labels-preview'>
                             {card.labels.map((label, idx) => {
                               return (
@@ -601,7 +601,9 @@ export const CardDetails = () => {
                                     label.color
                                   }
                                 >
-                                  {label.name}
+                                  <span className='label-text'>
+                                    {label.name}
+                                  </span>
                                 </div>
                               );
                             })}
@@ -628,7 +630,7 @@ export const CardDetails = () => {
                     <div className=' date-on-details'>
                       {card.date && (
                         <section className='date'>
-                          <span>Due date</span>
+                          <h3>Due date</h3>
                           <main>
                             <input
                               checked={card.date.isComplete}

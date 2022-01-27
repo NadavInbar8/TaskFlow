@@ -164,12 +164,20 @@
     cursor: pointer;
   }
   input {
-    height: 50px;
-    background-color: inherit;
     border: none;
+    outline: none;
+    min-height: 24px;
+    padding: 4px 8px;
+    height: 33.333px;
+    border-radius: 3px;
+    font-size: 1.4285714286rem;
+    font-weight: 600;
+    line-height: 24px;
+    transition: border 0.1s;
+    font-family: inherit;
     width: 100%;
-    border-radius: 10px;
-    // background-color: #eaecf0;
+    margin-right: 0 0 8px 50px;
+    background-color: transparent;
   }
 }
 
@@ -234,16 +242,24 @@
 
 .labels-preview {
   display: flex;
+  align-items: center;
   gap: 5px;
-  margin-top: 5px;
+  margin-top: 10px;
   span:hover {
     cursor: pointer;
   }
   .card-details-labels-preview {
-    height: 50px;
-    min-width: 50px;
-    padding: 5px;
-    border-radius: 7px;
+    height: 32px;
+    margin: 0 4px 4px 0;
+    min-width: 40px;
+    padding: 0 12px;
+    font-weight: 600;
+    border-radius: 4px;
+    .label-text {
+      color: white;
+      line-height: 32px;
+      font-weight: 600;
+    }
   }
   .card-details-labels-preview:hover {
     cursor: pointer;
@@ -251,14 +267,13 @@
 
   .card-details-add-label {
     position: relative;
-    height: 50px;
-    width: 50px;
-    padding: 5px;
+    padding: 8px;
     background-color: #eaecf0;
-    border-radius: 8px;
+    border-radius: 4px;
 
     img {
-      height: 20px;
+      height: 16px;
+      width: 16px;
     }
   }
 }
@@ -488,16 +503,21 @@
     display: flex;
     align-items: center;
     gap: 10px;
+    height: 100%;
+    h3 {
+      font-size: 12px;
+      font-weight: 600;
+      color: #5e6c84;
+      margin: 0 8px 4px 0;
+    }
     .user-details-preview {
+      color: #5e6c84;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 40px;
-      width: 40px;
-      margin-top: 10px;
-      margin-bottom: 10px;
+      height: 32px;
+      width: 32px;
       color: white;
-      // background-color: rgb(214, 163, 163);
       border-radius: 50%;
       img {
         height: 50%;
