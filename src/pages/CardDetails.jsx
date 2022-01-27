@@ -669,7 +669,7 @@ export const CardDetails = () => {
                         src={description}
                         alt=''
                       />
-                      <span>Description:</span>
+                      <h3>Description:</h3>
                     </div>
                     <textarea
                       className=''

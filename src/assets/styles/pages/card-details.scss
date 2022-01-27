@@ -22,6 +22,7 @@
 }
 
 .labels-date-section {
+  margin-left: 34px;
   h3 {
     font-size: 12px;
     font-weight: 600;
@@ -38,7 +39,7 @@
 
 .list-id-to-show {
   color: #5e6c84;
-  margin: 0 0 8px 45px;
+  margin: 0 0 8px 50px;
 }
 
 .date-on-details {
@@ -332,17 +333,20 @@
 // descrition
 .description {
   .description-title {
+    h3 {
+      font-size: 16px;
+      line-height: 20px;
+      font-weight: 600;
+    }
     display: flex;
     gap: 10px;
-    margin: 0;
   }
   textarea {
+    margin-left: 34px;
     font-family: segoe;
-
     width: 90%;
     height: 150px;
     background-color: #eaecf0;
-
     border: none;
     border-radius: 7px;
   }
