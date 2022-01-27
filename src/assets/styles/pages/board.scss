@@ -37,6 +37,19 @@
     span {
       margin-left: $s-2;
     }
+
+    .group-title-edit {
+      border-radius: $br;
+      margin-bottom: $s-2;
+      height: $s-8;
+      border-radius: $br;
+      border: none;
+      padding-left: $s-2;
+      width: 230px;
+      &:focus-visible {
+        outline: 2px solid #0079bf;
+      }
+    }
   }
 
   .board-list-modal {
@@ -63,7 +76,7 @@
   }
 
   .list-menu {
-    height: $s-4;
+    height: 20px;
     position: absolute;
     top: $s-2;
     right: $s-2;
@@ -82,10 +95,6 @@
     width: 256px;
     min-height: fit-content;
     box-shadow: 0 1px 0 #091e4240;
-
-    .add-new-card-edit {
-      width: 100%;
-    }
 
     textarea {
       border-radius: $br;
@@ -320,12 +329,13 @@
 
 .add-new-card-edit {
   padding: $s-2;
-  margin-top: $s-4;
-  margin-left: $s-2;
+  width: 100%;
+  // margin-top: $s-4;
+  // margin-left: $s-2;
   // height: 120px;
   textarea {
     border-radius: $br;
-    width: 240px;
+    width: 256px;
     overflow: none;
     resize: none;
     border: none;
@@ -406,10 +416,7 @@
   border-radius: $br;
   height: fit-content;
 }
-.task-link {
-  height: fit-content !important;
-  background-color: lime;
-}
+
 .Title {
   padding: $s-1;
   margin: $s-1;
@@ -457,7 +464,7 @@
   display: flex;
   align-items: center;
   min-width: 248px;
-
+  margin-top: $s-1;
   padding: $s-2;
   border-radius: $br;
   background-color: rgba(255, 255, 255, 0.205);
@@ -474,13 +481,16 @@
 .add-list:hover {
   background-color: rgba(161, 161, 161, 0.424);
 }
+
 .add-list-options {
-  margin-top: $fs-4;
+  margin-top: $s-1;
   padding: $s-2;
   border-radius: $br;
   height: fit-content;
+  width: 272px;
 
   input {
+    width: 256px;
     margin-bottom: $s-2;
     height: $s-8;
     border-radius: $br;
