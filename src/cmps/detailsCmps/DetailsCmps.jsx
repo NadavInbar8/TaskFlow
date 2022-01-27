@@ -55,21 +55,22 @@ export function DetailscheckList({
         <section className='top-title'>
           <div className='flex left-container'>
             <img className='details-larger-svg' src={checklistSvg} alt='' />
-            <h2>{checkList.title}</h2>
+            <h3>{checkList.title}</h3>
           </div>
+
           <span
-            className='flex-center pointer'
+            className='span-button'
             onClick={() => {
               deleteCheckList(idx);
             }}
             // src={trash}
           >
-            X
+            Delete
           </span>
         </section>
       </div>
 
-      <main className='gap-right'>
+      <main className='checklist-container'>
         <section className='meter-section'>
           <span>{Math.floor(getItemsDonePrecent() * 100)}%</span>
           <meter
@@ -103,13 +104,14 @@ export function DetailscheckList({
         )}
 
         {!isAddItemMode && (
-          <button
+          <span
+            className='span-button'
             onClick={() => {
               setAddItemMode(!isAddItemMode);
             }}
           >
             Add an item
-          </button>
+          </span>
         )}
 
         {isAddItemMode && (
@@ -119,7 +121,9 @@ export function DetailscheckList({
               onChange={handleChange}
               placeholder='Add an item..'
             ></textarea>
-            <button onClick={AddItem}>Add</button>
+            <span className='blue-btn span-btn' onClick={AddItem}>
+              Save
+            </span>
           </div>
         )}
       </main>
