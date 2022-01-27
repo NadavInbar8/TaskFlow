@@ -1,14 +1,13 @@
 .card-details {
   margin-top: 52px;
-  font-weight: bold;
-  min-width: 00px;
+
   padding-bottom: 30px;
-  color: #5e6c84;
+
   // min-height: 100%;
   min-height: 90vh;
   height: fit-content !important;
   margin-bottom: 100px;
-  width: 50vw;
+  width: 768px;
   background-color: #f4f5f7;
   z-index: 10;
   border-radius: 4px;
@@ -21,93 +20,37 @@
     align-self: center;
   }
 }
-@media screen and (max-width: 1480px) {
-  .card-details {
-    width: 60vw;
-  }
-  .add-to-card {
-    width: 100%;
-  }
-}
-@media screen and (max-width: 1280px) {
-  .card-details {
-    width: 60vw;
-    // flex-direction: column;
-  }
-  .add-to-card {
-    width: 100%;
-  }
-  .card-details-main {
-    // width: 60vw;
-    flex-direction: column;
-  }
-  .modals-container {
-    width: 100%;
-    display: flex;
-    li {
-      width: 250px;
-    }
-  }
-}
-
-@media screen and (max-width: 940px) {
-  .card-details {
-    width: 60vw;
-  }
-  .add-to-card {
-    min-width: 90%;
-  }
-  .modals-container {
-    flex-direction: column;
-    min-width: 100%;
-    // align-items: center;
-
-    li {
-      min-width: 100%;
-    }
-  }
-}
-@media screen and (max-width: 720px) {
-  .card-details {
-    width: 60vw;
-  }
-  .add-to-card {
-    width: 100%;
-  }
-  .modals-container {
-    flex-direction: column;
-    li {
-      width: 350px;
-    }
-  }
-}
-
-.gap-right {
-  margin-left: 30px;
-}
 
 .labels-date-section {
+  margin-left: 34px;
+  h3 {
+    font-size: 12px;
+    font-weight: 600;
+    color: #5e6c84;
+    margin: 0 8px 4px 0;
+  }
   .labels-details-section {
     margin-right: 10px;
   }
-  margin-top: 20px;
-  span {
-    font-size: 1.3rem;
-  }
+  // margin-top: 20px;
   display: flex;
   flex-wrap: wrap;
-  margin-right: 10px;
+}
+
+.list-id-to-show {
+  color: #5e6c84;
+  margin: 0 0 8px 50px;
 }
 
 .date-on-details {
-  margin-right: 10px;
-  height: 100%;
+  margin: 0 8px 8px 0;
+  height: 60px;
   .date {
-    height: 100%;
+    height: 60px;
     display: flex;
     flex-direction: column;
-    span {
-    }
+    justify-content: space-between;
+
     main {
       position: relative;
       background-color: #eaecf0;
@@ -116,37 +59,52 @@
       padding-right: 5px;
       display: flex;
       align-items: center;
-      // justify-content: ce;
-      height: 50px;
-      margin-top: 5px;
+      height: 100%;
+      height: 32px;
+
       .chosen-date:hover {
         cursor: pointer;
       }
       .completed {
-        padding: 7px;
-        border-radius: 7px;
+        font-size: 12px;
+        color: white;
+        padding: 0 $s-1;
+        border-radius: 4px;
+        line-height: 16px;
         background-color: rgb(40, 211, 40);
+        margin: auto 0 auto 8px;
       }
       .overdue-span {
-        padding: 7px;
-        border-radius: 7px;
-        background-color: rgb(211, 40, 40);
+        font-size: 12px;
         color: white;
+        padding: 0 $s-1;
+        border-radius: 4px;
+        line-height: 16px;
+        margin: auto 0 auto 8px;
+
+        background-color: rgb(211, 40, 40);
       }
     }
   }
 }
 
 .card-details-cover {
-  width: 100%;
+  min-width: 100%;
   height: 100px;
 }
 .cover-img {
-  width: 100%;
+  min-width: 100%;
   height: 100px;
   background-color: rgba(128, 128, 128, 0.781);
+  display: flex;
 
-  img {
+  .exit-details {
+    height: 30px;
+    justify-self: center;
+  }
+
+  .cover-img-to-show {
+    justify-self: center;
     max-height: 100px;
   }
 }
@@ -194,20 +152,13 @@
   }
 }
 
-.card-details-layout {
-  width: 92%;
-  margin: auto;
-}
-
 .card-details-top {
-  height: 50px;
-  margin-top: 20px;
   display: flex;
-  gap: 10px;
+  justify-content: center;
   align-items: center;
+  padding: 20px 8px 0 16px;
 
   .card-details-top-healine {
-    color: #5e6c84;
     width: 100%;
     display: flex;
     gap: 10px;
@@ -221,7 +172,6 @@
     background-color: inherit;
     border: none;
     background-color: rgb(209, 207, 207);
-    font-size: 1.6rem;
     border-radius: 50%;
   }
   button:hover {
@@ -229,14 +179,20 @@
     cursor: pointer;
   }
   input {
-    color: #5e6c84;
-    height: 50px;
-    font-size: 1.5rem;
-    background-color: inherit;
     border: none;
+    outline: none;
+    min-height: 24px;
+    padding: 4px 8px;
+    height: 33.333px;
+    border-radius: 3px;
+    font-size: 1.4285714286rem;
+    font-weight: 600;
+    line-height: 24px;
+    transition: border 0.1s;
+    font-family: inherit;
     width: 100%;
-    border-radius: 10px;
-    // background-color: #eaecf0;
+    margin-right: 0 0 8px 50px;
+    background-color: transparent;
   }
 }
 
@@ -253,37 +209,32 @@
   &::-webkit-scrollbar {
     display: none;
   }
-
-  // overflow-x: hidden;
-
   #scroll {
     direction: rtl;
   }
-
-  width: 100%;
+  width: 552px;
+  padding: 0 8px 8px 16px;
+  position: relative;
   height: 100%;
   background-color: #f4f5f7;
 }
 
-.add-to-card {
-  width: 30%;
+.actions {
+  width: 168px;
+  padding: 0 $s-4 $s-2 $s-2;
   height: 100%;
   background-color: #f4f5f7;
-  font-size: 1.2rem;
   ul {
     padding: 0;
-    // display: flex;
-    // flex-direction: column;
   }
   li {
+    min-width: 168px;
     display: flex;
     align-items: center;
     padding: 10px;
-    margin: 4px;
+    margin-top: $s-2;
     border-radius: 4px;
-    padding-left: 20px;
     transition: 0.2s;
-    margin-left: 10px;
     background-color: #eaecf0;
   }
   li:hover {
@@ -294,10 +245,9 @@
     text-align: left;
     padding-bottom: 7px;
     padding-left: 0;
-    color: #5e6c84;
+
     background-color: inherit;
-    font-size: 1.4rem;
-    // margin-top: 0;
+
     padding-top: 0;
   }
   .title-li:hover {
@@ -305,33 +255,48 @@
   }
 }
 
-.labels-preview {
+.labels-details-section {
+  margin: 0 8px 8px 0;
   display: flex;
-  gap: 5px;
-  margin-top: 5px;
-  span:hover {
-    cursor: pointer;
-  }
-  .card-details-labels-preview {
-    height: 50px;
-    min-width: 50px;
-    padding: 5px;
-    border-radius: 7px;
-  }
-  .card-details-labels-preview:hover {
-    cursor: pointer;
-  }
+  flex-direction: column;
+  justify-content: space-between;
 
-  .card-details-add-label {
-    position: relative;
-    height: 50px;
-    width: 50px;
-    padding: 5px;
-    background-color: #eaecf0;
-    border-radius: 8px;
+  .labels-preview {
+    height: 40px;
+    display: flex;
+    align-items: flex-end;
+    span:hover {
+      cursor: pointer;
+    }
+    .card-details-labels-preview {
+      height: 32px;
+      margin: 0 4px 4px 0;
+      min-width: 40px;
+      padding: 0 12px;
+      font-weight: 600;
+      border-radius: 4px;
+      .label-text {
+        color: white;
+        line-height: 32px;
+        font-weight: 600;
+      }
+    }
+    .card-details-labels-preview:hover {
+      cursor: pointer;
+    }
 
-    img {
-      height: 20px;
+    .card-details-add-label {
+      position: relative;
+      align-self: center;
+      height: 32px;
+      padding: 8px;
+      background-color: #eaecf0;
+      border-radius: 4px;
+
+      img {
+        height: 16px;
+        width: 16px;
+      }
     }
   }
 }
@@ -367,33 +332,32 @@
 
 // descrition
 .description {
-  margin-top: 70px;
   .description-title {
+    h3 {
+      font-size: 16px;
+      line-height: 20px;
+      font-weight: 600;
+    }
     display: flex;
     gap: 10px;
-    margin: 0;
   }
-  font-size: 1.5rem;
   textarea {
+    margin-left: 34px;
     font-family: segoe;
-    margin-top: 10px;
     width: 90%;
     height: 150px;
     background-color: #eaecf0;
-
     border: none;
     border-radius: 7px;
-    font-size: 1.3rem;
   }
   textarea:focus {
     font-family: segoe;
-    margin-top: 10px;
+
     width: 90%;
     height: 150px;
     background-color: #fbfcfd;
     border: 1px #3385ff solid;
     border-radius: 7px;
-    font-size: 1.3rem;
   }
 }
 
@@ -403,14 +367,12 @@
   }
   display: flex;
   gap: 10px;
-  font-size: 1.5rem;
 }
 
 // checkList
 
 .checklist {
   width: 100%;
-  margin-top: 20px;
 
   .top {
     width: 100%;
@@ -455,19 +417,16 @@
 
   textarea {
     font-family: segoe;
-    // margin-top: 10px;
+
     width: 90%;
     height: 40px;
     background-color: rgb(255, 255, 255);
     border: 1px solid #0066ff;
-    // border: none;
     border-radius: 7px;
-    font-size: 1.3rem;
   }
   .checklist-item {
     width: 90%;
     height: 2rem;
-    font-size: 1.3rem;
     margin-bottom: 15px;
     display: flex;
     justify-content: space-between;
@@ -496,9 +455,9 @@
     width: 120px;
     height: 40px;
     border-radius: 7px;
-    color: white;
+
     background-color: #eaecf0;
-    color: #506988;
+
     border: none;
     // margin-top: 30px;
   }
@@ -516,7 +475,7 @@
   width: 100%;
 
   .card-details-link {
-    margin-top: 30px;
+    // margin-top: 30px;
     max-height: 150px;
     display: flex;
     justify-content: flex-start;
@@ -540,9 +499,7 @@
       flex-direction: column;
       justify-content: space-between;
       .name {
-        font-size: 1.5rem;
         text-decoration: underline;
-        font-weight: bold;
         margin: 0;
       }
 
@@ -561,7 +518,7 @@
 
 // users
 .users-section {
-  margin-right: 20px;
+  margin: 0 8px 8px 0;
   display: flex;
   justify-content: space-between;
   flex-direction: column;
@@ -569,16 +526,15 @@
     display: flex;
     align-items: center;
     gap: 10px;
+    height: 100%;
     .user-details-preview {
+      color: #5e6c84;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 40px;
-      width: 40px;
-      margin-top: 10px;
-      margin-bottom: 10px;
+      height: 32px;
+      width: 32px;
       color: white;
-      // background-color: rgb(214, 163, 163);
       border-radius: 50%;
       img {
         height: 50%;
@@ -607,7 +563,7 @@
     display: flex;
     border-radius: 7px;
     width: 95%;
-    margin-top: 20px;
+    // margin-top: 20px;
     height: 80px;
 
     .comment-user-content {
@@ -620,7 +576,6 @@
       border-radius: 7px;
 
       .comment-user-fullname {
-        font-size: 1.1rem;
         display: flex;
         align-items: center;
         height: 55px;
@@ -663,12 +618,12 @@
   }
 }
 .add-comment-form {
-  margin-top: 10px;
+  // margin-top: 10px;
   display: flex;
   width: 95%;
   align-items: flex-end;
   input {
-    margin-top: 20px;
+    // margin-top: 20px;
     width: 100%;
     height: 40px;
     border-radius: 5px;

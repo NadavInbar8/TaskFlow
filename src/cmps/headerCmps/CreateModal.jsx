@@ -67,14 +67,14 @@ export const CreateModal = () => {
 	};
 
 	const saveNewBoard = () => {
-		console.log(newBoard);
+		if (!newBoard.style) newBoard.style.backgroundColor = '#0079bf';
 		dispatch(addBoard(newBoard));
 	};
 
 	return (
 		<div className='create-modal flex'>
 			<div className='modal-top'>
-				<span>Create</span>
+				<span className='modal-top-span'>Create</span>
 				<button onClick={() => toggleModal('createModal')}>x</button>
 			</div>
 			<hr />

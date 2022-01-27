@@ -175,11 +175,25 @@ export const CardDetails = () => {
   }
   // ADD DATE
   function addDate(date) {
+    const months = [
+      'Jan',
+      'Feb',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December',
+    ];
     console.log(Date.now() - date.getTime());
     const isOverDue = date.getTime() - Date.now() > 0 ? false : true;
     const currCard = card;
     currCard.date = {
-      date: date.toDateString(),
+      date: months[date.getMonth()] + ' ' + date.getDate(),
       isComplete: false,
       overDue: isOverDue,
     };
@@ -467,25 +481,37 @@ export const CardDetails = () => {
             className='card-details'
           >
             {card.cover && (
-              <div>
+              <div className='cover-container'>
                 {card.cover.type === 'color' && (
                   <section
                     className={
                       card.cover.cover + '-cover' + ' ' + 'card-details-cover'
                     }
                   >
-                    <span
+                    <img
                       onClick={() => {
                         deleteCover();
                       }}
-                    >
-                      {/* Delete Cover */}
-                    </span>
+                      src={xsvg}
+                      alt=''
+                    />
                   </section>
                 )}
                 {card.cover.type === 'img' && (
-                  <section className='cover-img flex flex-center'>
-                    <img src={card.cover.cover} alt='' />
+                  <section className='cover-img'>
+                    <img
+                      className='cover-img-to-show'
+                      src={card.cover.cover}
+                      alt=''
+                    />
+                    <img
+                      className='exit-details'
+                      onClick={() => {
+                        deleteCover();
+                      }}
+                      src={xsvg}
+                      alt=''
+                    />
                   </section>
                 )}
               </div>
@@ -510,7 +536,7 @@ export const CardDetails = () => {
                 </Link>
               </div>
 
-              <div className='gap-right'>
+              <div className='list-id-to-show'>
                 In list:
                 <span> </span>
                 <span style={{ textDecoration: 'underline' }}>
@@ -520,10 +546,10 @@ export const CardDetails = () => {
 
               <div className='card-details-main'>
                 <div className='edit-actions'>
-                  <section className=' gap-right labels-date-section'>
+                  <section className='labels-date-section'>
                     {card.users?.length > 0 && (
                       <section className='users-section'>
-                        <span>Members</span>
+                        <h3>Members</h3>
                         <section className='users-details-section'>
                           {card.users.map((user) => {
                             const background =
@@ -558,51 +584,51 @@ export const CardDetails = () => {
                         </section>
                       </section>
                     )}
-                    <section>
-                      {card.labels?.length > 0 && (
-                        <div className='labels-details-section'>
-                          <span className=''>Labels:</span>
-                          <div className='labels-preview'>
-                            {card.labels.map((label, idx) => {
-                              return (
-                                <div
-                                  onClick={() => {
-                                    deleteLabel(idx);
-                                  }}
-                                  key={idx}
-                                  className={
-                                    'card-details-labels-preview label-details-' +
-                                    label.color
-                                  }
-                                >
-                                  {label.name}
-                                </div>
-                              );
-                            })}
-                            <div
-                              onClick={() => {
-                                toggleModal('labelsModalLeft');
-                              }}
-                              className=' flex flex-center card-details-add-label'
-                            >
-                              <img src={plus} alt='' />
-                              {modal === 'labelsModalLeft' && (
-                                <Labels
-                                  updateLabelsList={updateLabelsList}
-                                  board={board}
-                                  toggleModal={toggleModal}
-                                  addLabel={addLabel}
-                                />
-                              )}
-                            </div>
+
+                    {card.labels?.length > 0 && (
+                      <div className='labels-details-section'>
+                        <h3>Labels</h3>
+                        <div className='labels-preview'>
+                          {card.labels.map((label, idx) => {
+                            return (
+                              <div
+                                onClick={() => {
+                                  deleteLabel(idx);
+                                }}
+                                key={idx}
+                                className={
+                                  'card-details-labels-preview label-details-' +
+                                  label.color
+                                }
+                              >
+                                <span className='label-text'>{label.name}</span>
+                              </div>
+                            );
+                          })}
+                          <div
+                            onClick={() => {
+                              toggleModal('labelsModalLeft');
+                            }}
+                            className=' flex flex-center card-details-add-label'
+                          >
+                            <img src={plus} alt='' />
+                            {modal === 'labelsModalLeft' && (
+                              <Labels
+                                updateLabelsList={updateLabelsList}
+                                board={board}
+                                toggleModal={toggleModal}
+                                addLabel={addLabel}
+                              />
+                            )}
                           </div>
                         </div>
-                      )}
-                    </section>
+                      </div>
+                    )}
+
                     <div className=' date-on-details'>
                       {card.date && (
                         <section className='date'>
-                          <span>Due date</span>
+                          <h3>Due date</h3>
                           <main>
                             <input
                               checked={card.date.isComplete}
@@ -622,7 +648,7 @@ export const CardDetails = () => {
                             )}
                             {card.date.overDue === true &&
                               !card.date.isComplete && (
-                                <span className='overdue-span'>OVERDUE</span>
+                                <span className='overdue-span'>overdue</span>
                               )}
                             {modal === 'dateModalLeft' && (
                               <Dates
@@ -643,10 +669,10 @@ export const CardDetails = () => {
                         src={description}
                         alt=''
                       />
-                      <span>Description:</span>
+                      <h3>Description:</h3>
                     </div>
                     <textarea
-                      className='gap-right'
+                      className=''
                       placeholder='Write your card description..'
                       name='description'
                       rows='10'
@@ -658,7 +684,7 @@ export const CardDetails = () => {
                   </div>
 
                   {card.attachments && (
-                    <section className='gap-right card-details-attachments'>
+                    <section className='card-details-attachments'>
                       {card.attachments.map((attachment, idx) => {
                         return (
                           <div key={idx} className='card-details-link'>
@@ -724,7 +750,6 @@ export const CardDetails = () => {
                     </section>
                   )}
 
-                  <br />
                   <div className='check-lists-container'>
                     {card.checkLists &&
                       card.checkLists.map((checkList, idx) => {
@@ -761,19 +786,6 @@ export const CardDetails = () => {
                     </section>
                   )}
 
-                  {/* {card.checkLists && (
-                    <div className='checklist'>
-                      <h2>{card.checkLists[0].title}</h2>
-
-                      <meter value={getCheckListDontPrecents()}></meter>
-                      <br />
-                      <button>Add an item</button>
-                    </div>
-                  )} */}
-                  <br />
-                  <br />
-                  <br />
-                  <br />
                   <div className='activity'>
                     <img className='details-larger-svg' src={activity} />
                     <span>Activity</span>
@@ -825,7 +837,7 @@ export const CardDetails = () => {
                   </div>
                 </div>
 
-                <div className='add-to-card'>
+                <div className='actions'>
                   <section className='modals-container'>
                     <ul>
                       {/* /////////////////////////////////////////////// */}

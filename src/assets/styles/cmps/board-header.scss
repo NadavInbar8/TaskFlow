@@ -45,6 +45,10 @@
 		padding-bottom: 4px;
 	}
 
+	input:hover {
+		opacity: 0.8;
+	}
+
 	input:focus {
 		background-color: #ffff;
 		color: $b1;
@@ -99,7 +103,7 @@
 		// color: rgb(242, 214, 0);
 		stroke: yellow;
 		fill: gold;
-		opacity: 0.6;
+		opacity: 0.8;
 	}
 
 	.starOn {

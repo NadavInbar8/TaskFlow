@@ -367,7 +367,6 @@ export function AppHeader() {
 											</div>
 											<div className='user-details-text'>
 												<span className='user-fullname'>{loggedInUser.fullName}</span>
-												<br></br>
 												<span className='user-mail-or-username'>
 													{loggedInUser.email ? loggedInUser.email : loggedInUser.username}
 												</span>
