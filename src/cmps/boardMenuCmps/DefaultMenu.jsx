@@ -23,7 +23,6 @@ export const DefaultMenu = ({onSetMenuTitle, onSetCmpToRender, onOpenArchive, on
 				</div>
 				&nbsp;
 				<h5>About this board</h5>
-				<br></br>
 			</div>
 			<div
 				className='change-board-background flex flex-row align-center justify-center pointer'

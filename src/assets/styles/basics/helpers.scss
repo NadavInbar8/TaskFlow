@@ -81,9 +81,10 @@
 	flex-direction: row;
 	width: 100%;
 	font-weight: 600;
-	padding: 10px 0;
+	padding: $s-2 0;
 	align-items: center;
 	text-align: center;
+	height: 40px;
 	button {
 		border: none;
 		background-color: inherit;
@@ -97,6 +98,10 @@
 	span {
 		width: 90%;
 	}
+
+	// span.modal-top-span {
+	// 	padding: 0 !important;
+	// }
 }
 
 //  margin-top and bottom
