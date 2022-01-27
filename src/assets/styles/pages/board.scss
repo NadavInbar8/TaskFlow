@@ -5,10 +5,12 @@
   padding: 0 $s-2;
   flex: 1;
   overflow-y: hidden;
+  // align-items: flex-start;
   // min-height: ;
 }
 .board-list {
   box-sizing: border-box;
+  // align-items: flex-start;
   background-color: #ebecf0;
   border-radius: $br;
   height: min-content;
@@ -17,6 +19,9 @@
   max-height: 80vh;
   position: relative;
 
+  .list-ul {
+    align-items: center;
+  }
   .list-options {
     height: $s-8;
     padding: $s-2;
@@ -51,17 +56,15 @@
   }
 
   .list-menu {
-    height: 14px;
+    height: $s-4;
     position: absolute;
     top: $s-2;
     right: $s-2;
-    z-index: 5000;
   }
 
   ul {
     padding: 0;
     margin: 0;
-    overflow: auto;
     min-height: $s-3;
   }
   .board-card {
@@ -71,9 +74,24 @@
     padding: $s-1;
     position: relative;
     width: 240px;
-    height: fit-content;
-    min-height: 40px;
+    min-height: fit-content;
     box-shadow: 0 1px 0 #091e4240;
+
+    .add-new-card-edit {
+      width: 232px;
+    }
+
+    textarea {
+      border-radius: $br;
+      width: 232px !important;
+      overflow: none;
+      resize: none;
+      border: none;
+      height: 54px !important;
+    }
+    textarea:focus-visible {
+      outline: 2px solid #0079bf;
+    }
   }
   .board-card:first-child {
     margin-top: $s-1;
@@ -104,13 +122,14 @@
   }
   .card-img-cover {
     max-height: 135px;
-    max-width: 272px;
+    max-width: 230px;
     margin: 0px 0px;
     border-top-left-radius: $br;
     border-top-right-radius: $br;
   }
   .card-cover {
     max-height: 135px;
+    min-height: 0px;
     width: 100%;
     border-top-left-radius: $br;
     border-top-right-radius: $br;
@@ -172,8 +191,8 @@
       align-items: center;
       justify-content: space-between;
       border-radius: $br;
-      margin: $s-1;
-      padding: $s-1;
+      margin: 2px;
+      padding: 2px;
       font-size: $fs-5;
       img {
         height: 14px;
@@ -239,11 +258,11 @@
 .add-new-card-edit {
   padding: $s-2;
   margin-top: $s-4;
-  width: 100%;
+  margin-left: $s-2;
   // height: 120px;
   textarea {
     border-radius: $br;
-    width: 100%;
+    width: 240px;
     overflow: none;
     resize: none;
     border: none;
@@ -374,9 +393,11 @@
 .add-list {
   display: flex;
   align-items: center;
+  min-width: 248px;
+
   padding: $s-2;
   border-radius: $br;
-  background-color: rgba(0, 0, 0, 0.219);
+  background-color: rgba(255, 255, 255, 0.205);
   height: fit-content;
   color: white;
   font-weight: bold;
@@ -388,7 +409,7 @@
   }
 }
 .add-list:hover {
-  background-color: rgba(0, 0, 0, 0.383);
+  background-color: rgba(161, 161, 161, 0.424);
 }
 .add-list-options {
   margin-top: $fs-4;
@@ -420,5 +441,5 @@
 }
 
 .seeOverlay {
-  z-index: 50;
+  z-index: 15;
 }

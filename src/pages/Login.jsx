@@ -76,7 +76,7 @@ export function Login() {
     <section className='login-signup'>
       <ThemeProvider theme={theme2}>
         <Container component='main' maxWidth='xs'>
-          {loggedInUser && <h1>hello {' ' + loggedInUser.fullName}</h1>}
+          {/* {loggedInUser ? <h1>hello {' ' + loggedInUser.fullName}</h1> : null} */}
           <CssBaseline />
           <Box
             sx={{

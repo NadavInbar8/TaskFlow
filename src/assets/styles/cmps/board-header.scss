@@ -55,6 +55,12 @@
 		display: flex;
 		flex-direction: row;
 	}
+
+	.member-icon:hover {
+		cursor: pointer;
+		opacity: 0.8;
+	}
+
 	.member-icon {
 		margin-left: 10px;
 		display: flex;
@@ -116,6 +122,11 @@
 		// text-overflow: ellipsis;
 	}
 
+	div.invite-btn:hover {
+		cursor: pointer;
+		opacity: 0.8;
+	}
+
 	.filter-div {
 		position: relative;
 		min-width: 78px;
@@ -124,10 +135,30 @@
 		}
 	}
 
+	.dashboard:hover {
+		cursor: pointer;
+		opacity: 0.8;
+	}
+
+	.filter-div:hover {
+		cursor: pointer;
+		opacity: 0.8;
+	}
+
 	.menu-div {
 		img {
 			padding-right: $s-1;
 		}
+	}
+
+	.menu-div:hover {
+		cursor: pointer;
+		opacity: 0.8;
+	}
+
+	.show-menu-div:hover {
+		cursor: pointer;
+		opacity: 0.8;
 	}
 
 	.show-menu-div {

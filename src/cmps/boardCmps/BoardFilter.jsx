@@ -49,7 +49,7 @@ export const BoardFilter = ({filterBoard}) => {
 			<hr />
 			<form className='filter-form'>
 				<div className='filter-search'>
-					<h5>Keyword</h5>
+					<p className='keyword-p'>Keyword</p>
 					<input
 						className='input-text'
 						onChange={handleChange}
@@ -68,21 +68,21 @@ export const BoardFilter = ({filterBoard}) => {
 				</div>
 				<div className='members'>
 					<h5>Members</h5>
-					<div className='no-members-div flex flex-row'>
+					<div className='no-members-div filter-content-div flex flex-row align-center'>
 						<input className='checkbox' type='checkbox' />
-						<div className='filter-container-svg justify-center'>
+						<div className='filter-container-svg flex flex-center no-members-wrapper no-members-img-div'>
 							<img src={userSmallSvg} alt='user-img' />
 						</div>
 						<span className='flex align-center'>No members</span>
 					</div>
 					<br></br>
-					<div className='assigned-to-me-div flex flex-row'>
+					<div className='assigned-to-me-div filter-content-div flex flex-row align-center'>
 						<input className='checkbox' type='checkbox' />
 						<div className='user-avatar flex flex-row justify-center'>OK</div>
 						<span className='flex align-center'>Cards assigned to me</span>
 					</div>
 					<br></br>
-					<div className='select-members-div flex flex-row'>
+					<div className='select-members-div filter-content-div flex flex-row align-center'>
 						<input className='checkbox' type='checkbox' />
 						<select>
 							<option value=''>Select Members</option>
@@ -92,25 +92,25 @@ export const BoardFilter = ({filterBoard}) => {
 						</select>
 					</div>
 				</div>
-				<div className='dates-filter'>
+				<div className='dates-filter filter-content-div align-center'>
 					<h5>Due date</h5>
-					<div className='no-dates-div flex flex-row'>
+					<div className='no-dates-div filter-content-div flex flex-row'>
 						<input className='checkbox' type='checkbox' />
-						<div className='filter-container-svg justify-center'>
+						<div className='filter-container-svg justify-center no-dates-wrapper '>
 							<img src={noDates} alt='user-img' />
 						</div>
 						<span className='flex align-center'>No dates</span>
 					</div>
-					<div className='no-members-div flex flex-row'>
+					<div className='no-members-div flex flex-row filter-content-div align-center'>
 						<input className='checkbox' type='checkbox' />
-						<div className='filter-container-svg justify-center'>
+						<div className='filter-container-svg justify-center overdue-wrapper'>
 							<img src={overdue} alt='overdue-img' />
 						</div>
 						<span className='flex align-center'>Overdue</span>
 					</div>
-					<div className='no-due-tommorow-div flex flex-row'>
+					<div className='no-due-tommorow-div flex flex-row filter-content-div align-center'>
 						<input className='checkbox' type='checkbox' />
-						<div className='filter-container-svg justify-center'>
+						<div className='filter-container-svg justify-center due-tommorow-wrapper'>
 							<img src={dueNextDay} alt='due-next-day-img' />
 						</div>
 						<span className='flex align-center'>Due in the next day</span>
@@ -119,7 +119,7 @@ export const BoardFilter = ({filterBoard}) => {
 				</div>
 
 				<h5>Labels</h5>
-				<div className='no-labels-div flex flex-row'>
+				<div className='no-labels-div flex flex-row align-center'>
 					<input className='checkbox' type='checkbox' />
 					<div className='filter-container-svg justify-center'>
 						<img src={noLabels} alt='no-labels-img' />

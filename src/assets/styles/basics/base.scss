@@ -48,10 +48,19 @@ hr {
 }
 
 input,
-textarea {
+textarea,
+select {
 	font-family: unset;
 	font-size: 14px;
 	color: unset;
+	transition: all 100ms ease 0s;
+}
+
+input:hover,
+textarea:hover,
+select:hover {
+	cursor: pointer;
+	// filter: brightness(80%);
 }
 
 .root-cmp-main {

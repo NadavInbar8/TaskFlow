@@ -5,6 +5,7 @@
   justify-content: center;
   gap: 20px;
   color: $b1;
+  overflow-y: auto;
   h3 {
     color: rgb(255, 242, 242);
     font-size: 1.5rem;
@@ -29,16 +30,19 @@
     width: 100%;
 
     display: grid;
-    grid-template-columns: repeat(auto-fit, 240px);
-    grid-template-rows: repeat(auto-fit, 120px);
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    // grid-template-rows: repeat(auto-fit, 120px);
     gap: 10px;
+  }
+  .preview-container {
+    @include aspect-ratio(240, 120);
   }
 
   .board-preview {
     margin: auto;
     // border-radius: 15px;
-    height: 120px;
-    width: 240px;
+    // height: 120px;
+    // width: 240px;
 
     img {
       height: 150px;
@@ -69,7 +73,7 @@
     height: 100%;
     width: 100%;
     background-color: rgb(12, 12, 12);
-    z-index: 5;
+    // z-index: 5;
     border-radius: 7px;
   }
   .add-board-div {
@@ -79,16 +83,19 @@
     margin: auto;
     background-color: rgb(218, 218, 218);
     border-radius: 15px;
-    height: 120px;
-    width: 240px;
+    height: 100%;
+    width: 100%;
     padding: 10px;
+    position: relative;
+    cursor: pointer;
   }
 
   .star-boards-container {
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(auto-fit, 240px);
-    grid-template-rows: repeat(auto-fit, 120px);
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+
+    // grid-template-rows: repeat(auto-fit, 120px);
     gap: 10px;
 
     .star-board-preview {

@@ -51,6 +51,7 @@ export const Board = () => {
     shallowEqual
   );
   const dispatch = useDispatch();
+
   const [data, setData] = useState(null);
 
   ///// useStates /////
@@ -102,6 +103,9 @@ export const Board = () => {
   // 	dispatch(loadBoard(boardId));
   // 	if (board) setBoardTitleInput(board.title);
   // }, []);
+  useEffect(() => {
+    dispatch(loadBoard(boardId));
+  }, [boardId]);
 
   useEffect(() => {
     if (board) {
@@ -167,6 +171,10 @@ export const Board = () => {
   const editNewCard = (list) => {
     setNewCard({ ...newCard, id: utilService.makeId(), tasksId: [] });
     list.editMode = true;
+  };
+  const closeAddNewCard = (group) => {
+    group.editMode = false;
+    setNewCard({});
   };
 
   // Tom funcs
@@ -252,6 +260,8 @@ export const Board = () => {
     );
     updatedBoard.groups.splice(groupIdx, 1);
     updatedBoard.groupsOrder.splice(groupIdx, 1);
+    console.log('updatedBoard.groups', updatedBoard.groups);
+    console.log('updatedBoard.groupsOrder', updatedBoard.groupsOrder);
     // updatedBoard.groups = updatedBoard.groups.filter(
     //   (group) => group.id !== list.id
     // );
@@ -283,6 +293,8 @@ export const Board = () => {
     let listIdx = updatedBoard.groups.findIndex(
       (group) => group.id === list.id
     );
+
+    updatedBoard.groups[listIdx].tasksIds.push(copiedCard.id);
     updatedBoard.groups[listIdx].tasks.push(copiedCard);
     closeEditModal();
     dispatch(updateBoard(updatedBoard));
@@ -310,12 +322,17 @@ export const Board = () => {
     let listIdx = updatedBoard.groups.findIndex(
       (group) => group.id === list.id
     );
+    let cardIdx = updatedBoard.groups[listIdx].tasks.findIndex(
+      (task) => task.id === card.id
+    );
+    console.log('cardIdx', cardIdx);
     updatedBoard.groups[listIdx].tasks = updatedBoard.groups[
       listIdx
     ].tasks.filter((task) => task.id !== card.id);
+    updatedBoard.groups[listIdx].tasksIds.splice(cardIdx, 1);
     closeEditModal();
-    dispatch(updateBoard(updatedBoard));
     setForceRender(!forceRender);
+    dispatch(updateBoard(updatedBoard));
   };
 
   //   const overlayStyle = { 'z-index': 100 };
@@ -458,6 +475,7 @@ export const Board = () => {
                           closeListModal={closeListModal}
                           copyList={copyList}
                           editNewCard={editNewCard}
+                          closeAddNewCard={closeAddNewCard}
                           deleteList={deleteList}
                           selectedCard={selectedCard}
                           openLabels={openLabels}

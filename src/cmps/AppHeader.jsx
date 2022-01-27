@@ -186,7 +186,7 @@ export function AppHeader() {
 							{location.pathname !== '/' && (
 								<ul>
 									<li className='boards'>
-										<span className='li-span flex-center' onClick={() => toggleModal('boardsModal')}>
+										<span className='li-span flex-center app-header-span' onClick={() => toggleModal('boardsModal')}>
 											<img className='boards-img' src={boardsImg} alt='' />
 											Boards
 										</span>
@@ -220,7 +220,9 @@ export function AppHeader() {
 										)}
 									</li>
 									<li className='create-li'>
-										<span onClick={() => toggleModal('createModal')}>Create</span>
+										<span className='app-header-span' onClick={() => toggleModal('createModal')}>
+											Create
+										</span>
 										{modal === 'createModal' && <CreateModal />}
 										{/* (
 									<div className='create-modal flex'>

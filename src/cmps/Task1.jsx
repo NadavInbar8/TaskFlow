@@ -27,12 +27,13 @@ const Task1 = ({
           {...provided.dragHandleProps}
           ref={provided.innerRef}
         >
+          {console.log('task.cover', task.cover)}
           {task.cover ? (
             <div
-              className='card-cover'
+              className='card-cover flex-center'
               style={
                 task.cover.type == 'color'
-                  ? { backgroundColor: task.cover.cover }
+                  ? { backgroundColor: task.cover.cover, height: '38px' }
                   : null
               }
             >
