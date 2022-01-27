@@ -282,16 +282,21 @@
 	flex-direction: column;
 	min-height: 60px;
 	min-width: 200px;
+	max-width: 230px;
 	height: fit-content;
 	width: fit-content;
 	position: absolute;
 	align-items: flex-start;
-	left: 105%;
-	bottom: 1%;
+	right: 0;
+	bottom: 105%;
 	padding: 0 $s-2 $s-2 $s-2;
 	border-radius: $s-1;
 	cursor: default;
 	box-shadow: 0 8px 16px -4px rgba(9, 30, 66, 0.25), 0 0 0 1px rgba(9, 30, 66, 0.08);
+
+	input {
+		width: 100%;
+	}
 
 	&:hover {
 		opacity: 1;
