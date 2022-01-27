@@ -648,7 +648,7 @@ export const CardDetails = () => {
                             )}
                             {card.date.overDue === true &&
                               !card.date.isComplete && (
-                                <span className='overdue-span'>OVERDUE</span>
+                                <span className='overdue-span'>overdue</span>
                               )}
                             {modal === 'dateModalLeft' && (
                               <Dates
