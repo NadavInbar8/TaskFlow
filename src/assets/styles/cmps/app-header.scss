@@ -37,6 +37,15 @@
 	.logo-container {
 		margin-left: $s-2;
 	}
+	.logo-container:hover {
+		cursor: pointer;
+		opacity: 0.8;
+	}
+
+	.app-header-span:hover {
+		opacity: 0.8;
+	}
+
 	img {
 		width: 8rem;
 		height: $s-8;
@@ -69,6 +78,10 @@
 		justify-content: center;
 		position: relative;
 		margin-left: 0;
+	}
+
+	li.boards:hover {
+		cursor: pointer;
 	}
 
 	.app-header li:hover {
@@ -129,6 +142,10 @@
 		}
 	}
 
+	.create-li:hover {
+		cursor: pointer;
+	}
+
 	.create-modal {
 		position: absolute;
 		z-index: 1;
@@ -168,7 +185,7 @@
 	}
 
 	.create-modal span:hover {
-		opacity: 0.5;
+		// opacity: 0.5;
 		transition: 0.2s ease-in-out all;
 		background-color: inherit;
 	}

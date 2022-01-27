@@ -1,127 +1,127 @@
 .work-space {
-  width: 50%;
-  margin: 0 auto;
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  color: $b1;
-  h3 {
-    color: rgb(255, 242, 242);
-    font-size: 1.5rem;
-  }
-  .workspace-logo {
-    padding-right: 20px;
-  }
+	width: 50%;
+	margin: 0 auto;
+	display: flex;
+	justify-content: center;
+	gap: 20px;
+	color: $b1;
+	h3 {
+		color: rgb(255, 242, 242);
+		font-size: 1.5rem;
+	}
+	.workspace-logo {
+		padding-right: 20px;
+	}
 
-  div.boards {
-    width: 100%;
-  }
+	div.boards {
+		width: 100%;
+	}
 
-  .boards {
-    margin-top: 150px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 30px;
-  }
-  .boards-container {
-    max-height: 80vh;
-    width: 100%;
+	.boards {
+		margin-top: 150px;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 30px;
+	}
+	.boards-container {
+		max-height: 80vh;
+		width: 100%;
 
-    display: grid;
-    grid-template-columns: repeat(auto-fit, 240px);
-    grid-template-rows: repeat(auto-fit, 120px);
-    gap: 10px;
-  }
+		display: grid;
+		grid-template-columns: repeat(auto-fit, 240px);
+		grid-template-rows: repeat(auto-fit, 120px);
+		gap: 10px;
+	}
 
-  .board-preview {
-    margin: auto;
-    // border-radius: 15px;
-    height: 120px;
-    width: 240px;
+	.board-preview {
+		margin: auto;
+		// border-radius: 15px;
+		height: 120px;
+		width: 240px;
 
-    img {
-      height: 150px;
-    }
+		img {
+			height: 150px;
+		}
 
-    .board-title-div {
-      position: relative;
-      display: flex;
-      justify-content: space-between;
-      padding: 10px;
-      height: 100%;
-      width: 100%;
-      border-radius: 7px;
-      transition: 0.2;
-    }
-    .board-title-div:hover {
-      background-color: rgba(0, 0, 0, 0.178);
-      cursor: pointer;
-      .star-svg {
-        visibility: visible;
-        right: 10px;
-      }
-    }
-  }
+		.board-title-div {
+			position: relative;
+			display: flex;
+			justify-content: space-between;
+			padding: 10px;
+			height: 100%;
+			width: 100%;
+			border-radius: 7px;
+			transition: 0.2;
+		}
+		.board-title-div:hover {
+			background-color: rgba(0, 0, 0, 0.178);
+			cursor: pointer;
+			.star-svg {
+				visibility: visible;
+				right: 10px;
+			}
+		}
+	}
 
-  .board-background-div {
-    position: relative;
-    height: 100%;
-    width: 100%;
-    background-color: rgb(12, 12, 12);
-    z-index: 5;
-    border-radius: 7px;
-  }
-  .add-board-div {
-    h3 {
-      margin: 0;
-    }
-    margin: auto;
-    background-color: rgb(218, 218, 218);
-    border-radius: 15px;
-    height: 120px;
-    width: 240px;
-    padding: 10px;
-  }
+	.board-background-div {
+		position: relative;
+		height: 100%;
+		width: 100%;
+		background-color: rgb(12, 12, 12);
+		// z-index: 5;
+		border-radius: 7px;
+	}
+	.add-board-div {
+		h3 {
+			margin: 0;
+		}
+		margin: auto;
+		background-color: rgb(218, 218, 218);
+		border-radius: 15px;
+		height: 120px;
+		width: 240px;
+		padding: 10px;
+	}
 
-  .star-boards-container {
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, 240px);
-    grid-template-rows: repeat(auto-fit, 120px);
-    gap: 10px;
+	.star-boards-container {
+		width: 100%;
+		display: grid;
+		grid-template-columns: repeat(auto-fit, 240px);
+		grid-template-rows: repeat(auto-fit, 120px);
+		gap: 10px;
 
-    .star-board-preview {
-      position: relative;
-      display: flex;
-      justify-content: space-between;
-      padding: 10px;
-      height: 120px;
-      width: 240px;
-      border-radius: 7px;
-    }
-    .star-board-preview:hover {
-      cursor: pointer;
-      background-color: rgba(0, 0, 0, 0.178);
-      .star-svg {
-        transition: 0.3 ease-in-out;
-        visibility: visible;
-        right: 10px;
-      }
-    }
-  }
-  .star-svg {
-    position: absolute;
-    right: -5px;
-    bottom: 10px;
-    visibility: hidden;
-    height: 30px;
-    width: 30px;
-    transform: translate(50, 50);
-    transition: 0.2s;
-    // margin-left: 100px;
-    .star-svg-img {
-      height: 30px;
-    }
-  }
+		.star-board-preview {
+			position: relative;
+			display: flex;
+			justify-content: space-between;
+			padding: 10px;
+			height: 120px;
+			width: 240px;
+			border-radius: 7px;
+		}
+		.star-board-preview:hover {
+			cursor: pointer;
+			background-color: rgba(0, 0, 0, 0.178);
+			.star-svg {
+				transition: 0.3 ease-in-out;
+				visibility: visible;
+				right: 10px;
+			}
+		}
+	}
+	.star-svg {
+		position: absolute;
+		right: -5px;
+		bottom: 10px;
+		visibility: hidden;
+		height: 30px;
+		width: 30px;
+		transform: translate(50, 50);
+		transition: 0.2s;
+		// margin-left: 100px;
+		.star-svg-img {
+			height: 30px;
+		}
+	}
 }
