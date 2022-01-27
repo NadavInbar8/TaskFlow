@@ -584,49 +584,47 @@ export const CardDetails = () => {
                         </section>
                       </section>
                     )}
-                    <section>
-                      {card.labels?.length > 0 && (
-                        <div className='labels-details-section'>
-                          <h3>Labels</h3>
-                          <div className='labels-preview'>
-                            {card.labels.map((label, idx) => {
-                              return (
-                                <div
-                                  onClick={() => {
-                                    deleteLabel(idx);
-                                  }}
-                                  key={idx}
-                                  className={
-                                    'card-details-labels-preview label-details-' +
-                                    label.color
-                                  }
-                                >
-                                  <span className='label-text'>
-                                    {label.name}
-                                  </span>
-                                </div>
-                              );
-                            })}
-                            <div
-                              onClick={() => {
-                                toggleModal('labelsModalLeft');
-                              }}
-                              className=' flex flex-center card-details-add-label'
-                            >
-                              <img src={plus} alt='' />
-                              {modal === 'labelsModalLeft' && (
-                                <Labels
-                                  updateLabelsList={updateLabelsList}
-                                  board={board}
-                                  toggleModal={toggleModal}
-                                  addLabel={addLabel}
-                                />
-                              )}
-                            </div>
+
+                    {card.labels?.length > 0 && (
+                      <div className='labels-details-section'>
+                        <h3>Labels</h3>
+                        <div className='labels-preview'>
+                          {card.labels.map((label, idx) => {
+                            return (
+                              <div
+                                onClick={() => {
+                                  deleteLabel(idx);
+                                }}
+                                key={idx}
+                                className={
+                                  'card-details-labels-preview label-details-' +
+                                  label.color
+                                }
+                              >
+                                <span className='label-text'>{label.name}</span>
+                              </div>
+                            );
+                          })}
+                          <div
+                            onClick={() => {
+                              toggleModal('labelsModalLeft');
+                            }}
+                            className=' flex flex-center card-details-add-label'
+                          >
+                            <img src={plus} alt='' />
+                            {modal === 'labelsModalLeft' && (
+                              <Labels
+                                updateLabelsList={updateLabelsList}
+                                board={board}
+                                toggleModal={toggleModal}
+                                addLabel={addLabel}
+                              />
+                            )}
                           </div>
                         </div>
-                      )}
-                    </section>
+                      </div>
+                    )}
+
                     <div className=' date-on-details'>
                       {card.date && (
                         <section className='date'>
