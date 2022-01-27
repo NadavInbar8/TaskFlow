@@ -10,25 +10,32 @@
 }
 .board-list {
   box-sizing: border-box;
-  // align-items: flex-start;
+  align-items: center;
   background-color: #ebecf0;
   border-radius: $br;
   height: min-content;
   min-width: 272px;
-  margin: 0px $s-1;
   max-height: 80vh;
   position: relative;
+  margin: 4px;
 
   .list-ul {
     align-items: center;
+    width: 256px;
+    padding: 0px 4px;
+    overflow-x: hidden;
+    margin-bottom: 4px;
+    // margin: 0px 4px;
   }
   .list-options {
+    width: 100%;
+    justify-content: flex-start;
     height: $s-8;
     padding: $s-2;
     font-size: $fs-5;
     font-weight: $fw-4;
     span {
-      margin-left: $s-3;
+      margin-left: $s-2;
     }
   }
 
@@ -62,23 +69,22 @@
     right: $s-2;
   }
 
-  ul {
-    padding: 0;
-    margin: 0;
-    min-height: $s-3;
-  }
+  // ul {
+  //   padding: 0;
+  //   margin: 0;
+  //   min-height: $s-3;
+  // }
   .board-card {
     background-color: whitesmoke;
     margin-bottom: $s-1;
     border-radius: $br;
-    padding: $s-1;
     position: relative;
-    width: 240px;
+    width: 256px;
     min-height: fit-content;
     box-shadow: 0 1px 0 #091e4240;
 
     .add-new-card-edit {
-      width: 232px;
+      width: 100%;
     }
 
     textarea {
@@ -98,6 +104,18 @@
   }
   .board-card-details {
     padding: 6px $s-2 2px $s-2;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+
+    .card-members {
+      justify-content: flex-end;
+      img {
+        height: 30px;
+        border-radius: 50%;
+      }
+    }
   }
   .board-card-edit-btn {
     display: none;
@@ -120,10 +138,12 @@
       padding: $s-1;
     }
   }
-  .card-img-cover {
+  .img-cover {
     max-height: 135px;
-    max-width: 230px;
+    width: 100%;
     margin: 0px 0px;
+    padding: 0px;
+    margin: 0px;
     border-top-left-radius: $br;
     border-top-right-radius: $br;
   }
@@ -138,18 +158,23 @@
 
   .card-labels {
     width: 100%;
+    display: flex;
+    justify-content: flex-start;
     ul {
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
+      padding-left: 0px;
       width: 100%;
     }
-  }
-  .label {
-    min-width: 40px;
-    max-width: 40px;
-    padding: $s-1;
-    height: $s-2;
+    .label {
+      width: 40px;
+      height: $s-2;
+      margin: 0px;
+      margin-bottom: $s-1;
+      margin-right: $s-1;
+      padding: 0px !important;
+    }
   }
 
   .card-labels-open {
@@ -178,6 +203,7 @@
     clear: both;
     color: #172b4d;
     margin: 0 0 $s-1;
+    padding: $s-1;
     overflow: hidden;
     text-decoration: none;
     align-items: center;
@@ -187,30 +213,62 @@
     justify-content: space-between;
 
     .card-date {
+      display: flex;
+
       color: white;
       align-items: center;
       justify-content: space-between;
       border-radius: $br;
-      margin: 2px;
-      padding: 2px;
-      font-size: $fs-5;
+      margin-right: 4px;
+      margin-bottom: 4px;
+      padding: 2px 6px;
+      font-size: 13px;
+      max-height: 22px;
       img {
-        height: 14px;
+        height: 15px;
         padding-right: 2px;
       }
     }
     .board-card-description {
-      height: 16px;
+      height: 20px;
+      padding: 2px;
+      margin-right: 4px;
+      margin-bottom: 4px;
+      img {
+        height: 12px;
+      }
     }
     .board-card-checklist {
-      margin: $s-1;
-    }
-    .board-card-attachment {
+      display: flex;
+      align-items: center;
+      height: 20px;
+      width: 45px;
+      padding: 2px;
+      margin-right: 4px;
+      margin-bottom: 4px;
+      font-size: 12px;
       img {
+        margin-right: 2px;
         height: 14px;
       }
     }
+    .board-card-attachment {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 20px;
+      width: 34px;
+      margin-right: 4px;
+      margin-left: 4px;
+      margin-bottom: 4px;
+      font-size: 12px;
+      img {
+        margin-right: 2px;
+        height: 13px;
+      }
+    }
   }
+
   // .board-card-options {
   //   textarea {
   //     font-size: large;
@@ -237,17 +295,22 @@
 }
 
 .add-new-card {
-  padding: $s-2;
-  padding-left: $s-2;
   cursor: pointer;
+  width: 256px;
   display: flex;
+  justify-content: flex-start;
   align-items: center;
+  // margin-left: 8px;
+  margin-bottom: 8px;
+  margin-top: 2px;
+  padding: 4px 0px;
   span {
     margin-left: $s-1;
   }
   img {
-    height: 12px;
-    padding-left: $s-2;
+    height: 14px;
+    margin: 0px 4px 0px 0px;
+    padding-left: 8px;
   }
 }
 .add-new-card:hover {

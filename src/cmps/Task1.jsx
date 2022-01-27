@@ -27,19 +27,18 @@ const Task1 = ({
           {...provided.dragHandleProps}
           ref={provided.innerRef}
         >
-          {console.log('task.cover', task.cover)}
-          {task.cover ? (
+          {task.cover && task.cover.type == 'color' ? (
             <div
               className='card-cover flex-center'
               style={
                 task.cover.type == 'color'
-                  ? { backgroundColor: task.cover.cover, height: '38px' }
+                  ? { backgroundColor: task.cover.cover, height: '32px' }
                   : null
               }
-            >
-              {task.cover.type == 'img' ? (
-                <img src={task.cover.cover} className='card-img-cover' />
-              ) : null}
+            ></div>
+          ) : task.cover && task.cover.type == 'img' ? (
+            <div className='card-img-cover'>
+              <img src={task.cover.cover} className='img-cover' />
             </div>
           ) : null}
           <div className='board-card-details'>
@@ -81,59 +80,68 @@ const Task1 = ({
               </div>
             </div>
             <div className='card-options flex'>
-              {task.date ? (
-                <div
-                  className='card-date flex'
-                  style={
-                    !task.date.overDue
-                      ? { backgroundColor: '#61BD4F' }
-                      : { backgroundColor: '#EB5A46' }
-                  }
-                >
-                  <img src={dueDate} />
-                  {task.date.date}
-                </div>
-              ) : null}
-              {task.description ? (
-                <img
-                  className='board-card-description'
-                  src={description}
-                  title='this card has description'
-                />
-              ) : null}
-              {task.checkLists ? (
-                <div className='board-card-checklist'>
-                  {task.checkLists.map((checkList, idx) => {
-                    let checkListCounter = 0;
+              <div className='card-icons flex'>
+                {task.date ? (
+                  <div
+                    className='card-date flex'
+                    style={
+                      !task.date.overDue
+                        ? { backgroundColor: '#61BD4F' }
+                        : { backgroundColor: '#EB5A46' }
+                    }
+                  >
+                    <img src={dueDate} />
+                    {task.date.date.slice(4, 10)}
+                  </div>
+                ) : null}
+                {task.description ? (
+                  <img
+                    className='board-card-description'
+                    src={description}
+                    title='this card has description'
+                  />
+                ) : null}
+                {task.attachments ? (
+                  <div className='board-card-attachment'>
+                    <img src={attachment} />
+                    {task.attachments.length}
+                  </div>
+                ) : null}
+                {task.checkLists ? (
+                  <div className='board-card-checklist'>
+                    {task.checkLists.map((checkList, idx) => {
+                      let checkListCounter = 0;
 
-                    checkList.items.forEach((checkListItem) => {
-                      if (checkListItem.isDone) {
-                        checkListCounter++;
-                      }
-                    });
+                      checkList.items.forEach((checkListItem) => {
+                        if (checkListItem.isDone) {
+                          checkListCounter++;
+                        }
+                      });
+                      return (
+                        <div className=' flex-center' key={idx}>
+                          <img src={cardChecklist} />
+                          {checkListCounter}/{checkList.items.length}
+                        </div>
+                      );
+                    })}
+                  </div>
+                ) : null}
+              </div>
+              <div className='flex board-card-members'>
+                {console.log(task.members)}
+                {task.members &&
+                  task.members.map((member) => {
                     return (
-                      <span className=' flex-center' key={idx}>
-                        {checkListCounter}/{checkList.items.length}
-                        <img src={cardChecklist} />
-                      </span>
-                    );
-                  })}
-                </div>
-              ) : null}
-              {task.attachments
-                ? task.attachments.map((attachmentX) => {
-                    console.log('attachmentX', attachmentX);
-                    return (
-                      <div
-                        key={attachmentX.link}
-                        className='board-card-attachment flex-center'
-                      >
-                        {task.attachments.length}
-                        <img src={attachment} />
+                      <div key={member._id} className='card-members flex'>
+                        <img
+                          src={member.imgUrl}
+                          alt={member.initials}
+                          title={member.fullname}
+                        />
                       </div>
                     );
-                  })
-                : null}
+                  })}
+              </div>
             </div>
           </div>
         </li>
