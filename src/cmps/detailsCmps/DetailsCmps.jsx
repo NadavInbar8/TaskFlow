@@ -57,17 +57,16 @@ export function DetailscheckList({
             <img className='details-larger-svg' src={checklistSvg} alt='' />
             <h3>{checkList.title}</h3>
           </div>
-          <div className='span-button'>
-            <span
-              className='flex-center pointer'
-              onClick={() => {
-                deleteCheckList(idx);
-              }}
-              // src={trash}
-            >
-              Delete
-            </span>
-          </div>
+
+          <span
+            className='span-button'
+            onClick={() => {
+              deleteCheckList(idx);
+            }}
+            // src={trash}
+          >
+            Delete
+          </span>
         </section>
       </div>
 
@@ -105,15 +104,14 @@ export function DetailscheckList({
         )}
 
         {!isAddItemMode && (
-          <div className='span-button'>
-            <span
-              onClick={() => {
-                setAddItemMode(!isAddItemMode);
-              }}
-            >
-              Add an item
-            </span>
-          </div>
+          <span
+            className='span-button'
+            onClick={() => {
+              setAddItemMode(!isAddItemMode);
+            }}
+          >
+            Add an item
+          </span>
         )}
 
         {isAddItemMode && (
@@ -123,7 +121,9 @@ export function DetailscheckList({
               onChange={handleChange}
               placeholder='Add an item..'
             ></textarea>
-            <button onClick={AddItem}>Add</button>
+            <span className='blue-btn span-btn' onClick={AddItem}>
+              Save
+            </span>
           </div>
         )}
       </main>
