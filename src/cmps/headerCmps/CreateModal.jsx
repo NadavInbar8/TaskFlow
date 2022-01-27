@@ -5,6 +5,7 @@ import {openModal, addBoard} from '../../store/board.action.js';
 import {Colors} from '../boardCmps/Colors.jsx';
 
 import boardPreviewSkeleton from '../../assets/imgs/board-preview-skeleton.svg';
+import closeBtn from '../../assets/imgs/close.svg';
 
 export const CreateModal = () => {
 	const dispatch = useDispatch();
@@ -75,7 +76,7 @@ export const CreateModal = () => {
 		<div className='create-modal flex'>
 			<div className='modal-top'>
 				<span className='modal-top-span'>Create</span>
-				<button onClick={() => toggleModal('createModal')}>x</button>
+				<img src={closeBtn} className='close-btn pointer' alt='close' onClick={() => toggleModal()}></img>
 			</div>
 			<hr />
 			<div>

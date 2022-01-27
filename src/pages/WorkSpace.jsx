@@ -16,7 +16,7 @@ import boardPreview from '../assets/imgs/boardPreview.jpg';
 import usersvg from '../assets/imgs/usersvg.svg';
 import star from '../assets/imgs/star.svg';
 import goldStar from '../assets/imgs/goldStar.svg';
-import blackStar from '../assets/imgs/blackStar.svg';
+import whiteStar from '../assets/imgs/whiteStar.svg';
 import logo from '../assets/imgs/favicon/taskflow-favicon.svg';
 
 export const WorkSpace = () => {
@@ -87,7 +87,7 @@ export const WorkSpace = () => {
 			{/* {console.log('render')} */}
 			<div className='boards'>
 				<h2 className='flex flex-center'>
-					<img style={{height: '30px', paddingRight: '20px'}} src={blackStar} />
+					<img style={{height: '30px', paddingRight: '20px'}} src={star} />
 					Starred boards:
 				</h2>
 				{/* <div className='star-boards-container'>
@@ -159,7 +159,7 @@ export const WorkSpace = () => {
 																	starBoard(ev, starredBoard);
 																}}
 																className='star-svg-img'
-																src={star}
+																src={whiteStar}
 																alt=''
 															/>
 														)}
@@ -230,7 +230,7 @@ export const WorkSpace = () => {
 																	starBoard(ev, board);
 																}}
 																className='star-svg-img'
-																src={star}
+																src={whiteStar}
 																alt=''
 															/>
 														)}
@@ -253,7 +253,7 @@ export const WorkSpace = () => {
 											<div>
 												<img src={boardPreview} alt='' />
 												<div className='star-svg'>
-													<img src={star} alt='' />
+													<img src={whiteStar} alt='' />
 												</div>
 											</div>
 										)}
@@ -261,12 +261,14 @@ export const WorkSpace = () => {
 								</div>
 							);
 						})}
-					<div
-						onClick={() => {
-							toggleModal('createModal');
-						}}
-						className='add-board-div'>
-						<h3>Add Board</h3>
+					<div className='relative'>
+						<div
+							onClick={(ev) => {
+								toggleModal('createModal2');
+							}}
+							className='add-board-div'>
+							<h3>Add Board</h3>
+						</div>
 						{modal === 'createModal2' && <CreateModal parentCmp='workspace' />}
 					</div>
 				</div>
