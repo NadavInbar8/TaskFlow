@@ -696,3 +696,11 @@
     border-radius: 50%;
   }
 }
+
+.map {
+  border-radius: 5px;
+  min-width: 90%;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+}

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Link, useHistory, useParams, useRouteMatch } from 'react-router-dom';
+import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
+
 import { updateBoard, openModal } from '../store/board.action.js';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import {
@@ -17,6 +19,7 @@ import { utilService } from '../services/util.service.js';
 import { DetailscheckList } from '../cmps/detailsCmps/DetailsCmps.jsx';
 
 import description from '../assets/imgs/description.svg';
+import mapsvg from '../assets/imgs/map.svg';
 import user from '../assets/imgs/usersvg.svg';
 import label from '../assets/imgs/label.svg';
 import checklist from '../assets/imgs/checklist.svg';
@@ -89,6 +92,12 @@ export const CardDetails = () => {
   useEffect(async () => {
     setCard(getCard());
   }, []);
+
+  const [isMapShown, setIsMapShown] = useState(false);
+
+  useEffect(async () => {
+    if (card.location) setIsMapShown(true);
+  }, [card]);
 
   // GET CARD FROM CURR BOARD USING PARAMS
   function getCard() {
@@ -408,10 +417,42 @@ export const CardDetails = () => {
     // type === 'cover' && toggleCoverModal(!coverModal);
   }
 
+  const containerStyle = {
+    width: '500px',
+    height: '300px',
+  };
+
+  const center = {
+    lat: 32.109333,
+    lng: 34.855499,
+  };
+
+  const { isLoaded } = useJsApiLoader({
+    id: 'google-map-script',
+    googleMapsApiKey: 'AIzaSyCyEVnrvvJpRys_Tzl0T2eg79GxEVj0JlQ',
+  });
+
+  const [map, setMap] = React.useState(null);
+
+  const onLoad = React.useCallback(function callback(map) {
+    const bounds = new window.google.maps.LatLngBounds();
+    map.fitBounds(bounds);
+    setMap(map);
+  }, []);
+
+  const onUnmount = React.useCallback(function callback(map) {
+    setMap(null);
+  }, []);
+
+  function addMarker(lat, lng) {
+    const currCard = card;
+    currCard.location = { lat, lng };
+    setCard(currCard);
+    updateCard();
+  }
+
   return (
     <div>
-      {/* {console.log(loggedInUser)}
-      {console.log(users)} */}
       {board ? (
         <div
           className='go-back-container'
@@ -427,9 +468,6 @@ export const CardDetails = () => {
           >
             {card.cover && (
               <div>
-                {/* {console.log(card.cover)}
-                {console.log(card.cover.cover)} */}
-
                 {card.cover.type === 'color' && (
                   <section
                     className={
@@ -704,6 +742,24 @@ export const CardDetails = () => {
                         );
                       })}
                   </div>
+                  {isMapShown && (
+                    <section className='map'>
+                      {isLoaded && (
+                        <GoogleMap
+                          mapContainerStyle={containerStyle}
+                          center={center}
+                          zoom={8}
+                          // onLoad={onLoad}
+                          onUnmount={onUnmount}
+                          onClick={(ev) => {
+                            addMarker(ev.latLng.lat(), ev.latLng.lng());
+                          }}
+                        >
+                          <Marker position={card.location} />
+                        </GoogleMap>
+                      )}
+                    </section>
+                  )}
 
                   {/* {card.checkLists && (
                     <div className='checklist'>
@@ -874,6 +930,15 @@ export const CardDetails = () => {
                             toggleModal={toggleModal}
                           />
                         )}
+                      </li>
+                      <li className='details-li'>
+                        <span
+                          className='li-span'
+                          onClick={() => setIsMapShown(!isMapShown)}
+                        >
+                          <img className='details-svg' src={mapsvg} alt='' />
+                          Location
+                        </span>
                       </li>
                       {/* /////////////////////////////////////////////// */}
                     </ul>
