@@ -57,15 +57,17 @@ export function DetailscheckList({
             <img className='details-larger-svg' src={checklistSvg} alt='' />
             <h3>{checkList.title}</h3>
           </div>
-          <span
-            className='flex-center pointer'
-            onClick={() => {
-              deleteCheckList(idx);
-            }}
-            // src={trash}
-          >
-            X
-          </span>
+          <div className='span-button'>
+            <span
+              className='flex-center pointer'
+              onClick={() => {
+                deleteCheckList(idx);
+              }}
+              // src={trash}
+            >
+              Delete
+            </span>
+          </div>
         </section>
       </div>
 
@@ -103,13 +105,15 @@ export function DetailscheckList({
         )}
 
         {!isAddItemMode && (
-          <button
-            onClick={() => {
-              setAddItemMode(!isAddItemMode);
-            }}
-          >
-            Add an item
-          </button>
+          <div className='span-button'>
+            <span
+              onClick={() => {
+                setAddItemMode(!isAddItemMode);
+              }}
+            >
+              Add an item
+            </span>
+          </div>
         )}
 
         {isAddItemMode && (
