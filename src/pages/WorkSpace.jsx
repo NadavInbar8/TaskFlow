@@ -135,64 +135,68 @@ export const WorkSpace = () => {
             boards.map((board, idx) => {
               console.log(board);
               return (
-                <div
-                  key={idx}
-                  // onClick={() => history.push(`/board/${board._id}`)}
-                  className='board-preview'
-                >
+                <div className='preview-container'>
                   <div
-                    style={
-                      board?.style?.userClicked
-                        ? { backgroundColor: getBackground(board) }
-                        : { backgroundImage: getBackground(board) }
-                    }
-                    className='board-background-div preview-cover'
+                    key={idx}
+                    // onClick={() => history.push(`/board/${board._id}`)}
+                    className='board-preview'
                   >
-                    {board.style?.backgroundColor && (
-                      <div
-                        onClick={() => {
-                          connectUser();
-                          history.push(`/board/${board._id}`);
-                        }}
-                        className='board-title-div'
-                        // style={{ backgroundColor: board.style.backgroundColor }}
-                      >
-                        {console.log(board)}
-                        <h3 className='workspace-board-title'>{board.title}</h3>
-                        <div className='star-svg'>
-                          {board.starred === false && (
-                            <img
-                              onClick={(ev) => {
-                                starBoard(ev, board);
-                              }}
-                              className='star-svg-img'
-                              src={star}
-                              alt=''
-                            />
-                          )}
+                    <div
+                      style={
+                        board?.style?.userClicked
+                          ? { backgroundColor: getBackground(board) }
+                          : { backgroundImage: getBackground(board) }
+                      }
+                      className='board-background-div preview-cover'
+                    >
+                      {board.style?.backgroundColor && (
+                        <div
+                          onClick={() => {
+                            connectUser();
+                            history.push(`/board/${board._id}`);
+                          }}
+                          className='board-title-div'
+                          // style={{ backgroundColor: board.style.backgroundColor }}
+                        >
+                          {console.log(board)}
+                          <h3 className='workspace-board-title'>
+                            {board.title}
+                          </h3>
+                          <div className='star-svg'>
+                            {board.starred === false && (
+                              <img
+                                onClick={(ev) => {
+                                  starBoard(ev, board);
+                                }}
+                                className='star-svg-img'
+                                src={star}
+                                alt=''
+                              />
+                            )}
 
-                          {board.starred === true && (
-                            <img
-                              onClick={(ev) => {
-                                starBoard(ev, board);
-                              }}
-                              className='star-svg-img'
-                              src={goldStar}
-                              alt=''
-                            />
-                          )}
+                            {board.starred === true && (
+                              <img
+                                onClick={(ev) => {
+                                  starBoard(ev, board);
+                                }}
+                                className='star-svg-img'
+                                src={goldStar}
+                                alt=''
+                              />
+                            )}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                    {!board.style?.backgroundColor && (
+                      <div>
+                        <img src={boardPreview} alt='' />
+                        <div className='star-svg'>
+                          <img src={star} alt='' />
                         </div>
                       </div>
                     )}
                   </div>
-                  {!board.style?.backgroundColor && (
-                    <div>
-                      <img src={boardPreview} alt='' />
-                      <div className='star-svg'>
-                        <img src={star} alt='' />
-                      </div>
-                    </div>
-                  )}
                 </div>
               );
             })}

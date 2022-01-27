@@ -75,7 +75,7 @@ const Group = ({
                 <>
                   <ul
                     ref={provided.innerRef}
-                    className='flex-column flex-center'
+                    className='flex-column list-ul'
                     {...provided.droppableProps}
                     style={
                       !selectedCard.id
