@@ -78,7 +78,7 @@ const Group = ({
                     {...provided.droppableProps}
                     style={
                       !selectedCard.id
-                        ? { overflowY: 'scroll' }
+                        ? { overflowY: 'auto' }
                         : { overflowX: 'visible', height: 'auto' }
                     }
                   >

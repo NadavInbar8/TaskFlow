@@ -55,7 +55,6 @@
     position: absolute;
     top: $s-2;
     right: $s-2;
-    z-index: 5000;
   }
 
   ul {
@@ -171,8 +170,8 @@
       align-items: center;
       justify-content: space-between;
       border-radius: $br;
-      margin: $s-1;
-      padding: $s-1;
+      margin: 2px;
+      padding: 2px;
       font-size: $fs-5;
       img {
         height: 14px;
@@ -375,7 +374,7 @@
   align-items: center;
   padding: $s-2;
   border-radius: $br;
-  background-color: rgba(0, 0, 0, 0.219);
+  background-color: rgba(255, 255, 255, 0.205);
   height: fit-content;
   color: white;
   font-weight: bold;
@@ -387,7 +386,7 @@
   }
 }
 .add-list:hover {
-  background-color: rgba(0, 0, 0, 0.383);
+  background-color: rgba(161, 161, 161, 0.424);
 }
 .add-list-options {
   margin-top: $fs-4;
@@ -419,5 +418,5 @@
 }
 
 .seeOverlay {
-  z-index: 50;
+  z-index: 15;
 }
