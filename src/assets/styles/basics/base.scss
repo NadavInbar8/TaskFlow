@@ -56,10 +56,12 @@ select {
 	transition: all 100ms ease 0s;
 }
 
-input:hover,
-textarea:hover,
 select:hover {
 	cursor: pointer;
+}
+
+input:hover,
+textarea:hover {
 	// filter: brightness(80%);
 }
 

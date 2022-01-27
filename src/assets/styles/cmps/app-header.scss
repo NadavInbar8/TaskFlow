@@ -85,7 +85,7 @@
 	}
 
 	.app-header li:hover {
-		opacity: 0.5;
+		opacity: 0.8;
 	}
 
 	// Boards
@@ -105,7 +105,8 @@
 		left: -5%;
 		min-width: 180px;
 		padding: $s-2;
-		border-radius: $s-2;
+		border-radius: $s-1;
+		box-shadow: 0 8px 16px -4px rgba(9, 30, 66, 0.25), 0 0 0 1px rgba(9, 30, 66, 0.08);
 	}
 
 	.boards-modal li {
@@ -114,7 +115,7 @@
 	}
 
 	.boards-modal li:hover {
-		opacity: 0.6;
+		opacity: 0.8;
 	}
 
 	.boards-modal li:last-child {
@@ -160,9 +161,14 @@
 		align-items: flex-start;
 		left: -5%;
 		top: 110%;
-		padding: $s-2;
-		border-radius: $s-2;
+		padding: 0 $s-2 $s-2 $s-2;
+		border-radius: $s-1;
 		cursor: default;
+		box-shadow: 0 8px 16px -4px rgba(9, 30, 66, 0.25), 0 0 0 1px rgba(9, 30, 66, 0.08);
+
+		&:hover {
+			opacity: 1;
+		}
 
 		h5 {
 			// margin-bottom: $s-2;
@@ -262,7 +268,41 @@
 		right: 1%;
 		top: 6%;
 		padding: $s-2;
-		border-radius: $s-2;
+		border-radius: $s-1;
 		font-weight: normal;
+		box-shadow: 0 8px 16px -4px rgba(9, 30, 66, 0.25), 0 0 0 1px rgba(9, 30, 66, 0.08);
+	}
+}
+
+.create-modal {
+	position: absolute;
+	z-index: 1;
+	background-color: white;
+	color: $b1;
+	flex-direction: column;
+	min-height: 60px;
+	min-width: 200px;
+	max-width: 230px;
+	height: fit-content;
+	width: fit-content;
+	position: absolute;
+	align-items: flex-start;
+	right: 0;
+	bottom: 105%;
+	padding: 0 $s-2 $s-2 $s-2;
+	border-radius: $s-1;
+	cursor: default;
+	box-shadow: 0 8px 16px -4px rgba(9, 30, 66, 0.25), 0 0 0 1px rgba(9, 30, 66, 0.08);
+
+	input {
+		width: 100%;
+	}
+
+	&:hover {
+		opacity: 1;
+	}
+
+	h5 {
+		// margin-bottom: $s-2;
 	}
 }

@@ -75,13 +75,11 @@ export const BoardFilter = ({filterBoard}) => {
 						</div>
 						<span className='flex align-center'>No members</span>
 					</div>
-					<br></br>
 					<div className='assigned-to-me-div filter-content-div flex flex-row align-center'>
 						<input className='checkbox' type='checkbox' />
 						<div className='user-avatar flex flex-row justify-center'>OK</div>
 						<span className='flex align-center'>Cards assigned to me</span>
 					</div>
-					<br></br>
 					<div className='select-members-div filter-content-div flex flex-row align-center'>
 						<input className='checkbox' type='checkbox' />
 						<select>
