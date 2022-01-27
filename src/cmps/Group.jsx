@@ -20,6 +20,7 @@ const Group = ({
   copyList,
   deleteList,
   editNewCard,
+  closeAddNewCard,
   selectedCard,
   openLabels,
   setOpenLabels,
@@ -103,11 +104,12 @@ const Group = ({
                               key={taskObj.id}
                               className='board-card overlaySee'
                             >
-                              <input
+                              <textarea
                                 type='text'
-                                defaultValue={taskObj.title}
+                                className='textarea-edit-card'
                                 onChange={handleChange}
-                              />
+                                defaultValue={taskObj.title}
+                              ></textarea>
                               <div
                                 className='add-card'
                                 onClick={() => editCard(group, taskObj)}
@@ -151,12 +153,23 @@ const Group = ({
                         type='text'
                         name='newCard'
                         onChange={handleChange}
+                        placeholder='Add card title...'
                       ></textarea>
-                      <div
-                        className='add-new-card-edit-btn'
-                        onClick={() => addNewCard(group)}
-                      >
-                        add
+                      <div className='flex'>
+                        <div
+                          className='add-new-card-edit-btn'
+                          onClick={() => addNewCard(group)}
+                        >
+                          Add
+                        </div>
+                        <div
+                          className='add-new-card-edit-btn'
+                          onClick={() => {
+                            closeAddNewCard(group);
+                          }}
+                        >
+                          X
+                        </div>
                       </div>
                     </div>
                   ) : (

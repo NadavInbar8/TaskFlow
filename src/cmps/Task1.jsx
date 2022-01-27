@@ -33,7 +33,7 @@ const Task1 = ({
               className='card-cover'
               style={
                 task.cover.type == 'color'
-                  ? { backgroundColor: task.cover.cover }
+                  ? { backgroundColor: task.cover.cover, height: '38px' }
                   : null
               }
             >

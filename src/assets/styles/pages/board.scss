@@ -72,6 +72,22 @@
     height: fit-content;
     min-height: 40px;
     box-shadow: 0 1px 0 #091e4240;
+
+    .add-new-card-edit {
+      width: 232px;
+    }
+
+    textarea {
+      border-radius: $br;
+      width: 232px !important;
+      overflow: none;
+      resize: none;
+      border: none;
+      height: 54px !important;
+    }
+    textarea:focus-visible {
+      outline: 2px solid #0079bf;
+    }
   }
   .board-card:first-child {
     margin-top: $s-1;
@@ -237,11 +253,11 @@
 .add-new-card-edit {
   padding: $s-2;
   margin-top: $s-4;
-  width: 100%;
+  margin-left: $s-2;
   // height: 120px;
   textarea {
     border-radius: $br;
-    width: 100%;
+    width: 240px;
     overflow: none;
     resize: none;
     border: none;
