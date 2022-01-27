@@ -188,23 +188,22 @@
 
   .card-labels-open {
     width: 100%;
+    display: flex;
+    justify-content: flex-start;
     ul {
       display: flex;
-      flex-wrap: wrap;
       flex-direction: row;
+      flex-wrap: wrap;
+      padding-left: 0px;
       width: 100%;
     }
-
     .label {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-weight: $fw-2;
-      font-size: $fs-5;
-      height: $s-5;
-      padding: 0px $s-2;
-      color: white;
-      max-width: fit-content;
+      width: 56px;
+      height: 16px;
+      margin: 0px;
+      margin-bottom: $s-1;
+      margin-right: $s-1;
+      padding: 0px !important;
     }
   }
   .card-title {
