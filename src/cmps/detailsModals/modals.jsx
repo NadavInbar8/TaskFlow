@@ -35,7 +35,7 @@ export function Members({ users, loggedInUser, addUserToCard, toggleModal }) {
           </section>
           <main className='details-modal-content'>
             <input type='text' placeholder='Search..' />
-            <h3>Board Members</h3>
+            <h4>Board Members</h4>
             <ul>
               <li
                 onClick={() => {
@@ -96,7 +96,7 @@ export function Checklist({ toggleModal, addCheckList }) {
   return (
     <div className='details-modal cheklist'>
       <section className='details-modal-top'>
-        <span>Checklist</span>
+        <span> Add checklist</span>
         <img
           onClick={() => {
             toggleModal('checklist');
@@ -105,12 +105,12 @@ export function Checklist({ toggleModal, addCheckList }) {
           alt=''
         />
       </section>
-      <div className='cheklist-content'>
-        <h5>Title</h5>
-        <form onSubmit={saveCheckList}>
-          <input value={checkList.title} onChange={handleChange} type='text' />
-          <button>Add</button>
-        </form>
+      <div className='details-modal-content'>
+        <h4>Title</h4>
+        <input value={checkList.title} onChange={handleChange} type='text' />
+        <button onClick={saveCheckList} className='blue-btn-modal'>
+          Add
+        </button>
       </div>
     </div>
   );
@@ -179,12 +179,11 @@ export function Attachment({ attachLink, toggleModal }) {
         ></img>
       </section>
 
-      <h3 className='add-img-from-computer'>
-        Computer <input onChange={(event) => uploadImg(event)} type='file' />
-      </h3>
-      <hr />
-      <section className='attachment-main'>
-        <h3>Attach a link</h3>
+      <section className='details-modal-content'>
+        <h4 className='add-img-from-computer'>
+          Computer <input onChange={(event) => uploadImg(event)} type='file' />
+        </h4>
+        <h4>Attach a link</h4>
         <input
           placeholder='Attach any link here...'
           onChange={handleChange}
@@ -194,7 +193,7 @@ export function Attachment({ attachLink, toggleModal }) {
         />
         {nameInputShown && (
           <>
-            <h3>Link name (optional)</h3>
+            <h4>Link name (optional)</h4>
             <input
               onChange={handleNameChange}
               name='name'
@@ -203,8 +202,9 @@ export function Attachment({ attachLink, toggleModal }) {
             />
           </>
         )}
-        <br />
-        <button onClick={saveLink}>Attach</button>
+        <button className='grey-btn-modal' onClick={saveLink}>
+          Attach
+        </button>
       </section>
     </div>
   );
@@ -237,7 +237,7 @@ export function EditAttachmentName({
           src={xsvg}
         />
       </section>
-      <main>
+      <main className='details-modal-content'>
         <h3>Change name:</h3>
         <input
           onChange={handleChange}
@@ -262,7 +262,6 @@ export function Cover({ addCover, toggleModal }) {
     'pink',
     'orange',
     'red',
-    'brown',
     'light-blue',
     'turkiz',
   ];
@@ -283,17 +282,19 @@ export function Cover({ addCover, toggleModal }) {
         />
       </div>
 
-      <h3>Colors</h3>
-      <section className='cover-modal-colors'>
-        {covers.map((cover, idx) => {
-          return (
-            <div
-              onClick={() => saveCover(cover)}
-              key={idx}
-              className={cover + '-cover' + ' ' + 'cover-to-show'}
-            ></div>
-          );
-        })}
+      <section className='  details-modal-content'>
+        <h4>Colors</h4>
+        <section className='cover-modal-colors'>
+          {covers.map((cover, idx) => {
+            return (
+              <div
+                onClick={() => saveCover(cover)}
+                key={idx}
+                className={cover + '-cover' + ' ' + 'cover-to-show'}
+              ></div>
+            );
+          })}
+        </section>
       </section>
     </div>
   );
@@ -312,7 +313,6 @@ export function Labels({ addLabel, toggleModal, board, updateLabelsList }) {
       { id: 4, color: 'red', name: 'very hard' },
       { id: 5, color: 'purple', name: 'company fun ' },
       { id: 6, color: 'blue', name: 'night activity' },
-      { id: 7, color: 'dark-blue', name: 'urgent' },
     ];
 
   // console.log('labelsOptions', labelsforState);
@@ -344,13 +344,11 @@ export function Labels({ addLabel, toggleModal, board, updateLabelsList }) {
     newLabels.map((label) => {
       console.log(label.id, editLabel.id);
       if (label.id === editLabel.id) {
-        console.log('same id');
-        console.log(editLabel);
         label.name = editLabel.name;
         return label;
       } else return label;
     });
-    console.log(newLabels);
+
     setLabels(newLabels);
     addLabel(editLabel);
     updateLabelsList(newLabels);
@@ -374,7 +372,7 @@ export function Labels({ addLabel, toggleModal, board, updateLabelsList }) {
   }
 
   return (
-    <div className='details-modal labels-modal'>
+    <div className=' labels details-modal'>
       <section className='details-modal-top'>
         <img
           className='arrowleft'
@@ -386,7 +384,7 @@ export function Labels({ addLabel, toggleModal, board, updateLabelsList }) {
       </section>
 
       {!editMode && (
-        <div className='labels-modal-main'>
+        <div className='details-modal-content'>
           <div className='labels-input'>
             <input
               autoComplete='false'
@@ -397,29 +395,32 @@ export function Labels({ addLabel, toggleModal, board, updateLabelsList }) {
               type='text'
             />
           </div>
-          <div className='labels-modal'>
-            {labels.map((label, idx) => {
-              return (
-                <div key={idx} className='label-row'>
-                  <div
-                    onClick={() => addLabel(label)}
-                    className={' label label-' + label.color}
-                  >
-                    {label.name}
-                  </div>
-                  <img onClick={() => setEditMode(!editMode)} src={paint} />
-                  {/* <button onClick={() => setEditMode(!editMode)}>edit</button> */}
-                </div>
-              );
-            })}
+          <div className='labels-modal-content'>
+            <h4>Labels</h4>
+            <ul className='labels-set'>
+              {labels.map((label, idx) => {
+                return (
+                  <li key={idx} className='label-row'>
+                    <div
+                      onClick={() => addLabel(label)}
+                      className={' label label-' + label.color}
+                    >
+                      {label.name}
+                    </div>
+                    <img onClick={() => setEditMode(!editMode)} src={paint} />
+                    {/* <button onClick={() => setEditMode(!editMode)}>edit</button> */}
+                  </li>
+                );
+              })}
+            </ul>
           </div>
         </div>
       )}
 
       {editMode && (
-        <div className='edit-labels-section'>
+        <div className='details-modal-content'>
           <span>Name</span>
-          <br />
+
           <input
             className='edit-label-input'
             onChange={handleEditLabelChange}
@@ -441,7 +442,9 @@ export function Labels({ addLabel, toggleModal, board, updateLabelsList }) {
               );
             })}
           </div>
-          <button onClick={saveLabel}>Save</button>
+          <button className='blue-btn-modal' onClick={saveLabel}>
+            Save
+          </button>
           {/* <button onClick={() => setEditMode(!editMode)}>go back</button> */}
         </div>
       )}
@@ -492,7 +495,7 @@ export function Move({ board, moveCardToOtherList, toggleModal, type }) {
         </section>
       )}
 
-      <main>
+      <main className='details-modal-content'>
         <h3> Select Destination</h3>
         <div className='board-name'>
           <h5>Board</h5>
@@ -580,14 +583,17 @@ export class Dates extends React.Component {
             alt=''
           />
         </section>
-
-        <DayPicker
-          selectedDays={this.state.selectedDay}
-          onDayClick={this.handleDayClick}
-        />
-        <p>
-          <button onClick={this.saveDate}>save</button>
-        </p>
+        <section className='details-modal-content'>
+          <DayPicker
+            selectedDays={this.state.selectedDay}
+            onDayClick={this.handleDayClick}
+          />
+          <p>
+            <button className='blue-btn-modal' onClick={this.saveDate}>
+              save
+            </button>
+          </p>
+        </section>
       </div>
     );
   }
