@@ -1,11 +1,12 @@
 .work-space {
-	width: 50%;
+	width: 90%;
 	margin: 0 auto;
 	display: flex;
 	justify-content: center;
 	gap: 20px;
 	color: $b1;
 	overflow-y: auto;
+	padding-bottom: 50px;
 
 	&::-webkit-scrollbar {
 		background-color: transparent;
