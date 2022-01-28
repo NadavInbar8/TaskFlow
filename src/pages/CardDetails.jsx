@@ -724,7 +724,7 @@ export const CardDetails = () => {
                     />
                   </div>
 
-                  {card.attachments && (
+                  {card.attachments?.lenght > 0 && (
                     <section className='card-details-attachments'>
                       <div className='attachmets-title'>
                         <img src={attachment} />

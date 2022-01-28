@@ -62,8 +62,14 @@ export function Signup() {
       fullName: fullName,
       initials,
     };
-    dispatch(setUser(user, 'signup'));
-    history.push('/workspace');
+    if (user.email && user.password && user.fullName && user.initials) {
+      dispatch(setUser(user, 'signup'));
+      setTimeout(() => {
+        history.push('/workspace');
+      });
+    } else {
+      console.log('you cant signup without al the information required');
+    }
   };
 
   const responseGoogle = (response) => {
