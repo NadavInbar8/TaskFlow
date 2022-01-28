@@ -21,6 +21,7 @@ export function Members({ users, loggedInUser, addUserToCard, toggleModal }) {
   }, []);
 
   function addUser(user) {
+    console.log('hi');
     addUserToCard(user);
   }
 
