@@ -28,47 +28,43 @@ export function Members({ users, loggedInUser, addUserToCard, toggleModal }) {
     <div>
       {usersMinusLoggedInUser && (
         <div className='details-modal members'>
-          <div className='members-modal-layout'>
-            <section className='members-modal-top'>
-              <span> &nbsp; &nbsp;</span>
-              <h3>Members</h3>
-              <img onClick={() => toggleModal('memberModal')} src={xsvg} />
-            </section>
-            <hr />
-            <main>
-              <input type='text' placeholder='Search..' />
-              <h3>Board Members</h3>
-              <ul>
-                <li
-                  onClick={() => {
-                    addUser(loggedInUser);
-                  }}
+          <section className='details-modal-top'>
+            <span>Members</span>
+            <img onClick={() => toggleModal('memberModal')} src={xsvg} />
+          </section>
+          <main className='details-modal-content'>
+            <input type='text' placeholder='Search..' />
+            <h3>Board Members</h3>
+            <ul>
+              <li
+                onClick={() => {
+                  addUser(loggedInUser);
+                }}
+              >
+                <div
+                  style={{ color: 'black', backgroundColor: 'darkcyan' }}
+                  className='user-logo'
                 >
-                  <div
-                    style={{ color: 'black', backgroundColor: 'darkcyan' }}
-                    className='user-logo'
-                  >
-                    {loggedInUser.initials}
-                  </div>
-                  {loggedInUser.fullName}
-                </li>
+                  {loggedInUser.initials}
+                </div>
+                {loggedInUser.fullName}
+              </li>
 
-                {usersMinusLoggedInUser.map((user, idx) => {
-                  return (
-                    <li onClick={() => addUser(user)} key={idx}>
-                      <div
-                        style={{ backgroundColor: 'red' }}
-                        className='user-logo'
-                      >
-                        {user.initials}
-                      </div>
-                      {user.fullName}
-                    </li>
-                  );
-                })}
-              </ul>
-            </main>
-          </div>
+              {usersMinusLoggedInUser.map((user, idx) => {
+                return (
+                  <li onClick={() => addUser(user)} key={idx}>
+                    <div
+                      style={{ backgroundColor: 'red' }}
+                      className='user-logo'
+                    >
+                      {user.initials}
+                    </div>
+                    {user.fullName}
+                  </li>
+                );
+              })}
+            </ul>
+          </main>
         </div>
       )}
     </div>
@@ -98,31 +94,23 @@ export function Checklist({ toggleModal, addCheckList }) {
 
   return (
     <div className='details-modal cheklist'>
-      <section className='checklist-modal-layout'>
-        <div className='checklist-top'>
-          <span> &nbsp;</span>
-          <h3>Checklist</h3>
-          <img
-            onClick={() => {
-              toggleModal('checklist');
-            }}
-            src={xsvg}
-            alt=''
-          />
-        </div>
-        <hr />
-        <div className='cheklist-content'>
-          <h5>Title</h5>
-          <form onSubmit={saveCheckList}>
-            <input
-              value={checkList.title}
-              onChange={handleChange}
-              type='text'
-            />
-            <button>Add</button>
-          </form>
-        </div>
+      <section className='details-modal-top'>
+        <span>Checklist</span>
+        <img
+          onClick={() => {
+            toggleModal('checklist');
+          }}
+          src={xsvg}
+          alt=''
+        />
       </section>
+      <div className='cheklist-content'>
+        <h5>Title</h5>
+        <form onSubmit={saveCheckList}>
+          <input value={checkList.title} onChange={handleChange} type='text' />
+          <button>Add</button>
+        </form>
+      </div>
     </div>
   );
 }
@@ -180,48 +168,43 @@ export function Attachment({ attachLink, toggleModal }) {
 
   return (
     <div className='details-modal attachment'>
-      <div className='attachment-layout'>
-        <section className='attachment-top'>
-          <span> &nbsp; </span>
-          <h3>Attachment</h3>
-          <span
-            onClick={() => {
-              toggleModal('attachment');
-            }}
-          >
-            X
-          </span>
-        </section>
-        <hr />
+      <section className='details-modal-top'>
+        <span>Attachment</span>
+        <img
+          src={xsvg}
+          onClick={() => {
+            toggleModal('attachment');
+          }}
+        ></img>
+      </section>
 
-        <h3 className='add-img-from-computer'>
-          Computer <input onChange={(event) => uploadImg(event)} type='file' />
-        </h3>
-        <hr />
-        <section className='attachment-main'>
-          <h3>Attach a link</h3>
-          <input
-            placeholder='Attach any link here...'
-            onChange={handleChange}
-            name='link'
-            value={link}
-            type='text'
-          />
-          {nameInputShown && (
-            <>
-              <h3>Link name (optional)</h3>
-              <input
-                onChange={handleNameChange}
-                name='name'
-                value={name}
-                type='text'
-              />
-            </>
-          )}
-          <br />
-          <button onClick={saveLink}>Attach</button>
-        </section>
-      </div>
+      <h3 className='add-img-from-computer'>
+        Computer <input onChange={(event) => uploadImg(event)} type='file' />
+      </h3>
+      <hr />
+      <section className='attachment-main'>
+        <h3>Attach a link</h3>
+        <input
+          placeholder='Attach any link here...'
+          onChange={handleChange}
+          name='link'
+          value={link}
+          type='text'
+        />
+        {nameInputShown && (
+          <>
+            <h3>Link name (optional)</h3>
+            <input
+              onChange={handleNameChange}
+              name='name'
+              value={name}
+              type='text'
+            />
+          </>
+        )}
+        <br />
+        <button onClick={saveLink}>Attach</button>
+      </section>
     </div>
   );
 }
@@ -244,32 +227,26 @@ export function EditAttachmentName({
       }}
       className='details-modal edit-attachment'
     >
-      <div className='edit-layout'>
-        <section className='edit-attachment-top'>
-          <span>&nbsp;</span>
-          <h3>Edit attachment</h3>
-          <img
-            onClick={() => {
-              toggleModal('editAttachment');
-            }}
-            src={xsvg}
-          />
-        </section>
-        <hr />
-        <main>
-          <h3>Change name:</h3>
-          <input
-            onChange={handleChange}
-            name='name'
-            value={name}
-            onChang={handleChange}
-            type='text'
-          />
-          <button onClick={() => updateAttachmentName(name, idx)}>
-            Update
-          </button>
-        </main>
-      </div>
+      <section className='details-modal-top'>
+        <span>Edit attachment</span>
+        <img
+          onClick={() => {
+            toggleModal('editAttachment');
+          }}
+          src={xsvg}
+        />
+      </section>
+      <main>
+        <h3>Change name:</h3>
+        <input
+          onChange={handleChange}
+          name='name'
+          value={name}
+          onChang={handleChange}
+          type='text'
+        />
+        <button onClick={() => updateAttachmentName(name, idx)}>Update</button>
+      </main>
     </section>
   );
 }
@@ -295,30 +272,27 @@ export function Cover({ addCover, toggleModal }) {
 
   return (
     <div className='details-modal Cover'>
-      <section className='cover-modal-layout'>
-        <div className='cover-modal-top'>
-          <span> &nbsp; </span>
-          <h3>Cover</h3>
-          <img
-            onClick={() => {
-              toggleModal('cover');
-            }}
-            src={xsvg}
-          />
-        </div>
-        <hr />
-        <h3>Colors</h3>
-        <section className='cover-modal-colors'>
-          {covers.map((cover, idx) => {
-            return (
-              <div
-                onClick={() => saveCover(cover)}
-                key={idx}
-                className={cover + '-cover' + ' ' + 'cover-to-show'}
-              ></div>
-            );
-          })}
-        </section>
+      <div className='details-modal-top'>
+        <span>Cover</span>
+        <img
+          onClick={() => {
+            toggleModal('cover');
+          }}
+          src={xsvg}
+        />
+      </div>
+
+      <h3>Colors</h3>
+      <section className='cover-modal-colors'>
+        {covers.map((cover, idx) => {
+          return (
+            <div
+              onClick={() => saveCover(cover)}
+              key={idx}
+              className={cover + '-cover' + ' ' + 'cover-to-show'}
+            ></div>
+          );
+        })}
       </section>
     </div>
   );
@@ -400,75 +374,76 @@ export function Labels({ addLabel, toggleModal, board, updateLabelsList }) {
 
   return (
     <div className='details-modal labels-modal'>
-      <section className='labels-modal-layout'>
-        <section className='labels-modal-top'>
-          <img onClick={() => setEditMode(!editMode)} src={arrowleft} />
-          <h3> Labels</h3>
-          <img onClick={() => toggleModal('labels')} src={xsvg} />
-        </section>
-        <hr />
+      <section className='details-modal-top'>
+        <img
+          className='arrowleft'
+          onClick={() => setEditMode(!editMode)}
+          src={arrowleft}
+        />
+        <span> Labels</span>
+        <img onClick={() => toggleModal('labels')} src={xsvg} />
+      </section>
 
-        {!editMode && (
-          <div className='labels-modal-main'>
-            <div className='labels-input'>
-              <input
-                autoComplete='false'
-                onChange={handleFilter}
-                placeholder='Search labels...'
-                name='name'
-                value={searchedLabel}
-                type='text'
-              />
-            </div>
-            <div className='labels-modal'>
-              {labels.map((label, idx) => {
-                return (
-                  <div key={idx} className='label-row'>
-                    <div
-                      onClick={() => addLabel(label)}
-                      className={' label label-' + label.color}
-                    >
-                      {label.name}
-                    </div>
-                    <img onClick={() => setEditMode(!editMode)} src={paint} />
-                    {/* <button onClick={() => setEditMode(!editMode)}>edit</button> */}
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        )}
-
-        {editMode && (
-          <div className='edit-labels-section'>
-            <span>Name</span>
-            <br />
+      {!editMode && (
+        <div className='labels-modal-main'>
+          <div className='labels-input'>
             <input
-              className='edit-label-input'
-              onChange={handleEditLabelChange}
-              value={editLabel.name}
-              // onBlur={changeLabel}
-              placeholder='Name'
+              autoComplete='false'
+              onChange={handleFilter}
+              placeholder='Search labels...'
+              name='name'
+              value={searchedLabel}
               type='text'
             />
-
-            <h4>Select a color</h4>
-            <div className='edit-labels'>
-              {labels.map((label, idx) => {
-                return (
-                  <div
-                    onClick={() => markChosen(label)}
-                    className={'edit-label label-' + label.color}
-                    key={idx}
-                  ></div>
-                );
-              })}
-            </div>
-            <button onClick={saveLabel}>Save</button>
-            {/* <button onClick={() => setEditMode(!editMode)}>go back</button> */}
           </div>
-        )}
-      </section>
+          <div className='labels-modal'>
+            {labels.map((label, idx) => {
+              return (
+                <div key={idx} className='label-row'>
+                  <div
+                    onClick={() => addLabel(label)}
+                    className={' label label-' + label.color}
+                  >
+                    {label.name}
+                  </div>
+                  <img onClick={() => setEditMode(!editMode)} src={paint} />
+                  {/* <button onClick={() => setEditMode(!editMode)}>edit</button> */}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {editMode && (
+        <div className='edit-labels-section'>
+          <span>Name</span>
+          <br />
+          <input
+            className='edit-label-input'
+            onChange={handleEditLabelChange}
+            value={editLabel.name}
+            // onBlur={changeLabel}
+            placeholder='Name'
+            type='text'
+          />
+
+          <h4>Select a color</h4>
+          <div className='edit-labels'>
+            {labels.map((label, idx) => {
+              return (
+                <div
+                  onClick={() => markChosen(label)}
+                  className={'edit-label label-' + label.color}
+                  key={idx}
+                ></div>
+              );
+            })}
+          </div>
+          <button onClick={saveLabel}>Save</button>
+          {/* <button onClick={() => setEditMode(!editMode)}>go back</button> */}
+        </div>
+      )}
     </div>
   );
 }
@@ -503,75 +478,70 @@ export function Move({ board, moveCardToOtherList, toggleModal, type }) {
 
   return (
     <div className='details-modal move-modal'>
-      <div className='move-modal-layout'>
-        {type === 'move' && (
-          <section className='move-modal-top'>
-            <span> &nbsp;</span>
-            <h3>Move</h3>
-            <img src={xsvg} onClick={() => toggleModal('moveModal')} />
-          </section>
-        )}
-        {type === 'copy' && (
-          <section className='move-modal-top'>
-            <span> </span>
-            <h3>Copy</h3>
-            <img src={xsvg} onClick={() => toggleModal('moveModalCopy')} />
-          </section>
-        )}
-        <hr />
+      {type === 'move' && (
+        <section className='details-modal-top'>
+          <span>Move</span>
+          <img src={xsvg} onClick={() => toggleModal('moveModal')} />
+        </section>
+      )}
+      {type === 'copy' && (
+        <section className='details-modal-top'>
+          <span>Copy</span>
+          <img src={xsvg} onClick={() => toggleModal('moveModalCopy')} />
+        </section>
+      )}
 
-        <main>
-          <h3> Select Destination</h3>
-          <div className='board-name'>
-            <h5>Board</h5>
-            <span>{board.title}</span>
-          </div>
-          <section className='move-to'>
-            <select
-              onChange={handleListChange}
-              className='move-to-list'
-              name='list'
-              id=''
-            >
-              {board.groups.map((group, idx) => {
-                return (
-                  <option key={idx} value={group.id}>
-                    {group.title}
-                  </option>
-                );
-              })}
-            </select>
+      <main>
+        <h3> Select Destination</h3>
+        <div className='board-name'>
+          <h5>Board</h5>
+          <span>{board.title}</span>
+        </div>
+        <section className='move-to'>
+          <select
+            onChange={handleListChange}
+            className='move-to-list'
+            name='list'
+            id=''
+          >
+            {board.groups.map((group, idx) => {
+              return (
+                <option key={idx} value={group.id}>
+                  {group.title}
+                </option>
+              );
+            })}
+          </select>
 
-            <select
-              onChange={handlePositionChange}
-              className='move-to-position'
-              name='position'
-            >
-              {selectedGroup.tasks.map((task, idx) => {
-                return (
-                  <option key={idx} value={idx}>
-                    {idx + 1}
-                  </option>
-                );
-              })}
-              <option value={selectedGroup.tasks.length + 1}>
-                {selectedGroup.tasks.length + 1}
-              </option>
-            </select>
-          </section>
-        </main>
+          <select
+            onChange={handlePositionChange}
+            className='move-to-position'
+            name='position'
+          >
+            {selectedGroup.tasks.map((task, idx) => {
+              return (
+                <option key={idx} value={idx}>
+                  {idx + 1}
+                </option>
+              );
+            })}
+            <option value={selectedGroup.tasks.length + 1}>
+              {selectedGroup.tasks.length + 1}
+            </option>
+          </select>
+        </section>
+      </main>
 
-        {type === 'move' && (
-          <section className='move-button'>
-            <button onClick={moveCard}>MOVE</button>
-          </section>
-        )}
-        {type === 'copy' && (
-          <section className='move-button'>
-            <button onClick={copyCard}>Copy</button>
-          </section>
-        )}
-      </div>
+      {type === 'move' && (
+        <section className='move-button'>
+          <button onClick={moveCard}>MOVE</button>
+        </section>
+      )}
+      {type === 'copy' && (
+        <section className='move-button'>
+          <button onClick={copyCard}>Copy</button>
+        </section>
+      )}
     </div>
   );
 }
@@ -601,25 +571,22 @@ export class Dates extends React.Component {
   render() {
     return (
       <div className='details-modal Dates'>
-        <div className='date-modal-layout'>
-          <section className='date-modal-top'>
-            <span>&nbsp;</span>
-            <h3>Date</h3>
-            <img
-              onCLick={() => this.props.toggleModal('dates')}
-              src={xsvg}
-              alt=''
-            />
-          </section>
-          <hr />
-          <DayPicker
-            selectedDays={this.state.selectedDay}
-            onDayClick={this.handleDayClick}
+        <section className='details-modal-top'>
+          <span>Date</span>
+          <img
+            onCLick={() => this.props.toggleModal('dates')}
+            src={xsvg}
+            alt=''
           />
-          <p>
-            <button onClick={this.saveDate}>save</button>
-          </p>
-        </div>
+        </section>
+
+        <DayPicker
+          selectedDays={this.state.selectedDay}
+          onDayClick={this.handleDayClick}
+        />
+        <p>
+          <button onClick={this.saveDate}>save</button>
+        </p>
       </div>
     );
   }
