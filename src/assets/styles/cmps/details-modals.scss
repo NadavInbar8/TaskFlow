@@ -141,35 +141,36 @@
     // 'brown',
     // 'light-blue',
     // 'turkiz',
+
     .yellow-cover {
-      background-color: rgb(252, 252, 78);
+      background-color: #f2d600;
     }
     .blue-cover {
-      background-color: rgb(46, 46, 255);
+      background-color: #0079bf;
     }
     .dark-blue-cover {
-      background-color: rgb(19, 19, 110);
+      background-color: #344563;
     }
     .purple-cover {
-      background-color: rgb(102, 1, 102);
+      background-color: #c377e0;
     }
     .pink-cover {
-      background-color: rgb(252, 162, 177);
+      background-color: #ff78cb;
     }
     .orange-cover {
-      background-color: rgb(253, 178, 39);
+      background-color: #ff9f1a;
     }
     .red-cover {
-      background-color: rgb(243, 47, 47);
+      background-color: #eb5a46;
     }
-    .brown-cover {
-      background-color: rgb(131, 33, 33);
+    .green-cover {
+      background-color: #519839;
     }
     .light-blue-cover {
-      background-color: rgb(50, 146, 255);
+      background-color: #00c2e0;
     }
-    .turkiz-cover {
-      background-color: rgb(24, 206, 136);
+    .light-green-cover {
+      background-color: #51e898;
     }
   }
 }
@@ -259,32 +260,58 @@
   cursor: pointer;
   padding-left: 20px;
 }
+
+/*
+      { id: 1, color: '#519839', name: 'easy' },
+      { id: 2, color: '#ff9f1a', name: 'medium' },
+      { id: 3, color: '#eb5a46', name: 'hard' },
+      { id: 4, color: '#c377e0', name: 'very hard' },
+      { id: 5, color: '#0079bf', name: 'company fun ' },
+      { id: 6, color: '#00c2e0', name: 'night activity' },
+      { id: 7, color: '#51e898', name: 'urgent' },
+      { id: 8, color: '#ff78cb', name: 'fun' },
+      { id: 9, color: '#344563', name: 'remember' },
+      { id: 10, color: '#f2d600', name: 'importent' },
+      */
+
 .label-green {
-  background-color: rgb(94, 240, 94);
+  background-color: #519839;
+  color: white;
+}
+.label-light-green {
+  background-color: #51e898;
   color: white;
 }
 .label-red {
-  background-color: rgb(245, 73, 73);
+  background-color: #eb5a46;
   color: white;
 }
 .label-orange {
-  background-color: rgb(243, 180, 64);
+  background-color: #ff9f1a;
   color: black;
 }
 .label-yellow {
-  background-color: rgb(252, 252, 19);
+  background-color: #f2d600;
   color: black;
 }
 .label-purple {
-  background-color: rgb(219, 102, 219);
+  background-color: #c377e0;
+  color: white;
+}
+.label-pink {
+  background-color: #ff78cb;
   color: white;
 }
 .label-blue {
-  background-color: rgb(75, 75, 245);
+  background-color: #0079bf;
+  color: white;
+}
+.label-light-blue {
+  background-color: #00c2e0;
   color: white;
 }
 .label-dark-blue {
-  background-color: rgb(34, 34, 128);
+  background-color: #344563;
   color: white;
 }
 
