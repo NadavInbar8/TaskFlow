@@ -323,7 +323,7 @@ export function Labels({ addLabel, toggleModal, board, updateLabelsList }) {
       // { id: 7, color: '#51e898', name: 'urgent' },
       // { id: 8, color: '#ff78cb', name: 'fun' },
       // { id: 9, color: '#344563', name: 'remember' },
-      // { id: 10, color: '#f2d600', name: 'importent' },
+      // { id: 10, color: '#f2d600', name: 'important' },
     ];
 
   // console.log('labelsOptions', labelsforState);
