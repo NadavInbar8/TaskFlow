@@ -48,7 +48,6 @@ async function save(board) {
 }
 
 async function remove(boardId) {
-	console.log(boardId);
 	// return storageService.remove('board', boardId);
 	return await httpService.delete(`board/${boardId}`);
 }
