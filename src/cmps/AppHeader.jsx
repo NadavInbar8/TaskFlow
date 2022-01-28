@@ -282,10 +282,10 @@ export function AppHeader() {
 						{location.pathname === '/' ? (
 							<div className='login-signup-buttons-div flex align-center'>
 								<Link to='/login'>
-									<button className='login-btn blue-btn'>Login</button>
+									<span className='login-btn'>Log in</span>
 								</Link>
 								<Link to='/signup'>
-									<button className='signup-btn blue-btn'>Signup</button>
+									<button className='signup-btn blue-btn'>Sign up</button>
 								</Link>
 							</div>
 						) : (
