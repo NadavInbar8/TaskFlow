@@ -366,10 +366,10 @@ export function AppHeader() {
 												)}
 											</div>
 											<div className='user-details-text'>
-												<span className='user-fullname'>{loggedInUser.fullName}</span>
-												<span className='user-mail-or-username'>
+												<p className='user-fullname'>{loggedInUser.fullName}</p>
+												<p className='user-mail-or-username'>
 													{loggedInUser.email ? loggedInUser.email : loggedInUser.username}
-												</span>
+												</p>
 											</div>
 										</div>
 										<span
