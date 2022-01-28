@@ -1,80 +1,83 @@
-import {storageService} from './async-storage.service';
-import {httpService} from './http.service';
-import {socketService, SOCKET_EVENT_USER_UPDATED} from './socket.service';
+import { storageService } from './async-storage.service';
+import { httpService } from './http.service';
+import { socketService, SOCKET_EVENT_USER_UPDATED } from './socket.service';
 const STORAGE_KEY_LOGGEDIN_USER = 'loggedinUser';
 var gWatchedUser = null;
 
 export const userService = {
-	login,
-	logout,
-	signup,
-	getLoggedinUser,
-	getUsers,
-	getById,
-	remove,
-	update,
-	connectGuestUser,
-	//   changeScore,
+  login,
+  logout,
+  signup,
+  getLoggedinUser,
+  getUsers,
+  getById,
+  remove,
+  update,
+  connectGuestUser,
+  //   changeScore,
 };
 
 // To help debugging from console
 window.userService = userService;
 
 async function getUsers() {
-	return await httpService.get(`user`);
-	// const users = await storageService.query('user');
-	// return users;
+  return await httpService.get(`user`);
+  // const users = await storageService.query('user');
+  // return users;
 }
 
 async function getById(userId) {
-	// const user = await storageService.get('user', userId);
-	const user = await httpService.get(`user/${userId}`);
-	// gWatchedUser = user;
-	return user;
+  // const user = await storageService.get('user', userId);
+  const user = await httpService.get(`user/${userId}`);
+  // gWatchedUser = user;
+  return user;
 }
 function remove(userId) {
-	// return storageService.remove('user', userId);
-	return httpService.delete(`user/${userId}`);
+  // return storageService.remove('user', userId);
+  return httpService.delete(`user/${userId}`);
 }
 
 async function update(user) {
-	// await storageService.put('user', user);
-	user = await httpService.put(`user/${user._id}`, user);
-	// // Handle case in which admin updates other user's details
-	// if (getLoggedinUser()._id === user._id) _saveLocalUser(user)
-	// return user;
+  // await storageService.put('user', user);
+  user = await httpService.put(`user/${user._id}`, user);
+  // // Handle case in which admin updates other user's details
+  // if (getLoggedinUser()._id === user._id) _saveLocalUser(user)
+  // return user;
 }
 
 async function login(userCred) {
-	const users = getUsers();
-	console.log('users', users);
-	let user = users.find((user) => user.email === userCred.email);
-	if (user.password === userCred.password) {
-		console.log('in login stage two');
-		user = getById(user._id);
-		if (!user) return console.log('you are not registered');
-		return _saveLocalUser(user);
-	}
+  userCred.password = userCred.password.toString();
+  const user = await httpService.post('auth/login', userCred);
+  console.log(user);
+  return user;
+  // let user = users.find((user) => user.email === userCred.email&&user.password===userCred.password);
+  // if (user.password === userCred.password) {
+  //   user = getById(user._id);
+  //   if (!user) return console.log('you are not registered');
+  //   return _saveLocalUser(user);
+  // }
 }
 
 // signup({
-// 	email: 'guestemail1@gmail.com',
-// 	fullname: 'Guest',
-// 	initials: 'G',
-// 	password: 1234,
+//   email: 'guestemail1@gmail.com',
+//   password: '1234',
+//   fullName: 'Guest',
+//   initials: 'G',
 // });
 
 async function signup(userCred) {
-	// userCred.score = 10000;
-	// const user = await storageService.post('user', userCred);
-	const user = await httpService.post('auth/signup', userCred);
-	// socketService.emit('set-user-socket', user._id);
-	return _saveLocalUser(user);
+  userCred.password = userCred.password.toString();
+  console.log('user service user cred', userCred);
+  const user = await httpService.post('auth/signup', userCred);
+  console.log(user);
+  return _saveLocalUser(user);
+  // socketService.emit('set-user-socket', user._id);
 }
+
 async function logout() {
-	sessionStorage.removeItem(STORAGE_KEY_LOGGEDIN_USER);
-	// socketService.emit('unset-user-socket');
-	// return await httpService.post('auth/logout')
+  sessionStorage.removeItem(STORAGE_KEY_LOGGEDIN_USER);
+  // socketService.emit('unset-user-socket');
+  // return await httpService.post('auth/logout')
 }
 
 // async function changeScore(by) {
@@ -86,24 +89,26 @@ async function logout() {
 // }
 
 function _saveLocalUser(user) {
-	console.log('user has saved in session storage');
-	sessionStorage.setItem(STORAGE_KEY_LOGGEDIN_USER, JSON.stringify(user));
-	return user;
+  console.log('user has saved in session storage');
+  sessionStorage.setItem(STORAGE_KEY_LOGGEDIN_USER, JSON.stringify(user));
+  return user;
 }
 
 function getLoggedinUser() {
-	return JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER) || 'null');
+  return JSON.parse(
+    sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER) || 'null'
+  );
 }
 
 function connectGuestUser() {
-	const user = {
-		email: 'guestemail1@gmail.com',
-		fullname: 'Guest',
-		initials: 'G',
-		password: 1234,
-		_id: 12345678987465,
-	};
-	_saveLocalUser(user);
+  const user = {
+    email: 'guestemail1@gmail.com',
+    fullname: 'Guest',
+    initials: 'G',
+    password: 1234,
+    _id: 12345678987465,
+  };
+  _saveLocalUser(user);
 }
 // (async ()=>{
 //     await userService.signup({fullname: 'Puki Norma', username: 'user1', password:'123',score: 10000, isAdmin: false})

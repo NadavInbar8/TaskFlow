@@ -7,14 +7,12 @@ export function setUser(user, type) {
       let loggedInUser;
       if (type === 'login') {
         console.log('inlogin');
-        user
-          ? (loggedInUser = await userService.login(user))
-          : await userService.logout();
+        loggedInUser = await userService.login(user);
       } else if (type === 'signup') {
         console.log('in signup');
-        user
-          ? (loggedInUser = await userService.signup(user))
-          : await userService.logout();
+        console.log(user);
+        loggedInUser = await userService.signup(user);
+        console.log(loggedInUser);
       }
       dispatch({ type: 'SET_USER', loggedInUser });
     } catch (err) {

@@ -58,19 +58,26 @@ export function Signup() {
 
     const user = {
       email: data.get('email'),
-      password: data.get('password'),
+      password: data.get('password').toString(),
       fullName: fullName,
       initials,
     };
-    dispatch(setUser(user, 'signup'));
-    history.push('/workspace');
+    if (user.email && user.password && user.fullName && user.initials) {
+      console.log(user);
+      dispatch(setUser(user, 'signup'));
+      setTimeout(() => {
+        history.push('/workspace');
+      });
+    } else {
+      console.log('you cant signup without al the information required');
+    }
   };
 
   const responseGoogle = (response) => {
     console.log(response);
     const user = {
       email: response.profileObj.email,
-      password: 11111,
+      password: '11111',
       fullName:
         response.profileObj.givenName + ' ' + response.profileObj.familyName,
       initials:
