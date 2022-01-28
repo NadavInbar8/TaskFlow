@@ -118,9 +118,6 @@ export const Board = () => {
   // useEffect(() => {
   //   dispatch(loadBoard(boardId));
   // }, [board]);
-  socket.on('setUpdatedBoard', (board) => {
-    dispatch(updateBoard(board));
-  });
 
   useEffect(() => {
     dispatch(loadBoard(boardId));
@@ -128,6 +125,9 @@ export const Board = () => {
 
   useEffect(() => {
     dispatch(loadBoard(boardId));
+    socket.on('setUpdatedBoard', (board) => {
+      dispatch(updateBoard(board));
+    });
   }, []);
 
   // useEffect(() => {}, [board]);
