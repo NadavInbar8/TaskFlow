@@ -231,7 +231,6 @@ function _getEmptyBoard(board) {
 			{id: 4, color: 'red', name: ''},
 			{id: 5, color: 'purple', name: ''},
 			{id: 6, color: 'blue', name: ''},
-			{id: 7, color: 'dark-blue', name: ''},
 		],
 		labels: [
 			{

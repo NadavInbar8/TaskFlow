@@ -432,7 +432,7 @@ export const CardDetails = () => {
   }
 
   const containerStyle = {
-    width: '500px',
+    width: '490px',
     height: '200px',
   };
 
@@ -768,21 +768,26 @@ export const CardDetails = () => {
                       })}
                   </div>
                   {isMapShown && (
-                    <section className='map'>
-                      {isLoaded && (
-                        <GoogleMap
-                          mapContainerStyle={containerStyle}
-                          center={center}
-                          zoom={8}
-                          // onLoad={onLoad}
-                          onUnmount={onUnmount}
-                          onClick={(ev) => {
-                            addMarker(ev.latLng.lat(), ev.latLng.lng());
-                          }}
-                        >
-                          <Marker position={card.location} />
-                        </GoogleMap>
-                      )}
+                    <section className='location'>
+                      <h3>
+                        <img className='large-svg-map' src={mapsvg} /> location:
+                      </h3>
+                      <section className='map'>
+                        {isLoaded && (
+                          <GoogleMap
+                            mapContainerStyle={containerStyle}
+                            center={center}
+                            zoom={8}
+                            // onLoad={onLoad}
+                            onUnmount={onUnmount}
+                            onClick={(ev) => {
+                              addMarker(ev.latLng.lat(), ev.latLng.lng());
+                            }}
+                          >
+                            <Marker position={card.location} />
+                          </GoogleMap>
+                        )}
+                      </section>
                     </section>
                   )}
 
@@ -839,7 +844,7 @@ export const CardDetails = () => {
 
                 <div className='actions'>
                   <section className='modals-container'>
-                    <ul>
+                    <ul className='actions-list'>
                       {/* /////////////////////////////////////////////// */}
                       <li className='title-li'>Add to Card</li>
                       {/* ////////////////////////////////////////////////////////////////////// */}
@@ -953,8 +958,7 @@ export const CardDetails = () => {
                         </span>
                       </li>
                       {/* /////////////////////////////////////////////// */}
-                    </ul>
-                    <ul>
+
                       <li className='title-li'>Actions</li>
                       <li className='details-li'>
                         <span
@@ -991,7 +995,7 @@ export const CardDetails = () => {
                           />
                         )}
                       </li>
-                      <li onClick={deleteCard}>
+                      <li className='details-li' onClick={deleteCard}>
                         <img className='details-svg' src={trash} alt='' />
                         Archive
                       </li>
