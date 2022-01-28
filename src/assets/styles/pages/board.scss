@@ -183,6 +183,7 @@
       margin-bottom: $s-1;
       margin-right: $s-1;
       padding: 0px !important;
+      border-radius: $br;
     }
   }
 
@@ -198,12 +199,16 @@
       width: 100%;
     }
     .label {
+      display: flex;
+      justify-content: center;
+      align-items: center;
       width: 56px;
       height: 16px;
       margin: 0px;
       margin-bottom: $s-1;
       margin-right: $s-1;
       padding: 0px !important;
+      border-radius: $br;
     }
   }
   .card-title {
