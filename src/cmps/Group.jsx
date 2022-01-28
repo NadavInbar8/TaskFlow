@@ -42,7 +42,7 @@ const Group = ({
   const dispatch = useDispatch();
 
   const [titleEdit, setTitleEdit] = useState(false);
-  const [newTitle, setNewTitle] = useState(group.title);
+  const [newTitle, setNewTitle] = useState(group?.title);
   const toggleBoardModal = (modalType, group) => {
     openListModal(group);
     dispatch(openModal(modalType));
@@ -71,7 +71,7 @@ const Group = ({
 
   //style={{ zIndex: group.style.zIndex, backgroundColor: 'red' }}
   return (
-    <Draggable draggableId={group.id} index={index}>
+    <Draggable draggableId={group?.id} index={index}>
       {(provided, snapshot) => (
         <>
           <div
@@ -93,7 +93,7 @@ const Group = ({
                   onBlur={() => changeGroupTitle(group)}
                 />
               ) : (
-                <span onClick={() => setTitleEdit(true)}>{group.title}</span>
+                <span onClick={() => setTitleEdit(true)}>{group?.title}</span>
               )}
               <img
                 src={dotdotdot}
