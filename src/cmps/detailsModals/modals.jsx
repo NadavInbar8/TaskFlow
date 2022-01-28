@@ -313,6 +313,17 @@ export function Labels({ addLabel, toggleModal, board, updateLabelsList }) {
       { id: 4, color: 'red', name: 'very hard' },
       { id: 5, color: 'purple', name: 'company fun ' },
       { id: 6, color: 'blue', name: 'night activity' },
+
+      // { id: 1, color: '#519839', name: 'easy' },
+      // { id: 2, color: '#ff9f1a', name: 'medium' },
+      // { id: 3, color: '#eb5a46', name: 'hard' },
+      // { id: 4, color: '#c377e0', name: 'very hard' },
+      // { id: 5, color: '#0079bf', name: 'company fun ' },
+      // { id: 6, color: '#00c2e0', name: 'night activity' },
+      // { id: 7, color: '#51e898', name: 'urgent' },
+      // { id: 8, color: '#ff78cb', name: 'fun' },
+      // { id: 9, color: '#344563', name: 'remember' },
+      // { id: 10, color: '#f2d600', name: 'importent' },
     ];
 
   // console.log('labelsOptions', labelsforState);

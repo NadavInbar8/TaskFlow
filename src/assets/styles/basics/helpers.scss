@@ -99,6 +99,11 @@
 		width: 90%;
 	}
 
+	.close-btn {
+		width: 12px;
+		height: 12px;
+	}
+
 	// span.modal-top-span {
 	// 	padding: 0 !important;
 	// }
@@ -130,6 +135,10 @@
 
 .roundImg {
 	border-radius: 50%;
+}
+
+.relative {
+	position: relative;
 }
 
 // .short-span {
