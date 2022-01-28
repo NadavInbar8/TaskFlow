@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
-
+import { updateBoard } from '../store/board.action.js';
 import dotdotdot from '../assets/imgs/dotdotdot.svg';
 import close from '../assets/imgs/close.svg';
 import plus from '../assets/imgs/plus.svg';
@@ -32,6 +32,7 @@ const Group = ({
   copyCard,
   deleteCard,
   addNewCard,
+  board,
 }) => {
   const { boardId } = useParams();
   const { modal } = useSelector((state) => ({
@@ -39,9 +40,30 @@ const Group = ({
   }));
   const dispatch = useDispatch();
 
+  const [titleEdit, setTitleEdit] = useState(false);
+  const [newTitle, setNewTitle] = useState(group.title);
   const toggleBoardModal = (modalType, group) => {
     openListModal(group);
     dispatch(openModal(modalType));
+  };
+
+  const changeGroupTitle = (group) => {
+    if (board) {
+      const newBoard = { ...board };
+      console.log('newBoard', newBoard);
+      console.log(newBoard.groups);
+      let groupIdx = newBoard.groups.findIndex(
+        (groupF) => group.id === groupF.id
+      );
+      newBoard.groups[groupIdx].title = newTitle;
+      dispatch(updateBoard(newBoard));
+      setTitleEdit(false);
+    }
+  };
+
+  const handleGroupTitleChange = ({ target }) => {
+    const value = target.value;
+    setNewTitle(value);
   };
 
   //style={{ zIndex: group.style.zIndex, backgroundColor: 'red' }}
@@ -59,7 +81,17 @@ const Group = ({
             ref={provided.innerRef}
           >
             <div className='list-options' {...provided.dragHandleProps}>
-              <span>{group.title}</span>
+              {titleEdit ? (
+                <input
+                  className='group-title-edit'
+                  type='text'
+                  defaultValue={group.title}
+                  onChange={handleGroupTitleChange}
+                  onBlur={() => changeGroupTitle(group)}
+                />
+              ) : (
+                <span onClick={() => setTitleEdit(true)}>{group.title}</span>
+              )}
               <img
                 src={dotdotdot}
                 className='list-menu'

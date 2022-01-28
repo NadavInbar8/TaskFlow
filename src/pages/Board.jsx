@@ -488,6 +488,7 @@ export const Board = () => {
                           copyCard={copyCard}
                           deleteCard={deleteCard}
                           addNewCard={addNewCard}
+                          board={board}
                         />
                       );
                     })

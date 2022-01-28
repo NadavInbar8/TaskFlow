@@ -7,6 +7,8 @@ import dueDate from '../assets/imgs/card-due.svg';
 import attachment from '../assets/imgs/card-attach.svg';
 import cardChecklist from '../assets/imgs/card-checklist.svg';
 import description from '../assets/imgs/card-desc.svg';
+import dueDateGray from '../assets/imgs/card-due-gray.svg';
+import { Checklist } from './detailsModals/modals';
 
 const Task1 = ({
   task,
@@ -85,13 +87,23 @@ const Task1 = ({
                   <div
                     className='card-date flex'
                     style={
-                      !task.date.overDue
+                      task.date.overDue
+                        ? task.date.isComplete
+                          ? { backgroundColor: '#61BD4F' }
+                          : { backgroundColor: '#EB5A46' }
+                        : task.date.isComplete
                         ? { backgroundColor: '#61BD4F' }
-                        : { backgroundColor: '#EB5A46' }
+                        : { backgroundColor: '#ebecf0', color: 'gray' }
                     }
                   >
-                    <img src={dueDate} />
-                    {task.date.date.slice(4, 10)}
+                    <img
+                      src={
+                        task.date.isComplete || task.date.overDue
+                          ? dueDate
+                          : dueDateGray
+                      }
+                    />
+                    {task.date.date}
                   </div>
                 ) : null}
                 {task.description ? (
@@ -117,26 +129,25 @@ const Task1 = ({
                           checkListCounter++;
                         }
                       });
-                      return (
+                      return checkListCounter > 0 ? (
                         <div className=' flex-center' key={idx}>
                           <img src={cardChecklist} />
                           {checkListCounter}/{checkList.items.length}
                         </div>
-                      );
+                      ) : null;
                     })}
                   </div>
                 ) : null}
               </div>
               <div className='flex board-card-members'>
-                {console.log(task.members)}
-                {task.members &&
-                  task.members.map((member) => {
+                {task.users &&
+                  task.users.map((user) => {
                     return (
-                      <div key={member._id} className='card-members flex'>
+                      <div key={user._id} className='card-members flex'>
                         <img
-                          src={member.imgUrl}
-                          alt={member.initials}
-                          title={member.fullname}
+                          src={user.imgUrl}
+                          alt={user.initials}
+                          title={user.fullname}
                         />
                       </div>
                     );

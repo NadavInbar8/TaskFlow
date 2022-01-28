@@ -129,9 +129,8 @@ export const WorkSpace = () => {
 					{starredBoards &&
 						starredBoards.map((starredBoard, idx) => {
 							return (
-								<div className='preview-container'>
+								<div key={idx} className='preview-container'>
 									<div
-										key={idx}
 										// onClick={() => history.push(`/board/${board._id}`)}
 										className='board-preview'>
 										<div
@@ -150,7 +149,7 @@ export const WorkSpace = () => {
 													className='board-title-div'
 													// style={{ backgroundColor: board.style.backgroundColor }}
 												>
-													{console.log(starredBoard)}
+													{/* {console.log(starredBoard)} */}
 													<h3 className='workspace-board-title'>{starredBoard.title}</h3>
 													<div className='star-svg'>
 														{starredBoard.starred === false && (
@@ -159,7 +158,7 @@ export const WorkSpace = () => {
 																	starBoard(ev, starredBoard);
 																}}
 																className='star-svg-img'
-																src={whiteStar}
+																src={star}
 																alt=''
 															/>
 														)}
@@ -198,11 +197,10 @@ export const WorkSpace = () => {
 				<div className='boards-container'>
 					{boards.length > 0 &&
 						boards.map((board, idx) => {
-							console.log(board);
+							//   console.log(board);
 							return (
-								<div className='preview-container'>
+								<div key={idx} className='preview-container'>
 									<div
-										key={idx}
 										// onClick={() => history.push(`/board/${board._id}`)}
 										className='board-preview'>
 										<div
@@ -221,7 +219,7 @@ export const WorkSpace = () => {
 													className='board-title-div'
 													// style={{ backgroundColor: board.style.backgroundColor }}
 												>
-													{console.log(board)}
+													{/* {console.log(board)} */}
 													<h3 className='workspace-board-title'>{board.title}</h3>
 													<div className='star-svg'>
 														{board.starred === false && (
@@ -230,7 +228,7 @@ export const WorkSpace = () => {
 																	starBoard(ev, board);
 																}}
 																className='star-svg-img'
-																src={whiteStar}
+																src={star}
 																alt=''
 															/>
 														)}
@@ -253,7 +251,7 @@ export const WorkSpace = () => {
 											<div>
 												<img src={boardPreview} alt='' />
 												<div className='star-svg'>
-													<img src={whiteStar} alt='' />
+													<img src={star} alt='' />
 												</div>
 											</div>
 										)}
@@ -261,14 +259,12 @@ export const WorkSpace = () => {
 								</div>
 							);
 						})}
-					<div className='relative'>
-						<div
-							onClick={(ev) => {
-								toggleModal('createModal2');
-							}}
-							className='add-board-div'>
-							<h3>Add Board</h3>
-						</div>
+					<div
+						onClick={() => {
+							toggleModal('createModal');
+						}}
+						className='add-board-div'>
+						<h3>Add Board</h3>
 						{modal === 'createModal2' && <CreateModal parentCmp='workspace' />}
 					</div>
 				</div>
