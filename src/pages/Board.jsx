@@ -258,7 +258,7 @@ export const Board = () => {
     socket.emit('updateBoard', updatedBoard);
   };
 
-  const deleteList = (list) => {
+  const deleteList = async (list) => {
     const updatedBoard = { ...board };
     const groupIdx = updatedBoard.groups.findIndex(
       (group) => group.id === list.id
@@ -274,7 +274,7 @@ export const Board = () => {
     //   (groupId) => groupId !== list.id
     // );
     setForceRender(!forceRender);
-    dispatch(updateBoard(updatedBoard));
+    await dispatch(updateBoard(updatedBoard));
     socket.emit('updateBoard', updatedBoard);
   };
 
@@ -484,7 +484,7 @@ export const Board = () => {
                       return (
                         <Group
                           // style={{ zIndex: group.style.zIndex }}
-                          key={group.id}
+                          key={group?.id}
                           group={group}
                           index={index}
                           tasks={tasks}

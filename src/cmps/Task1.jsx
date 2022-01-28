@@ -55,11 +55,11 @@ const Task1 = ({
                     return (
                       <li
                         key={idx}
-                        className='label'
+                        className={`label label-${label.color}`}
                         onClick={() => setOpenLabels(!openLabels)}
-                        style={{
-                          backgroundColor: label.color,
-                        }}
+                        // style={{
+                        //   backgroundColor: label.color,
+                        // }}
                       >
                         {openLabels ? `${label.name}` : null}
                       </li>

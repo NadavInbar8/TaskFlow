@@ -41,12 +41,21 @@ const Group = ({
 	}));
 	const dispatch = useDispatch();
 
+<<<<<<< HEAD
 	const [titleEdit, setTitleEdit] = useState(false);
 	const [newTitle, setNewTitle] = useState(group.title);
 	const toggleBoardModal = (modalType, group) => {
 		openListModal(group);
 		dispatch(openModal(modalType));
 	};
+=======
+  const [titleEdit, setTitleEdit] = useState(false);
+  const [newTitle, setNewTitle] = useState(group?.title);
+  const toggleBoardModal = (modalType, group) => {
+    openListModal(group);
+    dispatch(openModal(modalType));
+  };
+>>>>>>> 690d9bb4355effc5664b1a0578cee2bd58897be0
 
 	const changeGroupTitle = (group) => {
 		if (board) {
@@ -67,6 +76,7 @@ const Group = ({
 		setNewTitle(value);
 	};
 
+<<<<<<< HEAD
 	//style={{ zIndex: group.style.zIndex, backgroundColor: 'red' }}
 	return (
 		<Draggable draggableId={group.id} index={index}>
@@ -101,6 +111,43 @@ const Group = ({
 								}}
 							/>
 						</div>
+=======
+  //style={{ zIndex: group.style.zIndex, backgroundColor: 'red' }}
+  return (
+    <Draggable draggableId={group?.id} index={index}>
+      {(provided, snapshot) => (
+        <>
+          <div
+            className={
+              // group.style.zIndex === 'high'
+              // ? 'board-list seeOverlay flex-column'
+              'board-list flex-column'
+            }
+            {...provided.draggableProps}
+            ref={provided.innerRef}
+          >
+            <div className='list-options' {...provided.dragHandleProps}>
+              {titleEdit ? (
+                <input
+                  className='group-title-edit'
+                  type='text'
+                  defaultValue={group.title}
+                  onChange={handleGroupTitleChange}
+                  onBlur={() => changeGroupTitle(group)}
+                />
+              ) : (
+                <span onClick={() => setTitleEdit(true)}>{group?.title}</span>
+              )}
+              <img
+                src={dotdotdot}
+                className='list-menu'
+                alt='list menu'
+                onClick={() => {
+                  toggleBoardModal('groupModal', group);
+                }}
+              />
+            </div>
+>>>>>>> 690d9bb4355effc5664b1a0578cee2bd58897be0
 
 						<Droppable droppableId={group.id} type='task'>
 							{(provided) => (
