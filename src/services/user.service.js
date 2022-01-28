@@ -46,8 +46,10 @@ async function update(user) {
 }
 
 async function login(userCred) {
+  userCred.password = userCred.password.toString();
   const user = await httpService.post('auth/login', userCred);
   console.log(user);
+  return user;
   // let user = users.find((user) => user.email === userCred.email&&user.password===userCred.password);
   // if (user.password === userCred.password) {
   //   user = getById(user._id);
@@ -57,14 +59,15 @@ async function login(userCred) {
 }
 
 // signup({
-// 	email: 'guestemail1@gmail.com',
-// 	fullname: 'Guest',
-// 	initials: 'G',
-// 	password: 1234,
+//   email: 'guestemail1@gmail.com',
+//   password: '1234',
+//   fullName: 'Guest',
+//   initials: 'G',
 // });
 
 async function signup(userCred) {
-  console.log(userCred);
+  userCred.password = userCred.password.toString();
+  console.log('user service user cred', userCred);
   const user = await httpService.post('auth/signup', userCred);
   console.log(user);
   return _saveLocalUser(user);

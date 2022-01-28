@@ -58,11 +58,12 @@ export function Signup() {
 
     const user = {
       email: data.get('email'),
-      password: data.get('password'),
+      password: data.get('password').toString(),
       fullName: fullName,
       initials,
     };
     if (user.email && user.password && user.fullName && user.initials) {
+      console.log(user);
       dispatch(setUser(user, 'signup'));
       setTimeout(() => {
         history.push('/workspace');
@@ -76,7 +77,7 @@ export function Signup() {
     console.log(response);
     const user = {
       email: response.profileObj.email,
-      password: 11111,
+      password: '11111',
       fullName:
         response.profileObj.givenName + ' ' + response.profileObj.familyName,
       initials:

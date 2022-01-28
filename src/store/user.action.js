@@ -10,6 +10,7 @@ export function setUser(user, type) {
         loggedInUser = await userService.login(user);
       } else if (type === 'signup') {
         console.log('in signup');
+        console.log(user);
         loggedInUser = await userService.signup(user);
         console.log(loggedInUser);
       }
