@@ -4,7 +4,7 @@ import { CardDetails } from './CardDetails.jsx';
 import { Route, Switch } from 'react-router';
 import { Link, useParams, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
-
+import { socket } from '../RootCmp.jsx';
 // Redux
 import {
   loadBoard,
@@ -118,6 +118,9 @@ export const Board = () => {
   // useEffect(() => {
   //   dispatch(loadBoard(boardId));
   // }, [board]);
+  socket.on('setUpdatedBoard', (board) => {
+    dispatch(updateBoard(board));
+  });
 
   useEffect(() => {
     dispatch(loadBoard(boardId));
@@ -210,6 +213,7 @@ export const Board = () => {
     updatedBoard.groups[listIdx].editMode = false;
     setForceRender(!forceRender);
     dispatch(updateBoard(updatedBoard));
+    socket.emit('updateBoard', updatedBoard);
   };
 
   const openEditModal = (card) => {
@@ -251,6 +255,7 @@ export const Board = () => {
     updatedBoard.groups.push(newGroup);
     setNewList(false);
     dispatch(updateBoard(updatedBoard));
+    socket.emit('updateBoard', updatedBoard);
   };
 
   const deleteList = (list) => {
@@ -270,6 +275,7 @@ export const Board = () => {
     // );
     setForceRender(!forceRender);
     dispatch(updateBoard(updatedBoard));
+    socket.emit('updateBoard', updatedBoard);
   };
 
   const editCard = (list, card) => {
@@ -280,6 +286,8 @@ export const Board = () => {
     const updatedBoard = { ...board };
     updatedBoard.groups[listIdx].tasks[cardIdx] = editedCard;
     dispatch(updateBoard(updatedBoard));
+    socket.emit('updateBoard', updatedBoard);
+
     closeEditModal(card);
   };
 
@@ -298,6 +306,8 @@ export const Board = () => {
     updatedBoard.groups[listIdx].tasks.push(copiedCard);
     closeEditModal();
     dispatch(updateBoard(updatedBoard));
+    socket.emit('updateBoard', updatedBoard);
+
     setForceRender(!forceRender);
   };
 
@@ -314,6 +324,8 @@ export const Board = () => {
     updatedBoard.groupsOrder.push(copiedList.id);
     closeListModal();
     dispatch(updateBoard(updatedBoard));
+    socket.emit('updateBoard', updatedBoard);
+
     setForceRender(!forceRender);
   };
 
@@ -333,6 +345,7 @@ export const Board = () => {
     closeEditModal();
     setForceRender(!forceRender);
     dispatch(updateBoard(updatedBoard));
+    socket.emit('updateBoard', updatedBoard);
   };
 
   //   const overlayStyle = { 'z-index': 100 };
@@ -359,6 +372,8 @@ export const Board = () => {
       };
       setData(newData);
       dispatch(updateBoard(newData));
+      socket.emit('updateBoard', newData);
+
       return;
     }
 
@@ -384,6 +399,8 @@ export const Board = () => {
       };
       setData(newData);
       dispatch(updateBoard(newData));
+      socket.emit('updateBoard', newData);
+
       return;
     } else {
       const startTaskIds = [...groupStart.tasksIds];
@@ -420,6 +437,7 @@ export const Board = () => {
       };
       setData(newData);
       dispatch(updateBoard(newData));
+      socket.emit('updateBoard', newData);
     }
     // const group = data.groups[source.drop]
   };
@@ -489,6 +507,7 @@ export const Board = () => {
                           deleteCard={deleteCard}
                           addNewCard={addNewCard}
                           board={board}
+                          socket={socket}
                         />
                       );
                     })
