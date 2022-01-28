@@ -46,7 +46,6 @@ export const BoardFilter = ({filterBoard}) => {
 				{/* <img onClick={() => toggleModal('filter')} src={close} alt='' /> */}
 				<button onClick={() => toggleModal('filterModal')}>x</button>
 			</div>
-			<hr />
 			<form className='filter-form'>
 				<div className='filter-search'>
 					<p className='keyword-p'>Keyword</p>

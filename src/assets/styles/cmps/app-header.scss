@@ -118,16 +118,30 @@
 		position: absolute;
 		align-items: flex-start;
 		top: 110%;
-		left: -5%;
-		min-width: 180px;
+		left: 0%;
+		min-width: 240px;
 		padding: $s-2;
 		border-radius: $s-1;
 		box-shadow: 0 8px 16px -4px rgba(9, 30, 66, 0.25), 0 0 0 1px rgba(9, 30, 66, 0.08);
+
+		.star-svg-img {
+			width: 16px;
+			height: 16px;
+		}
 	}
 
 	.boards-modal li {
-		margin-top: $s-2;
+		margin-top: $s-1;
 		margin-left: 0;
+		display: flex;
+		justify-content: space-between;
+		width: 100%;
+
+		span {
+			margin-right: $s-1;
+			font-weight: 600;
+			line-height: 18px;
+		}
 	}
 
 	.boards-modal li:hover {
@@ -135,13 +149,13 @@
 	}
 
 	.boards-modal li:last-child {
-		margin-bottom: $s-2;
+		margin-bottom: $s-1;
 	}
 
 	.board-modal-img {
 		width: 60px;
 		height: 30px;
-		margin-right: $s-2;
+		margin-right: $s-1;
 	}
 
 	// Create
@@ -175,9 +189,9 @@
 		width: fit-content;
 		position: absolute;
 		align-items: flex-start;
-		left: -5%;
+		left: 0%;
 		top: 110%;
-		padding: 0 $s-2 $s-2 $s-2;
+		padding: $s-2;
 		border-radius: $s-1;
 		cursor: default;
 		box-shadow: 0 8px 16px -4px rgba(9, 30, 66, 0.25), 0 0 0 1px rgba(9, 30, 66, 0.08);
@@ -240,6 +254,11 @@
 
 	.user-details {
 		flex-wrap: wrap;
+		margin-bottom: $s-2;
+
+		p {
+			margin: 0;
+		}
 	}
 
 	.user-details-text {
@@ -276,17 +295,22 @@
 		background-color: white;
 		color: $b1;
 		flex-direction: column;
-		min-height: 10vh;
+		min-height: 150px;
 		height: fit-content;
 		width: fit-content;
 		position: absolute;
 		align-items: flex-start;
 		right: 1%;
 		top: 6%;
+		min-width: 300px;
 		padding: $s-2;
 		border-radius: $s-1;
 		font-weight: normal;
 		box-shadow: 0 8px 16px -4px rgba(9, 30, 66, 0.25), 0 0 0 1px rgba(9, 30, 66, 0.08);
+
+		.logout {
+			padding: $s-2 0;
+		}
 	}
 }
 

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useSelector, useDispatch, shallowEqual} from 'react-redux';
-import {loadBoards, addBoard, openModal} from '../store/board.action.js';
+import {loadBoards, addBoard, openModal, updateBoard} from '../store/board.action.js';
 import {setUser} from '../store/user.action.js';
 import {Link, useLocation, useHistory} from 'react-router-dom';
 import boardsImg from '../assets/imgs/boards.svg';
@@ -11,6 +11,9 @@ import {CreateModal} from './headerCmps/CreateModal.jsx';
 
 import whiteLogo from '../assets/imgs/logo/whiteLogo.svg';
 import blackLogo from '../assets/imgs/logo/blackLogo.svg';
+import star from '../assets/imgs/star.svg';
+import fullStar from '../assets/imgs/starFill.svg';
+import closeBtn from '../assets/imgs/close.svg';
 
 export function AppHeader() {
 	// const [isBoardsModalOpen, setBoardsModal] = useState(false);
@@ -71,6 +74,20 @@ export function AppHeader() {
 		// console.log(background);
 		// return background;
 	};
+
+	function starBoard(ev, board) {
+		ev.stopPropagation();
+		// console.log(board);
+		let newBoard = board;
+		if (newBoard.starred === true) {
+			newBoard.starred = false;
+		} else {
+			newBoard.starred = true;
+			// console.log(newBoard);
+		}
+
+		dispatch(updateBoard(newBoard));
+	}
 
 	// New board Funcs
 	// const colors = [
@@ -194,9 +211,12 @@ export function AppHeader() {
 											<ul className='boards-modal flex'>
 												<div className='modal-top'>
 													<span>Boards</span>
-													<button onClick={() => toggleModal()}>x</button>
+													<img
+														src={closeBtn}
+														className='close-btn pointer'
+														alt='close'
+														onClick={() => toggleModal()}></img>
 												</div>
-												<hr />
 												{boards.map((board) => {
 													return (
 														<li
@@ -212,7 +232,30 @@ export function AppHeader() {
 																		? {backgroundColor: getBackground(board)}
 																		: {backgroundImage: getBackground(board)}
 																}></div>
-															<span>{board.title}</span>
+															<span>{board.title.length > 10 ? `${board.title.slice(0 - 15)}...` : board.title}</span>
+															<div className='star-svg'>
+																{board.starred === false && (
+																	<img
+																		onClick={(ev) => {
+																			starBoard(ev, board);
+																		}}
+																		className='star-svg-img'
+																		src={star}
+																		alt=''
+																	/>
+																)}
+
+																{board.starred === true && (
+																	<img
+																		onClick={(ev) => {
+																			starBoard(ev, board);
+																		}}
+																		className='star-svg-img'
+																		src={fullStar}
+																		alt=''
+																	/>
+																)}
+															</div>
 														</li>
 													);
 												})}
@@ -352,9 +395,8 @@ export function AppHeader() {
 							<div>
 								<div className='modal-top'>
 									<span>Account</span>
-									<button onClick={() => toggleModal()}>x</button>
+									<img src={closeBtn} className='close-btn pointer' alt='close' onClick={() => toggleModal()}></img>
 								</div>
-								<hr />
 								{loggedInUser ? (
 									<div>
 										<div className='user-details flex'>

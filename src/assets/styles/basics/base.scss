@@ -44,7 +44,8 @@ a {
 hr {
 	height: 1px;
 	width: 100%;
-	color: $b1;
+	// color: $b1;
+	border-color: 1px solid rgba(9, 30, 66, 0.12941176470588237);
 }
 
 input,

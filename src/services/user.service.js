@@ -101,7 +101,7 @@ function getLoggedinUser() {
 function connectGuestUser() {
 	const guestUser = {
 		email: 'guestemail1@gmail.com',
-		fullname: 'Guest',
+		fullName: 'Guest',
 		initials: 'G',
 		password: 1234,
 		_id: 12345678987465,

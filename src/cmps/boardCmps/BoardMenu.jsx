@@ -80,7 +80,6 @@ export const BoardMenu = ({menuOpen, setMenuOpen}) => {
 					{/* <img onClick={() => toggleModal('menu')} src={close} alt='' /> */}
 					<img src={closeBtn} className='close-btn pointer' alt='close' onClick={() => setMenuOpen(!menuOpen)}></img>
 				</div>
-				<hr />
 				{cmpToRender === 'defaultMenu' && (
 					<DefaultMenu
 						onSetCmpToRender={onSetCmpToRender}

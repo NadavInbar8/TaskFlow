@@ -82,7 +82,7 @@ export const CreateModal = () => {
 				<span className='modal-top-span'>Create</span>
 				<img src={closeBtn} className='close-btn pointer' alt='close' onClick={() => toggleModal()}></img>
 			</div>
-			<hr />
+			{/* <hr /> */}
 			<div>
 				<div
 					className='skeleton-div flex flex-center'
