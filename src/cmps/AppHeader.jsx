@@ -60,7 +60,7 @@ export function AppHeader() {
 
 	const onLogOut = async () => {
 		dispatch(setUser(null, 'login'));
-		window.location.replace('/login');
+		window.location.replace('/');
 	};
 
 	const getBackground = (board) => {

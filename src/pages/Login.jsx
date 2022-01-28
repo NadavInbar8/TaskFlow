@@ -57,17 +57,19 @@ export function Login() {
 			email: data.get('email'),
 			password: data.get('password'),
 		};
-		if (user.email && user.password) history.push('/workspace');
 		dispatch(setUser(user, 'login'));
+		if (user.email && user.password) history.push('/workspace');
 	};
 	const responseGoogle = (response) => {
 		console.log(response);
 		const user = {
 			email: response.profileObj.email,
-			password: 11111,
+			password: '11111',
 		};
-		if (user.email && user.password) history.push('/workspace');
 		dispatch(setUser(user, 'login'));
+
+		// if (loggedInUser.email === user.email)
+		history.push('/workspace');
 	};
 
 	return (
