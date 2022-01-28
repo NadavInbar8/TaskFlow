@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Link, useHistory, useParams, useRouteMatch } from 'react-router-dom';
 import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
+import { socketService } from '../services/socket.service.js';
 
 import { updateBoard, openModal } from '../store/board.action.js';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
@@ -67,15 +68,6 @@ export const CardDetails = () => {
   const { listId, cardId } = useParams();
   const dispatch = useDispatch();
 
-  // // MODALS
-  // const [memberModal, toggleMemeberModal] = useState(false);
-  // const [labelsModal, toggleLabelsModal] = useState(false);
-  // const [checklistModal, toggleChecklistModal] = useState(false);
-  // const [datesModal, toggleDatesModal] = useState(false);
-  // const [attachmentModal, toggleAttachmentModal] = useState(false);
-  // const [coverModal, toggleCoverModal] = useState(false);
-
-  // EMPTYCARD
   const [card, setCard] = useState({
     id: '',
     description: 'hi',
@@ -90,6 +82,46 @@ export const CardDetails = () => {
 
   // EMPTYCOMMENT
   const [comment, setComment] = useState({ by: 'guest', txt: '' });
+
+  // const [msg, setMsg] = useState({ txt: '' });
+  // const [isBotMode, setIsBotMode] = useState(true);
+
+  useEffect(() => {
+    // if (toy.msgs) setMsgs(toy.msgs);
+    socketService.setup();
+    const user = userService.getLoggedinUser();
+    setLoggedInUser(user);
+    socketService.emit('chat topic', card.id);
+    socketService.off('chat addMsg');
+    socketService.on('chat addMsg', addMsg);
+    socketService.on('chat userTyping', showUserTyping);
+
+    return () => {
+      socketService.off('chat addMsg', addMsg);
+      socketService.terminate();
+      //   clearTimeout(timeout);
+    };
+  }, [isBotMode]);
+
+  // ADD COMMENTS
+  function addComment(ev) {
+    ev.preventDefault();
+    console.log(comment);
+    console.log(new Date().toString());
+    const newComment = {
+      ...comment,
+      createdAt: Date.now(),
+    };
+    const currCard = card;
+    currCard.comments
+      ? currCard.comments.push(newComment)
+      : (currCard.comments = [newComment]);
+    setCard(currCard);
+    socketService.emit('cardMsg', newComment);
+
+    updateCard();
+    setComment({ byMember: loggedInUser, txt: '' });
+  }
 
   // SETTING THE CURR CARD
   useEffect(async () => {
@@ -159,23 +191,6 @@ export const CardDetails = () => {
     setComment({ byMember: loggedInUser, txt: value });
   }
 
-  // ADD COMMENTS
-  function addComment(ev) {
-    ev.preventDefault();
-    console.log(comment);
-    console.log(new Date().toString());
-    const newComment = {
-      ...comment,
-      createdAt: Date.now(),
-    };
-    const currCard = card;
-    currCard.comments
-      ? currCard.comments.push(newComment)
-      : (currCard.comments = [newComment]);
-    setCard(currCard);
-    updateCard();
-    setComment({ byMember: loggedInUser, txt: '' });
-  }
   // ADD DATE
   function addDate(date) {
     const months = [
