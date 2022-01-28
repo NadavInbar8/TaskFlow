@@ -33,6 +33,7 @@ const Group = ({
   deleteCard,
   addNewCard,
   board,
+  socket,
 }) => {
   const { boardId } = useParams();
   const { modal } = useSelector((state) => ({
@@ -57,6 +58,8 @@ const Group = ({
       );
       newBoard.groups[groupIdx].title = newTitle;
       dispatch(updateBoard(newBoard));
+      socket.emit('updateBoard', newBoard);
+
       setTitleEdit(false);
     }
   };

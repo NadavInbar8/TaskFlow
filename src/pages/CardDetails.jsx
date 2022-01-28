@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
 import {Link, useHistory, useParams, useRouteMatch} from 'react-router-dom';
 import {GoogleMap, useJsApiLoader, Marker} from '@react-google-maps/api';
-import {socketService} from '../services/socket.service.js';
+import {io} from 'socket.io-client';
 
 import {updateBoard, openModal} from '../store/board.action.js';
 import {useSelector, useDispatch, shallowEqual} from 'react-redux';
@@ -38,6 +38,7 @@ import xsvg from '../assets/imgs/x.svg';
 import xsvgwhite from '../assets/imgs/xwhite.svg';
 import arrowcross from '../assets/imgs/arrowcross.svg';
 import {userService} from '../services/user.service.js';
+import {socket} from '../RootCmp.jsx';
 
 export const CardDetails = () => {
 	const history = useHistory();
@@ -51,9 +52,13 @@ export const CardDetails = () => {
 		const users = await userService.getUsers();
 		setUsers(users);
 	}
+	// const socket = io.connect('http://localhost:3030');
 
 	useEffect(() => {
 		getUsers();
+		socket.on('setUpdatedBoard', (board) => {
+			dispatch(updateBoard(board));
+		});
 	}, []);
 	// Modal state
 	const {modal} = useSelector((state) => ({
@@ -78,25 +83,8 @@ export const CardDetails = () => {
 	// EMPTYCOMMENT
 	const [comment, setComment] = useState({by: 'guest', txt: ''});
 
-	const [msg, setMsg] = useState({txt: ''});
-	const [isBotMode, setIsBotMode] = useState(true);
-
-	// useEffect(() => {
-	//   // if (toy.msgs) setMsgs(toy.msgs);
-	//   socketService.setup();
-	//   const user = userService.getLoggedinUser();
-	//   setLoggedInUser(user);
-	//   socketService.emit('chat topic', card.id);
-	//   socketService.off('chat addMsg');
-	//   socketService.on('chat addMsg', addMsg);
-	//   socketService.on('chat userTyping', showUserTyping);
-
-	//   return () => {
-	//     socketService.off('chat addMsg', addMsg);
-	//     socketService.terminate();
-	//     //   clearTimeout(timeout);
-	//   };
-	// }, [isBotMode]);
+	// const [msg, setMsg] = useState({ txt: '' });
+	// const [isBotMode, setIsBotMode] = useState(true);
 
 	// ADD COMMENTS
 	function addComment(ev) {
@@ -110,7 +98,6 @@ export const CardDetails = () => {
 		const currCard = card;
 		currCard.comments ? currCard.comments.push(newComment) : (currCard.comments = [newComment]);
 		setCard(currCard);
-		socketService.emit('cardMsg', newComment);
 
 		updateCard();
 		setComment({byMember: loggedInUser, txt: ''});
@@ -161,6 +148,8 @@ export const CardDetails = () => {
 		// console.log('currCardIdx', currCardIdx);
 		// console.log('updatedBoard', updatedBoard);
 		dispatch(updateBoard(updatedBoard));
+		socket.emit('updateBoard', updatedBoard);
+
 		history.push(`/board/${board._id}`);
 	}
 
@@ -171,6 +160,7 @@ export const CardDetails = () => {
 		const updatedBoard = {...board};
 		updatedBoard.groups[listIdx].tasks[currCardIdx] = card;
 		dispatch(updateBoard(updatedBoard, activity));
+		socket.emit('updateBoard', updatedBoard);
 	}
 
 	// CREATING COMMENT
@@ -247,6 +237,7 @@ export const CardDetails = () => {
 		const newBoard = board;
 		newBoard.labelOptions = newlabels;
 		dispatch(updateBoard(newBoard));
+		socket.emit('updateBoard', newBoard);
 	}
 
 	// ADD CHECKLIST
@@ -380,6 +371,8 @@ export const CardDetails = () => {
 		newBoard.groups[chosenGroupIdx].tasks.splice(idx, 0, currCard);
 		console.log(newBoard);
 		dispatch(updateBoard(newBoard));
+		socket.emit('updateBoard', newBoard);
+
 		history.push(`/board/${board._id}`);
 	}
 
