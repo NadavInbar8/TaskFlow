@@ -26,6 +26,7 @@ import checklist from '../assets/imgs/checklist.svg';
 import date from '../assets/imgs/date.svg';
 import attachment from '../assets/imgs/attachment.svg';
 import cover from '../assets/imgs/cover.svg';
+import coverwhite from '../assets/imgs/coverwhite.svg';
 import move from '../assets/imgs/move.svg';
 import copy from '../assets/imgs/copy.svg';
 import trash from '../assets/imgs/trash.svg';
@@ -33,6 +34,8 @@ import activity from '../assets/imgs/activity.svg';
 import title from '../assets/imgs/title.svg';
 import plus from '../assets/imgs/plus.svg';
 import xsvg from '../assets/imgs/x.svg';
+import xsvgwhite from '../assets/imgs/xwhite.svg';
+import arrowcross from '../assets/imgs/arrowcross.svg';
 import { userService } from '../services/user.service.js';
 
 export const CardDetails = () => {
@@ -488,30 +491,66 @@ export const CardDetails = () => {
                       card.cover.cover + '-cover' + ' ' + 'card-details-cover'
                     }
                   >
-                    <img
-                      onClick={() => {
-                        deleteCover();
-                      }}
-                      src={xsvg}
-                      alt=''
-                    />
+                    <div className='exit-details'>
+                      <img
+                        onClick={() => {
+                          history.push(`/board/${board._id}`);
+                        }}
+                        src={xsvg}
+                        alt=''
+                      />
+                    </div>
+                    <div className='edit-cover'>
+                      <img
+                        onClick={() => {
+                          toggleModal('coverModal2');
+                        }}
+                        src={cover}
+                        alt=''
+                      />
+                      <span>Cover</span>
+
+                      {modal === 'coverModal2' && (
+                        <Cover addCover={addCover} toggleModal={toggleModal} />
+                      )}
+                    </div>
                   </section>
                 )}
                 {card.cover.type === 'img' && (
-                  <section className='cover-img'>
+                  <section className='card-details-cover cover-img'>
                     <img
                       className='cover-img-to-show'
                       src={card.cover.cover}
                       alt=''
                     />
-                    <img
-                      className='exit-details'
-                      onClick={() => {
-                        deleteCover();
-                      }}
-                      src={xsvg}
-                      alt=''
-                    />
+                    <section className='cover-img-actions'>
+                      <div className='exit-details'>
+                        <img
+                          onClick={() => {
+                            history.push(`/board/${board._id}`);
+                          }}
+                          src={xsvgwhite}
+                          alt=''
+                        />
+                      </div>
+                      <div className='edit-cover'>
+                        <img
+                          onClick={() => {
+                            toggleModal('coverModal2');
+                          }}
+                          src={coverwhite}
+                          alt=''
+                        />
+                        <span>Cover</span>
+
+                        {modal === 'coverModal2' && (
+                          <Cover
+                            addCover={addCover}
+                            toggleModal={toggleModal}
+                          />
+                        )}
+                      </div>
+                    </section>
                   </section>
                 )}
               </div>
@@ -531,9 +570,11 @@ export const CardDetails = () => {
                   />
                 </div>
 
-                <Link to={`/board/${board._id}`}>
-                  <img src={xsvg} />
-                </Link>
+                {!card.cover && (
+                  <Link to={`/board/${board._id}`}>
+                    <img style={{ height: '20px', width: '20px' }} src={xsvg} />
+                  </Link>
+                )}
               </div>
 
               <div className='list-id-to-show'>
@@ -685,66 +726,74 @@ export const CardDetails = () => {
 
                   {card.attachments && (
                     <section className='card-details-attachments'>
+                      <div className='attachmets-title'>
+                        <img src={attachment} />
+                        <h3>Attachments:</h3>
+                      </div>
                       {card.attachments.map((attachment, idx) => {
                         return (
-                          <div key={idx} className='card-details-link'>
-                            <section className='img-container flex flex-center'>
-                              <img src={attachment.link} alt='img' />
-                            </section>
-                            <section className='link-description'>
-                              <span className='name bold'>
-                                {attachment.name}
-                              </span>
-                              <h4>
-                                Added
-                                {' ' + getStringTimeForImg(attachment) + ' '}
-                                <span
-                                  className='edit-cover-span'
-                                  style={{ textDecoration: 'underline' }}
-                                >
-                                  Comment
+                          <section key={idx} className='attachmets-links'>
+                            <div className='card-details-link'>
+                              <section className='img-container flex flex-center'>
+                                <img src={attachment.link} alt='img' />
+                              </section>
+                              <section className='link-description'>
+                                <span className='name-bold'>
+                                  {attachment.name}{' '}
+                                  <a href={attachment.link}>
+                                    <img src={arrowcross} alt='' />
+                                  </a>
                                 </span>
-                                -
+                                <section className='link-actions'>
+                                  <span>
+                                    Added
+                                    {' ' +
+                                      getStringTimeForImg(attachment) +
+                                      ' '}
+                                    -
+                                    <span
+                                      onClick={() => {
+                                        deleteAttachment(idx);
+                                      }}
+                                      className='edit-cover-span'
+                                      style={{ textDecoration: 'underline' }}
+                                    >
+                                      Delete
+                                    </span>
+                                    -
+                                    <span
+                                      className='edit-cover-span edit-name'
+                                      style={{ textDecoration: 'underline' }}
+                                      onClick={() => {
+                                        toggleModal(`editAttachment${idx}`);
+                                      }}
+                                    >
+                                      Edit
+                                      {modal === `editAttachment${idx}` && (
+                                        <EditAttachmentName
+                                          updateAttachmentName={
+                                            updateAttachmentName
+                                          }
+                                          toggleModal={toggleModal}
+                                          idx={idx}
+                                          attachment={attachment}
+                                        />
+                                      )}
+                                    </span>{' '}
+                                  </span>
+                                </section>
                                 <span
+                                  className='cover-span'
                                   onClick={() => {
-                                    deleteAttachment(idx);
+                                    addCover(attachment.link, 'img');
                                   }}
-                                  className='edit-cover-span'
-                                  style={{ textDecoration: 'underline' }}
                                 >
-                                  Delete
+                                  <img src={cover} alt='' />{' '}
+                                  <span>Make cover</span>
                                 </span>
-                                -
-                                <span
-                                  className='edit-cover-span edit-name'
-                                  style={{ textDecoration: 'underline' }}
-                                  onClick={() => {
-                                    toggleModal(`editAttachment${idx}`);
-                                  }}
-                                >
-                                  Edit
-                                  {modal === `editAttachment${idx}` && (
-                                    <EditAttachmentName
-                                      updateAttachmentName={
-                                        updateAttachmentName
-                                      }
-                                      toggleModal={toggleModal}
-                                      idx={idx}
-                                      attachment={attachment}
-                                    />
-                                  )}
-                                </span>{' '}
-                              </h4>
-                              <h4
-                                className='edit-cover-span'
-                                onClick={() => {
-                                  addCover(attachment.link, 'img');
-                                }}
-                              >
-                                Make cover
-                              </h4>
-                            </section>
-                          </div>
+                              </section>
+                            </div>
+                          </section>
                         );
                       })}
                     </section>
@@ -769,9 +818,10 @@ export const CardDetails = () => {
                   </div>
                   {isMapShown && (
                     <section className='location'>
-                      <h3>
-                        <img className='large-svg-map' src={mapsvg} /> location:
-                      </h3>
+                      <div className='location-title'>
+                        <img className='large-svg-map' src={mapsvg} />
+                        <h3>location:</h3>
+                      </div>
                       <section className='map'>
                         {isLoaded && (
                           <GoogleMap
