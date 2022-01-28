@@ -73,15 +73,6 @@ export const CardDetails = () => {
   const { listId, cardId } = useParams();
   const dispatch = useDispatch();
 
-  // // MODALS
-  // const [memberModal, toggleMemeberModal] = useState(false);
-  // const [labelsModal, toggleLabelsModal] = useState(false);
-  // const [checklistModal, toggleChecklistModal] = useState(false);
-  // const [datesModal, toggleDatesModal] = useState(false);
-  // const [attachmentModal, toggleAttachmentModal] = useState(false);
-  // const [coverModal, toggleCoverModal] = useState(false);
-
-  // EMPTYCARD
   const [card, setCard] = useState({
     id: '',
     description: 'hi',
@@ -96,6 +87,28 @@ export const CardDetails = () => {
 
   // EMPTYCOMMENT
   const [comment, setComment] = useState({ by: 'guest', txt: '' });
+
+  // const [msg, setMsg] = useState({ txt: '' });
+  // const [isBotMode, setIsBotMode] = useState(true);
+
+  // ADD COMMENTS
+  function addComment(ev) {
+    ev.preventDefault();
+    console.log(comment);
+    console.log(new Date().toString());
+    const newComment = {
+      ...comment,
+      createdAt: Date.now(),
+    };
+    const currCard = card;
+    currCard.comments
+      ? currCard.comments.push(newComment)
+      : (currCard.comments = [newComment]);
+    setCard(currCard);
+
+    updateCard();
+    setComment({ byMember: loggedInUser, txt: '' });
+  }
 
   // SETTING THE CURR CARD
   useEffect(async () => {
@@ -168,23 +181,6 @@ export const CardDetails = () => {
     setComment({ byMember: loggedInUser, txt: value });
   }
 
-  // ADD COMMENTS
-  function addComment(ev) {
-    ev.preventDefault();
-    console.log(comment);
-    console.log(new Date().toString());
-    const newComment = {
-      ...comment,
-      createdAt: Date.now(),
-    };
-    const currCard = card;
-    currCard.comments
-      ? currCard.comments.push(newComment)
-      : (currCard.comments = [newComment]);
-    setCard(currCard);
-    updateCard();
-    setComment({ byMember: loggedInUser, txt: '' });
-  }
   // ADD DATE
   function addDate(date) {
     const months = [
