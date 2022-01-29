@@ -76,6 +76,9 @@
 		justify-content: flex-start;
 		flex-wrap: wrap;
 
+		.activity-img-div {
+			float: left;
+		}
 		.activity-header {
 			display: flex;
 			flex-direction: row;
@@ -85,6 +88,7 @@
 			padding: 15px 5px;
 			font-size: 1rem;
 			font-weight: 700;
+			width: 100%;
 		}
 
 		ul {
@@ -95,12 +99,34 @@
 			font-weight: 400;
 			margin: $s-1 0;
 			cursor: default;
+			border-bottom: 1px solid rgba(9, 30, 66, 0.12941176470588237);
 		}
 
 		.activity-img {
 			width: 16px;
 			height: 16px;
 			// margin-right: $s-2;
+		}
+
+		.activity-text {
+			margin-left: 40px;
+			padding: 6px 0px 8px 0px;
+		}
+
+		.user-profile-div {
+			height: 100%;
+			width: 36px;
+		}
+
+		.user-avatar-btn {
+			font-weight: 700;
+			cursor: pointer;
+			height: 32px;
+			width: 32px;
+			background-color: darkcyan;
+			border-radius: 50%;
+			color: $b1;
+			float: left;
 		}
 	}
 
