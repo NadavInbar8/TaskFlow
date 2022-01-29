@@ -33,9 +33,7 @@ export const BoardHeader = ({setForceRender, filterBoard, forceRender}) => {
 	const {loggedInUser} = useSelector((state) => ({
 		loggedInUser: state.userModule.loggedInUser,
 	}));
-	const {users} = useSelector((state) => ({
-		users: state.userModule.users,
-	}));
+	const {users} = useSelector((state) => ({users: state.userModule.users}));
 	const [menuOpen, setMenuOpen] = useState(false);
 
 	const dispatch = useDispatch();
@@ -73,8 +71,8 @@ export const BoardHeader = ({setForceRender, filterBoard, forceRender}) => {
 		setForceRender(!forceRender);
 	};
 
-	const toggleModal = (type) => {
-		dispatch(openModal(type));
+	const toggleModal = async (type) => {
+		await dispatch(openModal(type));
 		// switch (type) {
 		// 	case 'filter':
 		// 		setFilterModal(!filterModal);
