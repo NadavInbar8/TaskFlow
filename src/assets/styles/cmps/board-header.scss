@@ -78,6 +78,16 @@
 		border-radius: 25em;
 	}
 
+	.member-avatar-btn {
+		cursor: pointer;
+		height: 28px;
+		width: 28px;
+		background-color: darkcyan;
+		border-radius: 50%;
+		color: $b1;
+		float: left;
+	}
+
 	.member-icon:first-child {
 		background-color: darkcyan;
 		color: $b1;
