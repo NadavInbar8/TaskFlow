@@ -12,6 +12,7 @@ import {
   updateBoard,
   openModal,
 } from '../store/board.action.js';
+import { setUsers } from '../store/user.action.js';
 
 // Cmps
 import { BoardHeader } from '../cmps/boardCmps/BoardHeader.jsx';
@@ -218,10 +219,10 @@ export const Board = () => {
     updatedBoard.groups[listIdx].editMode = false;
     let activity = {
       name: loggedInUser.fullname,
-      msg: `added a card in group ${list.title}`,
+      msg: `added a card in group: ${list.title}`,
       time: getNiceDate(),
     };
-    updateBoard.activities.push(activity);
+    updatedBoard.activities.push(activity);
     setForceRender(!forceRender);
     dispatch(updateBoard(updatedBoard));
     socket.emit('updateBoard', updatedBoard);
@@ -265,10 +266,10 @@ export const Board = () => {
     setNewList(false);
     let activity = {
       name: loggedInUser.fullname,
-      msg: `added a Group in Board  ${updatedBoard.title}`,
+      msg: `added a Group in Board:  ${updatedBoard.title}`,
       time: getNiceDate(),
     };
-    updateBoard.activities.push(activity);
+    updatedBoard.activities.push(activity);
     dispatch(updateBoard(updatedBoard));
     socket.emit('updateBoard', updatedBoard);
   };
@@ -282,10 +283,10 @@ export const Board = () => {
     updatedBoard.groupsOrder.splice(groupIdx, 1);
     let activity = {
       name: loggedInUser.fullname,
-      msg: `deleted a Group in Board  ${updatedBoard.title}`,
+      msg: `deleted a Group in Board:  ${updatedBoard.title}`,
       time: getNiceDate(),
     };
-    updateBoard.activities.push(activity);
+    updatedBoard.activities.push(activity);
     setForceRender(!forceRender);
     await dispatch(updateBoard(updatedBoard));
     socket.emit('updateBoard', updatedBoard);
@@ -300,10 +301,10 @@ export const Board = () => {
     updatedBoard.groups[listIdx].tasks[cardIdx] = editedCard;
     let activity = {
       name: loggedInUser.fullname,
-      msg: `edited a Card in Group  ${list.title}`,
+      msg: `edited a Card in Group:  ${list.title}`,
       time: getNiceDate(),
     };
-    updateBoard.activities.push(activity);
+    updatedBoard.activities.push(activity);
     dispatch(updateBoard(updatedBoard));
     socket.emit('updateBoard', updatedBoard);
 
@@ -324,10 +325,10 @@ export const Board = () => {
     updatedBoard.groups[listIdx].tasks.push(copiedCard);
     let activity = {
       name: loggedInUser.fullname,
-      msg: `copied a Card in Group  ${list.title}`,
+      msg: `copied a Card in Group:  ${list.title}`,
       time: getNiceDate(),
     };
-    updateBoard.activities.push(activity);
+    updatedBoard.activities.push(activity);
     closeEditModal();
     dispatch(updateBoard(updatedBoard));
     socket.emit('updateBoard', updatedBoard);
@@ -348,10 +349,10 @@ export const Board = () => {
     updatedBoard.groupsOrder.push(copiedList.id);
     let activity = {
       name: loggedInUser.fullname,
-      msg: `copied a Group in Board  ${updatedBoard.title}`,
+      msg: `copied a Group in Board: ${updatedBoard.title}`,
       time: getNiceDate(),
     };
-    updateBoard.activities.push(activity);
+    updatedBoard.activities.push(activity);
     closeListModal();
     dispatch(updateBoard(updatedBoard));
     socket.emit('updateBoard', updatedBoard);
@@ -374,10 +375,10 @@ export const Board = () => {
     updatedBoard.groups[listIdx].tasksIds.splice(cardIdx, 1);
     let activity = {
       name: loggedInUser.fullname,
-      msg: `deleted a Card in Group  ${list.title}`,
+      msg: `deleted a Card in Group:  ${list.title}`,
       time: getNiceDate(),
     };
-    updateBoard.activities.push(activity);
+    updatedBoard.activities.push(activity);
     closeEditModal();
     setForceRender(!forceRender);
     dispatch(updateBoard(updatedBoard));
@@ -394,7 +395,7 @@ export const Board = () => {
     if (!user) user = userService.connectGuestUser();
     setLoggedInUser(user);
   };
-  const [loggedInUser, setLoggedInUser] = useState();
+  // const [loggedInUser, setLoggedInUser] = useState();
   const { users } = useSelector((state) => ({
     users: state.userModule.users,
   }));
