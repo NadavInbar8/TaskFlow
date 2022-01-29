@@ -78,12 +78,13 @@ export const CardDetails = () => {
   useEffect(() => {
     getUsers();
 
-    socket.on('setUpdatedBoard', (board) => {
-      dispatch(updateBoard(board));
-    });
     // socket.on('setUpdatedBoard', (board) => {
     //   dispatch(updateBoard(board));
     // });
+    socket.on('setUpdatedCard', (card) => {
+      setCard(card);
+      //   updateCard();
+    });
   }, []);
 
   useEffect(async () => {
@@ -145,7 +146,7 @@ export const CardDetails = () => {
     const updatedBoard = { ...board };
     updatedBoard.groups[listIdx].tasks[currCardIdx] = card;
     updatedBoard.activities.push(activity);
-    dispatch(updateBoard(updatedBoard, activity));
+    dispatch(updateBoard(updatedBoard));
     socket.emit('updateBoard', updatedBoard);
   }
 
@@ -172,6 +173,7 @@ export const CardDetails = () => {
       ? currCard.comments.push(newComment)
       : (currCard.comments = [newComment]);
     setCard(currCard);
+    socket.emit('updateCard', card);
     let activity = `${loggedInUser.fullname} added a comment to card-${
       card.title
     } at ${getNiceDate()}`;
@@ -183,6 +185,7 @@ export const CardDetails = () => {
     const currCard = card;
     currCard.comments.splice(idx, 1);
     setCard(currCard);
+    socket.emit('updateCard', card);
     // console.log(currCard);
     let activity = `${loggedInUser.fullname} deleted a comment at card-${
       card.title
@@ -215,6 +218,7 @@ export const CardDetails = () => {
       overDue: isOverDue,
     };
     setCard(currCard);
+    socket.emit('updateCard', card);
     let activity = `${loggedInUser.fullname} added a date to card-${
       card.title
     } at ${getNiceDate()}`;
@@ -226,6 +230,7 @@ export const CardDetails = () => {
     const currCard = card;
     currCard.date.isComplete = !currCard.date.isComplete;
     setCard(currCard);
+    socket.emit('updateCard', card);
     let activity = `${loggedInUser.fullname} marked ${
       card.title
     } date at ${getNiceDate()}`;
@@ -237,6 +242,7 @@ export const CardDetails = () => {
     const currCard = card;
     currCard.labels ? currCard.labels.push(label) : (currCard.labels = [label]);
     setCard(currCard);
+    socket.emit('updateCard', card);
     let activity = `${loggedInUser.fullname} added a label at card-${
       card.title
     } at ${getNiceDate()}`;
@@ -272,6 +278,7 @@ export const CardDetails = () => {
       ? currCard.checkLists.push(checkList)
       : (currCard.checkLists = [checkList]);
     setCard(currCard);
+    socket.emit('updateCard', card);
     let activity = `${loggedInUser.fullname} added a checklist at card-${
       card.title
     } at ${getNiceDate()}`;
@@ -284,6 +291,7 @@ export const CardDetails = () => {
     const currCard = card;
     currCard.checkLists[idx].items.push(item);
     setCard(currCard);
+    socket.emit('updateCard', card);
     let activity = `${loggedInUser.fullname} updated a checklist at card-${
       card.title
     } at ${getNiceDate()}`;
@@ -295,6 +303,7 @@ export const CardDetails = () => {
     currCard.checkLists[idx].items[itemIdx].isDone =
       !card.checkLists[idx].items[itemIdx].isDone;
     setCard(currCard);
+    socket.emit('updateCard', card);
     let activity = `${loggedInUser.fullname} updated a checklist at card-${
       card.title
     } at ${getNiceDate()}`;
@@ -305,6 +314,7 @@ export const CardDetails = () => {
     const currCard = card;
     currCard.checkLists[listIdx].items.splice(itemIdx, 1);
     setCard(currCard);
+    socket.emit('updateCard', card);
     let activity = `${loggedInUser.fullname} updated a checklist at card-${
       card.title
     } at ${getNiceDate()}`;
@@ -315,6 +325,7 @@ export const CardDetails = () => {
     const currCard = card;
     currCard.checkLists.splice(checkListIdx, 1);
     setCard(currCard);
+    socket.emit('updateCard', card);
     let activity = `${loggedInUser.fullname} deleted a checklist at card-${
       card.title
     } at ${getNiceDate()}`;
@@ -326,6 +337,7 @@ export const CardDetails = () => {
     const currCard = card;
     currCard.cover = { cover, type };
     setCard(currCard);
+    socket.emit('updateCard', card);
     let activity = `${loggedInUser.fullname} added a cover at card-${
       card.title
     } at ${getNiceDate()}`;
@@ -339,6 +351,7 @@ export const CardDetails = () => {
       ? currCard.attachments.push(link)
       : (currCard.attachments = [link]);
     setCard(currCard);
+    socket.emit('updateCard', card);
     let activity = `${loggedInUser.fullname} attached a link at card-${
       card.title
     } at ${getNiceDate()}`;
@@ -351,6 +364,7 @@ export const CardDetails = () => {
     if (currCard.attachments.length > 1) currCard.attachments.splice(1, idx);
     else currCard.attachments.pop();
     setCard(currCard);
+    socket.emit('updateCard', card);
     let activity = `${loggedInUser.fullname} has deleted a link at card-${
       card.title
     } at ${getNiceDate()}`;
@@ -381,6 +395,7 @@ export const CardDetails = () => {
     const currCard = card;
     currCard.attachments[idx].name = name;
     setCard(currCard);
+    socket.emit('updateCard', card);
     let activity = `${loggedInUser.fullname} updated attachment name at card-${
       card.title
     } at ${getNiceDate()}`;
@@ -458,6 +473,7 @@ export const CardDetails = () => {
 
         currCard.users.splice(userIdx, 1);
         setCard(currCard);
+        socket.emit('updateCard', card);
         console.log(currCard);
         let activity = `${loggedInUser.fullname} removed ${
           user.fullname
@@ -467,6 +483,7 @@ export const CardDetails = () => {
         console.log(doesUserExist);
         currCard.users ? currCard.users.push(user) : (currCard.users = [user]);
         setCard(currCard);
+        socket.emit('updateCard', card);
         console.log(currCard);
         let activity = `${loggedInUser.fullname} added ${
           user.fullname
@@ -476,6 +493,7 @@ export const CardDetails = () => {
     } else {
       currCard.users = [user];
       setCard(currCard);
+      socket.emit('updateCard', card);
       console.log(currCard);
       let activity = `${loggedInUser.fullname} added ${
         user.fullname
