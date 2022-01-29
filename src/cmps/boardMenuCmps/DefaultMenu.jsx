@@ -3,7 +3,8 @@ import blackBoardImg from '../../assets/imgs/black-trello.svg';
 import archive from '../../assets/imgs/archive.svg';
 import backBtn from '../../assets/imgs/back-btn.svg';
 import trash from '../../assets/imgs/small-trash.svg';
-import activity from '../../assets/imgs/menuActivity.svg';
+
+import {Activity} from './Activity.jsx';
 
 export const DefaultMenu = ({onSetMenuTitle, onSetCmpToRender, onOpenArchive, onRemoveBoard, board}) => {
 	const getBackground = () => {
@@ -56,12 +57,8 @@ export const DefaultMenu = ({onSetMenuTitle, onSetCmpToRender, onOpenArchive, on
 				<h5>Remove board</h5>
 			</div>
 			<hr className='activity-hr'></hr>
-			<div className='menu-board-actions flex flex-row pointer activity-div'>
-				<div className='activity-header'>
-					<img src={activity} className='activity-img' alt='' />
-					<span className='acitivity-h2'>Activity</span>
-				</div>
-			</div>
+
+			<Activity board={board} />
 		</section>
 	);
 };

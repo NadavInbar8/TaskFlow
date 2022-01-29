@@ -5,6 +5,7 @@ import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
 import { io } from 'socket.io-client';
 
 import { updateBoard, openModal } from '../store/board.action.js';
+import { setUsers } from '../store/user.action.js';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import {
   Members,
@@ -49,11 +50,10 @@ export const CardDetails = () => {
   const { modal } = useSelector((state) => ({
     modal: state.boardModule.modal,
   }));
-  const [loggedInUser, setLoggedInUser] = useState(
-    userService.getLoggedinUser()
-  );
-  const [users, setUsers] = useState([]);
-
+  const [loggedInUser, setLoggedInUser] = useState();
+  const { users } = useSelector((state) => ({
+    users: state.userModule.users,
+  }));
   const { listId, cardId } = useParams();
 
   const dispatch = useDispatch();
@@ -73,10 +73,8 @@ export const CardDetails = () => {
   const [isMapShown, setIsMapShown] = useState(false);
 
   useEffect(() => {
-    if (!loggedInUser) userService.connectGuestUser();
-  }, []);
-  useEffect(() => {
-    getUsers();
+    loadUsers();
+    loadUser();
 
     // socket.on('setUpdatedBoard', (board) => {
     //   dispatch(updateBoard(board));
@@ -94,10 +92,16 @@ export const CardDetails = () => {
     if (card.location) setIsMapShown(true);
   }, [card]);
 
-  async function getUsers() {
+  const loadUsers = async () => {
     const users = await userService.getUsers();
-    setUsers(users);
-  }
+    dispatch(setUsers(users));
+  };
+
+  const loadUser = () => {
+    let user = userService.getLoggedinUser();
+    if (!user) user = userService.connectGuestUser();
+    setLoggedInUser(user);
+  };
 
   function getCard() {
     if (!board) return;
@@ -478,7 +482,7 @@ export const CardDetails = () => {
         socket.emit('updateCard', card);
         console.log(currCard);
         let activity = `${loggedInUser.fullName} removed ${
-          user.fullname
+          user.fullName
         } from a card at card-${card.title} at ${getNiceDate()}`;
         updateCard(activity);
       } else {
@@ -488,7 +492,7 @@ export const CardDetails = () => {
         socket.emit('updateCard', card);
         console.log(currCard);
         let activity = `${loggedInUser.fullName} added ${
-          user.fullname
+          user.fullName
         } to a card at card-${card.title} at ${getNiceDate()}`;
         updateCard(activity);
       }
@@ -498,7 +502,7 @@ export const CardDetails = () => {
       socket.emit('updateCard', card);
       console.log(currCard);
       let activity = `${loggedInUser.fullName} added ${
-        user.fullname
+        user.fullName
       } to a card at card-${card.title} at ${getNiceDate()}`;
       updateCard(activity);
     }
@@ -928,7 +932,7 @@ export const CardDetails = () => {
                     onSubmit={addComment}
                     action=''
                   >
-                    <div className='user-logo'>{loggedInUser.initials}</div>
+                    <div className='user-logo'>{loggedInUser?.initials}</div>
                     <input
                       value={comment.txt}
                       name='comment'
@@ -953,7 +957,7 @@ export const CardDetails = () => {
 
                               <div className='comment-content'>
                                 <span className='comment-user-fullname'>
-                                  {comment.byMember.fullname} At-
+                                  {comment.byMember.fullName} At-
                                   <span>
                                     &nbsp;{getStringTimeForImg(comment)}
                                   </span>
