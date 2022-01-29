@@ -1,7 +1,8 @@
 import activity from '../../assets/imgs/menuActivity.svg';
 
 export const Activity = ({board}) => {
-	// const activitiesToRender = board.activites.reverse();
+	const activitiesToRender = board?.activities?.reverse();
+	console.log(activitiesToRender);
 	return (
 		<section className='menu-board-actions flex flex-row pointer activity-div'>
 			<div className='activity-header'>
@@ -10,9 +11,9 @@ export const Activity = ({board}) => {
 			</div>
 			<div className='activity-list-container'>
 				<ul className='activity-list'>
-					{/* {activitiesToRender.map(activity => {
-                        <li>{activity}</li>
-                    })} */}
+					{activitiesToRender?.map((activity) => {
+						return <li>{activity}</li>;
+					})}
 				</ul>
 			</div>
 		</section>

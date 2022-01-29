@@ -337,21 +337,21 @@ function _getEmptyBoard(board) {
 			},
 		],
 		activities: [
-			{
-				id: 'a101',
-				txt: 'Changed Color',
-				createdAt: 154514,
-				byMember: {
-					_id: 'u101',
-					fullname: 'Abi Abambi',
-					imgUrl: 'http://some-img',
-					initials: 'AA',
-				},
-				task: {
-					id: 'c101',
-					title: 'Replace Logo',
-				},
-			},
+			// {
+			// 	id: 'a101',
+			// 	txt: 'Changed Color',
+			// 	createdAt: 154514,
+			// 	byMember: {
+			// 		_id: 'u101',
+			// 		fullname: 'Abi Abambi',
+			// 		imgUrl: 'http://some-img',
+			// 		initials: 'AA',
+			// 	},
+			// 	task: {
+			// 		id: 'c101',
+			// 		title: 'Replace Logo',
+			// 	},
+			// },
 		],
 		// for monday
 		cmpsOrder: ['status-picker', 'member-picker', 'date-picker'],
