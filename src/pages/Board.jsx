@@ -22,6 +22,7 @@ import { utilService } from '../services/util.service.js';
 
 // Services
 import addUser from '../assets/imgs/add-user.png';
+import { userService } from '../services/user.service.js';
 
 // Libs
 import { over } from 'lodash';
@@ -50,6 +51,11 @@ export const Board = () => {
     (state) => ({ board: state.boardModule.currBoard }),
     shallowEqual
   );
+
+  const [loggedInUser, setLoggedInUser] = useState(
+    userService.getLoggedinUser()
+  );
+
   const dispatch = useDispatch();
 
   const [data, setData] = useState(null);
@@ -124,6 +130,7 @@ export const Board = () => {
   }, [forceRender]);
 
   useEffect(() => {
+    if (!loggedInUser) userService.connectGuestUser();
     dispatch(loadBoard(boardId));
     socket.on('setUpdatedBoard', (board) => {
       dispatch(updateBoard(board));

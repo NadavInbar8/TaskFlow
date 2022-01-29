@@ -5,6 +5,7 @@ import {GoogleMap, useJsApiLoader, Marker} from '@react-google-maps/api';
 import {io} from 'socket.io-client';
 
 import {updateBoard, openModal} from '../store/board.action.js';
+import {setUsers} from '../store/user.action.js';
 import {useSelector, useDispatch, shallowEqual} from 'react-redux';
 import {
 	Members,
@@ -42,31 +43,17 @@ import {socket} from '../RootCmp.jsx';
 
 export const CardDetails = () => {
 	const history = useHistory();
-	// CURRBOARD
 	const {board} = useSelector((state) => ({board: state.boardModule.currBoard}), shallowEqual);
-
-	const [loggedInUser, setLoggedInUser] = useState();
-	const [users, setUsers] = useState([]);
-
-	async function getUsers() {
-		const users = await userService.getUsers();
-		setUsers(users);
-	}
-	// const socket = io.connect('http://localhost:3030');
-
-	useEffect(() => {
-		getUsers();
-		socket.on('setUpdatedBoard', (board) => {
-			dispatch(updateBoard(board));
-		});
-setLoggedInUser(userService.getLoggedinUser());
-	}, []);
-	// Modal state
 	const {modal} = useSelector((state) => ({
 		modal: state.boardModule.modal,
 	}));
+	const [loggedInUser, setLoggedInUser] = useState();
+	const {users} = useSelector((state) => ({
+		users: state.userModule.users,
+	}));
 
 	const {listId, cardId} = useParams();
+
 	const dispatch = useDispatch();
 
 	const [card, setCard] = useState({
@@ -80,14 +67,93 @@ setLoggedInUser(userService.getLoggedinUser());
 		attachedLinks: [],
 		cover: '',
 	});
-
-	// EMPTYCOMMENT
 	const [comment, setComment] = useState({by: 'guest', txt: ''});
+	const [isMapShown, setIsMapShown] = useState(false);
 
-	// const [msg, setMsg] = useState({ txt: '' });
-	// const [isBotMode, setIsBotMode] = useState(true);
+	useEffect(() => {
+		loadUsers();
+		loadUser();
 
-	// ADD COMMENTS
+		// socket.on('setUpdatedBoard', (board) => {
+		//   dispatch(updateBoard(board));
+		// });
+		socket.on('setUpdatedCard', (card) => {
+			setCard(card);
+			//   updateCard();
+		});
+	}, []);
+
+	useEffect(async () => {
+		setCard(getCard());
+	}, []);
+	useEffect(async () => {
+		if (card.location) setIsMapShown(true);
+	}, [card]);
+
+	const loadUsers = async () => {
+		const users = await userService.getUsers();
+		dispatch(setUsers(users));
+	};
+
+	const loadUser = () => {
+		let user = userService.getLoggedinUser();
+		if (!user) user = userService.connectGuestUser();
+		setLoggedInUser(user);
+	};
+
+	function getCard() {
+		if (!board) return;
+		let list = board.groups.find((group) => group.id === listId);
+		let currCard = list.tasks.find((task) => task.id === cardId);
+		return currCard;
+	}
+
+	function getNiceDate() {
+		return `${new Date().toDateString()} ${new Date().getHours() + ':' + new Date().getMinutes()}`;
+	}
+
+	function handleChange({target}) {
+		const field = target.name;
+		const value = target.value;
+		setCard({...card, [field]: value});
+	}
+
+	// Card crud//////////////////
+	function deleteCard() {
+		console.log(board);
+		let listIdx = board.groups.findIndex((group) => group.id === listId);
+		let currCardIdx = board.groups[listIdx].tasks.findIndex((task) => task.id === cardId);
+		const updatedBoard = {...board};
+		updatedBoard.groups[listIdx].tasks.length > 1
+			? updatedBoard.groups[listIdx].tasks.splice(currCardIdx, 1)
+			: updatedBoard.groups[listIdx].tasks.pop();
+		updatedBoard.groups[listIdx].tasksIds.splice(currCardIdx, 1);
+		let activity = `${loggedInUser.fullname} deleted a card at board-${board.title} at ${getNiceDate()}`;
+		dispatch(updateBoard(updatedBoard));
+		socket.emit('updateBoard', updatedBoard);
+		history.push(`/board/${board._id}`);
+	}
+
+	function updateCard(activity) {
+		let listIdx = board.groups.findIndex((group) => group.id === listId);
+		let currCardIdx = board.groups[listIdx].tasks.findIndex((task) => task.id === cardId);
+		const updatedBoard = {...board};
+		updatedBoard.groups[listIdx].tasks[currCardIdx] = card;
+		updatedBoard.activities.push(activity);
+		dispatch(updateBoard(updatedBoard));
+		socket.emit('updateBoard', updatedBoard);
+	}
+
+	// COMMENTS
+
+	// creat comment
+	function handleCommentChange({target}) {
+		const field = target.name;
+		const value = target.value;
+		setComment({byMember: loggedInUser, txt: value});
+	}
+
+	//   add
 	function addComment(ev) {
 		ev.preventDefault();
 		console.log(comment);
@@ -99,76 +165,20 @@ setLoggedInUser(userService.getLoggedinUser());
 		const currCard = card;
 		currCard.comments ? currCard.comments.push(newComment) : (currCard.comments = [newComment]);
 		setCard(currCard);
-
-		updateCard();
+		socket.emit('updateCard', card);
+		let activity = `${loggedInUser.fullname} added a comment to card-${card.title} at ${getNiceDate()}`;
+		updateCard(activity);
 		setComment({byMember: loggedInUser, txt: ''});
 	}
-
-	// SETTING THE CURR CARD
-	useEffect(async () => {
-		setCard(getCard());
-	}, []);
-
-	const [isMapShown, setIsMapShown] = useState(false);
-
-	useEffect(async () => {
-		if (card.location) setIsMapShown(true);
-	}, [card]);
-
-	// GET CARD FROM CURR BOARD USING PARAMS
-	function getCard() {
-		if (!board) return;
-		let list = board.groups.find((group) => group.id === listId);
-		let currCard = list.tasks.find((task) => task.id === cardId);
-		return currCard;
-	}
-
-	// HANDLE SIMPLE INPUTS CHANGE
-	function handleChange({target}) {
-		const field = target.name;
-		const value = target.value;
-		setCard({...card, [field]: value});
-	}
-
-	// DELETING...
-	function deleteCard() {
-		console.log(board);
-		let listIdx = board.groups.findIndex((group) => group.id === listId);
-		let currCardIdx = board.groups[listIdx].tasks.findIndex((task) => task.id === cardId);
-		console.log(listIdx);
-		console.log(currCardIdx);
-		// console.log(board);
-		const updatedBoard = {...board};
-		updatedBoard.groups[listIdx].tasks.length > 1
-			? updatedBoard.groups[listIdx].tasks.splice(currCardIdx, 1)
-			: updatedBoard.groups[listIdx].tasks.pop();
-		updatedBoard.groups[listIdx].tasksIds.splice(currCardIdx, 1);
-		console.log(updatedBoard);
-		// console.log(board);
-		// console.log('listIdx', listIdx);
-		// console.log('currCardIdx', currCardIdx);
-		// console.log('updatedBoard', updatedBoard);
-		dispatch(updateBoard(updatedBoard));
-		socket.emit('updateBoard', updatedBoard);
-
-		history.push(`/board/${board._id}`);
-	}
-
-	// UPDATING CARD,CURRBOARD IN STORE ,BOARDS IN STORE , AND ALL BOARDS IN DATABASE
-	function updateCard(activity) {
-		let listIdx = board.groups.findIndex((group) => group.id === listId);
-		let currCardIdx = board.groups[listIdx].tasks.findIndex((task) => task.id === cardId);
-		const updatedBoard = {...board};
-		updatedBoard.groups[listIdx].tasks[currCardIdx] = card;
-		dispatch(updateBoard(updatedBoard, activity));
-		socket.emit('updateBoard', updatedBoard);
-	}
-
-	// CREATING COMMENT
-	function handleCommentChange({target}) {
-		const field = target.name;
-		const value = target.value;
-		setComment({byMember: loggedInUser, txt: value});
+	// remove
+	function deleteComment(idx) {
+		const currCard = card;
+		currCard.comments.splice(idx, 1);
+		setCard(currCard);
+		socket.emit('updateCard', card);
+		// console.log(currCard);
+		let activity = `${loggedInUser.fullname} deleted a comment at card-${card.title} at ${getNiceDate()}`;
+		updateCard(activity);
 	}
 
 	// ADD DATE
@@ -196,7 +206,9 @@ setLoggedInUser(userService.getLoggedinUser());
 			overDue: isOverDue,
 		};
 		setCard(currCard);
-		updateCard();
+		socket.emit('updateCard', card);
+		let activity = `${loggedInUser.fullname} added a date to card-${card.title} at ${getNiceDate()}`;
+		updateCard(activity);
 	}
 
 	function toggleDateComplete() {
@@ -204,15 +216,9 @@ setLoggedInUser(userService.getLoggedinUser());
 		const currCard = card;
 		currCard.date.isComplete = !currCard.date.isComplete;
 		setCard(currCard);
-		updateCard();
-	}
-
-	function deleteComment(idx) {
-		const currCard = card;
-		currCard.comments.splice(idx, 1);
-		setCard(currCard);
-		// console.log(currCard);
-		updateCard();
+		socket.emit('updateCard', card);
+		let activity = `${loggedInUser.fullname} marked ${card.title} date at ${getNiceDate()}`;
+		updateCard(activity);
 	}
 
 	// ADD LABEL
@@ -220,23 +226,25 @@ setLoggedInUser(userService.getLoggedinUser());
 		const currCard = card;
 		currCard.labels ? currCard.labels.push(label) : (currCard.labels = [label]);
 		setCard(currCard);
-		// console.log(currCard);
-		updateCard();
+		socket.emit('updateCard', card);
+		let activity = `${loggedInUser.fullname} added a label at card-${card.title} at ${getNiceDate()}`;
+		updateCard(activity);
 	}
 
 	function deleteLabel(idx) {
 		const currCard = card;
 		currCard.labels.splice(idx, 1);
 		setCard(currCard);
-		updateCard();
+		let activity = `${loggedInUser.fullname} deleted a label at card-${card.title} at ${getNiceDate()}`;
 		console.log(currCard);
+		updateCard(activity);
 	}
 
 	function updateLabelsList(newlabels) {
-		console.log('lalallalala');
-		console.log(newlabels);
 		const newBoard = board;
 		newBoard.labelOptions = newlabels;
+		let activity = `${loggedInUser.fullname} updated the label list at card-${card.title} at ${getNiceDate()}`;
+		newBoard.activities.push(activity);
 		dispatch(updateBoard(newBoard));
 		socket.emit('updateBoard', newBoard);
 	}
@@ -246,8 +254,10 @@ setLoggedInUser(userService.getLoggedinUser());
 		const currCard = card;
 		currCard.checkLists?.length > 0 ? currCard.checkLists.push(checkList) : (currCard.checkLists = [checkList]);
 		setCard(currCard);
+		socket.emit('updateCard', card);
+		let activity = `${loggedInUser.fullname} added a checklist at card-${card.title} at ${getNiceDate()}`;
 		// console.log(currCard);
-		updateCard();
+		updateCard(activity);
 	}
 
 	function saveItemToCheckList(str, idx) {
@@ -255,37 +265,46 @@ setLoggedInUser(userService.getLoggedinUser());
 		const currCard = card;
 		currCard.checkLists[idx].items.push(item);
 		setCard(currCard);
-		updateCard();
+		socket.emit('updateCard', card);
+		let activity = `${loggedInUser.fullname} updated a checklist at card-${card.title} at ${getNiceDate()}`;
+		updateCard(activity);
 	}
 
 	function updateCheckList(newCheckList, idx, itemIdx) {
 		const currCard = card;
 		currCard.checkLists[idx].items[itemIdx].isDone = !card.checkLists[idx].items[itemIdx].isDone;
 		setCard(currCard);
-		updateCard();
+		socket.emit('updateCard', card);
+		let activity = `${loggedInUser.fullname} updated a checklist at card-${card.title} at ${getNiceDate()}`;
+		updateCard(activity);
 	}
 
 	function deleteItemFromCheckList(listIdx, itemIdx) {
 		const currCard = card;
 		currCard.checkLists[listIdx].items.splice(itemIdx, 1);
 		setCard(currCard);
-		updateCard();
+		socket.emit('updateCard', card);
+		let activity = `${loggedInUser.fullname} updated a checklist at card-${card.title} at ${getNiceDate()}`;
+		updateCard(activity);
 	}
 
 	function deleteCheckList(checkListIdx) {
 		const currCard = card;
 		currCard.checkLists.splice(checkListIdx, 1);
 		setCard(currCard);
-		updateCard();
+		socket.emit('updateCard', card);
+		let activity = `${loggedInUser.fullname} deleted a checklist at card-${card.title} at ${getNiceDate()}`;
+		updateCard(activity);
 	}
 
 	// COVER
 	function addCover(cover, type) {
 		const currCard = card;
 		currCard.cover = {cover, type};
-
 		setCard(currCard);
-		updateCard();
+		socket.emit('updateCard', card);
+		let activity = `${loggedInUser.fullname} added a cover at card-${card.title} at ${getNiceDate()}`;
+		updateCard(activity);
 	}
 	// ATTACHMENTS
 	function attachLink(link) {
@@ -293,7 +312,9 @@ setLoggedInUser(userService.getLoggedinUser());
 		const currCard = card;
 		currCard.attachments ? currCard.attachments.push(link) : (currCard.attachments = [link]);
 		setCard(currCard);
-		updateCard();
+		socket.emit('updateCard', card);
+		let activity = `${loggedInUser.fullname} attached a link at card-${card.title} at ${getNiceDate()}`;
+		updateCard(activity);
 	}
 
 	function deleteAttachment(idx) {
@@ -302,7 +323,9 @@ setLoggedInUser(userService.getLoggedinUser());
 		if (currCard.attachments.length > 1) currCard.attachments.splice(1, idx);
 		else currCard.attachments.pop();
 		setCard(currCard);
-		updateCard();
+		socket.emit('updateCard', card);
+		let activity = `${loggedInUser.fullname} has deleted a link at card-${card.title} at ${getNiceDate()}`;
+		updateCard(activity);
 	}
 
 	function deleteCover() {
@@ -313,21 +336,25 @@ setLoggedInUser(userService.getLoggedinUser());
 	}
 
 	// ATTACHMENTS
-	function attachLink(link) {
-		console.log(link);
-		const currCard = card;
-		currCard.attachments ? currCard.attachments.push(link) : (currCard.attachments = [link]);
-		setCard(currCard);
-		updateCard();
-		console.log(card);
-	}
+	//   function attachLink(link) {
+	//     console.log(link);
+	//     const currCard = card;
+	//     currCard.attachments
+	//       ? currCard.attachments.push(link)
+	//       : (currCard.attachments = [link]);
+	//     setCard(currCard);
+	//     updateCard();
+	//     console.log(card);
+	//   }
 
 	function updateAttachmentName(name, idx) {
 		toggleModal('editAttachment');
 		const currCard = card;
 		currCard.attachments[idx].name = name;
 		setCard(currCard);
-		updateCard();
+		socket.emit('updateCard', card);
+		let activity = `${loggedInUser.fullname} updated attachment name at card-${card.title} at ${getNiceDate()}`;
+		updateCard(activity);
 	}
 
 	function getStringTimeForImg(attachment) {
@@ -371,6 +398,10 @@ setLoggedInUser(userService.getLoggedinUser());
 
 		newBoard.groups[chosenGroupIdx].tasks.splice(idx, 0, currCard);
 		console.log(newBoard);
+
+		let activity = `${loggedInUser.fullname} moved a card to another list at board-${board.title} at ${getNiceDate()}`;
+		newBoard.activities.push(activity);
+
 		dispatch(updateBoard(newBoard));
 		socket.emit('updateBoard', newBoard);
 
@@ -390,34 +421,38 @@ setLoggedInUser(userService.getLoggedinUser());
 
 				currCard.users.splice(userIdx, 1);
 				setCard(currCard);
+				socket.emit('updateCard', card);
 				console.log(currCard);
-				updateCard();
+				let activity = `${loggedInUser.fullname} removed ${user.fullname} from a card at card-${
+					card.title
+				} at ${getNiceDate()}`;
+				updateCard(activity);
 			} else {
 				console.log(doesUserExist);
 				currCard.users ? currCard.users.push(user) : (currCard.users = [user]);
 				setCard(currCard);
+				socket.emit('updateCard', card);
 				console.log(currCard);
-				updateCard();
+				let activity = `${loggedInUser.fullname} added ${user.fullname} to a card at card-${
+					card.title
+				} at ${getNiceDate()}`;
+				updateCard(activity);
 			}
 		} else {
 			currCard.users = [user];
 			setCard(currCard);
+			socket.emit('updateCard', card);
 			console.log(currCard);
-			updateCard();
+			let activity = `${loggedInUser.fullname} added ${user.fullname} to a card at card-${
+				card.title
+			} at ${getNiceDate()}`;
+			updateCard(activity);
 		}
 	}
 
 	// TOGLLING ALL MODALS
 	function toggleModal(type) {
-		// ev.stopPropagation();
-		// console.log('hi');
 		dispatch(openModal(type));
-		// type === 'member' && toggleMemeberModal(!memberModal);
-		// type === 'labels' && toggleLabelsModal(!labelsModal);
-		// type === 'checklist' && toggleChecklistModal(!checklistModal);
-		// type === 'dates' && toggleDatesModal(!datesModal);
-		// type === 'attachment' && toggleAttachmentModal(!attachmentModal);
-		// type === 'cover' && toggleCoverModal(!coverModal);
 	}
 
 	const containerStyle = {
@@ -451,7 +486,8 @@ setLoggedInUser(userService.getLoggedinUser());
 		const currCard = card;
 		currCard.location = {lat, lng};
 		setCard(currCard);
-		updateCard();
+		let activity = `${loggedInUser.fullname} added location to a card at card-${card.title} at ${getNiceDate()}`;
+		updateCard(activity);
 	}
 
 	return (
