@@ -2,9 +2,9 @@
 	// padding: $s-2;
 	display: grid;
 	min-height: 100%;
-	grid-template-columns: repeat(4, 40px);
-	grid-template-rows: repeat(2, 32px);
-	justify-content: center;
+	grid-template-columns: repeat(6, 40px);
+	grid-template-rows: repeat(1, 32px);
+	justify-content: space-between;
 	// gap: $s-2;
 	gap: $s-2;
 }

@@ -226,7 +226,7 @@ export const WorkSpace = () => {
 													: {backgroundImage: getBackground(board)}
 											}
 											className='board-background-div preview-cover'>
-											{board.style?.backgroundColor && (
+											{board.style && (
 												<div
 													onClick={() => {
 														// connectUser();

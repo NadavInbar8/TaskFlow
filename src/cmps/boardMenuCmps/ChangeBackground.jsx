@@ -14,7 +14,7 @@ export const ChangeBackground = ({changeBG}) => {
 
 	const getImgs = async () => {
 		try {
-			const imgs = await unsplashService.search('wonderful');
+			const imgs = await unsplashService.search('wonderful', 10);
 			setImgs(imgs);
 		} catch (err) {
 			console.log('couldnt get imgs', err);

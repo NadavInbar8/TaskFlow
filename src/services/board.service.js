@@ -25,13 +25,13 @@ async function query() {
 	// let boards = await storageService.query('board');
 	// return boards;
 	const boards = await httpService.get(`board`);
-	console.log(boards);
+	// console.log(boards);
 
 	return boards;
 }
 
 async function getById(boardId) {
-	console.log(boardId);
+	// console.log(boardId);
 	// const board = await storageService.get('board', boardId);
 	const board = await httpService.get(`board/${boardId}`);
 	// gWatchedUser = user;
@@ -208,7 +208,7 @@ async function remove(boardId) {
 // // }
 
 function _getEmptyBoard(board) {
-	console.log(board);
+	// console.log(board);
 	return {
 		title: board.title,
 		starred: false,
@@ -220,10 +220,7 @@ function _getEmptyBoard(board) {
 					fullname: 'Guest Guestosh',
 					imgUrl: 'https://avatarfiles.alphacoders.com/196/196630.jpg',
 			  },
-		style: {
-			backgroundColor: board.style.backgroundColor,
-			userClicked: true,
-		},
+		style: board.style,
 		labelOptions: [
 			{id: 1, color: 'green', name: ''},
 			{id: 2, color: 'yellow', name: ''},

@@ -1,5 +1,7 @@
-export function Colors({saveColor, parentCmp, changeBG}) {
-	const colors = [
+import React, {useEffect, useState} from 'react';
+
+export function Colors({addBG, parentCmp, changeBG}) {
+	const [colors, setColors] = useState([
 		'bc-blue',
 		'bc-orange',
 		'bc-dark-green',
@@ -8,7 +10,41 @@ export function Colors({saveColor, parentCmp, changeBG}) {
 		'bc-pink',
 		'bc-light-green',
 		'bc-cyan',
-	];
+	]);
+	const [parent, setParent] = useState();
+
+	useEffect(() => {
+		setParent(parentCmp);
+		getColorsForMap();
+	}, []);
+
+	const getColorsForMap = () => {
+		console.log(parentCmp);
+		if (parent === 'boardMenu') {
+			setColors([
+				'bc-blue',
+				'bc-orange',
+				'bc-dark-green',
+				'bc-red',
+				'bc-purple',
+				'bc-pink',
+				'bc-light-green',
+				'bc-cyan',
+			]);
+		} else if (parent === 'createModal') {
+			setColors([
+				'bc-blue',
+				'bc-orange',
+				'bc-dark-green',
+				'bc-red',
+				'bc-purple',
+				'bc-pink',
+				// 'bc-light-green',
+				// 'bc-cyan',
+			]);
+			console.log(parentCmp, colors);
+		}
+	};
 
 	const getColors = (color) => {
 		if (color === 'bc-blue') return 'rgb(0, 121, 191)';
@@ -24,7 +60,7 @@ export function Colors({saveColor, parentCmp, changeBG}) {
 	const onSaveColor = (color) => {
 		const actualColor = getColors(color);
 		if (parentCmp === 'createModal') {
-			saveColor(actualColor);
+			addBG('color', actualColor);
 		} else if (parentCmp === 'boardMenu') {
 			changeBG('color', actualColor);
 		}
