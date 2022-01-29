@@ -1,8 +1,10 @@
 import activity from '../../assets/imgs/menuActivity.svg';
 
 export const Activity = ({board}) => {
-	const activitiesToRender = board?.activities;
-	// .reverse();
+	let activitiesToRender = [...board.activities];
+	activitiesToRender = activitiesToRender.reverse();
+	// console.log('right order', board.activities);
+	console.log('reversed', activitiesToRender);
 	return (
 		<section className='menu-board-actions flex flex-row pointer activity-div'>
 			<div className='activity-header'>
@@ -12,7 +14,7 @@ export const Activity = ({board}) => {
 			<div className='activity-list-container'>
 				<ul className='activity-list'>
 					{activitiesToRender?.map((activity, idx) => {
-						console.log(activity);
+						// console.log(activity);
 						return (
 							<li key={idx}>
 								<div className='activity-div'>
