@@ -1,16 +1,16 @@
 // React
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 // import {Link, useParams} from 'react-router-dom';
 
 // Redux
-import {useSelector, useDispatch, shallowEqual} from 'react-redux';
-import {updateBoard, openModal} from '../../store/board.action.js';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
+import { updateBoard, openModal } from '../../store/board.action.js';
 
 // Cmps
-import {BoardFilter} from '../../cmps/boardCmps/BoardFilter.jsx';
-import {BoardMenu} from '../../cmps/boardCmps/BoardMenu.jsx';
-import {InviteModal} from '../../cmps/boardCmps/InviteModal.jsx';
-import {Members} from '../../cmps/boardCmps/Members.jsx';
+import { BoardFilter } from '../../cmps/boardCmps/BoardFilter.jsx';
+import { BoardMenu } from '../../cmps/boardCmps/BoardMenu.jsx';
+import { InviteModal } from '../../cmps/boardCmps/InviteModal.jsx';
+import { Members } from '../../cmps/boardCmps/Members.jsx';
 
 // imgs
 import addUser from '../../assets/imgs/add-user.png';
@@ -23,182 +23,203 @@ import menuDots from '../../assets/imgs/menuDots.svg';
 
 // Funcs
 
-export const BoardHeader = ({setForceRender, filterBoard, forceRender}) => {
-	const {board} = useSelector((state) => ({board: state.boardModule.currBoard}), shallowEqual);
-	const {modal} = useSelector((state) => ({
-		modal: state.boardModule.modal,
-	}));
-	const [width, setWidth] = useState('');
-	const [boardTitleInput, setBoardTitleInput] = useState('');
-	const [starStatus, setStarStatus] = useState(false);
-	const {loggedInUser} = useSelector((state) => ({
-		loggedInUser: state.userModule.loggedInUser,
-	}));
-	const {users} = useSelector((state) => ({
-		users: state.userModule.users,
-	}));
+export const BoardHeader = ({ setForceRender, filterBoard, forceRender }) => {
+  const { board } = useSelector(
+    (state) => ({ board: state.boardModule.currBoard }),
+    shallowEqual
+  );
+  const { modal } = useSelector((state) => ({
+    modal: state.boardModule.modal,
+  }));
+  const [width, setWidth] = useState('');
+  const [boardTitleInput, setBoardTitleInput] = useState('');
+  const [starStatus, setStarStatus] = useState(false);
+  const { loggedInUser } = useSelector((state) => ({
+    loggedInUser: state.userModule.loggedInUser,
+  }));
+  const { users } = useSelector((state) => ({
+    users: state.userModule.users,
+  }));
 
-	const [menuOpen, setMenuOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
-	const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-	useEffect(() => {
-		// if (board)
-		setBoardTitleInput(board.title);
-		setStarStatus(board.starred);
-	}, []);
+  useEffect(() => {
+    // if (board)
+    console.log('rendering board header');
 
-	useEffect(() => {
-		// if (board)
-		setBoardTitleInput(board.title);
-		// if (board)
-		setWidth(board.title.length + 'ch');
-	}, [board]);
+    setBoardTitleInput(board.title);
+    setStarStatus(board.starred);
+  }, []);
 
-	function handleBoardTitleChange({target}) {
-		if (!target || target == ' ') return;
-		// const field = target.name;
-		const value = target.value;
-		setWidth(value.length + 'ch');
-		setBoardTitleInput(value);
-	}
+  useEffect(() => {
+    // if (board)
+    setBoardTitleInput(board.title);
+    // if (board)
+    setWidth(board.title.length + 'ch');
+  }, [board]);
 
-	const updateBoardTitle = () => {
-		const updatedBoard = {...board};
-		updatedBoard.title = boardTitleInput;
-		// console.log(board.title.length);
-		// console.log(updatedBoard.title.length);
-		// if (updatedBoard.title.length - board.title.length > 5) return;
-		// else {
-		dispatch(updateBoard(updatedBoard));
-		// }
-		setForceRender(!forceRender);
-	};
+  function handleBoardTitleChange({ target }) {
+    if (!target || target == ' ') return;
+    // const field = target.name;
+    const value = target.value;
+    setWidth(value.length + 'ch');
+    setBoardTitleInput(value);
+  }
 
-	const toggleModal = (type) => {
-		dispatch(openModal(type));
-		// switch (type) {
-		// 	case 'filter':
-		// 		setFilterModal(!filterModal);
-		// 		setMenuModal(false);
-		// 		break;
-		// 	case 'menu':
-		// 		setMenuModal(!menuModal);
-		// 		setFilterModal(false);
-		// 		break;
-		// 	default:
-		// }
-	};
+  const updateBoardTitle = () => {
+    const updatedBoard = { ...board };
+    updatedBoard.title = boardTitleInput;
+    // console.log(board.title.length);
+    // console.log(updatedBoard.title.length);
+    // if (updatedBoard.title.length - board.title.length > 5) return;
+    // else {
+    dispatch(updateBoard(updatedBoard));
+    // }
+    setForceRender(!forceRender);
+  };
 
-	const toggleStarring = () => {
-		board.starred = !board.starred;
-		setStarStatus(board.starred);
-	};
+  const toggleModal = (type) => {
+    dispatch(openModal(type));
+    // switch (type) {
+    // 	case 'filter':
+    // 		setFilterModal(!filterModal);
+    // 		setMenuModal(false);
+    // 		break;
+    // 	case 'menu':
+    // 		setMenuModal(!menuModal);
+    // 		setFilterModal(false);
+    // 		break;
+    // 	default:
+    // }
+  };
 
-	const getColors = (color) => {
-		if (color === 'bc-blue') return 'rgb(0, 121, 191)';
-		else if (color === 'bc-orange') return 'rgb(210, 144, 52)';
-		else if (color === 'bc-dark-green') return 'rgb(81, 152, 57)';
-		else if (color === 'bc-red') return 'rgb(176, 70, 50)';
-		else if (color === 'bc-purple') return 'rgb(137, 96, 158)';
-		else if (color === 'bc-pink') return 'rgb(205, 90, 145)';
-		else if (color === 'bc-light-green') return 'rgb(75, 191, 107)';
-		else if (color === 'bc-cyan') return 'rgb(0, 174, 204)';
-		else if (color === 'bc-grey') return 'rgb(131, 140, 145)';
-	};
+  const toggleStarring = () => {
+    board.starred = !board.starred;
+    setStarStatus(board.starred);
+  };
 
-	const addColor = (color) => {
-		const actualColor = getColors(color);
-		const updatedBoard = {...board};
-		updatedBoard.style.backgroundColor = actualColor;
-		dispatch(updateBoard(updatedBoard));
-	};
+  const getColors = (color) => {
+    if (color === 'bc-blue') return 'rgb(0, 121, 191)';
+    else if (color === 'bc-orange') return 'rgb(210, 144, 52)';
+    else if (color === 'bc-dark-green') return 'rgb(81, 152, 57)';
+    else if (color === 'bc-red') return 'rgb(176, 70, 50)';
+    else if (color === 'bc-purple') return 'rgb(137, 96, 158)';
+    else if (color === 'bc-pink') return 'rgb(205, 90, 145)';
+    else if (color === 'bc-light-green') return 'rgb(75, 191, 107)';
+    else if (color === 'bc-cyan') return 'rgb(0, 174, 204)';
+    else if (color === 'bc-grey') return 'rgb(131, 140, 145)';
+  };
 
-	//   const getUserInitials = () => {
-	//     if (loggedInUser) {
-	//       let fullName = loggedInUser.fullName;
-	//       console.log(fullName);
-	//       fullName = fullName.split(' ');
-	//       const initials =
-	//         fullName[0].charAt(0).toUpperCase() +
-	//         fullName[1].charAt(0).toUpperCase();
-	//       return initials;
-	//     }
-	//   };
+  const addColor = (color) => {
+    const actualColor = getColors(color);
+    const updatedBoard = { ...board };
+    updatedBoard.style.backgroundColor = actualColor;
+    dispatch(updateBoard(updatedBoard));
+  };
 
-	const openMenu = () => {
-		setMenuOpen(!menuOpen);
-	};
+  //   const getUserInitials = () => {
+  //     if (loggedInUser) {
+  //       let fullName = loggedInUser.fullName;
+  //       console.log(fullName);
+  //       fullName = fullName.split(' ');
+  //       const initials =
+  //         fullName[0].charAt(0).toUpperCase() +
+  //         fullName[1].charAt(0).toUpperCase();
+  //       return initials;
+  //     }
+  //   };
 
-	return (
-		<header className='board-header'>
-			<div className='header-left-container flex-center'>
-				{/* <div className='board-header-div'> */}
-				<input
-					className='board-title'
-					style={{width}}
-					onBlur={updateBoardTitle}
-					onChange={handleBoardTitleChange}
-					name='title'
-					value={boardTitleInput}
-					type='text-area'
-				/>
-				{/* </div> */}
-				<div
-					className='board-header-div star-container flex-center'
-					onClick={() => {
-						toggleStarring();
-					}}>
-					{/* // className={starStatus ? 'starOn' : 'star'}> */}
+  const openMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
+  return (
+    <header className='board-header'>
+      <div className='header-left-container flex-center'>
+        {/* <div className='board-header-div'> */}
+        <input
+          className='board-title'
+          style={{ width }}
+          onBlur={updateBoardTitle}
+          onChange={handleBoardTitleChange}
+          name='title'
+          value={boardTitleInput}
+          type='text-area'
+        />
+        {/* </div> */}
+        <div
+          className='board-header-div star-container flex-center'
+          onClick={() => {
+            toggleStarring();
+          }}
+        >
+          {/* // className={starStatus ? 'starOn' : 'star'}> */}
 
-					{starStatus && <img className='star' src={fullStar}></img>}
-					{!starStatus && <img className='star' src={whiteStar}></img>}
-					{/* </div> */}
-				</div>
-				<div className='users-div flex-center'>
-					<Members board={board} loggedInUser={loggedInUser} />
-					{/* <div className='member-icons'>
+          {starStatus && <img className='star' src={fullStar}></img>}
+          {!starStatus && <img className='star' src={whiteStar}></img>}
+          {/* </div> */}
+        </div>
+        <div className='users-div flex-center'>
+          <Members board={board} loggedInUser={loggedInUser} />
+          {/* <div className='member-icons'>
 						<div className='member-icon'>{loggedInUser ? loggedInUser.initials : 'OK'}</div>
 						<div className='member-icon'>NI</div>
 						<div className='member-icon'>TR</div>
 					</div> */}
-					<div className='board-header-div invite-btn flex-center'>
-						<img className='add-user-img' src={addUser} alt='' />
-						<span
-							onClick={() => {
-								toggleModal('inviteModal');
-							}}>
-							Invite
-						</span>
-					</div>
-					{modal === 'inviteModal' && <InviteModal users={users} loggedInUser={loggedInUser} board={board} />}
-				</div>
-			</div>
-			<div className='actions-div flex'>
-				<div className='board-header-div dashboard flex-center'>
-					<span>Dashboard</span>
-				</div>
-				<div
-					className='board-header-div filter-div flex-center'
-					onClick={() => {
-						toggleModal('filterModal');
-					}}>
-					<span className='flex-center'>
-						<img src={filterSvg} alt='filter-img' />
-						Filter
-					</span>
-				</div>
-				{modal === 'filterModal' && <BoardFilter filterBoard={filterBoard} toggleModal={toggleModal} />}
-				<div
-					className='menu-div board-header-div flex-center'
-					onClick={() => {
-						openMenu();
-					}}>
-					<img src={menuDots} alt='' />
-					<span>Show menu</span>
-				</div>
-				<BoardMenu toggleModal={toggleModal} addColor={addColor} menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
-			</div>
-		</header>
-	);
+          <div className='board-header-div invite-btn flex-center'>
+            <img className='add-user-img' src={addUser} alt='' />
+            <span
+              onClick={() => {
+                toggleModal('inviteModal');
+              }}
+            >
+              Invite
+            </span>
+          </div>
+          {modal === 'inviteModal' && (
+            <InviteModal
+              users={users}
+              loggedInUser={loggedInUser}
+              board={board}
+            />
+          )}
+        </div>
+      </div>
+      <div className='actions-div flex'>
+        <div className='board-header-div dashboard flex-center'>
+          <span>Dashboard</span>
+        </div>
+        <div
+          className='board-header-div filter-div flex-center'
+          onClick={() => {
+            toggleModal('filterModal');
+          }}
+        >
+          <span className='flex-center'>
+            <img src={filterSvg} alt='filter-img' />
+            Filter
+          </span>
+        </div>
+        {modal === 'filterModal' && (
+          <BoardFilter filterBoard={filterBoard} toggleModal={toggleModal} />
+        )}
+        <div
+          className='menu-div board-header-div flex-center'
+          onClick={() => {
+            openMenu();
+          }}
+        >
+          <img src={menuDots} alt='' />
+          <span>Show menu</span>
+        </div>
+        <BoardMenu
+          toggleModal={toggleModal}
+          addColor={addColor}
+          menuOpen={menuOpen}
+          setMenuOpen={setMenuOpen}
+        />
+      </div>
+    </header>
+  );
 };

@@ -111,7 +111,7 @@ export const Board = () => {
   useEffect(() => {
     if (board) {
       setData({ ...board });
-    }
+    } else setForceRender(!forceRender);
   }, [board]);
 
   const [tempBoard, setTempBoard] = useState({});
@@ -494,6 +494,7 @@ export const Board = () => {
   };
   return data ? (
     <section className='flex-column h100'>
+      {console.log('board', board)}
       <div
         className={overlay ? 'overlay' : 'overlay hidden'}
         onClick={closeEditModal}
