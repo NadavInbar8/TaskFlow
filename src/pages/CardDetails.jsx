@@ -798,7 +798,7 @@ export const CardDetails = () => {
 										<h3>Activity</h3>
 									</div>
 									<form className=' add-comment-form' onSubmit={addComment} action=''>
-										<div className='user-logo'>{loggedInUser.initials}</div>
+										<div className='user-logo'>{loggedInUser?.initials}</div>
 										<input
 											value={comment.txt}
 											name='comment'
