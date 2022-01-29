@@ -646,6 +646,7 @@ export const CardDetails = () => {
         <div
           className='go-back-container'
           onClick={() => {
+            toggleModal('');
             history.push(`/board/${board._id}`);
           }}
         >
@@ -764,13 +765,14 @@ export const CardDetails = () => {
                       <section className='users-section'>
                         <h3>Members</h3>
                         <section className='users-details-section'>
-                          {card.users.map((user) => {
+                          {card.users.map((user, idx) => {
                             const background =
                               user._id === loggedInUser._id
                                 ? 'darkcyan'
                                 : 'red';
                             return (
                               <div
+                                key={idx}
                                 style={{ backgroundColor: background }}
                                 className='user-details-preview'
                               >
