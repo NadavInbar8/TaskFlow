@@ -12,6 +12,7 @@ import {
   updateBoard,
   openModal,
 } from '../store/board.action.js';
+import { setUsers } from '../store/user.action.js';
 
 // Cmps
 import { BoardHeader } from '../cmps/boardCmps/BoardHeader.jsx';
@@ -25,7 +26,7 @@ import addUser from '../assets/imgs/add-user.png';
 import { userService } from '../services/user.service.js';
 
 // Libs
-import { over } from 'lodash';
+import { over, update } from 'lodash';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import initialData from './initialData.js';
 
@@ -103,12 +104,6 @@ export const Board = () => {
 
   ///// useEffect /////
 
-  // useEffect(() => {}, [filteredBoard]);
-
-  // useEffect(() => {
-  // 	dispatch(loadBoard(boardId));
-  // 	if (board) setBoardTitleInput(board.title);
-  // }, []);
   useEffect(() => {
     dispatch(loadBoard(boardId));
   }, [boardId]);
@@ -208,7 +203,11 @@ export const Board = () => {
   //   dispatch(updateBoard(updatedBoard));
   //   setForceRender(!forceRender);
   // };
-
+  function getNiceDate() {
+    return `${new Date().toDateString()} ${
+      new Date().getHours() + ':' + new Date().getMinutes()
+    }`;
+  }
   const addNewCard = (list) => {
     let listIdx = board.groups.findIndex((group) => group.id === list.id);
     list.tasks.push(newCard);
@@ -218,6 +217,12 @@ export const Board = () => {
     const updatedBoard = { ...board };
     updatedBoard.groups[listIdx] = list;
     updatedBoard.groups[listIdx].editMode = false;
+    let activity = {
+      name: loggedInUser.fullname,
+      msg: `added a card in group: ${list.title}`,
+      time: getNiceDate(),
+    };
+    updatedBoard.activities.push(activity);
     setForceRender(!forceRender);
     dispatch(updateBoard(updatedBoard));
     socket.emit('updateBoard', updatedBoard);
@@ -229,12 +234,10 @@ export const Board = () => {
   };
 
   const openListModal = (group) => {
-    // group.style.zIndex = 'high';
     setSelectedList(group);
   };
 
   const closeListModal = (group) => {
-    // group.style.zIndex = 'low';
     setSelectedList({});
   };
 
@@ -261,6 +264,12 @@ export const Board = () => {
     updatedBoard.groupsOrder.push(newGroup.id);
     updatedBoard.groups.push(newGroup);
     setNewList(false);
+    let activity = {
+      name: loggedInUser.fullname,
+      msg: `added a Group in Board:  ${updatedBoard.title}`,
+      time: getNiceDate(),
+    };
+    updatedBoard.activities.push(activity);
     dispatch(updateBoard(updatedBoard));
     socket.emit('updateBoard', updatedBoard);
   };
@@ -272,14 +281,12 @@ export const Board = () => {
     );
     updatedBoard.groups.splice(groupIdx, 1);
     updatedBoard.groupsOrder.splice(groupIdx, 1);
-    console.log('updatedBoard.groups', updatedBoard.groups);
-    console.log('updatedBoard.groupsOrder', updatedBoard.groupsOrder);
-    // updatedBoard.groups = updatedBoard.groups.filter(
-    //   (group) => group.id !== list.id
-    // );
-    // updatedBoard.groupsOrder = updatedBoard.groupsOrder.filter(
-    //   (groupId) => groupId !== list.id
-    // );
+    let activity = {
+      name: loggedInUser.fullname,
+      msg: `deleted a Group in Board:  ${updatedBoard.title}`,
+      time: getNiceDate(),
+    };
+    updatedBoard.activities.push(activity);
     setForceRender(!forceRender);
     await dispatch(updateBoard(updatedBoard));
     socket.emit('updateBoard', updatedBoard);
@@ -292,6 +299,12 @@ export const Board = () => {
     let cardIdx = list.tasks.findIndex((task) => task.id === card.id);
     const updatedBoard = { ...board };
     updatedBoard.groups[listIdx].tasks[cardIdx] = editedCard;
+    let activity = {
+      name: loggedInUser.fullname,
+      msg: `edited a Card in Group:  ${list.title}`,
+      time: getNiceDate(),
+    };
+    updatedBoard.activities.push(activity);
     dispatch(updateBoard(updatedBoard));
     socket.emit('updateBoard', updatedBoard);
 
@@ -308,9 +321,14 @@ export const Board = () => {
     let listIdx = updatedBoard.groups.findIndex(
       (group) => group.id === list.id
     );
-
     updatedBoard.groups[listIdx].tasksIds.push(copiedCard.id);
     updatedBoard.groups[listIdx].tasks.push(copiedCard);
+    let activity = {
+      name: loggedInUser.fullname,
+      msg: `copied a Card in Group:  ${list.title}`,
+      time: getNiceDate(),
+    };
+    updatedBoard.activities.push(activity);
     closeEditModal();
     dispatch(updateBoard(updatedBoard));
     socket.emit('updateBoard', updatedBoard);
@@ -329,6 +347,12 @@ export const Board = () => {
     copiedList.tasks = copiedTasks;
     updatedBoard.groups.push(copiedList);
     updatedBoard.groupsOrder.push(copiedList.id);
+    let activity = {
+      name: loggedInUser.fullname,
+      msg: `copied a Group in Board: ${updatedBoard.title}`,
+      time: getNiceDate(),
+    };
+    updatedBoard.activities.push(activity);
     closeListModal();
     dispatch(updateBoard(updatedBoard));
     socket.emit('updateBoard', updatedBoard);
@@ -349,13 +373,33 @@ export const Board = () => {
       listIdx
     ].tasks.filter((task) => task.id !== card.id);
     updatedBoard.groups[listIdx].tasksIds.splice(cardIdx, 1);
+    let activity = {
+      name: loggedInUser.fullname,
+      msg: `deleted a Card in Group:  ${list.title}`,
+      time: getNiceDate(),
+    };
+    updatedBoard.activities.push(activity);
     closeEditModal();
     setForceRender(!forceRender);
     dispatch(updateBoard(updatedBoard));
     socket.emit('updateBoard', updatedBoard);
   };
 
-  //   const overlayStyle = { 'z-index': 100 };
+  const loadUsers = async () => {
+    const users = await userService.getUsers();
+    dispatch(setUsers(users));
+  };
+
+  const loadUser = () => {
+    let user = userService.getLoggedinUser();
+    if (!user) user = userService.connectGuestUser();
+    setLoggedInUser(user);
+  };
+  // const [loggedInUser, setLoggedInUser] = useState();
+  const { users } = useSelector((state) => ({
+    users: state.userModule.users,
+  }));
+
   const [openLabels, setOpenLabels] = useState(false);
   const [listModal, setListModal] = useState(false);
 
