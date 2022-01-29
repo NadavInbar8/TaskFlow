@@ -2,7 +2,6 @@ import activity from '../../assets/imgs/menuActivity.svg';
 
 export const Activity = ({ board }) => {
   const activitiesToRender = board?.activities?.reverse();
-  console.log(activitiesToRender);
   return (
     <section className='menu-board-actions flex flex-row pointer activity-div'>
       <div className='activity-header'>
