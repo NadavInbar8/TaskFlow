@@ -45,7 +45,7 @@ export const CardDetails = () => {
 	// CURRBOARD
 	const {board} = useSelector((state) => ({board: state.boardModule.currBoard}), shallowEqual);
 
-	const [loggedInUser, setLoggedInUser] = useState(userService.getLoggedinUser());
+	const [loggedInUser, setLoggedInUser] = useState();
 	const [users, setUsers] = useState([]);
 
 	async function getUsers() {
@@ -59,6 +59,7 @@ export const CardDetails = () => {
 		socket.on('setUpdatedBoard', (board) => {
 			dispatch(updateBoard(board));
 		});
+setLoggedInUser(userService.getLoggedinUser());
 	}, []);
 	// Modal state
 	const {modal} = useSelector((state) => ({

@@ -1,6 +1,10 @@
 import {storageService} from './async-storage.service';
 import {httpService} from './http.service';
+import React from 'react';
+import {useDispatch} from 'react-redux';
+import {setUsers} from '../store/user.action.js';
 import {socketService, SOCKET_EVENT_USER_UPDATED} from './socket.service';
+
 const STORAGE_KEY_LOGGEDIN_USER = 'loggedinUser';
 var gWatchedUser = null;
 
@@ -20,10 +24,10 @@ export const userService = {
 // To help debugging from console
 window.userService = userService;
 
+// getUsers();
 async function getUsers() {
-	return await httpService.get(`user`);
-	// const users = await storageService.query('user');
-	// return users;
+	const users = await httpService.get(`user`);
+	return users;
 }
 
 async function getById(userId) {

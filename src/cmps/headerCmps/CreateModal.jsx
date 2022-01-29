@@ -56,6 +56,7 @@ export const CreateModal = () => {
 			...newBoard,
 			title: boardTitleInput,
 			createdBy: loggedInUser,
+			members: [loggedInUser],
 		});
 		console.log(newBoard);
 	};

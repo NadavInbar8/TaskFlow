@@ -9,6 +9,7 @@ import {updateBoard, openModal} from '../../store/board.action.js';
 // Cmps
 import {BoardFilter} from '../../cmps/boardCmps/BoardFilter.jsx';
 import {BoardMenu} from '../../cmps/boardCmps/BoardMenu.jsx';
+import {InviteModal} from '../../cmps/boardCmps/InviteModal.jsx';
 
 // imgs
 import addUser from '../../assets/imgs/add-user.png';
@@ -31,6 +32,9 @@ export const BoardHeader = ({setForceRender, filterBoard, forceRender}) => {
 	const [starStatus, setStarStatus] = useState(false);
 	const {loggedInUser} = useSelector((state) => ({
 		loggedInUser: state.userModule.loggedInUser,
+	}));
+	const {users} = useSelector((state) => ({
+		users: state.userModule.users,
 	}));
 	const [menuOpen, setMenuOpen] = useState(false);
 
@@ -157,7 +161,13 @@ export const BoardHeader = ({setForceRender, filterBoard, forceRender}) => {
 					</div>
 					<div className='board-header-div invite-btn flex-center'>
 						<img className='add-user-img' src={addUser} alt='' />
-						<span>Invite</span>
+						<span
+							onClick={() => {
+								toggleModal('inviteModal');
+							}}>
+							Invite
+						</span>
+						{modal === 'inviteModal' && <InviteModal users={users} loggedInUser={loggedInUser} board={board} />}
 					</div>
 				</div>
 			</div>

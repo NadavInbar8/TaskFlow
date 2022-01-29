@@ -239,14 +239,15 @@ function _getEmptyBoard(board) {
 				color: '#61bd4f',
 			},
 		],
-		members: [
-			{
-				_id: 'u101',
-				fullname: 'Tal Tarablus',
-				imgUrl: 'https://www.google.com',
-				initials: 'TT',
-			},
-		],
+		members: board.members,
+		// members: [
+		// 	{
+		// 		_id: 'u101',
+		// 		fullname: 'Tal Tarablus',
+		// 		imgUrl: 'https://www.google.com',
+		// 		initials: 'TT',
+		// 	},
+		// ],
 		groupsOrder: ['g101', 'g102'],
 		groups: [
 			{
