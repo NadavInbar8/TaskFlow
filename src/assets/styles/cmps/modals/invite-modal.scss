@@ -10,7 +10,7 @@
 	width: fit-content;
 	position: absolute;
 	align-items: flex-start;
-	left: 0%;
+	right: -130px;
 	top: 110%;
 	padding: $s-2;
 	border-radius: $s-1;
@@ -31,15 +31,41 @@
 		}
 	}
 
+	ul {
+		padding: 0;
+	}
+
+	li {
+		white-space: nowrap;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	li:last-child {
+		margin-bottom: 0;
+	}
+
+	img {
+		float: left;
+		margin-right: 8px;
+	}
+
+	li:hover {
+		opacity: 0.8;
+		cursor: pointer;
+	}
+
 	.user-details-text {
 		margin-left: $s-2;
 	}
-	.user-avatar {
+	.user-details {
 		right: 0;
 		display: flex;
 		align-items: center;
 		position: relative;
-		margin-right: $s-2;
+		gap: $s-2;
+		justify-content: space-between;
+		margin-bottom: 8px;
 	}
 
 	.user-avatar-btn {

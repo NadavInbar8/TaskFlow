@@ -167,8 +167,8 @@ export const BoardHeader = ({setForceRender, filterBoard, forceRender}) => {
 							}}>
 							Invite
 						</span>
-						{modal === 'inviteModal' && <InviteModal users={users} loggedInUser={loggedInUser} board={board} />}
 					</div>
+					{modal === 'inviteModal' && <InviteModal users={users} loggedInUser={loggedInUser} board={board} />}
 				</div>
 			</div>
 			<div className='actions-div flex'>
