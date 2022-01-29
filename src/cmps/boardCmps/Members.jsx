@@ -15,7 +15,7 @@ export const Members = ({board, loggedInUser}) => {
 					</div>
 				)}
 			</div>
-			{board.members.map((member) => {
+			{board?.members.map((member) => {
 				if (member._id !== loggedInUser._id)
 					return (
 						<div className='member-icon'>

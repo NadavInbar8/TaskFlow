@@ -1,7 +1,8 @@
 import activity from '../../assets/imgs/menuActivity.svg';
 
 export const Activity = ({board}) => {
-	let activitiesToRender = [...board.activities];
+	let copyBoard = {...board};
+	let activitiesToRender = copyBoard.activities;
 	activitiesToRender = activitiesToRender.reverse();
 	// console.log('right order', board.activities);
 	console.log('reversed', activitiesToRender);

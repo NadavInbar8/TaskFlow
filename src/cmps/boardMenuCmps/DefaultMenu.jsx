@@ -11,7 +11,7 @@ export const DefaultMenu = ({onSetMenuTitle, onSetCmpToRender, onOpenArchive, on
 		// return `${board.style.backgroundColor}`;
 		// if (location.pathname === '/') return 'lightcyan';
 
-		return board.style.userClicked ? board.style.backgroundColor : `url(${board.style.previewImgUrl})`;
+		return board?.style.userClicked ? board?.style.backgroundColor : `url(${board?.style.previewImgUrl})`;
 		// console.log(background);
 		// return background;
 	};
