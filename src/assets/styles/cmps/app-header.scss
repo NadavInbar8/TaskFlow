@@ -139,8 +139,17 @@
 
 		span {
 			margin-right: $s-1;
-			font-weight: 600;
+		}
+
+		.board-title-span {
 			line-height: 18px;
+			font-weight: 600;
+			height: 100%;
+			align-items: center;
+			display: flex;
+			margin-left: 68px;
+			width: fit-content;
+			white-space: nowrap;
 		}
 	}
 

@@ -231,8 +231,11 @@ export function AppHeader() {
 																	board?.style?.userClicked
 																		? {backgroundColor: getBackground(board)}
 																		: {backgroundImage: getBackground(board)}
-																}></div>
-															<span>{board.title.length > 10 ? `${board.title.slice(0 - 15)}...` : board.title}</span>
+																}>
+																<span className='board-title-span'>
+																	{board.title.length > 20 ? `${board.title.slice(0 - 20)}...` : board.title}
+																</span>
+															</div>
 															<div className='star-svg'>
 																{board.starred === false && (
 																	<img

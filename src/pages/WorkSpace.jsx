@@ -18,6 +18,7 @@ import star from '../assets/imgs/star.svg';
 import goldStar from '../assets/imgs/goldStar.svg';
 import whiteStar from '../assets/imgs/whiteStar.svg';
 import logo from '../assets/imgs/favicon/taskflow-favicon.svg';
+import {setUsers} from '../store/user.action.js';
 
 export const WorkSpace = () => {
 	const history = useHistory();
@@ -25,22 +26,37 @@ export const WorkSpace = () => {
 		boards: state.boardModule.boards,
 	}));
 	const [starredBoards, setStarredBoards] = useState([]);
+	const [loggedInUser, setLoggedInUser] = useState();
 
 	const {modal} = useSelector((state) => ({
 		modal: state.boardModule.modal,
+	}));
+	const {users} = useSelector((state) => ({
+		users: state.userModule.users,
 	}));
 
 	const dispatch = useDispatch();
 	const location = useLocation();
 
-	const loggedInUser = userService.getLoggedinUser();
-
-	// console.log(loggedInUser);
-	if (loggedInUser === null) userService.connectGuestUser();
+	// const loggedInUser = userService.getLoggedinUser();
 
 	useEffect(() => {
 		dispatch(loadBoards());
+		loadUsers();
+		loadUser();
 	}, []);
+
+	const loadUsers = async () => {
+		const users = await userService.getUsers();
+		dispatch(setUsers(users));
+	};
+
+	const loadUser = () => {
+		let user = userService.getLoggedinUser();
+		if (!user) user = userService.connectGuestUser();
+		setLoggedInUser(user);
+	};
+
 	useEffect(() => {
 		getStarredBoards();
 	}, [boards]);
@@ -69,10 +85,10 @@ export const WorkSpace = () => {
 		dispatch(updateBoard(newBoard));
 	}
 
-	function connectUser() {
-		if (loggedInUser === null) userService.connectGuestUser();
-		else return;
-	}
+	// function connectUser() {
+	// 	if (loggedInUser === null) userService.connectGuestUser();
+	// 	else return;
+	// }
 
 	const getBackground = (board) => {
 		// return `${board.style.backgroundColor}`;
@@ -143,7 +159,7 @@ export const WorkSpace = () => {
 											{starredBoard.style?.backgroundColor && (
 												<div
 													onClick={() => {
-														connectUser();
+														// connectUser();
 														history.push(`/board/${starredBoard._id}`);
 													}}
 													className='board-title-div'
@@ -213,7 +229,7 @@ export const WorkSpace = () => {
 											{board.style?.backgroundColor && (
 												<div
 													onClick={() => {
-														connectUser();
+														// connectUser();
 														history.push(`/board/${board._id}`);
 													}}
 													className='board-title-div'
