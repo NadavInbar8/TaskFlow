@@ -10,6 +10,7 @@ import { updateBoard, openModal } from '../../store/board.action.js';
 import { BoardFilter } from '../../cmps/boardCmps/BoardFilter.jsx';
 import { BoardMenu } from '../../cmps/boardCmps/BoardMenu.jsx';
 import { InviteModal } from '../../cmps/boardCmps/InviteModal.jsx';
+import { Members } from '../../cmps/boardCmps/Members.jsx';
 
 // imgs
 import addUser from '../../assets/imgs/add-user.png';
@@ -133,7 +134,6 @@ export const BoardHeader = ({ setForceRender, filterBoard, forceRender }) => {
   const openMenu = () => {
     setMenuOpen(!menuOpen);
   };
-
   return (
     <header className='board-header'>
       <div className='header-left-container flex-center'>
@@ -161,13 +161,12 @@ export const BoardHeader = ({ setForceRender, filterBoard, forceRender }) => {
           {/* </div> */}
         </div>
         <div className='users-div flex-center'>
-          <div className='member-icons'>
-            <div className='member-icon'>
-              {loggedInUser ? loggedInUser.initials : 'OK'}
-            </div>
-            <div className='member-icon'>NI</div>
-            <div className='member-icon'>TR</div>
-          </div>
+          <Members board={board} loggedInUser={loggedInUser} />
+          {/* <div className='member-icons'>
+						<div className='member-icon'>{loggedInUser ? loggedInUser.initials : 'OK'}</div>
+						<div className='member-icon'>NI</div>
+						<div className='member-icon'>TR</div>
+					</div> */}
           <div className='board-header-div invite-btn flex-center'>
             <img className='add-user-img' src={addUser} alt='' />
             <span

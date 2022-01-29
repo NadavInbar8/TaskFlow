@@ -42,33 +42,35 @@ export const InviteModal = ({users, loggedInUser, board}) => {
 			<div className='users-div'>
 				<ul className='users-list'>
 					{users.map((user) => {
-						return (
-							<li
-								key={user._id}
-								onClick={() => {
-									toggleUserInBoard(user);
-								}}>
-								<div className='user-profile-div'>
-									{user?.imgUrl ? (
-										<div className='user-details'>
-											<div className='flex align-center'>
-												<img className='user-avatar-btn flex-center' src={user.imgUrl} alt='' />
-												<span>{user.fullName}</span>
+						if (user._id !== loggedInUser._id) {
+							return (
+								<li
+									key={user._id}
+									onClick={() => {
+										toggleUserInBoard(user);
+									}}>
+									<div className='user-profile-div'>
+										{user?.imgUrl ? (
+											<div className='user-details'>
+												<div className='flex align-center'>
+													<img className='user-avatar-btn flex-center' src={user.imgUrl} alt='' />
+													<span>{user.fullName}</span>
+												</div>
+												<span>{checkUserInBoard(user._id)}</span>
 											</div>
-											<span>{checkUserInBoard(user._id)}</span>
-										</div>
-									) : (
-										<div className='user-details'>
-											<div className='flex align-center'>
-												<div className='user-avatar-btn flex-center'>{user ? user.initials : 'G'}</div>
-												<span>{user.fullName}</span>
+										) : (
+											<div className='user-details'>
+												<div className='flex align-center'>
+													<div className='user-avatar-btn flex-center'>{user ? user.initials : 'G'}</div>
+													<span>{user.fullName}</span>
+												</div>
+												<span>{checkUserInBoard(user._id)}</span>
 											</div>
-											<span>{checkUserInBoard(user._id)}</span>
-										</div>
-									)}
-								</div>
-							</li>
-						);
+										)}
+									</div>
+								</li>
+							);
+						}
 					})}
 				</ul>
 			</div>
