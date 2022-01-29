@@ -8,7 +8,8 @@ export function Members({ users, loggedInUser, addUserToCard, toggleModal }) {
   const [usersMinusLoggedInUser, setUsers] = useState();
 
   function setUsersMinusLoggedInUser() {
-    console.log(loggedInUser._id);
+    console.log(loggedInUser);
+    // console.log(loggedInUser?._id);
     let newUsers = users.filter((user) => {
       return user._id !== loggedInUser._id;
     });
