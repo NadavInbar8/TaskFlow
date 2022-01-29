@@ -218,7 +218,7 @@ export const Board = () => {
     updatedBoard.groups[listIdx] = list;
     updatedBoard.groups[listIdx].editMode = false;
     let activity = {
-      name: loggedInUser.fullname,
+      name: loggedInUser,
       msg: `added a card in group: ${list.title}`,
       time: getNiceDate(),
     };
@@ -265,7 +265,7 @@ export const Board = () => {
     updatedBoard.groups.push(newGroup);
     setNewList(false);
     let activity = {
-      name: loggedInUser.fullname,
+      name: loggedInUser,
       msg: `added a Group in Board:  ${updatedBoard.title}`,
       time: getNiceDate(),
     };
@@ -282,7 +282,7 @@ export const Board = () => {
     updatedBoard.groups.splice(groupIdx, 1);
     updatedBoard.groupsOrder.splice(groupIdx, 1);
     let activity = {
-      name: loggedInUser.fullname,
+      name: loggedInUser,
       msg: `deleted a Group in Board:  ${updatedBoard.title}`,
       time: getNiceDate(),
     };
@@ -300,7 +300,7 @@ export const Board = () => {
     const updatedBoard = { ...board };
     updatedBoard.groups[listIdx].tasks[cardIdx] = editedCard;
     let activity = {
-      name: loggedInUser.fullname,
+      name: loggedInUser,
       msg: `edited a Card in Group:  ${list.title}`,
       time: getNiceDate(),
     };
@@ -324,7 +324,7 @@ export const Board = () => {
     updatedBoard.groups[listIdx].tasksIds.push(copiedCard.id);
     updatedBoard.groups[listIdx].tasks.push(copiedCard);
     let activity = {
-      name: loggedInUser.fullname,
+      name: loggedInUser,
       msg: `copied a Card in Group:  ${list.title}`,
       time: getNiceDate(),
     };
@@ -348,7 +348,7 @@ export const Board = () => {
     updatedBoard.groups.push(copiedList);
     updatedBoard.groupsOrder.push(copiedList.id);
     let activity = {
-      name: loggedInUser.fullname,
+      name: loggedInUser,
       msg: `copied a Group in Board: ${updatedBoard.title}`,
       time: getNiceDate(),
     };
@@ -374,7 +374,7 @@ export const Board = () => {
     ].tasks.filter((task) => task.id !== card.id);
     updatedBoard.groups[listIdx].tasksIds.splice(cardIdx, 1);
     let activity = {
-      name: loggedInUser.fullname,
+      name: loggedInUser,
       msg: `deleted a Card in Group:  ${list.title}`,
       time: getNiceDate(),
     };
