@@ -52,7 +52,6 @@ async function update(user) {
 async function login(userCred) {
 	userCred.password = userCred.password.toString();
 	const user = await httpService.post('auth/login', userCred);
-	console.log(user);
 	_saveLocalUser(user);
 	return user;
 	// let user = users.find((user) => user.email === userCred.email&&user.password===userCred.password);
@@ -74,7 +73,6 @@ async function signup(userCred) {
 	userCred.password = userCred.password.toString();
 	console.log('user service user cred', userCred);
 	const user = await httpService.post('auth/signup', userCred);
-	console.log(user);
 	return _saveLocalUser(user);
 	// socketService.emit('set-user-socket', user._id);
 }
@@ -94,7 +92,7 @@ async function logout() {
 // }
 
 function _saveLocalUser(user) {
-	console.log('user has saved in session storage');
+	console.log('Saved user in session storage');
 	sessionStorage.setItem(STORAGE_KEY_LOGGEDIN_USER, JSON.stringify(user));
 	return user;
 }

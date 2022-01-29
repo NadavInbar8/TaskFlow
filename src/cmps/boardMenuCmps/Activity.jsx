@@ -3,9 +3,7 @@ import activity from '../../assets/imgs/menuActivity.svg';
 export const Activity = ({board}) => {
 	let copyBoard = {...board};
 	let activitiesToRender = copyBoard.activities;
-	activitiesToRender = activitiesToRender.reverse();
 	// console.log('right order', board.activities);
-	console.log('reversed', activitiesToRender);
 	return (
 		<section className='menu-board-actions flex flex-row pointer activity-div'>
 			<div className='activity-header'>

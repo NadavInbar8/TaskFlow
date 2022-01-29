@@ -7,6 +7,9 @@ import {Link, useLocation, useHistory} from 'react-router-dom';
 import closeBtn from '../../assets/imgs/close.svg';
 import check from '../../assets/imgs/check.svg';
 
+// Services
+import {utilService} from '../../services/util.service.js';
+
 export const InviteModal = ({users, loggedInUser, board}) => {
 	const dispatch = useDispatch();
 	const toggleModal = (type) => {
@@ -14,21 +17,26 @@ export const InviteModal = ({users, loggedInUser, board}) => {
 	};
 
 	const toggleUserInBoard = async (user) => {
-		console.log(user);
+		// console.log(user);
 		const userId = user._id;
 		const updatedBoard = {...board};
 		const updatedBoardMembers = updatedBoard.members;
 		const memberIdx = updatedBoardMembers.findIndex((member) => userId === member._id);
 		memberIdx !== -1 ? updatedBoardMembers.splice(memberIdx, 1) : updatedBoardMembers.push(user);
 		updatedBoard.members = updatedBoardMembers;
-		console.log(updatedBoard);
+		let activity = {
+			user: loggedInUser,
+			msg: `Invited user ${user.fullName} to join this board`,
+			time: utilService.getNiceDate(),
+		};
+		updatedBoard.activities.unshift(activity);
 		await dispatch(updateBoard(updatedBoard));
 		checkUserInBoard(user._id);
 	};
 
 	const checkUserInBoard = (userId) => {
 		const imgToRender = board.members.some((member) => member._id === userId);
-		console.log(imgToRender);
+		// console.log(imgToRender);
 		if (imgToRender) return <img src={check} alt='check' />;
 		else return '';
 	};

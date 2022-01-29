@@ -51,8 +51,8 @@ const Group = ({
 	const changeGroupTitle = (group) => {
 		if (board) {
 			const newBoard = {...board};
-			console.log('newBoard', newBoard);
-			console.log(newBoard.groups);
+			// console.log('newBoard', newBoard);
+			// console.log(newBoard.groups);
 			let groupIdx = newBoard.groups.findIndex((groupF) => group.id === groupF.id);
 			newBoard.groups[groupIdx].title = newTitle;
 			dispatch(updateBoard(newBoard));
