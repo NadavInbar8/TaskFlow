@@ -391,19 +391,19 @@ export const CardDetails = () => {
     updateCard(activity);
   }
   // ATTACHMENTS
-  function attachLink(link) {
-    console.log(link);
-    const currCard = card;
-    currCard.attachments
-      ? currCard.attachments.push(link)
-      : (currCard.attachments = [link]);
-    setCard(currCard);
-    socket.emit('updateCard', card);
-    let activity = `${loggedInUser.fullName} attached a link at card-${
-      card.title
-    } at ${getNiceDate()}`;
-    updateCard(activity);
-  }
+  // function attachLink(link) {
+  //   console.log(link);
+  //   const currCard = card;
+  //   currCard.attachments
+  //     ? currCard.attachments.push(link)
+  //     : (currCard.attachments = [link]);
+  //   setCard(currCard);
+  //   socket.emit('updateCard', card);
+  //   let activity = `${loggedInUser.fullName} attached a link at card-${
+  //     card.title
+  //   } at ${getNiceDate()}`;
+  //   updateCard(activity);
+  // }
 
   function deleteAttachment(idx) {
     console.log(idx);
@@ -412,9 +412,12 @@ export const CardDetails = () => {
     else currCard.attachments.pop();
     setCard(currCard);
     socket.emit('updateCard', card);
-    let activity = `${loggedInUser.fullName} has deleted a link at card-${
-      card.title
-    } at ${getNiceDate()}`;
+
+    let activity = {
+      name: loggedInUser.fullName,
+      msg: `has deleted a link at card-${card.title}`,
+      time: getNiceDate(),
+    };
     updateCard(activity);
   }
 
@@ -425,17 +428,25 @@ export const CardDetails = () => {
     updateCard();
   }
 
-  // ATTACHMENTS
-  //   function attachLink(link) {
-  //     console.log(link);
-  //     const currCard = card;
-  //     currCard.attachments
-  //       ? currCard.attachments.push(link)
-  //       : (currCard.attachments = [link]);
-  //     setCard(currCard);
-  //     updateCard();
-  //     console.log(card);
-  //   }
+  // ATTACHMENTS;
+  function attachLink(link) {
+    console.log(link);
+    const currCard = card;
+    currCard.attachments
+      ? currCard.attachments.push(link)
+      : (currCard.attachments = [link]);
+    console.log(currCard);
+    setCard(currCard);
+    socket.emit('updateCard', card);
+
+    // let activity = `${loggedInUser.fullName} attached a link at card-${card.title} at ${getNiceDate()}`;
+    let activity = {
+      name: loggedInUser.fullName,
+      msg: `attached a link at card-${card.title}`,
+      time: getNiceDate(),
+    };
+    updateCard(activity);
+  }
 
   function updateAttachmentName(name, idx) {
     toggleModal('editAttachment');
@@ -443,9 +454,17 @@ export const CardDetails = () => {
     currCard.attachments[idx].name = name;
     setCard(currCard);
     socket.emit('updateCard', card);
-    let activity = `${loggedInUser.fullName} updated attachment name at card-${
-      card.title
-    } at ${getNiceDate()}`;
+
+    // let activity = `${loggedInUser.fullName} updated attachment name at card-${
+    //   card.title
+    // } at ${getNiceDate()}`;
+
+    let activity = {
+      name: loggedInUser.fullName,
+      msg: `updated attachment name at card-${card.title}`,
+      time: getNiceDate(),
+    };
+
     updateCard(activity);
   }
 
@@ -496,9 +515,16 @@ export const CardDetails = () => {
     newBoard.groups[chosenGroupIdx].tasks.splice(idx, 0, currCard);
     console.log(newBoard);
 
-    let activity = `${
-      loggedInUser.fullName
-    } moved a card to another list at board-${board.title} at ${getNiceDate()}`;
+    // let activity = `${
+    //   loggedInUser.fullName
+    // } moved a card to another list at board-${board.title} at ${getNiceDate()}`;
+
+    let activity = {
+      name: loggedInUser.fullName,
+      msg: ` moved a card to another list at board-${board.title}`,
+      time: getNiceDate(),
+    };
+
     newBoard.activities.push(activity);
 
     dispatch(updateBoard(newBoard));
@@ -522,9 +548,17 @@ export const CardDetails = () => {
         setCard(currCard);
         socket.emit('updateCard', card);
         console.log(currCard);
-        let activity = `${loggedInUser.fullName} removed ${
-          user.fullname
-        } from a card at card-${card.title} at ${getNiceDate()}`;
+
+        // let activity = `${loggedInUser.fullName} removed ${
+        //   user.fullName
+        // } from a card at card-${card.title} at ${getNiceDate()}`;
+
+        let activity = {
+          name: loggedInUser.fullName,
+          msg: ` removed ${user.fullName} from a card at card-${card.title}`,
+          time: getNiceDate(),
+        };
+
         updateCard(activity);
       } else {
         console.log(doesUserExist);
@@ -532,9 +566,17 @@ export const CardDetails = () => {
         setCard(currCard);
         socket.emit('updateCard', card);
         console.log(currCard);
-        let activity = `${loggedInUser.fullName} added ${
-          user.fullname
-        } to a card at card-${card.title} at ${getNiceDate()}`;
+
+        // let activity = `${loggedInUser.fullName} added ${
+        //   user.fullname
+        // } to a card at card-${card.title} at ${getNiceDate()}`;
+
+        let activity = {
+          name: loggedInUser.fullName,
+          msg: `added ${user.fullName} to a card at card-${card.title}`,
+          time: getNiceDate(),
+        };
+
         updateCard(activity);
       }
     } else {
@@ -542,9 +584,13 @@ export const CardDetails = () => {
       setCard(currCard);
       socket.emit('updateCard', card);
       console.log(currCard);
-      let activity = `${loggedInUser.fullName} added ${
-        user.fullname
-      } to a card at card-${card.title} at ${getNiceDate()}`;
+      // let activity = `${loggedInUser.fullName} added ${ user.fullname} to a card at card-${card.title} at ${getNiceDate()}`;
+      let activity = {
+        name: loggedInUser.fullName,
+        msg: `added ${user.fullName} to a card at card-${card.title}`,
+        time: getNiceDate(),
+      };
+
       updateCard(activity);
     }
   }
@@ -585,9 +631,12 @@ export const CardDetails = () => {
     const currCard = card;
     currCard.location = { lat, lng };
     setCard(currCard);
-    let activity = `${loggedInUser.fullName} added location to a card at card-${
-      card.title
-    } at ${getNiceDate()}`;
+    // let activity = `${loggedInUser.fullName} added location to a card at card-${card.title} at ${getNiceDate()}`;
+    let activity = {
+      name: loggedInUser.fullName,
+      msg: ` added location to a card at card-${card.title}`,
+      time: getNiceDate(),
+    };
     updateCard(activity);
   }
 
@@ -847,7 +896,7 @@ export const CardDetails = () => {
                     />
                   </div>
 
-                  {card.attachments?.lenght > 0 && (
+                  {card.attachments?.length > 0 && (
                     <section className='card-details-attachments'>
                       <div className='attachmets-title'>
                         <img src={attachment} />
