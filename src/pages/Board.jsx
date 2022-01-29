@@ -25,7 +25,7 @@ import addUser from '../assets/imgs/add-user.png';
 import { userService } from '../services/user.service.js';
 
 // Libs
-import { over } from 'lodash';
+import { over, update } from 'lodash';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import initialData from './initialData.js';
 
@@ -216,9 +216,11 @@ export const Board = () => {
     const updatedBoard = { ...board };
     updatedBoard.groups[listIdx] = list;
     updatedBoard.groups[listIdx].editMode = false;
-    let activity = `${loggedInUser.fullname} added a card in group ${
-      list.title
-    } at ${getNiceDate()}`;
+    let activity = {
+      name: loggedInUser.fullname,
+      msg: `added a card in group ${list.title}`,
+      time: getNiceDate(),
+    };
     updateBoard.activities.push(activity);
     setForceRender(!forceRender);
     dispatch(updateBoard(updatedBoard));
@@ -261,9 +263,11 @@ export const Board = () => {
     updatedBoard.groupsOrder.push(newGroup.id);
     updatedBoard.groups.push(newGroup);
     setNewList(false);
-    let activity = `${loggedInUser.fullname} added a Group in Board ${
-      board.title
-    } at ${getNiceDate()}`;
+    let activity = {
+      name: loggedInUser.fullname,
+      msg: `added a Group in Board  ${updatedBoard.title}`,
+      time: getNiceDate(),
+    };
     updateBoard.activities.push(activity);
     dispatch(updateBoard(updatedBoard));
     socket.emit('updateBoard', updatedBoard);
@@ -276,9 +280,11 @@ export const Board = () => {
     );
     updatedBoard.groups.splice(groupIdx, 1);
     updatedBoard.groupsOrder.splice(groupIdx, 1);
-    let activity = `${loggedInUser.fullname} deleted a Group in Board ${
-      board.title
-    } at ${getNiceDate()}`;
+    let activity = {
+      name: loggedInUser.fullname,
+      msg: `deleted a Group in Board  ${updatedBoard.title}`,
+      time: getNiceDate(),
+    };
     updateBoard.activities.push(activity);
     setForceRender(!forceRender);
     await dispatch(updateBoard(updatedBoard));
@@ -292,9 +298,11 @@ export const Board = () => {
     let cardIdx = list.tasks.findIndex((task) => task.id === card.id);
     const updatedBoard = { ...board };
     updatedBoard.groups[listIdx].tasks[cardIdx] = editedCard;
-    let activity = `${loggedInUser.fullname} edited a Card in Group ${
-      list.title
-    } at ${getNiceDate()}`;
+    let activity = {
+      name: loggedInUser.fullname,
+      msg: `edited a Card in Group  ${list.title}`,
+      time: getNiceDate(),
+    };
     updateBoard.activities.push(activity);
     dispatch(updateBoard(updatedBoard));
     socket.emit('updateBoard', updatedBoard);
@@ -314,9 +322,11 @@ export const Board = () => {
     );
     updatedBoard.groups[listIdx].tasksIds.push(copiedCard.id);
     updatedBoard.groups[listIdx].tasks.push(copiedCard);
-    let activity = `${loggedInUser.fullname} copied a Card in Group ${
-      list.title
-    } at ${getNiceDate()}`;
+    let activity = {
+      name: loggedInUser.fullname,
+      msg: `copied a Card in Group  ${list.title}`,
+      time: getNiceDate(),
+    };
     updateBoard.activities.push(activity);
     closeEditModal();
     dispatch(updateBoard(updatedBoard));
@@ -336,9 +346,11 @@ export const Board = () => {
     copiedList.tasks = copiedTasks;
     updatedBoard.groups.push(copiedList);
     updatedBoard.groupsOrder.push(copiedList.id);
-    let activity = `${loggedInUser.fullname} copied a Group in Board ${
-      board.title
-    } at ${getNiceDate()}`;
+    let activity = {
+      name: loggedInUser.fullname,
+      msg: `copied a Group in Board  ${updatedBoard.title}`,
+      time: getNiceDate(),
+    };
     updateBoard.activities.push(activity);
     closeListModal();
     dispatch(updateBoard(updatedBoard));
@@ -360,9 +372,11 @@ export const Board = () => {
       listIdx
     ].tasks.filter((task) => task.id !== card.id);
     updatedBoard.groups[listIdx].tasksIds.splice(cardIdx, 1);
-    let activity = `${loggedInUser.fullname} deleted a Card in Group ${
-      list.title
-    } at ${getNiceDate()}`;
+    let activity = {
+      name: loggedInUser.fullname,
+      msg: `deleted a Card in Group  ${list.title}`,
+      time: getNiceDate(),
+    };
     updateBoard.activities.push(activity);
     closeEditModal();
     setForceRender(!forceRender);
