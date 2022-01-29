@@ -53,6 +53,7 @@ async function login(userCred) {
 	userCred.password = userCred.password.toString();
 	const user = await httpService.post('auth/login', userCred);
 	console.log(user);
+	_saveLocalUser(user);
 	return user;
 	// let user = users.find((user) => user.email === userCred.email&&user.password===userCred.password);
 	// if (user.password === userCred.password) {
@@ -102,15 +103,13 @@ function getLoggedinUser() {
 	return JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER) || 'null');
 }
 
-function connectGuestUser() {
+async function connectGuestUser() {
 	const guestUser = {
-		email: 'guestemail1@gmail.com',
-		fullName: 'Guest',
-		initials: 'G',
+		email: 'guest@taskflow.com',
+		fullName: 'guest',
 		password: 1234,
-		_id: 12345678987465,
 	};
-	_saveLocalUser(guestUser);
+	await login(guestUser);
 }
 // (async ()=>{
 //     await userService.signup({fullname: 'Puki Norma', username: 'user1', password:'123',score: 10000, isAdmin: false})
