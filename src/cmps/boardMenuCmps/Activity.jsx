@@ -1,6 +1,5 @@
 import activity from '../../assets/imgs/menuActivity.svg';
 
-<<<<<<< HEAD
 export const Activity = ({board}) => {
 	const activitiesToRender = board?.activities?.reverse();
 	return (
@@ -12,6 +11,7 @@ export const Activity = ({board}) => {
 			<div className='activity-list-container'>
 				<ul className='activity-list'>
 					{activitiesToRender?.map((activity, idx) => {
+						console.log(activity);
 						return (
 							<li key={idx}>
 								<div className='activity-img'>
@@ -45,23 +45,4 @@ export const Activity = ({board}) => {
 			</div>
 		</section>
 	);
-=======
-export const Activity = ({ board }) => {
-  const activitiesToRender = board?.activities?.reverse();
-  return (
-    <section className='menu-board-actions flex flex-row pointer activity-div'>
-      <div className='activity-header'>
-        <img src={activity} className='activity-img' alt='' />
-        <span className='acitivity-h2'>Activity</span>
-      </div>
-      <div className='activity-list-container'>
-        <ul className='activity-list'>
-          {activitiesToRender?.map((activity) => {
-            return <li>{activity.msg}</li>;
-          })}
-        </ul>
-      </div>
-    </section>
-  );
->>>>>>> 2ca5f1687357aa7c5b82c2b7b3d84b72dce09b5f
 };
