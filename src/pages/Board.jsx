@@ -182,6 +182,9 @@ export const Board = () => {
     setNewCard({});
   };
 
+  const toggleModal = (type) => {
+    dispatch(openModal(type));
+  };
   // Tom funcs
 
   // function handleBoardTitleChange({ target }) {
@@ -494,6 +497,7 @@ export const Board = () => {
   };
   return data ? (
     <section className='flex-column h100'>
+      {console.log('board', board)}
       <div
         className={overlay ? 'overlay' : 'overlay hidden'}
         onClick={closeEditModal}
@@ -507,7 +511,13 @@ export const Board = () => {
           filterBoard={filterBoard}
         />
       ) : null}
-      <div className='board flex'>
+      <div
+        className='board flex'
+        onClick={(ev) => {
+          toggleModal('');
+          ev.stopPropagation();
+        }}
+      >
         <DragDropContext onDragEnd={onDragEnd}>
           <Droppable
             droppableId='all-columns'

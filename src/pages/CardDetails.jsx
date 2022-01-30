@@ -41,6 +41,20 @@ import arrowcross from '../assets/imgs/arrowcross.svg';
 import { userService } from '../services/user.service.js';
 import { socket } from '../RootCmp.jsx';
 
+/* googlemap stuff */
+// import usePlacesAutocomplete, {
+//   getGeocode,
+//   getLatLng,
+// } from 'use-places-autocomplete';
+// import {
+//   Combobox,
+//   ComboboxInput,
+//   ComboboxPopover,
+//   ComboboxList,
+//   ComboboxOption,
+// } from '@reach/combobox';
+// import "@reach/combobox/styles.css"
+
 export const CardDetails = () => {
   const history = useHistory();
   const { board } = useSelector(
@@ -996,18 +1010,21 @@ export const CardDetails = () => {
                       </div>
                       <section className='map'>
                         {isLoaded && (
-                          <GoogleMap
-                            mapContainerStyle={containerStyle}
-                            center={center}
-                            zoom={8}
-                            // onLoad={onLoad}
-                            onUnmount={onUnmount}
-                            onClick={(ev) => {
-                              addMarker(ev.latLng.lat(), ev.latLng.lng());
-                            }}
-                          >
-                            <Marker position={card.location} />
-                          </GoogleMap>
+                          <>
+                            {/* <Search /> */}
+                            <GoogleMap
+                              mapContainerStyle={containerStyle}
+                              center={center}
+                              zoom={8}
+                              // onLoad={onLoad}
+                              onUnmount={onUnmount}
+                              onClick={(ev) => {
+                                addMarker(ev.latLng.lat(), ev.latLng.lng());
+                              }}
+                            >
+                              <Marker position={card.location} />
+                            </GoogleMap>
+                          </>
                         )}
                       </section>
                     </section>
@@ -1234,6 +1251,37 @@ export const CardDetails = () => {
     </div>
   );
 };
+
+// function Search() {
+//   const {
+//     ready,
+//     value,
+//     suggestions: { status, data },
+//     setValue,
+//     clearSuggestion,
+//   } = usePlacesAutocomplete({
+//     requestOptions: {
+//       location: { lat: () => 32.109333, lng: () => 34.855499 },
+//       radius: 20 * 1000,
+//     },
+//   });
+//   return (
+//     <Combobox
+//       onSelect={(address) => {
+//         console.log(address);
+//       }}
+//     >
+//       <ComboboxInput
+//         value={value}
+//         onChange={(e) => {
+//           setValue(e.target.value);
+//         }}
+//         disabled={!ready}
+//         placeholder='Enter an Address'
+//       />
+//     </Combobox>
+//   );
+// }
 
 // function mapStateToProps({ boardModule }) {
 //   return {
