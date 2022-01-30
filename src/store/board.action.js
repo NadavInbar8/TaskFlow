@@ -1,3 +1,4 @@
+/* eslint-disable */
 import {boardService} from '../services/board.service.js';
 
 export function loadBoards() {
@@ -86,6 +87,58 @@ export function removeBoard(boardId) {
 	};
 }
 
+export function openModal(modal) {
+	return (dispatch) => {
+		dispatch({type: 'OPEN_MODAL', modal});
+	};
+}
+
+// Code to display
+
+// User clicks on "Create" button in the Taskflow app header
+{
+	/* <li className='create-li'>
+	<span className='app-header-span' onClick={() => toggleModal('createModal')}>
+		Create
+	</span>
+	</li>
+
+// Function inside React Component sends an action to open the specific modal in the Redux Store
+	const toggleModal = (type) => {
+		dispatch(openModal(type));
+	};
+
+// The action is sent from the Store to the Reducer
+export function openModal(modal) {
+	return (dispatch) => {
+		dispatch({type: 'OPEN_MODAL', modal});
+	};
+}
+
+// The reducer updates the global "Modal" state- opening the requested modal and closing all others.
+export function modalReducer(state = initialState, action) {
+	const initialState = {
+		modal: null,
+	};
+
+	let newState = state;
+	switch (action.type) {
+		case 'OPEN_MODAL':
+			newState = {
+				...state,
+				modal: state.modal !== action.modal ? action.modal : null,
+			};
+			break;
+		default:
+	}
+
+	return newState;
+}
+
+// The create modal opens
+{modal === 'createModal' && <CreateModal />} */
+}
+
 // export function updateBoard(board) {
 //   console.log('inside the updated', board);
 //   return (dispatch) => {
@@ -122,9 +175,3 @@ export function removeBoard(boardId) {
 // 		}
 // 	};
 // }
-
-export function openModal(modal) {
-	return (dispatch) => {
-		dispatch({type: 'OPEN_MODAL', modal});
-	};
-}

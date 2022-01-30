@@ -321,16 +321,17 @@ export const CardDetails = () => {
     currCard.checkLists?.length > 0
       ? currCard.checkLists.push(checkList)
       : (currCard.checkLists = [checkList]);
-    setCard(currCard);
-    socket.emit('updateCard', card);
     // let activity = `${loggedInUser.fullName} added a checklist at card-${card.title} at ${getNiceDate()}`;
     let activity = {
       user: loggedInUser,
       msg: `Added a checklist at card: ${card.title}`,
       time: getNiceDate(),
     };
-    // console.log(currCard);
+    setCard(currCard);
+    console.log(card);
+
     updateCard(activity);
+    socket.emit('updateCard', card);
   }
 
   function saveItemToCheckList(str, idx) {
@@ -666,14 +667,13 @@ export const CardDetails = () => {
                       card.cover.cover + '-cover' + ' ' + 'card-details-cover'
                     }
                   >
-                    <div className='exit-details'>
-                      <img
-                        onClick={() => {
-                          history.push(`/board/${board._id}`);
-                        }}
-                        src={xsvg}
-                        alt=''
-                      />
+                    <div
+                      onClick={() => {
+                        history.push(`/board/${board._id}`);
+                      }}
+                      className='exit-details'
+                    >
+                      <img src={xsvg} alt='' />
                     </div>
                     <div className='edit-cover'>
                       <img
@@ -782,7 +782,11 @@ export const CardDetails = () => {
                                 ? 'darkcyan'
                                 : 'red';
                             return (
-                              <div className='user-profile-div'>
+                              <div
+                                key={idx}
+                                onClick={() => addUserToCard(user)}
+                                className='user-profile-div'
+                              >
                                 {/* {console.log(loggedInUser)} */}
                                 {user?.imgUrl ? (
                                   <div className='user-details'>
@@ -821,7 +825,9 @@ export const CardDetails = () => {
                               ev.stopPropagation();
                               toggleModal('memberModalLeft');
                             }}
-                            className='user-profile-div user-details-preview add-user-button'
+                            className='
+                             user-details-preview 
+                             add-user-button'
                           >
                             <img src={plus} alt='' />
 
@@ -1109,14 +1115,17 @@ export const CardDetails = () => {
                               <section className='comment-user-content'>
                                 {console.log(comment)}
 
-                                {!loggedInUser?.imgUrl && (
+                                {!comment.byMember?.imgUrl && (
                                   <div className='user-logo'>
-                                    {loggedInUser?.initials}
+                                    {comment.byMember?.initials}
                                   </div>
                                 )}
-                                {loggedInUser?.imgUrl && (
+                                {comment.byMember?.imgUrl && (
                                   <div className='user-logo'>
-                                    <img src={loggedInUser?.imgUrl} alt='' />
+                                    <img
+                                      src={comment.byMember?.imgUrl}
+                                      alt=''
+                                    />
                                   </div>
                                 )}
                               </section>
@@ -1146,14 +1155,14 @@ export const CardDetails = () => {
                       {/* /////////////////////////////////////////////// */}
                       <li className='title-li'>Add to Card</li>
                       {/* ////////////////////////////////////////////////////////////////////// */}
-                      <li className='details-li'>
-                        <span
-                          className='li-span'
-                          onClick={(ev) => {
-                            ev.stopPropagation();
-                            toggleModal('memberModal');
-                          }}
-                        >
+                      <li
+                        onClick={(ev) => {
+                          ev.stopPropagation();
+                          toggleModal('memberModal');
+                        }}
+                        className='details-li'
+                      >
+                        <span className='li-span'>
                           <img className='details-svg' src={user} alt='' />
                           Members
                         </span>
@@ -1168,14 +1177,14 @@ export const CardDetails = () => {
                         )}
                       </li>
                       {/* /////////////////////////////////////////////////////////////////// */}
-                      <li className='details-li'>
-                        <span
-                          className='li-span'
-                          onClick={(ev) => {
-                            ev.stopPropagation();
-                            toggleModal('labelsModal');
-                          }}
-                        >
+                      <li
+                        onClick={(ev) => {
+                          ev.stopPropagation();
+                          toggleModal('labelsModal');
+                        }}
+                        className='details-li'
+                      >
+                        <span className='li-span'>
                           <img className='details-svg' src={label} alt='' />
                           Labels
                         </span>
@@ -1189,14 +1198,14 @@ export const CardDetails = () => {
                         )}
                       </li>
                       {/* //////////////////////////////////////////////////////////////////// */}
-                      <li className='details-li'>
-                        <span
-                          className='li-span'
-                          onClick={(ev) => {
-                            ev.stopPropagation();
-                            toggleModal('checklistModal');
-                          }}
-                        >
+                      <li
+                        onClick={(ev) => {
+                          ev.stopPropagation();
+                          toggleModal('checklistModal');
+                        }}
+                        className='details-li'
+                      >
+                        <span className='li-span'>
                           <img className='details-svg' src={checklist} alt='' />
                           Checklist
                         </span>
@@ -1208,14 +1217,14 @@ export const CardDetails = () => {
                         )}
                       </li>
                       {/* ////////////////////////////////////////////////// */}
-                      <li className='details-li'>
-                        <span
-                          className='li-span'
-                          onClick={(ev) => {
-                            ev.stopPropagation();
-                            toggleModal('datesModal');
-                          }}
-                        >
+                      <li
+                        onClick={(ev) => {
+                          ev.stopPropagation();
+                          toggleModal('datesModal');
+                        }}
+                        className='details-li'
+                      >
+                        <span className='li-span'>
                           <img className='details-svg' src={date} alt='' />
                           Dates
                         </span>
@@ -1224,14 +1233,14 @@ export const CardDetails = () => {
                         )}
                       </li>
                       {/* ///////////////////////////////////////////////////// */}
-                      <li className='details-li'>
-                        <span
-                          className='li-span'
-                          onClick={(ev) => {
-                            ev.stopPropagation();
-                            toggleModal('attachmentModal');
-                          }}
-                        >
+                      <li
+                        onClick={(ev) => {
+                          ev.stopPropagation();
+                          toggleModal('attachmentModal');
+                        }}
+                        className='details-li'
+                      >
+                        <span className='li-span'>
                           <img
                             className='details-svg'
                             src={attachment}
@@ -1247,14 +1256,14 @@ export const CardDetails = () => {
                         )}
                       </li>
                       {/* ////////////////////////////////////////////// */}
-                      <li className='details-li'>
-                        <span
-                          className='li-span'
-                          onClick={(ev) => {
-                            ev.stopPropagation();
-                            toggleModal('coverModal');
-                          }}
-                        >
+                      <li
+                        onClick={(ev) => {
+                          ev.stopPropagation();
+                          toggleModal('coverModal');
+                        }}
+                        className='details-li'
+                      >
+                        <span className='li-span'>
                           <img className='details-svg' src={cover} alt='' />
                           Cover
                         </span>
@@ -1277,14 +1286,14 @@ export const CardDetails = () => {
                       {/* /////////////////////////////////////////////// */}
 
                       <li className='title-li'>Actions</li>
-                      <li className='details-li'>
-                        <span
-                          className='li-span'
-                          onClick={(ev) => {
-                            ev.stopPropagation();
-                            toggleModal('moveModal');
-                          }}
-                        >
+                      <li
+                        onClick={(ev) => {
+                          ev.stopPropagation();
+                          toggleModal('moveModal');
+                        }}
+                        className='details-li'
+                      >
+                        <span className='li-span'>
                           <img className='details-svg' src={move} alt='' />
                           Move
                         </span>
@@ -1298,14 +1307,14 @@ export const CardDetails = () => {
                         )}
                       </li>
 
-                      <li className='details-li'>
-                        <span
-                          className='li-span'
-                          onClick={(ev) => {
-                            ev.stopPropagation();
-                            toggleModal('moveModalCopy');
-                          }}
-                        >
+                      <li
+                        onClick={(ev) => {
+                          ev.stopPropagation();
+                          toggleModal('moveModalCopy');
+                        }}
+                        className='details-li'
+                      >
+                        <span className='li-span'>
                           <img className='details-svg' src={copy} alt='' />
                           Copy
                         </span>

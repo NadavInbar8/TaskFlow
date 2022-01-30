@@ -80,9 +80,9 @@ export function DetailscheckList({
             max='100'
           ></meter>
         </section>
-        <br />
+
         {checkList.items.length > 0 && (
-          <div>
+          <div className='checklist-items'>
             {checkList.items.map((item, idx) => {
               return (
                 <div className='checklist-item' key={idx}>

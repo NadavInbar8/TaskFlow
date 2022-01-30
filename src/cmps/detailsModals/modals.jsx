@@ -206,7 +206,7 @@ export function Checklist({ toggleModal, addCheckList }) {
         <button
           onClick={(ev) => {
             ev.stopPropagation();
-            saveCheckList();
+            saveCheckList(ev);
           }}
           className='blue-btn-modal'
         >

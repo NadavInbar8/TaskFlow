@@ -9,7 +9,7 @@ import overdue from '../../assets/imgs/filter-svgs/overdue.svg';
 import dueNextDay from '../../assets/imgs/filter-svgs/due-next-day.svg';
 import dueLater from '../../assets/imgs/filter-svgs/due-later.svg';
 import noLabels from '../../assets/imgs/filter-svgs/no-labels.svg';
-import close from '../../assets/imgs/close.svg';
+import closeBtn from '../../assets/imgs/close.svg';
 
 // import {setFilterBy} from '../store/board.action.js';
 
@@ -44,7 +44,7 @@ export const BoardFilter = ({filterBoard}) => {
 			<div className='modal-top'>
 				<span>Filter</span>
 				{/* <img onClick={() => toggleModal('filter')} src={close} alt='' /> */}
-				<button onClick={() => toggleModal('filterModal')}>x</button>
+				<img src={closeBtn} className='close-btn pointer' alt='close' onClick={() => toggleModal()}></img>
 			</div>
 			<form className='filter-form'>
 				<div className='filter-search'>
