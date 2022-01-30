@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import {useSelector, useDispatch, shallowEqual} from 'react-redux';
 
 export function Colors({addBG, parentCmp, changeBG}) {
 	const [colors, setColors] = useState([
@@ -11,16 +12,17 @@ export function Colors({addBG, parentCmp, changeBG}) {
 		'bc-light-green',
 		'bc-cyan',
 	]);
-	const [parent, setParent] = useState();
+	const {modal} = useSelector((state) => ({
+		modal: state.boardModule.modal,
+	}));
 
 	useEffect(() => {
-		setParent(parentCmp);
 		getColorsForMap();
-	}, []);
+	}, [modal]);
 
 	const getColorsForMap = () => {
 		console.log(parentCmp);
-		if (parent === 'boardMenu') {
+		if (parentCmp === 'boardMenu') {
 			setColors([
 				'bc-blue',
 				'bc-orange',
@@ -31,7 +33,7 @@ export function Colors({addBG, parentCmp, changeBG}) {
 				'bc-light-green',
 				'bc-cyan',
 			]);
-		} else if (parent === 'createModal') {
+		} else if (parentCmp === 'createModal') {
 			setColors([
 				'bc-blue',
 				'bc-orange',
