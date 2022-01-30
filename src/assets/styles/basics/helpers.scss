@@ -80,12 +80,14 @@
 	justify-content: space-between;
 	flex-direction: row;
 	width: 100%;
-	font-weight: 600;
+	font-weight: 400;
+	font-size: 1rem;
 	padding: $s-2 0;
 	align-items: center;
 	text-align: center;
-	height: 40px;
+	min-height: 40px;
 	margin-bottom: $s-2;
+	color: #5e6c84;
 
 	border-bottom: 1px solid rgba(9, 30, 66, 0.12941176470588237);
 
@@ -93,18 +95,24 @@
 		border: none;
 		background-color: inherit;
 		color: '#5e6c84';
+		position: absolute;
+		right: 12px;
 		// font-size: $fs-2;
 	}
 	button:hover {
 		cursor: pointer;
 	}
 
+	// .modal-top-span {
+	// 	font-weight: 400;
+	// }
+
 	span {
 		width: 90%;
 	}
 
 	.close-btn {
-		width: 10px;
+		width: 16px;
 		height: 16px;
 	}
 
