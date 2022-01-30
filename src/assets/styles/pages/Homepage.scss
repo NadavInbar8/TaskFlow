@@ -3,10 +3,21 @@
 }
 .homepage {
 	//   max-width: 1200px;
-	overflow-y: scroll;
+	overflow-y: auto;
+	display: grid;
+	grid-template-columns: 1fr 1200px 1fr;
+	padding-bottom: 50px;
+	width: 100%;
+
+	> * {
+		grid-column: 2;
+	}
+
+	> *.full {
+		grid-column: 1 / -1;
+	}
 
 	.homepage-main {
-		margin: 0 auto;
 		flex-direction: column;
 		justify-content: space-between;
 
