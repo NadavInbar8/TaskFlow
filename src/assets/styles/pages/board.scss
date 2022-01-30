@@ -288,7 +288,12 @@
   .card-options {
     align-items: center;
     justify-content: space-between;
-
+    flex-wrap: wrap;
+    .board-card-members {
+      // align-items: flex-end;
+      width: 100%;
+      justify-content: flex-end;
+    }
     .card-date {
       display: flex;
 
