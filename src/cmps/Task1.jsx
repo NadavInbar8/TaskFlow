@@ -99,7 +99,7 @@ const Task1 = ({
                           : dueDateGray
                       }
                     />
-                    {task.date.date}
+                    <span>{task.date.date}</span>
                   </div>
                 ) : null}
                 {task.description ? (

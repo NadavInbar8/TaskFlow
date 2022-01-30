@@ -7,6 +7,7 @@ export const Members = ({board, loggedInUser, toggleModal}) => {
 	}));
 	return (
 		<div className='member-icons'>
+			{console.log(loggedInUser)}
 			<div className='member-icon'>
 				{/* onClick=
 						{() => {

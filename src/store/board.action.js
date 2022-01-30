@@ -87,11 +87,11 @@ export function removeBoard(boardId) {
 	};
 }
 
-// export function openModal(modal) {
-// 	return (dispatch) => {
-// 		dispatch({type: 'OPEN_MODAL', modal});
-// 	};
-// }
+export function openModal(modal) {
+	return (dispatch) => {
+		dispatch({type: 'OPEN_MODAL', modal});
+	};
+}
 
 // Code to display
 
