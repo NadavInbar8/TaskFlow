@@ -117,7 +117,6 @@ export const CardDetails = () => {
   }
 
   function handleChange({ target }) {
-    console.log('handle change');
     const field = target.name;
     const value = target.value;
     setCard({ ...card, [field]: value });
@@ -147,15 +146,13 @@ export const CardDetails = () => {
   }
 
   function updateCard(activity) {
-    console.log('update card');
     let listIdx = board.groups.findIndex((group) => group.id === listId);
     let currCardIdx = board.groups[listIdx].tasks.findIndex(
       (task) => task.id === cardId
     );
-    // debugger;
     const updatedBoard = { ...board };
     updatedBoard.groups[listIdx].tasks[currCardIdx] = card;
-    updatedBoard.activities.push(activity);
+    updatedBoard.activities.unshift(activity);
     dispatch(updateBoard(updatedBoard));
     socket.emit('updateBoard', updatedBoard);
   }
@@ -741,7 +738,7 @@ export const CardDetails = () => {
                     onBlur={() => {
                       updateCard({
                         user: loggedInUser,
-                        msg: 'change headline',
+                        msg: 'changed headline',
                         time: getNiceDate(),
                       });
                     }}
@@ -905,7 +902,7 @@ export const CardDetails = () => {
                       onBlur={() =>
                         updateCard({
                           user: loggedInUser,
-                          msg: 'change description',
+                          msg: 'Changed description',
                           time: getNiceDate(),
                         })
                       }
