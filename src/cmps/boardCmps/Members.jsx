@@ -14,7 +14,7 @@ export const Members = ({board, loggedInUser, toggleModal}) => {
 						}} */}
 
 				{loggedInUser?.imgUrl ? (
-					<img className='member-avatar-btn flex-center' src={loggedInUser.imgUrl} alt='' />
+					<img className='member-avatar-btn flex-center' src={loggedInUser?.imgUrl} alt='' />
 				) : (
 					<div className='flex align-center'>
 						<div className='member-avatar-btn flex-center'>{loggedInUser ? loggedInUser.initials : 'G'}</div>
@@ -22,7 +22,7 @@ export const Members = ({board, loggedInUser, toggleModal}) => {
 				)}
 				{/* <MemberModal member={loggedInUser} toggleModal={toggleModal} /> */}
 			</div>
-			{board?.members.map((member) => {
+			{board?.members?.map((member) => {
 				if (member._id !== loggedInUser._id)
 					return (
 						<div className='member-icon' key={member._id}>

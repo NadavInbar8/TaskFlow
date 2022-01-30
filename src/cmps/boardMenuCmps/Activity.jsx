@@ -31,7 +31,7 @@ export const Activity = ({board}) => {
 										)}
 									</div>
 									<div className='activity-text'>
-										<span className='acitivity-maker bold'>{activity.user.fullName}</span>
+										<span className='acitivity-maker bold'>{activity?.user?.fullName}</span>
 										<p className='activity-msg '>{activity.msg}</p>
 										<span className='activity-time'> at {activity.time}</span>
 									</div>

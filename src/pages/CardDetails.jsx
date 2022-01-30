@@ -143,7 +143,7 @@ export const CardDetails = () => {
 		let currCardIdx = board.groups[listIdx].tasks.findIndex((task) => task.id === cardId);
 		const updatedBoard = {...board};
 		updatedBoard.groups[listIdx].tasks[currCardIdx] = card;
-		updatedBoard.activities.push(activity);
+		updatedBoard.activities.unshift(activity);
 		dispatch(updateBoard(updatedBoard));
 		socket.emit('updateBoard', updatedBoard);
 	}
@@ -696,7 +696,19 @@ export const CardDetails = () => {
 								<img className='details-larger-svg' src={title} />
 
 								<div className='card-details-top-healine'>
-									<input onBlur={updateCard} onChange={handleChange} name='title' value={card.title} type='text-area' />
+									<input
+										onBlur={() => {
+											updateCard({
+												user: loggedInUser,
+												msg: 'changed headline',
+												time: getNiceDate(),
+											});
+										}}
+										onChange={handleChange}
+										name='title'
+										value={card.title}
+										type='text-area'
+									/>
 								</div>
 
 								{!card.cover && (
@@ -811,7 +823,13 @@ export const CardDetails = () => {
 											rows='10'
 											value={card.description || ''}
 											onChange={handleChange}
-											onBlur={updateCard}
+											onBlur={() =>
+												updateCard({
+													user: loggedInUser,
+													msg: 'Changed description',
+													time: getNiceDate(),
+												})
+											}
 											type='text-box'
 										/>
 									</div>
