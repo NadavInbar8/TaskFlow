@@ -53,9 +53,14 @@ export const Board = () => {
     shallowEqual
   );
 
-  const [loggedInUser, setLoggedInUser] = useState(
-    userService.getLoggedinUser()
-  );
+  const [loggedInUser, setLoggedInUser] = useState();
+
+  const { modal } = useSelector((state) => ({
+    modal: state.boardModule.modal,
+  }));
+  const { users } = useSelector((state) => ({
+    users: state.userModule.users,
+  }));
 
   const dispatch = useDispatch();
 
@@ -106,12 +111,14 @@ export const Board = () => {
 
   useEffect(() => {
     dispatch(loadBoard(boardId));
+    loadUsers();
+    loadUser();
   }, [boardId]);
 
   useEffect(() => {
     if (board) {
       setData({ ...board });
-    }
+    } else setForceRender(!forceRender);
   }, [board]);
 
   const [tempBoard, setTempBoard] = useState({});
@@ -222,10 +229,10 @@ export const Board = () => {
     updatedBoard.groups[listIdx].editMode = false;
     let activity = {
       user: loggedInUser,
-      msg: `added a card in group: ${list.title}`,
+      msg: `Added a card in group: ${list.title}`,
       time: getNiceDate(),
     };
-    updatedBoard.activities.push(activity);
+    updatedBoard.activities.unshift(activity);
     setForceRender(!forceRender);
     dispatch(updateBoard(updatedBoard));
     socket.emit('updateBoard', updatedBoard);
@@ -269,10 +276,10 @@ export const Board = () => {
     setNewList(false);
     let activity = {
       user: loggedInUser,
-      msg: `added a Group in Board:  ${updatedBoard.title}`,
+      msg: `Added a Group in Board:  ${updatedBoard.title}`,
       time: getNiceDate(),
     };
-    updatedBoard.activities.push(activity);
+    updatedBoard.activities.unshift(activity);
     dispatch(updateBoard(updatedBoard));
     socket.emit('updateBoard', updatedBoard);
   };
@@ -286,10 +293,10 @@ export const Board = () => {
     updatedBoard.groupsOrder.splice(groupIdx, 1);
     let activity = {
       user: loggedInUser,
-      msg: `deleted a Group in Board:  ${updatedBoard.title}`,
+      msg: `Deleted a Group in Board:  ${updatedBoard.title}`,
       time: getNiceDate(),
     };
-    updatedBoard.activities.push(activity);
+    updatedBoard.activities.unshift(activity);
     setForceRender(!forceRender);
     await dispatch(updateBoard(updatedBoard));
     socket.emit('updateBoard', updatedBoard);
@@ -304,10 +311,10 @@ export const Board = () => {
     updatedBoard.groups[listIdx].tasks[cardIdx] = editedCard;
     let activity = {
       user: loggedInUser,
-      msg: `edited a Card in Group:  ${list.title}`,
+      msg: `Edited a Card in Group:  ${list.title}`,
       time: getNiceDate(),
     };
-    updatedBoard.activities.push(activity);
+    updatedBoard.activities.unshift(activity);
     dispatch(updateBoard(updatedBoard));
     socket.emit('updateBoard', updatedBoard);
 
@@ -328,10 +335,10 @@ export const Board = () => {
     updatedBoard.groups[listIdx].tasks.push(copiedCard);
     let activity = {
       user: loggedInUser,
-      msg: `copied a Card in Group:  ${list.title}`,
+      msg: `Copied a Card in Group:  ${list.title}`,
       time: getNiceDate(),
     };
-    updatedBoard.activities.push(activity);
+    updatedBoard.activities.unshift(activity);
     closeEditModal();
     dispatch(updateBoard(updatedBoard));
     socket.emit('updateBoard', updatedBoard);
@@ -352,10 +359,10 @@ export const Board = () => {
     updatedBoard.groupsOrder.push(copiedList.id);
     let activity = {
       user: loggedInUser,
-      msg: `copied a Group in Board: ${updatedBoard.title}`,
+      msg: `Copied a Group in Board: ${updatedBoard.title}`,
       time: getNiceDate(),
     };
-    updatedBoard.activities.push(activity);
+    updatedBoard.activities.unshift(activity);
     closeListModal();
     dispatch(updateBoard(updatedBoard));
     socket.emit('updateBoard', updatedBoard);
@@ -378,10 +385,10 @@ export const Board = () => {
     updatedBoard.groups[listIdx].tasksIds.splice(cardIdx, 1);
     let activity = {
       user: loggedInUser,
-      msg: `deleted a Card in Group:  ${list.title}`,
+      msg: `Deleted a Card in Group:  ${list.title}`,
       time: getNiceDate(),
     };
-    updatedBoard.activities.push(activity);
+    updatedBoard.activities.unshift(activity);
     closeEditModal();
     setForceRender(!forceRender);
     dispatch(updateBoard(updatedBoard));
@@ -398,10 +405,6 @@ export const Board = () => {
     if (!user) user = userService.connectGuestUser();
     setLoggedInUser(user);
   };
-  // const [loggedInUser, setLoggedInUser] = useState();
-  const { users } = useSelector((state) => ({
-    users: state.userModule.users,
-  }));
 
   const [openLabels, setOpenLabels] = useState(false);
   const [listModal, setListModal] = useState(false);
@@ -497,7 +500,6 @@ export const Board = () => {
   };
   return data ? (
     <section className='flex-column h100'>
-      {console.log('board', board)}
       <div
         className={overlay ? 'overlay' : 'overlay hidden'}
         onClick={closeEditModal}

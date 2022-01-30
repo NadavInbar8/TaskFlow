@@ -1,5 +1,8 @@
-export function Colors({saveColor, parentCmp, changeBG}) {
-	const colors = [
+import React, {useEffect, useState} from 'react';
+import {useSelector, useDispatch, shallowEqual} from 'react-redux';
+
+export function Colors({addBG, parentCmp, changeBG}) {
+	const [colors, setColors] = useState([
 		'bc-blue',
 		'bc-orange',
 		'bc-dark-green',
@@ -8,7 +11,42 @@ export function Colors({saveColor, parentCmp, changeBG}) {
 		'bc-pink',
 		'bc-light-green',
 		'bc-cyan',
-	];
+	]);
+	const {modal} = useSelector((state) => ({
+		modal: state.boardModule.modal,
+	}));
+
+	useEffect(() => {
+		getColorsForMap();
+	}, [modal]);
+
+	const getColorsForMap = () => {
+		console.log(parentCmp);
+		if (parentCmp === 'boardMenu') {
+			setColors([
+				'bc-blue',
+				'bc-orange',
+				'bc-dark-green',
+				'bc-red',
+				'bc-purple',
+				'bc-pink',
+				'bc-light-green',
+				'bc-cyan',
+			]);
+		} else if (parentCmp === 'createModal') {
+			setColors([
+				'bc-blue',
+				'bc-orange',
+				'bc-dark-green',
+				'bc-red',
+				'bc-purple',
+				'bc-pink',
+				// 'bc-light-green',
+				// 'bc-cyan',
+			]);
+			console.log(parentCmp, colors);
+		}
+	};
 
 	const getColors = (color) => {
 		if (color === 'bc-blue') return 'rgb(0, 121, 191)';
@@ -24,7 +62,7 @@ export function Colors({saveColor, parentCmp, changeBG}) {
 	const onSaveColor = (color) => {
 		const actualColor = getColors(color);
 		if (parentCmp === 'createModal') {
-			saveColor(actualColor);
+			addBG('color', actualColor);
 		} else if (parentCmp === 'boardMenu') {
 			changeBG('color', actualColor);
 		}

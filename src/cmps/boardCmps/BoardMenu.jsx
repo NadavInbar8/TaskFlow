@@ -3,7 +3,7 @@ import {useSelector, useDispatch, shallowEqual} from 'react-redux';
 import {useHistory} from 'react-router-dom';
 import {removeBoard, updateBoard} from '../../store/board.action.js';
 // import {Cover} from '../detailsModals/modals.jsx';
-import {Colors} from './Colors.jsx';
+// import {Colors} from './Colors.jsx';
 
 // Dyanmic Cmps
 import {DefaultMenu} from '../boardMenuCmps/DefaultMenu.jsx';
@@ -17,8 +17,10 @@ import closeBtn from '../../assets/imgs/close.svg';
 // import archive from '../../assets/imgs/archive.svg';
 // import trash from '../../assets/imgs/trash.svg';
 
-// addCover;
-export const BoardMenu = ({menuOpen, setMenuOpen}) => {
+// Services
+import {utilService} from '../../services/util.service.js';
+
+export const BoardMenu = ({menuOpen, setMenuOpen, loggedInUser}) => {
 	const {board} = useSelector((state) => ({board: state.boardModule.currBoard}), shallowEqual);
 	// const {modal} = useSelector((state) => ({modal: state.boardModule.modal}));
 	const [menuTitle, setMenuTitle] = useState('Menu');
@@ -58,6 +60,13 @@ export const BoardMenu = ({menuOpen, setMenuOpen}) => {
 			updatedBoard.style.previewImgUrl = entity.preview;
 			updatedBoard.style.userClicked = false;
 		}
+
+		let activity = {
+			user: loggedInUser,
+			msg: `Updated board background`,
+			time: utilService.getNiceDate(),
+		};
+		updatedBoard.activities.unshift(activity);
 		dispatch(updateBoard(updatedBoard));
 	};
 
@@ -78,7 +87,14 @@ export const BoardMenu = ({menuOpen, setMenuOpen}) => {
 					)}
 					<span>{menuTitle}</span>
 					{/* <img onClick={() => toggleModal('menu')} src={close} alt='' /> */}
-					<img src={closeBtn} className='close-btn pointer' alt='close' onClick={() => setMenuOpen(!menuOpen)}></img>
+					<img
+						src={closeBtn}
+						className='close-btn pointer'
+						alt='close'
+						onClick={() => {
+							setMenuOpen(!menuOpen);
+							onSetCmpToRender('defaultMenu');
+						}}></img>
 				</div>
 				{cmpToRender === 'defaultMenu' && (
 					<DefaultMenu
@@ -89,7 +105,9 @@ export const BoardMenu = ({menuOpen, setMenuOpen}) => {
 					/>
 				)}
 				{cmpToRender === 'Archive' && <Archive />}
-				{cmpToRender === 'changeBackground' && <ChangeBackground board={board} changeBG={changeBG} />}
+				{cmpToRender === 'changeBackground' && (
+					<ChangeBackground board={board} changeBG={changeBG} setCmpToRender={setCmpToRender} />
+				)}
 				{/* <div className='about-board flex flex-row align-center justify-center'>
 					<div className='menu-container-svg align-center'>
 						<img src={blackBoardImg} alt='board-img' />

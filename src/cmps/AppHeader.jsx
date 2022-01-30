@@ -89,6 +89,8 @@ export function AppHeader() {
 		dispatch(updateBoard(newBoard));
 	}
 
+	const boardsToDisplay = [...boards].slice(0, 10);
+
 	// New board Funcs
 	// const colors = [
 	// 	'bc-blue',
@@ -217,7 +219,7 @@ export function AppHeader() {
 														alt='close'
 														onClick={() => toggleModal()}></img>
 												</div>
-												{boards.map((board) => {
+												{boardsToDisplay.map((board) => {
 													return (
 														<li
 															key={board._id}
@@ -233,7 +235,7 @@ export function AppHeader() {
 																		: {backgroundImage: getBackground(board)}
 																}>
 																<span className='board-title-span'>
-																	{board.title.length > 20 ? `${board.title.slice(0 - 20)}...` : board.title}
+																	{board.title.length > 15 ? `${board.title.slice(0, 15)}...` : board.title}
 																</span>
 															</div>
 															<div className='star-svg'>

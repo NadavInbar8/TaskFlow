@@ -150,10 +150,11 @@ export const CardDetails = () => {
     updatedBoard.groups[listIdx].tasksIds.splice(currCardIdx, 1);
     // let activity = `${loggedInUser.fullName} deleted a card at board-${board.title} at ${getNiceDate()}`;
     let activity = {
-      name: loggedInUser.fullName,
-      msg: `deleted a card at board: ${board.title}`,
+      user: loggedInUser,
+      msg: `Deleted a card at board: ${board.title}`,
       time: getNiceDate(),
     };
+    updatedBoard.activities.unshift(activity);
     dispatch(updateBoard(updatedBoard));
     socket.emit('updateBoard', updatedBoard);
     history.push(`/board/${board._id}`);
@@ -166,7 +167,7 @@ export const CardDetails = () => {
     );
     const updatedBoard = { ...board };
     updatedBoard.groups[listIdx].tasks[currCardIdx] = card;
-    updatedBoard.activities.push(activity);
+    updatedBoard.activities.unshift(activity);
     dispatch(updateBoard(updatedBoard));
     socket.emit('updateBoard', updatedBoard);
   }
@@ -197,8 +198,8 @@ export const CardDetails = () => {
     socket.emit('updateCard', card);
     // let activity = `${loggedInUser.fullName} added a comment to card-${card.title} at ${getNiceDate()}`;
     let activity = {
-      name: loggedInUser.fullName,
-      msg: `added a comment to card: ${card.title}`,
+      user: loggedInUser,
+      msg: `Added a comment in card: ${card.title}`,
       time: getNiceDate(),
     };
 
@@ -214,8 +215,8 @@ export const CardDetails = () => {
     // console.log(currCard);
     // let activity = `${loggedInUser.fullName} deleted a comment at card-${card.title} at ${getNiceDate()}`;
     let activity = {
-      name: loggedInUser.fullName,
-      msg: `deleted a comment at card: ${card.title}`,
+      user: loggedInUser,
+      msg: `Deleted a comment at card: ${card.title}`,
       time: getNiceDate(),
     };
     updateCard(activity);
@@ -249,8 +250,8 @@ export const CardDetails = () => {
     socket.emit('updateCard', card);
     // let activity = `${loggedInUser.fullName} added a date to card-${card.title} at ${getNiceDate()}`;
     let activity = {
-      name: loggedInUser.fullName,
-      msg: `added a date to card: ${card.title}`,
+      user: loggedInUser,
+      msg: `Added a date to card: ${card.title}`,
       time: getNiceDate(),
     };
     updateCard(activity);
@@ -264,8 +265,8 @@ export const CardDetails = () => {
     socket.emit('updateCard', card);
     // let activity = `${loggedInUser.fullName} marked ${card.title} date at ${getNiceDate()}`;
     let activity = {
-      name: loggedInUser.fullName,
-      msg: `marked ${card.title} date`,
+      user: loggedInUser,
+      msg: `Marked ${card.title} date`,
       time: getNiceDate(),
     };
     updateCard(activity);
@@ -279,8 +280,8 @@ export const CardDetails = () => {
     socket.emit('updateCard', card);
     // let activity = `${loggedInUser.fullName} added a label at card-${card.title} at ${getNiceDate()}`;
     let activity = {
-      name: loggedInUser.fullName,
-      msg: ` added a label at card: ${card.title}`,
+      user: loggedInUser,
+      msg: ` Added a label at card: ${card.title}`,
       time: getNiceDate(),
     };
     updateCard(activity);
@@ -292,8 +293,8 @@ export const CardDetails = () => {
     setCard(currCard);
     // let activity = `${loggedInUser.fullName} deleted a label at card-${card.title} at ${getNiceDate()}`;
     let activity = {
-      name: loggedInUser.fullName,
-      msg: `deleted a label at card: ${card.title}`,
+      user: loggedInUser,
+      msg: `Deleted a label at card: ${card.title}`,
       time: getNiceDate(),
     };
     console.log(currCard);
@@ -305,8 +306,8 @@ export const CardDetails = () => {
     newBoard.labelOptions = newlabels;
     // let activity = `${loggedInUser.fullName} updated the label list at card-${card.title} at ${getNiceDate()}`;
     let activity = {
-      name: loggedInUser.fullName,
-      msg: `updated the label list at card: ${card.title}`,
+      user: loggedInUser,
+      msg: `Updated the label list at card: ${card.title}`,
       time: getNiceDate(),
     };
     newBoard.activities.push(activity);
@@ -324,8 +325,8 @@ export const CardDetails = () => {
     socket.emit('updateCard', card);
     // let activity = `${loggedInUser.fullName} added a checklist at card-${card.title} at ${getNiceDate()}`;
     let activity = {
-      name: loggedInUser.fullName,
-      msg: `added a checklist at card: ${card.title}`,
+      user: loggedInUser,
+      msg: `Added a checklist at card: ${card.title}`,
       time: getNiceDate(),
     };
     // console.log(currCard);
@@ -340,8 +341,8 @@ export const CardDetails = () => {
     socket.emit('updateCard', card);
     // let activity = `${loggedInUser.fullName} updated a checklist at card-${card.title} at ${getNiceDate()}`;
     let activity = {
-      name: loggedInUser.fullName,
-      msg: `updated a checklist at card: ${card.title}`,
+      user: loggedInUser,
+      msg: `Updated a checklist at card: ${card.title}`,
       time: getNiceDate(),
     };
     updateCard(activity);
@@ -355,8 +356,8 @@ export const CardDetails = () => {
     socket.emit('updateCard', card);
     // let activity = `${loggedInUser.fullName} updated a checklist at card-${card.title} at ${getNiceDate()}`;
     let activity = {
-      name: loggedInUser.fullName,
-      msg: `updated a checklist at card: ${card.title}`,
+      user: loggedInUser,
+      msg: `Updated a checklist at card: ${card.title}`,
       time: getNiceDate(),
     };
     updateCard(activity);
@@ -369,8 +370,8 @@ export const CardDetails = () => {
     socket.emit('updateCard', card);
     // let activity = `${loggedInUser.fullName} updated a checklist at card-${card.title} at ${getNiceDate()}`;
     let activity = {
-      name: loggedInUser.fullName,
-      msg: `updated a checklist at card: ${card.title}`,
+      user: loggedInUser,
+      msg: `Updated a checklist at card: ${card.title}`,
       time: getNiceDate(),
     };
     updateCard(activity);
@@ -383,8 +384,8 @@ export const CardDetails = () => {
     socket.emit('updateCard', card);
     // let activity = `${loggedInUser.fullName} deleted a checklist at card-${card.title} at ${getNiceDate()}`;
     let activity = {
-      name: loggedInUser.fullName,
-      msg: `deleted a checklist at card: ${card.title}`,
+      user: loggedInUser,
+      msg: `Deleted a checklist at card: ${card.title}`,
       time: getNiceDate(),
     };
     updateCard(activity);
@@ -398,26 +399,12 @@ export const CardDetails = () => {
     socket.emit('updateCard', card);
     // let activity = `${loggedInUser.fullName} added a cover at card-${card.title} at ${getNiceDate()}`;
     let activity = {
-      name: loggedInUser.fullName,
-      msg: `deleted a checklist at card: ${card.title}`,
+      user: loggedInUser,
+      msg: `Deleted a checklist at card: ${card.title}`,
       time: getNiceDate(),
     };
     updateCard(activity);
   }
-  // ATTACHMENTS
-  // function attachLink(link) {
-  //   console.log(link);
-  //   const currCard = card;
-  //   currCard.attachments
-  //     ? currCard.attachments.push(link)
-  //     : (currCard.attachments = [link]);
-  //   setCard(currCard);
-  //   socket.emit('updateCard', card);
-  //   let activity = `${loggedInUser.fullName} attached a link at card-${
-  //     card.title
-  //   } at ${getNiceDate()}`;
-  //   updateCard(activity);
-  // }
 
   function deleteAttachment(idx) {
     console.log(idx);
@@ -428,8 +415,8 @@ export const CardDetails = () => {
     socket.emit('updateCard', card);
 
     let activity = {
-      name: loggedInUser.fullName,
-      msg: `has deleted a link at card-${card.title}`,
+      user: loggedInUser,
+      msg: `Deleted a link at card-${card.title}`,
       time: getNiceDate(),
     };
     updateCard(activity);
@@ -455,8 +442,8 @@ export const CardDetails = () => {
 
     // let activity = `${loggedInUser.fullName} attached a link at card-${card.title} at ${getNiceDate()}`;
     let activity = {
-      name: loggedInUser.fullName,
-      msg: `attached a link at card-${card.title}`,
+      user: loggedInUser,
+      msg: `Attached a link at card-${card.title}`,
       time: getNiceDate(),
     };
     updateCard(activity);
@@ -474,8 +461,8 @@ export const CardDetails = () => {
     // } at ${getNiceDate()}`;
 
     let activity = {
-      name: loggedInUser.fullName,
-      msg: `updated attachment name at card-${card.title}`,
+      user: loggedInUser,
+      msg: `Updated attachment name at card-${card.title}`,
       time: getNiceDate(),
     };
 
@@ -534,8 +521,8 @@ export const CardDetails = () => {
     // } moved a card to another list at board-${board.title} at ${getNiceDate()}`;
 
     let activity = {
-      name: loggedInUser.fullName,
-      msg: ` moved a card to another list at board-${board.title}`,
+      user: loggedInUser,
+      msg: ` Moved a card to another list at board-${board.title}`,
       time: getNiceDate(),
     };
 
@@ -568,8 +555,8 @@ export const CardDetails = () => {
         // } from a card at card-${card.title} at ${getNiceDate()}`;
 
         let activity = {
-          name: loggedInUser.fullName,
-          msg: ` removed ${user.fullName} from a card at card-${card.title}`,
+          user: loggedInUser,
+          msg: ` Removed ${user.fullName} from a card at card-${card.title}`,
           time: getNiceDate(),
         };
 
@@ -586,8 +573,8 @@ export const CardDetails = () => {
         // } to a card at card-${card.title} at ${getNiceDate()}`;
 
         let activity = {
-          name: loggedInUser.fullName,
-          msg: `added ${user.fullName} to a card at card-${card.title}`,
+          user: loggedInUser,
+          msg: `Added ${user.fullName} to a card at card-${card.title}`,
           time: getNiceDate(),
         };
 
@@ -600,8 +587,8 @@ export const CardDetails = () => {
       console.log(currCard);
       // let activity = `${loggedInUser.fullName} added ${ user.fullname} to a card at card-${card.title} at ${getNiceDate()}`;
       let activity = {
-        name: loggedInUser.fullName,
-        msg: `added ${user.fullName} to a card at card-${card.title}`,
+        user: loggedInUser,
+        msg: `Added ${user.fullName} to a card at card-${card.title}`,
         time: getNiceDate(),
       };
 
@@ -647,8 +634,8 @@ export const CardDetails = () => {
     setCard(currCard);
     // let activity = `${loggedInUser.fullName} added location to a card at card-${card.title} at ${getNiceDate()}`;
     let activity = {
-      name: loggedInUser.fullName,
-      msg: ` added location to a card at card-${card.title}`,
+      user: loggedInUser,
+      msg: ` Added location to a card at card-${card.title}`,
       time: getNiceDate(),
     };
     updateCard(activity);
@@ -660,6 +647,7 @@ export const CardDetails = () => {
         <div
           className='go-back-container'
           onClick={() => {
+            toggleModal('');
             history.push(`/board/${board._id}`);
           }}
         >
@@ -748,7 +736,13 @@ export const CardDetails = () => {
 
                 <div className='card-details-top-healine'>
                   <input
-                    onBlur={updateCard}
+                    onBlur={() => {
+                      updateCard({
+                        user: loggedInUser,
+                        msg: 'changed headline',
+                        time: getNiceDate(),
+                      });
+                    }}
                     onChange={handleChange}
                     name='title'
                     value={card.title}
@@ -778,13 +772,14 @@ export const CardDetails = () => {
                       <section className='users-section'>
                         <h3>Members</h3>
                         <section className='users-details-section'>
-                          {card.users.map((user) => {
+                          {card.users.map((user, idx) => {
                             const background =
                               user._id === loggedInUser._id
                                 ? 'darkcyan'
                                 : 'red';
                             return (
                               <div
+                                key={idx}
                                 style={{ backgroundColor: background }}
                                 className='user-details-preview'
                               >
@@ -905,7 +900,13 @@ export const CardDetails = () => {
                       rows='10'
                       value={card.description || ''}
                       onChange={handleChange}
-                      onBlur={updateCard}
+                      onBlur={() =>
+                        updateCard({
+                          user: loggedInUser,
+                          msg: 'Changed description',
+                          time: getNiceDate(),
+                        })
+                      }
                       type='text-box'
                     />
                   </div>

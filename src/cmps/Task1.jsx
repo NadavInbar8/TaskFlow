@@ -31,12 +31,8 @@ const Task1 = ({
         >
           {task.cover && task.cover.type == 'color' ? (
             <div
-              className='card-cover flex-center'
-              style={
-                task.cover.type == 'color'
-                  ? { backgroundColor: task.cover.cover, height: '32px' }
-                  : null
-              }
+              className={`card-cover flex-center ${task.cover.cover}-cover`}
+              // style={task.cover.type == 'color' ? { backgroundColor: task.cover.cover, height: '32px' }  : null }
             ></div>
           ) : task.cover && task.cover.type == 'img' ? (
             <div className='card-img-cover'>
