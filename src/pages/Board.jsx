@@ -132,7 +132,11 @@ export const Board = () => {
   }, [forceRender]);
 
   useEffect(() => {
+<<<<<<< HEAD
     // if (!loggedInUser) userService.connectGuestUser();
+=======
+    if (!loggedInUser) userService.connectGuestUser();
+>>>>>>> 8a120205b1ecd8131ea41dff4f5361e04961c6ec
     dispatch(loadBoard(boardId));
     socket.on('setUpdatedBoard', (board) => {
       dispatch(updateBoard(board));
@@ -189,6 +193,12 @@ export const Board = () => {
     setNewCard({});
   };
 
+<<<<<<< HEAD
+=======
+  const toggleModal = (type) => {
+    dispatch(openModal(type));
+  };
+>>>>>>> 8a120205b1ecd8131ea41dff4f5361e04961c6ec
   // Tom funcs
 
   // function handleBoardTitleChange({ target }) {
@@ -399,11 +409,17 @@ export const Board = () => {
 
   const loadUser = () => {
     let user = userService.getLoggedinUser();
+<<<<<<< HEAD
     console.log(user);
     if (!user) user = userService.connectGuestUser();
     setLoggedInUser(user);
   };
   // const [loggedInUser, setLoggedInUser] = useState();
+=======
+    if (!user) user = userService.connectGuestUser();
+    setLoggedInUser(user);
+  };
+>>>>>>> 8a120205b1ecd8131ea41dff4f5361e04961c6ec
 
   const [openLabels, setOpenLabels] = useState(false);
   const [listModal, setListModal] = useState(false);
@@ -499,7 +515,10 @@ export const Board = () => {
   };
   return data ? (
     <section className='flex-column h100'>
+<<<<<<< HEAD
       {/* {console.log('board', board)} */}
+=======
+>>>>>>> 8a120205b1ecd8131ea41dff4f5361e04961c6ec
       <div
         className={overlay ? 'overlay' : 'overlay hidden'}
         onClick={closeEditModal}
@@ -513,7 +532,17 @@ export const Board = () => {
           filterBoard={filterBoard}
         />
       ) : null}
+<<<<<<< HEAD
       <div className='board flex'>
+=======
+      <div
+        className='board flex'
+        onClick={(ev) => {
+          toggleModal('');
+          ev.stopPropagation();
+        }}
+      >
+>>>>>>> 8a120205b1ecd8131ea41dff4f5361e04961c6ec
         <DragDropContext onDragEnd={onDragEnd}>
           <Droppable
             droppableId='all-columns'

@@ -40,13 +40,24 @@ export function Members({
   return (
     <div>
       {membersMinusLoggedInUser && (
-        <div className='details-modal members'>
+        <div
+          className='details-modal members'
+          onClick={(ev) => ev.stopPropagation()}
+        >
           <section className='details-modal-top'>
             <span>Members</span>
-            <img onClick={() => toggleModal('memberModal')} src={xsvg} />
+            <img
+              onClick={(ev) => {
+                ev.stopPropagation();
+                toggleModal('memberModal');
+              }}
+              src={xsvg}
+            />
           </section>
-
-          <main className='details-modal-content'>
+          <main
+            className='details-modal-content'
+            onClick={(ev) => ev.stopPropagation()}
+          >
             <input type='text' placeholder='Search..' />
             <h4>Board Members</h4>
 
@@ -170,21 +181,35 @@ export function Checklist({ toggleModal, addCheckList }) {
   }
 
   return (
-    <div className='details-modal cheklist'>
+    <div
+      className='details-modal cheklist'
+      onClick={(ev) => ev.stopPropagation()}
+    >
       <section className='details-modal-top'>
         <span> Add checklist</span>
         <img
-          onClick={() => {
+          onClick={(ev) => {
+            ev.stopPropagation();
+
             toggleModal('checklist');
           }}
           src={xsvg}
           alt=''
         />
       </section>
-      <div className='details-modal-content'>
+      <div
+        className='details-modal-content'
+        onClick={(ev) => ev.stopPropagation()}
+      >
         <h4>Title</h4>
         <input value={checkList.title} onChange={handleChange} type='text' />
-        <button onClick={saveCheckList} className='blue-btn-modal'>
+        <button
+          onClick={(ev) => {
+            ev.stopPropagation();
+            saveCheckList();
+          }}
+          className='blue-btn-modal'
+        >
           Add
         </button>
       </div>
@@ -244,18 +269,25 @@ export function Attachment({ attachLink, toggleModal }) {
   // </label>;
 
   return (
-    <div className='details-modal attachment'>
+    <div
+      className='details-modal attachment'
+      onClick={(ev) => ev.stopPropagation()}
+    >
       <section className='details-modal-top'>
         <span>Attachment</span>
         <img
           src={xsvg}
-          onClick={() => {
+          onClick={(ev) => {
+            ev.stopPropagation();
             toggleModal('attachment');
           }}
         ></img>
       </section>
 
-      <section className='details-modal-content'>
+      <section
+        className='details-modal-content'
+        onClick={(ev) => ev.stopPropagation()}
+      >
         <h4 className='add-img-from-computer'>
           Computer <input onChange={(event) => uploadImg(event)} type='file' />
         </h4>
@@ -278,7 +310,13 @@ export function Attachment({ attachLink, toggleModal }) {
             />
           </>
         )}
-        <button className='grey-btn-modal' onClick={saveLink}>
+        <button
+          className='grey-btn-modal'
+          onClick={(ev) => {
+            ev.stopPropagation();
+            saveLink();
+          }}
+        >
           Attach
         </button>
       </section>
@@ -307,7 +345,8 @@ export function EditAttachmentName({
       <section className='details-modal-top'>
         <span>Edit attachment</span>
         <img
-          onClick={() => {
+          onClick={(ev) => {
+            ev.stopPropagation();
             toggleModal('editAttachment');
           }}
           src={xsvg}
@@ -322,7 +361,14 @@ export function EditAttachmentName({
           onChang={handleChange}
           type='text'
         />
-        <button onClick={() => updateAttachmentName(name, idx)}>Update</button>
+        <button
+          onClick={(ev) => {
+            ev.stopPropagation();
+            updateAttachmentName(name, idx);
+          }}
+        >
+          Update
+        </button>
       </main>
     </section>
   );
@@ -347,11 +393,12 @@ export function Cover({ addCover, toggleModal }) {
   }
 
   return (
-    <div className='details-modal Cover'>
+    <div className='details-modal Cover' onClick={(ev) => ev.stopPropagation()}>
       <div className='details-modal-top'>
         <span>Cover</span>
         <img
-          onClick={() => {
+          onClick={(ev) => {
+            ev.stopPropagation();
             toggleModal('cover');
           }}
           src={xsvg}
@@ -364,7 +411,10 @@ export function Cover({ addCover, toggleModal }) {
           {covers.map((cover, idx) => {
             return (
               <div
-                onClick={() => saveCover(cover)}
+                onClick={(ev) => {
+                  ev.stopPropagation();
+                  saveCover(cover);
+                }}
                 key={idx}
                 className={cover + '-cover' + ' ' + 'cover-to-show'}
               ></div>
@@ -459,15 +509,27 @@ export function Labels({ addLabel, toggleModal, board, updateLabelsList }) {
   }
 
   return (
-    <div className=' labels details-modal'>
+    <div
+      className=' labels details-modal'
+      onClick={(ev) => ev.stopPropagation()}
+    >
       <section className='details-modal-top'>
         <img
           className='arrowleft'
-          onClick={() => setEditMode(!editMode)}
+          onClick={(ev) => {
+            ev.stopPropagation();
+            setEditMode(!editMode);
+          }}
           src={arrowleft}
         />
         <span> Labels</span>
-        <img onClick={() => toggleModal('labels')} src={xsvg} />
+        <img
+          onClick={(ev) => {
+            ev.stopPropagation();
+            toggleModal('labels');
+          }}
+          src={xsvg}
+        />
       </section>
 
       {!editMode && (
@@ -489,12 +551,21 @@ export function Labels({ addLabel, toggleModal, board, updateLabelsList }) {
                 return (
                   <li key={idx} className='label-row'>
                     <div
-                      onClick={() => addLabel(label)}
+                      onClick={(ev) => {
+                        ev.stopPropagation();
+                        addLabel(label);
+                      }}
                       className={' label label-' + label.color}
                     >
                       {label.name}
                     </div>
-                    <img onClick={() => setEditMode(!editMode)} src={paint} />
+                    <img
+                      onClick={(ev) => {
+                        ev.stopPropagation();
+                        setEditMode(!editMode);
+                      }}
+                      src={paint}
+                    />
                     {/* <button onClick={() => setEditMode(!editMode)}>edit</button> */}
                   </li>
                 );
@@ -522,14 +593,23 @@ export function Labels({ addLabel, toggleModal, board, updateLabelsList }) {
             {labels.map((label, idx) => {
               return (
                 <div
-                  onClick={() => markChosen(label)}
+                  onClick={(ev) => {
+                    ev.stopPropagation();
+                    markChosen(label);
+                  }}
                   className={'edit-label label-' + label.color}
                   key={idx}
                 ></div>
               );
             })}
           </div>
-          <button className='blue-btn-modal' onClick={saveLabel}>
+          <button
+            className='blue-btn-modal'
+            onClick={(ev) => {
+              ev.stopPropagation();
+              saveLabel();
+            }}
+          >
             Save
           </button>
           {/* <button onClick={() => setEditMode(!editMode)}>go back</button> */}
@@ -568,17 +648,32 @@ export function Move({ board, moveCardToOtherList, toggleModal, type }) {
   }
 
   return (
-    <div className='details-modal move-modal'>
+    <div
+      className='details-modal move-modal'
+      onClick={(ev) => ev.stopPropagation()}
+    >
       {type === 'move' && (
         <section className='details-modal-top'>
           <span>Move</span>
-          <img src={xsvg} onClick={() => toggleModal('moveModal')} />
+          <img
+            src={xsvg}
+            onClick={(ev) => {
+              ev.stopPropagation();
+              toggleModal('moveModal');
+            }}
+          />
         </section>
       )}
       {type === 'copy' && (
         <section className='details-modal-top'>
           <span>Copy</span>
-          <img src={xsvg} onClick={() => toggleModal('moveModalCopy')} />
+          <img
+            src={xsvg}
+            onClick={(ev) => {
+              ev.stopPropagation();
+              toggleModal('moveModalCopy');
+            }}
+          />
         </section>
       )}
 
@@ -625,12 +720,26 @@ export function Move({ board, moveCardToOtherList, toggleModal, type }) {
 
       {type === 'move' && (
         <section className='move-button'>
-          <button onClick={moveCard}>MOVE</button>
+          <button
+            onClick={(ev) => {
+              ev.stopPropagation();
+              moveCard();
+            }}
+          >
+            MOVE
+          </button>
         </section>
       )}
       {type === 'copy' && (
         <section className='move-button'>
-          <button onClick={copyCard}>Copy</button>
+          <button
+            onClick={(ev) => {
+              ev.stopPropagation();
+              copyCard();
+            }}
+          >
+            Copy
+          </button>
         </section>
       )}
     </div>
@@ -661,11 +770,17 @@ export class Dates extends React.Component {
 
   render() {
     return (
-      <div className='details-modal Dates'>
+      <div
+        className='details-modal Dates'
+        onClick={(ev) => ev.stopPropagation()}
+      >
         <section className='details-modal-top'>
           <span>Date</span>
           <img
-            onClick={() => this.props.toggleModal('dates')}
+            onClick={(ev) => {
+              ev.stopPropagation();
+              this.props.toggleModal('dates');
+            }}
             src={xsvg}
             alt=''
           />
@@ -676,7 +791,13 @@ export class Dates extends React.Component {
             onDayClick={this.handleDayClick}
           />
           <p>
-            <button className='blue-btn-modal' onClick={this.saveDate}>
+            <button
+              className='blue-btn-modal'
+              onClick={(ev) => {
+                ev.stopPropagation();
+                this.saveDate();
+              }}
+            >
               save
             </button>
           </p>
