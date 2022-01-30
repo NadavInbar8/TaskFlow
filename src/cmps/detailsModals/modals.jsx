@@ -170,7 +170,7 @@ export function Checklist({ toggleModal, addCheckList }) {
     // console.log(checkList);
   }
   function saveCheckList(ev) {
-    // ev.preventDefault();
+    ev.preventDefault();
     console.log(checkList);
     addCheckList(checkList);
     setCheckList({
@@ -206,7 +206,7 @@ export function Checklist({ toggleModal, addCheckList }) {
         <button
           onClick={(ev) => {
             ev.stopPropagation();
-            saveCheckList();
+            saveCheckList(ev);
           }}
           className='blue-btn-modal'
         >

@@ -321,16 +321,17 @@ export const CardDetails = () => {
     currCard.checkLists?.length > 0
       ? currCard.checkLists.push(checkList)
       : (currCard.checkLists = [checkList]);
-    setCard(currCard);
-    socket.emit('updateCard', card);
     // let activity = `${loggedInUser.fullName} added a checklist at card-${card.title} at ${getNiceDate()}`;
     let activity = {
       user: loggedInUser,
       msg: `Added a checklist at card: ${card.title}`,
       time: getNiceDate(),
     };
-    // console.log(currCard);
+    setCard(currCard);
+    console.log(card);
+
     updateCard(activity);
+    socket.emit('updateCard', card);
   }
 
   function saveItemToCheckList(str, idx) {
@@ -782,6 +783,7 @@ export const CardDetails = () => {
                                 : 'red';
                             return (
                               <div
+                                key={idx}
                                 onClick={() => addUserToCard(user)}
                                 className='user-profile-div'
                               >
