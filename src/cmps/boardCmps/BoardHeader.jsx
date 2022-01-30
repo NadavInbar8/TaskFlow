@@ -5,6 +5,7 @@ import React, {useEffect, useState} from 'react';
 // Redux
 import {useSelector, useDispatch, shallowEqual} from 'react-redux';
 import {updateBoard, openModal} from '../../store/board.action.js';
+import {setUsers} from '../../store/user.action.js';
 
 // Cmps
 import {BoardFilter} from '../../cmps/boardCmps/BoardFilter.jsx';
@@ -23,6 +24,7 @@ import menuDots from '../../assets/imgs/menuDots.svg';
 
 // Services
 import {utilService} from '../../services/util.service.js';
+import {userService} from '../../services/user.service.js';
 
 export const BoardHeader = ({setForceRender, filterBoard, forceRender}) => {
 	const {board} = useSelector((state) => ({board: state.boardModule.currBoard}), shallowEqual);
@@ -32,9 +34,7 @@ export const BoardHeader = ({setForceRender, filterBoard, forceRender}) => {
 	const [width, setWidth] = useState('');
 	const [boardTitleInput, setBoardTitleInput] = useState('');
 	// const [starStatus, setStarStatus] = useState(false);
-	const {loggedInUser} = useSelector((state) => ({
-		loggedInUser: state.userModule.loggedInUser,
-	}));
+	const [loggedInUser, setLoggedInUser] = useState();
 	const {users} = useSelector((state) => ({
 		users: state.userModule.users,
 	}));
@@ -46,7 +46,8 @@ export const BoardHeader = ({setForceRender, filterBoard, forceRender}) => {
 	useEffect(() => {
 		// if (board)
 		// console.log('rendering board header');
-
+		loadUser();
+		loadUsers();
 		setBoardTitleInput(board.title);
 		// setStarStatus(board.starred);
 	}, []);
@@ -78,6 +79,17 @@ export const BoardHeader = ({setForceRender, filterBoard, forceRender}) => {
 		dispatch(updateBoard(updatedBoard));
 		// }
 		setForceRender(!forceRender);
+	};
+
+	const loadUsers = async () => {
+		const users = await userService.getUsers();
+		dispatch(setUsers(users));
+	};
+
+	const loadUser = () => {
+		let user = userService.getLoggedinUser();
+		if (!user) user = userService.connectGuestUser();
+		setLoggedInUser(user);
 	};
 
 	const toggleModal = (type) => {
@@ -164,14 +176,13 @@ export const BoardHeader = ({setForceRender, filterBoard, forceRender}) => {
 						<div className='member-icon'>NI</div>
 						<div className='member-icon'>TR</div>
 					</div> */}
-					<div className='board-header-div invite-btn flex-center'>
+					<div
+						className='board-header-div invite-btn flex-center'
+						onClick={() => {
+							toggleModal('inviteModal');
+						}}>
 						<img className='add-user-img' src={addUser} alt='' />
-						<span
-							onClick={() => {
-								toggleModal('inviteModal');
-							}}>
-							Invite
-						</span>
+						<span>Invite</span>
 					</div>
 					{modal === 'inviteModal' && <InviteModal users={users} loggedInUser={loggedInUser} board={board} />}
 				</div>

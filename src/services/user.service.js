@@ -62,12 +62,12 @@ async function login(userCred) {
 	// }
 }
 
-// signup({
-//   email: 'guestemail1@gmail.com',
-//   password: '1234',
-//   fullName: 'Guest',
-//   initials: 'G',
-// });
+signup({
+	email: 'guestemail1@gmail.com',
+	password: '1234',
+	fullName: 'Guest',
+	initials: 'G',
+});
 
 async function signup(userCred) {
 	userCred.password = userCred.password.toString();
