@@ -27,13 +27,13 @@ export const Homepage = () => {
               <br />
               productivity peaks. From high rises to the home office,
               <br />
-              the way your team works is unique—accomplish it all
+              the way your team works is unique accomplish it all
               <br />
               with <span className='taskflow'>Taskflow.</span>
             </p>
             <Link to='/workspace'>
               <button onClick={() => userService.connectGuestUser()}>
-                Try Demo Version
+                Try Demo
               </button>
             </Link>
           </article>

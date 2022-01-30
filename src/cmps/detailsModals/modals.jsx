@@ -170,7 +170,7 @@ export function Checklist({ toggleModal, addCheckList }) {
     // console.log(checkList);
   }
   function saveCheckList(ev) {
-    ev.preventDefault();
+    // ev.preventDefault();
     console.log(checkList);
     addCheckList(checkList);
     setCheckList({
