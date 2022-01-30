@@ -117,6 +117,7 @@ const Task1 = ({
                 ) : null}
                 {task.checkLists ? (
                   <div className='board-card-checklist'>
+                    {console.log(task.checkLists)}
                     {task.checkLists.map((checkList, idx) => {
                       let checkListCounter = 0;
 
@@ -125,12 +126,10 @@ const Task1 = ({
                           checkListCounter++;
                         }
                       });
-                      return checkListCounter > 0 ? (
-                        <div className=' flex-center' key={idx}>
-                          <img src={cardChecklist} />
-                          {checkListCounter}/{checkList.items.length}
-                        </div>
-                      ) : null;
+                      <div className=' flex-center' key={idx}>
+                        <img src={cardChecklist} />
+                        {checkListCounter}/{checkList.items.length}
+                      </div>;
                     })}
                   </div>
                 ) : null}
