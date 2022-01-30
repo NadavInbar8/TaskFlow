@@ -4,65 +4,140 @@ import 'react-day-picker/lib/style.css';
 import paint from '../../assets/imgs/paint.svg';
 import arrowleft from '../../assets/imgs/arrowleft.svg';
 import xsvg from '../../assets/imgs/x.svg';
-export function Members({ users, loggedInUser, addUserToCard, toggleModal }) {
-  const [usersMinusLoggedInUser, setUsers] = useState();
+import check from '../../assets/imgs/check.svg';
+export function Members({
+  board,
+  members,
+  loggedInUser,
+  addUserToCard,
+  toggleModal,
+}) {
+  const [membersMinusLoggedInUser, setMembers] = useState();
 
-  function setUsersMinusLoggedInUser() {
-    // console.log(loggedInUser);
-    // console.log(loggedInUser?._id);
-    let newUsers = users.filter((user) => {
-      return user._id !== loggedInUser._id;
+  function setMembersMinusLoggedInUser() {
+    let newMembers = members.filter((member) => {
+      return member._id !== loggedInUser._id;
     });
-    console.log(newUsers);
-    setUsers(newUsers);
+    console.log(newMembers);
+    setMembers(newMembers);
   }
 
   useEffect(() => {
-    setUsersMinusLoggedInUser();
+    setMembersMinusLoggedInUser();
   }, []);
 
-  function addUser(user) {
+  function addMember(member) {
     console.log('hi');
-    addUserToCard(user);
+    addUserToCard(member);
   }
+  const checkUserInBoard = (userId) => {
+    const imgToRender = board.members.some((member) => member._id === userId);
+    // console.log(imgToRender);
+    if (imgToRender) return <img src={check} alt='check' />;
+    else return '';
+  };
 
   return (
     <div>
-      {usersMinusLoggedInUser && (
+      {membersMinusLoggedInUser && (
         <div className='details-modal members'>
           <section className='details-modal-top'>
             <span>Members</span>
             <img onClick={() => toggleModal('memberModal')} src={xsvg} />
           </section>
+
           <main className='details-modal-content'>
             <input type='text' placeholder='Search..' />
             <h4>Board Members</h4>
+
             <ul>
               <li
                 onClick={() => {
-                  addUser(loggedInUser);
+                  addMember(loggedInUser);
                 }}
               >
-                <div
+                <div className='user-profile-div'>
+                  {/* {console.log(loggedInUser)} */}
+                  {loggedInUser?.imgUrl ? (
+                    <div className='user-details'>
+                      <div className='flex align-center'>
+                        <img
+                          className='user-avatar-btn flex-center'
+                          src={loggedInUser.imgUrl}
+                          alt=''
+                        />
+                        <span>{loggedInUser.fullName}</span>
+                      </div>
+                      {/* <span>{checkUserInBoard(loggedInUser._id)}</span> */}
+                    </div>
+                  ) : (
+                    <div className='user-details'>
+                      <div className='flex align-center'>
+                        <div className='user-avatar-btn flex-center'>
+                          {loggedInUser.initials}
+                        </div>
+                        <span>{loggedInUser.fullName}</span>
+                      </div>
+                      {/* <span>{checkUserInBoard(loggedInUser._id)}</span> */}
+                    </div>
+                  )}
+                </div>
+                {/* <div
                   style={{ color: 'black', backgroundColor: 'darkcyan' }}
                   className='user-logo'
                 >
                   {loggedInUser.initials}
                 </div>
-                {loggedInUser.fullName}
+
+
+
+                {loggedInUser.fullName} */}
               </li>
 
-              {usersMinusLoggedInUser.map((user, idx) => {
+              {membersMinusLoggedInUser.map((member, idx) => {
                 return (
-                  <li onClick={() => addUser(user)} key={idx}>
-                    <div
-                      style={{ backgroundColor: 'red' }}
-                      className='user-logo'
-                    >
-                      {user.initials}
+                  <li
+                    onClick={() => {
+                      addMember(member);
+                    }}
+                  >
+                    <div key={idx} className='user-profile-div'>
+                      {/* {console.log(loggedInUser)} */}
+                      {member?.imgUrl ? (
+                        <div className='user-details'>
+                          <div className='flex align-center'>
+                            <img
+                              className='user-avatar-btn flex-center'
+                              src={member.imgUrl}
+                              alt=''
+                            />
+                            <span>{member.fullName}</span>
+                          </div>
+                          {/* <span>{checkUserInBoard(member._id)}</span> */}
+                        </div>
+                      ) : (
+                        <div className='user-details'>
+                          <div className='flex align-center'>
+                            <div className='user-avatar-btn flex-center'>
+                              {member.initials}
+                            </div>
+                            <span>{member.fullName}</span>
+                          </div>
+                          {/* <span>{checkUserInBoard(member._id)}</span> */}
+                        </div>
+                      )}
                     </div>
-                    {user.fullName}
                   </li>
+                  //   <li onClick={() => addMember(member)} key={idx}>
+                  //     <div
+                  //       style={{ backgroundColor: 'red' }}
+                  //       className='user-logo'
+                  //     >
+                  //       {member.initials}
+                  //     </div>
+
+                  //     {member.fullName}
+                  //   </li>
                 );
               })}
             </ul>

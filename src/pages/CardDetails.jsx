@@ -764,26 +764,52 @@ export const CardDetails = () => {
                                 ? 'darkcyan'
                                 : 'red';
                             return (
-                              <div
-                                key={idx}
-                                style={{ backgroundColor: background }}
-                                className='user-details-preview'
-                              >
-                                {user.initials}
+                              <div className='user-profile-div'>
+                                {/* {console.log(loggedInUser)} */}
+                                {user?.imgUrl ? (
+                                  <div className='user-details'>
+                                    <div className='flex align-center'>
+                                      <img
+                                        className='user-avatar-btn flex-center'
+                                        src={user.imgUrl}
+                                        alt=''
+                                      />
+                                    </div>
+                                    {/* <span>{checkUserInBoard(user._id)}</span> */}
+                                  </div>
+                                ) : (
+                                  <div className='user-details'>
+                                    <div className='flex align-center'>
+                                      <div className='user-avatar-btn flex-center'>
+                                        {user.initials}
+                                      </div>
+                                    </div>
+                                    {/* <span>{checkUserInBoard(loggedInUser._id)}</span> */}
+                                  </div>
+                                )}
                               </div>
+                              // <div
+                              //   key={idx}
+                              //   style={{ backgroundColor: background }}
+                              //   className='user-details-preview'
+                              // >
+                              //   {user.initials}
+                              // </div>
                             );
                           })}
+
                           <div
                             onClick={() => {
                               toggleModal('memberModalLeft');
                             }}
-                            className='user-details-preview add-user-button'
+                            className='user-profile-div user-details-preview add-user-button'
                           >
                             <img src={plus} alt='' />
 
                             {modal === 'memberModalLeft' && (
                               <Members
-                                users={users}
+                                board={board}
+                                members={board.members}
                                 addUserToCard={addUserToCard}
                                 loggedInUser={loggedInUser}
                               />
@@ -1023,7 +1049,20 @@ export const CardDetails = () => {
                     onSubmit={addComment}
                     action=''
                   >
-                    <div className='user-logo'>{loggedInUser?.initials}</div>
+                    {!loggedInUser?.imgUrl && (
+                      <div className='user-logo'>{loggedInUser?.initials}</div>
+                    )}
+                    {loggedInUser?.imgUrl && (
+                      <div className='user-logo'>
+                        <img src={loggedInUser?.imgUrl} alt='' />
+                      </div>
+                    )}
+
+                    {/* {loggedInUser.imgUrl && (
+                      <div className='user-logo'>
+                        <img src={loggedInUser.imgUrl} />
+                      </div>
+                    )} */}
                     <input
                       value={comment.txt}
                       name='comment'
@@ -1041,9 +1080,17 @@ export const CardDetails = () => {
                             <li className='comment' key={idx}>
                               <section className='comment-user-content'>
                                 {console.log(comment)}
-                                <div className='user-logo'>
-                                  {comment.byMember.initials}
-                                </div>
+
+                                {!loggedInUser?.imgUrl && (
+                                  <div className='user-logo'>
+                                    {loggedInUser?.initials}
+                                  </div>
+                                )}
+                                {loggedInUser?.imgUrl && (
+                                  <div className='user-logo'>
+                                    <img src={loggedInUser?.imgUrl} alt='' />
+                                  </div>
+                                )}
                               </section>
 
                               <div className='comment-content'>
@@ -1071,17 +1118,18 @@ export const CardDetails = () => {
                       {/* /////////////////////////////////////////////// */}
                       <li className='title-li'>Add to Card</li>
                       {/* ////////////////////////////////////////////////////////////////////// */}
-                      <li className='details-li'>
-                        <span
-                          className='li-span'
-                          onClick={() => toggleModal('memberModal')}
-                        >
+                      <li
+                        onClick={() => toggleModal('memberModal')}
+                        className='details-li'
+                      >
+                        <span className='li-span'>
                           <img className='details-svg' src={user} alt='' />
                           Members
                         </span>
                         {modal === 'memberModal' && (
                           <Members
-                            users={users}
+                            board={board}
+                            members={board.members}
                             toggleModal={toggleModal}
                             addUserToCard={addUserToCard}
                             loggedInUser={loggedInUser}
@@ -1089,11 +1137,11 @@ export const CardDetails = () => {
                         )}
                       </li>
                       {/* /////////////////////////////////////////////////////////////////// */}
-                      <li className='details-li'>
-                        <span
-                          className='li-span'
-                          onClick={() => toggleModal('labelsModal')}
-                        >
+                      <li
+                        onClick={() => toggleModal('labelsModal')}
+                        className='details-li'
+                      >
+                        <span className='li-span'>
                           <img className='details-svg' src={label} alt='' />
                           Labels
                         </span>
@@ -1107,11 +1155,11 @@ export const CardDetails = () => {
                         )}
                       </li>
                       {/* //////////////////////////////////////////////////////////////////// */}
-                      <li className='details-li'>
-                        <span
-                          className='li-span'
-                          onClick={() => toggleModal('checklistModal')}
-                        >
+                      <li
+                        onClick={() => toggleModal('checklistModal')}
+                        className='details-li'
+                      >
+                        <span className='li-span'>
                           <img className='details-svg' src={checklist} alt='' />
                           Checklist
                         </span>
@@ -1123,11 +1171,11 @@ export const CardDetails = () => {
                         )}
                       </li>
                       {/* ////////////////////////////////////////////////// */}
-                      <li className='details-li'>
-                        <span
-                          className='li-span'
-                          onClick={() => toggleModal('datesModal')}
-                        >
+                      <li
+                        onClick={() => toggleModal('datesModal')}
+                        className='details-li'
+                      >
+                        <span className='li-span'>
                           <img className='details-svg' src={date} alt='' />
                           Dates
                         </span>
@@ -1136,11 +1184,11 @@ export const CardDetails = () => {
                         )}
                       </li>
                       {/* ///////////////////////////////////////////////////// */}
-                      <li className='details-li'>
-                        <span
-                          className='li-span'
-                          onClick={() => toggleModal('attachmentModal')}
-                        >
+                      <li
+                        onClick={() => toggleModal('attachmentModal')}
+                        className='details-li'
+                      >
+                        <span className='li-span'>
                           <img
                             className='details-svg'
                             src={attachment}
@@ -1156,11 +1204,11 @@ export const CardDetails = () => {
                         )}
                       </li>
                       {/* ////////////////////////////////////////////// */}
-                      <li className='details-li'>
-                        <span
-                          className='li-span'
-                          onClick={() => toggleModal('coverModal')}
-                        >
+                      <li
+                        onClick={() => toggleModal('coverModal')}
+                        className='details-li'
+                      >
+                        <span className='li-span'>
                           <img className='details-svg' src={cover} alt='' />
                           Cover
                         </span>
@@ -1171,11 +1219,11 @@ export const CardDetails = () => {
                           />
                         )}
                       </li>
-                      <li className='details-li'>
-                        <span
-                          className='li-span'
-                          onClick={() => setIsMapShown(!isMapShown)}
-                        >
+                      <li
+                        onClick={() => setIsMapShown(!isMapShown)}
+                        className='details-li'
+                      >
+                        <span className='li-span'>
                           <img className='details-svg' src={mapsvg} alt='' />
                           Location
                         </span>
@@ -1183,11 +1231,11 @@ export const CardDetails = () => {
                       {/* /////////////////////////////////////////////// */}
 
                       <li className='title-li'>Actions</li>
-                      <li className='details-li'>
-                        <span
-                          className='li-span'
-                          onClick={() => toggleModal('moveModal')}
-                        >
+                      <li
+                        onClick={() => toggleModal('moveModal')}
+                        className='details-li'
+                      >
+                        <span className='li-span'>
                           <img className='details-svg' src={move} alt='' />
                           Move
                         </span>
@@ -1201,11 +1249,11 @@ export const CardDetails = () => {
                         )}
                       </li>
 
-                      <li className='details-li'>
-                        <span
-                          className='li-span'
-                          onClick={() => toggleModal('moveModalCopy')}
-                        >
+                      <li
+                        onClick={() => toggleModal('moveModalCopy')}
+                        className='details-li'
+                      >
+                        <span className='li-span'>
                           <img className='details-svg' src={copy} alt='' />
                           Copy
                         </span>
