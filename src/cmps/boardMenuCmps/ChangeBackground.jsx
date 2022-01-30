@@ -24,13 +24,14 @@ export const ChangeBackground = ({changeBG}) => {
 	const handleChange = ({target}) => {
 		const {value} = target;
 		setSearchVal(value);
-		if (value.length > 2) searchImgs();
-		else getImgs();
+		if (value.length > 3) searchImgs(value);
 	};
 
-	const searchImgs = async () => {
+	const searchImgs = async (value) => {
+		if (searchVal.length < 3) getImgs();
 		try {
-			const imgs = await unsplashService.search(searchVal);
+			console.log(value);
+			const imgs = await unsplashService.search(value, 10);
 			setImgs(imgs);
 		} catch (err) {
 			console.log('couldnt get imgs', err);
@@ -39,7 +40,7 @@ export const ChangeBackground = ({changeBG}) => {
 
 	return (
 		<section className='background-div'>
-			<input type='text' placeholder='Photos' className='search-imgs-input' onChange={(ev) => handleChange(ev)} />
+			<input type='text' placeholder='Photos' className='search-imgs-input' onInput={(ev) => handleChange(ev)} />
 			<div className='imgs'>
 				{imgs.map((img) => (
 					<div key={img.id} className='img-container flex flex-center' onClick={() => changeBG('img', img)}>
