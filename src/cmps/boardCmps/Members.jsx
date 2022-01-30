@@ -23,7 +23,7 @@ export const Members = ({board, loggedInUser, toggleModal}) => {
 				{/* <MemberModal member={loggedInUser} toggleModal={toggleModal} /> */}
 			</div>
 			{board?.members?.map((member) => {
-				if (member._id !== loggedInUser._id)
+				if (member?._id !== loggedInUser?._id)
 					return (
 						<div className='member-icon' key={member._id}>
 							{/* onClick=
