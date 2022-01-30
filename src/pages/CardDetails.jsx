@@ -130,7 +130,7 @@ export const CardDetails = () => {
 		// let activity = `${loggedInUser.fullName} deleted a card at board-${board.title} at ${getNiceDate()}`;
 		let activity = {
 			user: loggedInUser,
-			msg: `Deleted a card at board: ${board.title}`,
+			msg: `deleted a card at board: ${board.title}`,
 			time: getNiceDate(),
 		};
 		dispatch(updateBoard(updatedBoard));
@@ -143,7 +143,7 @@ export const CardDetails = () => {
 		let currCardIdx = board.groups[listIdx].tasks.findIndex((task) => task.id === cardId);
 		const updatedBoard = {...board};
 		updatedBoard.groups[listIdx].tasks[currCardIdx] = card;
-		updatedBoard.activities.unshift(activity);
+		updatedBoard.activities.push(activity);
 		dispatch(updateBoard(updatedBoard));
 		socket.emit('updateBoard', updatedBoard);
 	}
@@ -173,7 +173,7 @@ export const CardDetails = () => {
 		// let activity = `${loggedInUser.fullName} added a comment to card-${card.title} at ${getNiceDate()}`;
 		let activity = {
 			user: loggedInUser,
-			msg: `Added a comment to card: ${card.title}`,
+			msg: `added a comment to card: ${card.title}`,
 			time: getNiceDate(),
 		};
 
@@ -190,7 +190,7 @@ export const CardDetails = () => {
 		// let activity = `${loggedInUser.fullName} deleted a comment at card-${card.title} at ${getNiceDate()}`;
 		let activity = {
 			user: loggedInUser,
-			msg: `Deleted a comment at card: ${card.title}`,
+			msg: `deleted a comment at card: ${card.title}`,
 			time: getNiceDate(),
 		};
 		updateCard(activity);
@@ -225,7 +225,7 @@ export const CardDetails = () => {
 		// let activity = `${loggedInUser.fullName} added a date to card-${card.title} at ${getNiceDate()}`;
 		let activity = {
 			user: loggedInUser,
-			msg: `Added a date to card: ${card.title}`,
+			msg: `added a date to card: ${card.title}`,
 			time: getNiceDate(),
 		};
 		updateCard(activity);
@@ -240,7 +240,7 @@ export const CardDetails = () => {
 		// let activity = `${loggedInUser.fullName} marked ${card.title} date at ${getNiceDate()}`;
 		let activity = {
 			user: loggedInUser,
-			msg: `Marked ${card.title} date`,
+			msg: `marked ${card.title} date`,
 			time: getNiceDate(),
 		};
 		updateCard(activity);
@@ -255,7 +255,7 @@ export const CardDetails = () => {
 		// let activity = `${loggedInUser.fullName} added a label at card-${card.title} at ${getNiceDate()}`;
 		let activity = {
 			user: loggedInUser,
-			msg: `Added a label at card: ${card.title}`,
+			msg: ` added a label at card: ${card.title}`,
 			time: getNiceDate(),
 		};
 		updateCard(activity);
@@ -268,7 +268,7 @@ export const CardDetails = () => {
 		// let activity = `${loggedInUser.fullName} deleted a label at card-${card.title} at ${getNiceDate()}`;
 		let activity = {
 			user: loggedInUser,
-			msg: `Removed a label at card: ${card.title}`,
+			msg: `deleted a label at card: ${card.title}`,
 			time: getNiceDate(),
 		};
 		console.log(currCard);
@@ -281,7 +281,7 @@ export const CardDetails = () => {
 		// let activity = `${loggedInUser.fullName} updated the label list at card-${card.title} at ${getNiceDate()}`;
 		let activity = {
 			user: loggedInUser,
-			msg: `Updated a label list at card: ${card.title}`,
+			msg: `updated the label list at card: ${card.title}`,
 			time: getNiceDate(),
 		};
 		newBoard.activities.push(activity);
@@ -298,7 +298,7 @@ export const CardDetails = () => {
 		// let activity = `${loggedInUser.fullName} added a checklist at card-${card.title} at ${getNiceDate()}`;
 		let activity = {
 			user: loggedInUser,
-			msg: `Added a checklist at card: ${card.title}`,
+			msg: `added a checklist at card: ${card.title}`,
 			time: getNiceDate(),
 		};
 		// console.log(currCard);
@@ -314,7 +314,7 @@ export const CardDetails = () => {
 		// let activity = `${loggedInUser.fullName} updated a checklist at card-${card.title} at ${getNiceDate()}`;
 		let activity = {
 			user: loggedInUser,
-			msg: `Updated a checklist at card: ${card.title}`,
+			msg: `updated a checklist at card: ${card.title}`,
 			time: getNiceDate(),
 		};
 		updateCard(activity);
@@ -328,7 +328,7 @@ export const CardDetails = () => {
 		// let activity = `${loggedInUser.fullName} updated a checklist at card-${card.title} at ${getNiceDate()}`;
 		let activity = {
 			user: loggedInUser,
-			msg: `Updated a checklist at card: ${card.title}`,
+			msg: `updated a checklist at card: ${card.title}`,
 			time: getNiceDate(),
 		};
 		updateCard(activity);
@@ -342,7 +342,7 @@ export const CardDetails = () => {
 		// let activity = `${loggedInUser.fullName} updated a checklist at card-${card.title} at ${getNiceDate()}`;
 		let activity = {
 			user: loggedInUser,
-			msg: `Removed an item from a checklist at card: ${card.title}`,
+			msg: `updated a checklist at card: ${card.title}`,
 			time: getNiceDate(),
 		};
 		updateCard(activity);
@@ -356,7 +356,7 @@ export const CardDetails = () => {
 		// let activity = `${loggedInUser.fullName} deleted a checklist at card-${card.title} at ${getNiceDate()}`;
 		let activity = {
 			user: loggedInUser,
-			msg: `Removed a checklist at card: ${card.title}`,
+			msg: `deleted a checklist at card: ${card.title}`,
 			time: getNiceDate(),
 		};
 		updateCard(activity);
@@ -371,7 +371,7 @@ export const CardDetails = () => {
 		// let activity = `${loggedInUser.fullName} added a cover at card-${card.title} at ${getNiceDate()}`;
 		let activity = {
 			user: loggedInUser,
-			msg: `Removed a checklist at card: ${card.title}`,
+			msg: `deleted a checklist at card: ${card.title}`,
 			time: getNiceDate(),
 		};
 		updateCard(activity);
@@ -401,7 +401,7 @@ export const CardDetails = () => {
 
 		let activity = {
 			user: loggedInUser,
-			msg: `Removed an attached image at card-${card.title}`,
+			msg: `has deleted a link at card-${card.title}`,
 			time: getNiceDate(),
 		};
 		updateCard(activity);
@@ -426,7 +426,7 @@ export const CardDetails = () => {
 		// let activity = `${loggedInUser.fullName} attached a link at card-${card.title} at ${getNiceDate()}`;
 		let activity = {
 			user: loggedInUser,
-			msg: `Attached an image at card-${card.title}`,
+			msg: `attached a link at card-${card.title}`,
 			time: getNiceDate(),
 		};
 		updateCard(activity);
@@ -445,7 +445,7 @@ export const CardDetails = () => {
 
 		let activity = {
 			user: loggedInUser,
-			msg: `Updated an attachd image name at card-${card.title}`,
+			msg: `updated attachment name at card-${card.title}`,
 			time: getNiceDate(),
 		};
 
@@ -500,7 +500,7 @@ export const CardDetails = () => {
 
 		let activity = {
 			user: loggedInUser,
-			msg: `Moved a card to another list at board-${board.title}`,
+			msg: ` moved a card to another list at board-${board.title}`,
 			time: getNiceDate(),
 		};
 
@@ -534,7 +534,7 @@ export const CardDetails = () => {
 
 				let activity = {
 					user: loggedInUser,
-					msg: ` Removed ${user.fullName} from card-${card.title}`,
+					msg: ` removed ${user.fullName} from a card at card-${card.title}`,
 					time: getNiceDate(),
 				};
 
@@ -552,7 +552,7 @@ export const CardDetails = () => {
 
 				let activity = {
 					user: loggedInUser,
-					msg: `Added ${user.fullName} to card-${card.title}`,
+					msg: `added ${user.fullName} to a card at card-${card.title}`,
 					time: getNiceDate(),
 				};
 
@@ -566,7 +566,7 @@ export const CardDetails = () => {
 			// let activity = `${loggedInUser.fullName} added ${ user.fullname} to a card at card-${card.title} at ${getNiceDate()}`;
 			let activity = {
 				user: loggedInUser,
-				msg: `Added ${user.fullName} to card-${card.title}`,
+				msg: `added ${user.fullName} to a card at card-${card.title}`,
 				time: getNiceDate(),
 			};
 
@@ -613,7 +613,7 @@ export const CardDetails = () => {
 		// let activity = `${loggedInUser.fullName} added location to a card at card-${card.title} at ${getNiceDate()}`;
 		let activity = {
 			user: loggedInUser,
-			msg: ` Pined a location at card-${card.title}`,
+			msg: ` added location to a card at card-${card.title}`,
 			time: getNiceDate(),
 		};
 		updateCard(activity);
