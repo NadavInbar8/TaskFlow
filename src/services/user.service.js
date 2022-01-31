@@ -106,7 +106,7 @@ function getLoggedinUser() {
 
 async function connectGuestUser() {
   const guestUser = {
-    email: 'guest@taskflow.com',
+    email: 'guestemail1@gmail.com',
     fullName: 'guest',
     password: 1234,
   };
