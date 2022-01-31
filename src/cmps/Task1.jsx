@@ -8,7 +8,7 @@ import attachment from '../assets/imgs/card-attach.svg';
 import cardChecklist from '../assets/imgs/card-checklist.svg';
 import description from '../assets/imgs/card-desc.svg';
 import dueDateGray from '../assets/imgs/card-due-gray.svg';
-import { Checklist } from './detailsModals/modals';
+import { Checklist } from './detailsModals/Modals';
 
 const Task1 = ({
   task,

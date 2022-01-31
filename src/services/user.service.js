@@ -63,7 +63,7 @@ async function login(userCred) {
 }
 
 // signup({
-//   email: 'guestemail1@gmail.com',
+//   email: 'guest@taskflow.com',
 //   password: '1234',
 //   fullName: 'Guest',
 //   initials: 'G',
@@ -73,7 +73,6 @@ async function signup(userCred) {
   userCred.password = userCred.password.toString();
   console.log('user service user cred', userCred);
   const user = await httpService.post('auth/signup', userCred);
-  console.log('user', user);
   return _saveLocalUser(user);
   // socketService.emit('set-user-socket', user._id);
 }
@@ -106,9 +105,8 @@ function getLoggedinUser() {
 
 async function connectGuestUser() {
   const guestUser = {
-    email: 'guestemail1@gmail.com',
-    fullName: 'guest',
-    password: 1234,
+    email: 'guest@taskflow.com',
+    password: '1234',
   };
   await login(guestUser);
 }

@@ -50,8 +50,9 @@ export const InviteModal = ({users, loggedInUser, board}) => {
 			<div className='users-div'>
 				<ul className='users-list'>
 					{users &&
+						loggedInUser &&
 						users.map((user) => {
-							if (user._id !== loggedInUser._id) {
+							if (user?._id !== loggedInUser?._id) {
 								return (
 									<li
 										key={user._id}
