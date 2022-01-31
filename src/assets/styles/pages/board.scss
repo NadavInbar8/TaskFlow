@@ -25,18 +25,19 @@
     padding: 0px 4px;
     overflow-x: hidden;
     margin-bottom: 4px;
+    margin-top: 0px;
     // margin: 0px 4px;
   }
   .list-options {
+    display: flex;
     width: 100%;
     justify-content: flex-start;
+    align-items: center;
     height: $s-8;
-    padding: $s-2;
-    font-size: $fs-5;
+    padding: $s-5 $s-3;
+    font-size: $fs-4;
     font-weight: $fw-4;
-    span {
-      margin-left: $s-2;
-    }
+    border-radius: $br;
 
     .group-title-edit {
       border-radius: $br;
@@ -96,23 +97,31 @@
     min-height: fit-content;
     box-shadow: 0 1px 0 #091e4240;
 
+    .textarea-edit-card {
+      width: 100%;
+      height: 100%;
+      margin: 0px;
+      padding: 0px;
+    }
+
     textarea {
       border-radius: $br;
-      width: 232px !important;
+      width: 232px;
       overflow: none;
       resize: none;
       border: none;
-      height: 54px !important;
+      // height: 60px;
+      // height: 54px;
     }
     textarea:focus-visible {
       outline: 2px solid #0079bf;
     }
   }
-  .board-card:first-child {
-    margin-top: $s-1;
-  }
+  // .board-card:first-child {
+  //   margin-top: $s-1;
+  // }
   .board-card-details {
-    padding: 6px $s-2 2px $s-2;
+    padding: $s-2;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -147,9 +156,15 @@
       padding: $s-1;
     }
   }
+  .card-img-cover {
+    display: flex;
+    justify-content: center;
+  }
   .img-cover {
-    max-height: 135px;
-    width: 100%;
+    max-height: 260px;
+    max-width: 100%;
+    width: auto;
+    height: auto;
     margin: 0px 0px;
     padding: 0px;
     margin: 0px;
@@ -368,12 +383,15 @@
 
 // Modals
 .add-card {
-  padding: $s-1;
+  padding: $s-2 $s-4;
+  font-size: $fs-4;
+  position: absolute;
   background-color: #0079bf;
   width: fit-content;
   color: whitesmoke;
   border-radius: $br;
-  margin-top: $s-1;
+  // margin: $s-1;
+  margin-top: $s-2;
 }
 
 .add-new-card {
