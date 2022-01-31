@@ -1,6 +1,6 @@
 import React from 'react';
-import {Draggable} from 'react-beautiful-dnd';
-import {Link, useParams, useLocation} from 'react-router-dom';
+import { Draggable } from 'react-beautiful-dnd';
+import { Link, useParams, useLocation } from 'react-router-dom';
 
 /////// SVGS ///////
 import dueDate from '../assets/imgs/card-due.svg';
@@ -8,7 +8,7 @@ import attachment from '../assets/imgs/card-attach.svg';
 import cardChecklist from '../assets/imgs/card-checklist.svg';
 import description from '../assets/imgs/card-desc.svg';
 import dueDateGray from '../assets/imgs/card-due-gray.svg';
-import {Checklist} from './detailsModals/Modals';
+import { Checklist } from './detailsModals/Modals';
 
 const Task1 = ({
   task,
