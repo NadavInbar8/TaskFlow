@@ -18,6 +18,10 @@
 		gap: 5px;
 		margin-bottom: 8px;
 		align-items: center;
+
+		img {
+			margin: 0;
+		}
 	}
 
 	.modal-top button {
@@ -180,11 +184,17 @@
 		align-items: center;
 	}
 
+	.no-labels-div {
+		img {
+			margin-left: 8px;
+		}
+	}
+
 	.label-div {
 		width: 100%;
 		height: 100%;
 		height: $s-8;
-		margin-bottom: $s-1;
+		margin-bottom: $s-2;
 	}
 
 	.label-div:hover {
@@ -196,7 +206,7 @@
 		width: 100%;
 		height: 100%;
 		border-radius: $s-1;
-		margin-left: $s-1;
+		margin-left: $s-2;
 	}
 
 	.green-label {
