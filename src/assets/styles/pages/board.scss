@@ -19,6 +19,21 @@
   position: relative;
   margin: 4px;
 
+  .member-avatar-btn {
+    cursor: pointer;
+    height: 28px;
+    width: 28px;
+    background-color: darkcyan;
+    border-radius: 50%;
+    color: $b1;
+    float: left;
+  }
+
+  .list-actions {
+    padding: $s-2;
+    border-bottom: 1px solid #091e4221;
+  }
+
   .list-ul {
     align-items: center;
     width: 256px;
@@ -607,3 +622,5 @@
 .seeOverlay {
   z-index: 15;
 }
+
+///////////////////////////////////////////////////////

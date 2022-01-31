@@ -244,6 +244,7 @@ export const Board = () => {
   };
 
   const openListModal = (group) => {
+    console.log('im here 2');
     setSelectedList(group);
   };
 
@@ -593,10 +594,13 @@ export const Board = () => {
                 onChange={handleNewList}
               />
               <div className='add-list-edit flex'>
-                <div className='add-list-btn' onClick={addNewGroup}>
+                <div className='add-list-btn pointer' onClick={addNewGroup}>
                   Add List
                 </div>
-                <div className='add-list-btn' onClick={() => setNewList(false)}>
+                <div
+                  className='add-list-btn pointer'
+                  onClick={() => setNewList(false)}
+                >
                   X
                 </div>
               </div>

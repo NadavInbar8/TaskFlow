@@ -554,19 +554,19 @@ a {
   }
 }
 
-::-webkit-scrollbar {
-  width: 18px;
-}
-::-webkit-scrollbar-thumb {
-  border: 5px solid rgba(0, 0, 0, 0);
-  background-clip: padding-box;
-  -webkit-border-radius: 20px;
-  background-color: $gray-l;
-  transition: ease-in-out 1s all;
-  &:hover {
-    background-color: $gray;
-  }
-  &:active {
-    background-color: $gray-d;
-  }
-}
+// ::-webkit-scrollbar {
+//   width: 18px;
+// }
+// ::-webkit-scrollbar-thumb {
+//   border: 5px solid rgba(0, 0, 0, 0);
+//   background-clip: padding-box;
+//   -webkit-border-radius: 20px;
+//   background-color: $gray-l;
+//   transition: ease-in-out 1s all;
+//   &:hover {
+//     background-color: $gray;
+//   }
+//   &:active {
+//     background-color: $gray-d;
+//   }
+// }

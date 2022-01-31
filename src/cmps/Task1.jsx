@@ -139,11 +139,19 @@ const Task1 = ({
                   task.users.map((user) => {
                     return (
                       <div key={user._id} className='card-members flex'>
-                        <img
-                          src={user.imgUrl}
-                          alt={user.initials}
-                          title={user.fullname}
-                        />
+                        {user.imgUrl ? (
+                          <img
+                            src={user.imgUrl}
+                            alt={user.initials}
+                            title={user.fullname}
+                          />
+                        ) : (
+                          <div className='flex align-center'>
+                            <div className='member-avatar-btn flex-center'>
+                              {user ? user.initials : 'G'}
+                            </div>
+                          </div>
+                        )}
                       </div>
                     );
                   })}
