@@ -52,7 +52,7 @@ async function update(user) {
 async function login(userCred) {
   userCred.password = userCred.password.toString();
   const user = await httpService.post('auth/login', userCred);
-  _saveLocalUser(user);
+  await _saveLocalUser(user);
   return user;
   // let user = users.find((user) => user.email === userCred.email&&user.password===userCred.password);
   // if (user.password === userCred.password) {
@@ -67,6 +67,8 @@ async function login(userCred) {
 //   password: '1234',
 //   fullName: 'Guest',
 //   initials: 'G',
+//   imgUrl:
+//     'https://i.pinimg.com/originals/27/b1/1e/27b11ec85bb8f88b0c824991c76d9b5b.gif',
 // });
 
 async function signup(userCred) {
@@ -98,9 +100,7 @@ function _saveLocalUser(user) {
 }
 
 function getLoggedinUser() {
-  return JSON.parse(
-    sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER) || 'null'
-  );
+  return JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER));
 }
 
 async function connectGuestUser() {
