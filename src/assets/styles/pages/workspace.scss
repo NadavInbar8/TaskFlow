@@ -3,21 +3,31 @@
 	// display: flex;
 	// justify-content: center;
 	display: grid;
-	grid-template-columns: 1fr 960px 1fr;
-
-	> * {
-		grid-column: 2;
-	}
-
-	> *.full {
-		grid-column: 1 / -1;
-	}
-	gap: 20px;
+	grid-template-columns: 1fr;
+	padding: $s-2;
+	gap: $s-2;
 	color: $b1;
 	overflow-y: auto;
 	padding-bottom: 50px;
 	width: 100%;
-	max-height: 90%;
+	overflow-x: hidden;
+	max-height: 95%;
+	margin-bottom: $s-2;
+
+	@media (min-width: 768px) {
+		grid-template-columns: 1fr 960px 1fr;
+		> * {
+			grid-column: 2;
+		}
+
+		> *.full {
+			grid-column: 1 / -1;
+		}
+		max-height: 90%;
+		padding: 0;
+		gap: $s-5;
+		margin-bottom: 0;
+	}
 
 	&::-webkit-scrollbar {
 		background-color: transparent;
@@ -109,10 +119,14 @@
 		border-radius: $s-1;
 		height: 100%;
 		width: 100%;
-		padding: 10px;
+		padding: 10px 10px 0;
 		position: relative;
 		cursor: pointer;
 		min-height: 135px;
+
+		@media (min-width: 768px) {
+			padding: 10px;
+		}
 	}
 
 	.star-boards-container {
