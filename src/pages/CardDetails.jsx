@@ -87,8 +87,8 @@ export const CardDetails = () => {
   const [isMapShown, setIsMapShown] = useState(false);
 
   useEffect(() => {
-    loadUsers();
-    loadUser();
+    // loadUsers();
+    // loadUser();
 
     // socket.on('setUpdatedBoard', (board) => {
     //   dispatch(updateBoard(board));
@@ -106,16 +106,16 @@ export const CardDetails = () => {
     if (card.location) setIsMapShown(true);
   }, [card]);
 
-  const loadUsers = async () => {
-    const users = await userService.getUsers();
-    dispatch(setUsers(users));
-  };
+  // const loadUsers = async () => {
+  //   const users = await userService.getUsers();
+  //   dispatch(setUsers(users));
+  // };
 
-  const loadUser = () => {
-    let user = userService.getLoggedinUser();
-    if (!user) user = userService.connectGuestUser();
-    setLoggedInUser(user);
-  };
+  // const loadUser = () => {
+  //   let user = userService.getLoggedinUser();
+  //   if (!user) user = userService.connectGuestUser();
+  //   setLoggedInUser(user);
+  // };
 
   function getCard() {
     if (!board) return;
