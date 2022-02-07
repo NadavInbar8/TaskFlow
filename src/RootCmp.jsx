@@ -5,10 +5,10 @@ import routes from './routes.js';
 import { AppHeader } from './cmps/AppHeader.jsx';
 import { io } from 'socket.io-client';
 
-export const socket = io.connect(
-  'https://taskflow-nadav-tom-oded.herokuapp.com'
-);
-// export const socket = io.connect('http://localhost:3030');
+// export const socket = io.connect(
+//   'https://taskflow-nadav-tom-oded.herokuapp.com'
+// );
+export const socket = io.connect('http://localhost:3030');
 
 export function RootCmp() {
   const { board } = useSelector(

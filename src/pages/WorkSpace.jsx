@@ -47,7 +47,7 @@ export const WorkSpace = () => {
   }, []);
 
   const loadUsers = async () => {
-    debugger;
+    // debugger;
     const users = await userService.getUsers();
     dispatch(setUsers(users));
   };

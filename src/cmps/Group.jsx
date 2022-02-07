@@ -42,7 +42,7 @@ const Group = ({
   const dispatch = useDispatch();
 
   const [titleEdit, setTitleEdit] = useState(false);
-  const [newTitle, setNewTitle] = useState(group.title);
+  const [newTitle, setNewTitle] = useState(group?.title);
   const toggleBoardModal = (modalType, group) => {
     openListModal(group);
     dispatch(openModal(modalType));
@@ -118,12 +118,13 @@ const Group = ({
                         : { overflowX: 'visible', height: 'auto' }
                     }
                   >
-                    {group.tasks.length > 0
+                    {group?.tasks?.length > 0
                       ? group.tasksIds.map((taskId, index) => {
                           const taskObj = tasks.find(
                             (temp) => temp.id === taskId
                           );
-                          return selectedCard.id !== taskObj.id ? (
+                          console.log(taskObj);
+                          return selectedCard?.id !== taskObj?.id ? (
                             <Task1
                               key={taskId}
                               task={taskObj}
