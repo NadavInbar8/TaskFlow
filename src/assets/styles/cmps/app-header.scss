@@ -16,7 +16,7 @@
 		gap: 10px;
 		font-size: 1.2857rem;
 
-		@media (min-width: 768px) {
+		@media (min-width: 480px) {
 			margin-top: 15px;
 		}
 
@@ -49,7 +49,7 @@
 		width: 100vw;
 		align-items: center;
 
-		@media (min-width: 768px) {
+		@media (min-width: 380px) {
 			padding: 0 $s-2;
 		}
 	}
@@ -57,7 +57,7 @@
 	.left-container {
 		gap: $s-2;
 
-		@media (min-width: 768px) {
+		@media (min-width: 380px) {
 			gap: $s-8;
 		}
 	}
@@ -78,7 +78,7 @@
 		height: $s-8;
 	}
 
-	@media (min-width: 768px) {
+	@media (min-width: 380px) {
 		img {
 			width: 8rem;
 		}
@@ -105,7 +105,7 @@
 		height: 44px;
 	}
 
-	@media (min-width: 768px) {
+	@media (min-width: 380px) {
 		li {
 			margin-left: $s-8;
 		}
@@ -140,8 +140,11 @@
 		width: fit-content;
 		position: absolute;
 		align-items: flex-start;
+		left: -145%;
 		top: 110%;
-		left: 0%;
+		@media (min-width: 768px) {
+			left: -2.5%;
+		}
 		min-width: 240px;
 		padding: 0 $s-3 $s-3;
 		border-radius: $s-1;
@@ -221,8 +224,12 @@
 		width: fit-content;
 		position: absolute;
 		align-items: flex-start;
-		left: 0%;
+		right: -83%;
 		top: 110%;
+		@media (min-width: 768px) {
+			left: 0%;
+		}
+
 		padding: 0 $s-3 $s-3;
 		border-radius: $s-1;
 		cursor: default;
@@ -322,6 +329,10 @@
 
 	// User
 
+	.user-profile-div {
+		position: relative;
+	}
+
 	.user-details {
 		flex-wrap: wrap;
 		margin-bottom: $s-2;
@@ -331,10 +342,8 @@
 		}
 
 		img {
-			img {
-				height: 32px;
-				width: 32px;
-			}
+			height: 32px;
+			width: 32px;
 		}
 	}
 
@@ -377,8 +386,8 @@
 		width: fit-content;
 		position: absolute;
 		align-items: flex-start;
-		right: 1%;
-		top: 6%;
+		right: 7.5%;
+		top: 130%;
 		min-width: 300px;
 		padding: 0 $s-3 $s-3;
 		border-radius: $s-1;

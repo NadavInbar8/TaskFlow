@@ -10,9 +10,14 @@
 	box-shadow: 0 8px 16px -4px rgba(9, 30, 66, 0.25), 0 0 0 1px rgba(9, 30, 66, 0.08);
 	align-items: flex-start;
 	height: 95vh;
-	width: 350px;
 	padding: 0 $s-3 $s-3;
 	border-radius: 4px;
+	width: 100vw;
+	overflow-y: auto;
+
+	@media (min-width: 768px) {
+		width: 350px;
+	}
 
 	.filter-content-div {
 		gap: 5px;
