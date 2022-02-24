@@ -9,7 +9,7 @@
 	grid-template-columns: 1fr;
 	width: 100%;
 	align-items: flex-start;
-	margin: 0 $s-2;
+	padding: 0 $s-2;
 
 	@media (min-width: 768px) {
 		grid-template-columns: 1fr 1200px 1fr;

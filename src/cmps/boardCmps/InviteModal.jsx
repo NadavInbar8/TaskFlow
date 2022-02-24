@@ -17,7 +17,6 @@ export const InviteModal = ({users, loggedInUser, board}) => {
 	};
 
 	const toggleUserInBoard = async (user) => {
-		// console.log(user);
 		const userId = user._id;
 		const updatedBoard = {...board};
 		const updatedBoardMembers = updatedBoard.members;
@@ -52,6 +51,9 @@ export const InviteModal = ({users, loggedInUser, board}) => {
 					{users &&
 						loggedInUser &&
 						users.map((user) => {
+							console.log(users);
+							console.log(loggedInUser);
+							console.log(user);
 							if (user?._id !== loggedInUser?._id) {
 								return (
 									<li

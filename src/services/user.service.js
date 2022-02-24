@@ -1,24 +1,24 @@
-import { storageService } from './async-storage.service';
-import { httpService } from './http.service';
+import {storageService} from './async-storage.service';
+import {httpService} from './http.service';
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { setUsers } from '../store/user.action.js';
-import { socketService, SOCKET_EVENT_USER_UPDATED } from './socket.service';
+import {useDispatch} from 'react-redux';
+import {setUsers} from '../store/user.action.js';
+import {socketService, SOCKET_EVENT_USER_UPDATED} from './socket.service';
 
-const STORAGE_KEY_LOGGEDIN_USER = 'loggedinUser';
+const STORAGE_KEY_LOGGEDIN_USER = 'loggedInUser';
 var gWatchedUser = null;
 
 export const userService = {
-  login,
-  logout,
-  signup,
-  getLoggedinUser,
-  getUsers,
-  getById,
-  remove,
-  update,
-  connectGuestUser,
-  //   changeScore,
+	login,
+	logout,
+	signup,
+	getLoggedinUser,
+	getUsers,
+	getById,
+	remove,
+	update,
+	connectGuestUser,
+	//   changeScore,
 };
 
 // To help debugging from console
@@ -26,40 +26,40 @@ window.userService = userService;
 
 // getUsers();
 async function getUsers() {
-  const users = await httpService.get(`user`);
-  return users;
+	const users = await httpService.get(`user`);
+	return users;
 }
 
 async function getById(userId) {
-  // const user = await storageService.get('user', userId);
-  const user = await httpService.get(`user/${userId}`);
-  // gWatchedUser = user;
-  return user;
+	// const user = await storageService.get('user', userId);
+	const user = await httpService.get(`user/${userId}`);
+	// gWatchedUser = user;
+	return user;
 }
 function remove(userId) {
-  // return storageService.remove('user', userId);
-  return httpService.delete(`user/${userId}`);
+	// return storageService.remove('user', userId);
+	return httpService.delete(`user/${userId}`);
 }
 
 async function update(user) {
-  // await storageService.put('user', user);
-  user = await httpService.put(`user/${user._id}`, user);
-  // // Handle case in which admin updates other user's details
-  // if (getLoggedinUser()._id === user._id) _saveLocalUser(user)
-  // return user;
+	// await storageService.put('user', user);
+	user = await httpService.put(`user/${user._id}`, user);
+	// // Handle case in which admin updates other user's details
+	// if (getLoggedinUser()._id === user._id) _saveLocalUser(user)
+	// return user;
 }
 
 async function login(userCred) {
-  userCred.password = userCred.password.toString();
-  const user = await httpService.post('auth/login', userCred);
-  await _saveLocalUser(user);
-  return user;
-  // let user = users.find((user) => user.email === userCred.email&&user.password===userCred.password);
-  // if (user.password === userCred.password) {
-  //   user = getById(user._id);
-  //   if (!user) return console.log('you are not registered');
-  //   return _saveLocalUser(user);
-  // }
+	userCred.password = userCred.password.toString();
+	const user = await httpService.post('auth/login', userCred);
+	await _saveLocalUser(user);
+	return user;
+	// let user = users.find((user) => user.email === userCred.email&&user.password===userCred.password);
+	// if (user.password === userCred.password) {
+	//   user = getById(user._id);
+	//   if (!user) return console.log('you are not registered');
+	//   return _saveLocalUser(user);
+	// }
 }
 
 // signup({
@@ -72,17 +72,17 @@ async function login(userCred) {
 // });
 
 async function signup(userCred) {
-  userCred.password = userCred.password.toString();
-  console.log('user service user cred', userCred);
-  const user = await httpService.post('auth/signup', userCred);
-  return _saveLocalUser(user);
-  // socketService.emit('set-user-socket', user._id);
+	userCred.password = userCred.password.toString();
+	console.log('user service user cred', userCred);
+	const user = await httpService.post('auth/signup', userCred);
+	return _saveLocalUser(user);
+	// socketService.emit('set-user-socket', user._id);
 }
 
 async function logout() {
-  sessionStorage.removeItem(STORAGE_KEY_LOGGEDIN_USER);
-  // socketService.emit('unset-user-socket');
-  // return await httpService.post('auth/logout')
+	sessionStorage.removeItem(STORAGE_KEY_LOGGEDIN_USER);
+	// socketService.emit('unset-user-socket');
+	// return await httpService.post('auth/logout')
 }
 
 // async function changeScore(by) {
@@ -94,21 +94,21 @@ async function logout() {
 // }
 
 function _saveLocalUser(user) {
-  console.log('Saved user in session storage');
-  sessionStorage.setItem(STORAGE_KEY_LOGGEDIN_USER, JSON.stringify(user));
-  return user;
+	console.log('Saved user in session storage');
+	sessionStorage.setItem(STORAGE_KEY_LOGGEDIN_USER, JSON.stringify(user));
+	return user;
 }
 
 function getLoggedinUser() {
-  return JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER));
+	return JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER));
 }
 
 async function connectGuestUser() {
-  const guestUser = {
-    email: 'guest@taskflow.com',
-    password: '1234',
-  };
-  await login(guestUser);
+	const guestUser = {
+		email: 'guest@taskflow.com',
+		password: '1234',
+	};
+	await login(guestUser);
 }
 // (async ()=>{
 //     await userService.signup({fullname: 'Puki Norma', username: 'user1', password:'123',score: 10000, isAdmin: false})
