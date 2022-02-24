@@ -4,6 +4,7 @@ import { Link, useHistory, useLocation } from 'react-router-dom';
 // Redux
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { loadBoards, openModal, updateBoard } from '../store/board.action.js';
+// import {setUsers} from '../store/user.action.js';
 
 // Services
 import { userService } from '../services/user.service.js';
@@ -18,7 +19,6 @@ import star from '../assets/imgs/star.svg';
 import goldStar from '../assets/imgs/goldStar.svg';
 import whiteStar from '../assets/imgs/whiteStar.svg';
 import logo from '../assets/imgs/favicon/taskflow-favicon.svg';
-import { setUsers } from '../store/user.action.js';
 
 export const WorkSpace = () => {
   const history = useHistory();
@@ -42,21 +42,20 @@ export const WorkSpace = () => {
 
   useEffect(() => {
     dispatch(loadBoards());
-    loadUsers();
-    loadUser();
+    // loadUsers();
+    // loadUser();
   }, []);
 
-  const loadUsers = async () => {
-    // debugger;
-    const users = await userService.getUsers();
-    dispatch(setUsers(users));
-  };
+  // const loadUsers = async () => {
+  //   const users = await userService.getUsers();
+  //   dispatch(setUsers(users));
+  // };
 
-  const loadUser = async () => {
-    let user = userService.getLoggedinUser();
-    if (!user) user = userService.connectGuestUser();
-    setLoggedInUser(user);
-  };
+  // const loadUser = async () => {
+  //   let user = await userService.getLoggedinUser();
+  //   if (!user) user = userService.connectGuestUser();
+  //   setLoggedInUser(user);
+  // };
 
   useEffect(() => {
     getStarredBoards();
@@ -161,7 +160,7 @@ export const WorkSpace = () => {
                       }
                       className='board-background-div preview-cover'
                     >
-                      {starredBoard.style?.backgroundColor && (
+                      {starredBoard.style && (
                         <div
                           onClick={() => {
                             // connectUser();

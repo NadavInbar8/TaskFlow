@@ -115,7 +115,7 @@ const Task1 = ({
                     {task.attachments.length}
                   </div>
                 ) : null}
-                {task.checkLists ? (
+                {task.checkLists?.length > 0 ? (
                   <div className='board-card-checklist'>
                     {console.log(task.checkLists)}
                     {task.checkLists.map((checkList, idx) => {
@@ -126,10 +126,12 @@ const Task1 = ({
                           checkListCounter++;
                         }
                       });
-                      <div className=' flex-center' key={idx}>
-                        <img src={cardChecklist} />
-                        {checkListCounter}/{checkList.items.length}
-                      </div>;
+                      return (
+                        <div className=' flex-center' key={idx}>
+                          <img src={cardChecklist} />
+                          {checkListCounter}/{checkList.items.length}
+                        </div>
+                      );
                     })}
                   </div>
                 ) : null}
@@ -139,11 +141,19 @@ const Task1 = ({
                   task.users.map((user) => {
                     return (
                       <div key={user._id} className='card-members flex'>
-                        <img
-                          src={user.imgUrl}
-                          alt={user.initials}
-                          title={user.fullname}
-                        />
+                        {user.imgUrl ? (
+                          <img
+                            src={user.imgUrl}
+                            alt={user.initials}
+                            title={user.fullname}
+                          />
+                        ) : (
+                          <div className='flex align-center'>
+                            <div className='member-avatar-btn flex-center'>
+                              {user ? user.initials : 'G'}
+                            </div>
+                          </div>
+                        )}
                       </div>
                     );
                   })}

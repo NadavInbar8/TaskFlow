@@ -44,6 +44,7 @@ const Group = ({
   const [titleEdit, setTitleEdit] = useState(false);
   const [newTitle, setNewTitle] = useState(group?.title);
   const toggleBoardModal = (modalType, group) => {
+    console.log('im here');
     openListModal(group);
     dispatch(openModal(modalType));
   };
@@ -97,9 +98,11 @@ const Group = ({
               )}
               <img
                 src={dotdotdot}
-                className='list-menu'
+                className='list-menu pointer'
                 alt='list menu'
-                onClick={() => {
+                onClick={(ev) => {
+                  console.log('clicked');
+                  ev.stopPropagation();
                   toggleBoardModal('groupModal', group);
                 }}
               />
@@ -148,7 +151,7 @@ const Group = ({
                                 defaultValue={taskObj.title}
                               ></textarea>
                               <div
-                                className='add-card'
+                                className='add-card pointer'
                                 onClick={() => editCard(group, taskObj)}
                               >
                                 Save
@@ -194,13 +197,13 @@ const Group = ({
                       ></textarea>
                       <div className='flex'>
                         <div
-                          className='add-new-card-edit-btn'
+                          className='add-new-card-edit-btn pointer'
                           onClick={() => addNewCard(group)}
                         >
                           Add
                         </div>
                         <div
-                          className='add-new-card-edit-btn'
+                          className='add-new-card-edit-btn pointer'
                           onClick={() => {
                             closeAddNewCard(group);
                           }}
@@ -222,16 +225,10 @@ const Group = ({
             </Droppable>
             {selectedList.id === group.id && modal === 'groupModal' ? (
               <div className='board-list-modal seeOverlay'>
-                <div className=' modal-top'>
-                  <h3>Group Modal</h3>
-                  <img
-                    onClick={() => closeListModal(group)}
-                    className='closeBtn'
-                    src={close}
-                    alt='close'
-                  />
+                <div className=' list-actions flex-center'>
+                  <h3>List actions</h3>
                 </div>
-                <ul>
+                <ul style={{ paddingLeft: '8px' }}>
                   <li onClick={() => copyList(group)}>Copy List</li>
                   <li onClick={() => editNewCard(group)}>Add Card</li>
                   <li onClick={() => deleteList(group)}>Delete List</li>

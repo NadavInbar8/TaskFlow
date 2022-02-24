@@ -10,11 +10,11 @@ import io from 'socket.io-client';
 
 const baseUrl = process.env.NODE_ENV === 'production' ? '' : '//localhost:3030';
 export const socketService = createSocketService();
-
+console.log(baseUrl);
 // for debugging from console
 // window.socketService = socketService
 
-// socketService.setup();
+socketService.setup();
 
 function createSocketService() {
   var socket = null;

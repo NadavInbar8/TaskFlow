@@ -111,8 +111,8 @@ export const Board = () => {
 
   useEffect(() => {
     dispatch(loadBoard(boardId));
-    loadUsers();
-    loadUser();
+    // loadUsers();
+    // loadUser();
   }, [boardId]);
 
   useEffect(() => {
@@ -244,6 +244,7 @@ export const Board = () => {
   };
 
   const openListModal = (group) => {
+    console.log('im here 2');
     setSelectedList(group);
   };
 
@@ -395,16 +396,16 @@ export const Board = () => {
     socket.emit('updateBoard', updatedBoard);
   };
 
-  const loadUsers = async () => {
-    const users = await userService.getUsers();
-    dispatch(setUsers(users));
-  };
+  // const loadUsers = async () => {
+  //   const users = await userService.getUsers();
+  //   dispatch(setUsers(users));
+  // };
 
-  const loadUser = () => {
-    let user = userService.getLoggedinUser();
-    if (!user) user = userService.connectGuestUser();
-    setLoggedInUser(user);
-  };
+  // const loadUser = () => {
+  //   let user = userService.getLoggedinUser();
+  //   if (!user) user = userService.connectGuestUser();
+  //   setLoggedInUser(user);
+  // };
 
   const [openLabels, setOpenLabels] = useState(false);
   const [listModal, setListModal] = useState(false);
@@ -593,10 +594,13 @@ export const Board = () => {
                 onChange={handleNewList}
               />
               <div className='add-list-edit flex'>
-                <div className='add-list-btn' onClick={addNewGroup}>
+                <div className='add-list-btn pointer' onClick={addNewGroup}>
                   Add List
                 </div>
-                <div className='add-list-btn' onClick={() => setNewList(false)}>
+                <div
+                  className='add-list-btn pointer'
+                  onClick={() => setNewList(false)}
+                >
                   X
                 </div>
               </div>

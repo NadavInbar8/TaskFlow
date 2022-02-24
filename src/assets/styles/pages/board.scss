@@ -19,6 +19,21 @@
   position: relative;
   margin: 4px;
 
+  .member-avatar-btn {
+    cursor: pointer;
+    height: 28px;
+    width: 28px;
+    background-color: darkcyan;
+    border-radius: 50%;
+    color: $b1;
+    float: left;
+  }
+
+  .list-actions {
+    padding: $s-2;
+    border-bottom: 1px solid #091e4221;
+  }
+
   .list-ul {
     align-items: center;
     width: 256px;
@@ -239,6 +254,7 @@
       margin-right: $s-1;
       padding: 0px !important;
       border-radius: $br;
+      transition: 0.2s;
     }
     .label-green {
       background-color: #61bd4f;
@@ -288,6 +304,31 @@
       margin-right: $s-1;
       padding: 0px !important;
       border-radius: $br;
+      transition: 0.2s;
+    }
+    .label-green {
+      background-color: #61bd4f;
+      color: white;
+    }
+    .label-red {
+      background-color: #b04632;
+      color: white;
+    }
+    .label-orange {
+      background-color: #ff9f1a;
+      color: black;
+    }
+    .label-yellow {
+      background-color: #f2d600;
+      color: white;
+    }
+    .label-purple {
+      background-color: #c377e0;
+      color: white;
+    }
+    .label-blue {
+      background-color: #055a8c;
+      color: white;
     }
   }
   .card-title {
@@ -607,3 +648,5 @@
 .seeOverlay {
   z-index: 15;
 }
+
+///////////////////////////////////////////////////////

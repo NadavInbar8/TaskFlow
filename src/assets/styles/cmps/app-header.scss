@@ -15,7 +15,10 @@
 		height: 36px;
 		gap: 10px;
 		font-size: 1.2857rem;
-		margin-top: 15px;
+
+		@media (min-width: 768px) {
+			margin-top: 15px;
+		}
 
 		.signup-btn {
 			margin-bottom: 0;
@@ -41,14 +44,22 @@
 
 	.main-header {
 		height: 100%;
-		padding: 0 $s-2;
+		padding: 0;
 		justify-content: space-between;
 		width: 100vw;
 		align-items: center;
+
+		@media (min-width: 768px) {
+			padding: 0 $s-2;
+		}
 	}
 
 	.left-container {
-		gap: 30px;
+		gap: $s-2;
+
+		@media (min-width: 768px) {
+			gap: $s-8;
+		}
 	}
 	.logo-container {
 		margin-left: $s-2;
@@ -63,8 +74,14 @@
 	}
 
 	img {
-		width: 8rem;
+		width: 6rem;
 		height: $s-8;
+	}
+
+	@media (min-width: 768px) {
+		img {
+			width: 8rem;
+		}
 	}
 
 	.boards-img {
@@ -81,11 +98,17 @@
 
 	li {
 		cursor: pointer;
-		margin-left: 30px;
+		margin-left: $s-2;
 		display: flex;
 		justify-content: center;
 		align-items: center;
 		height: 44px;
+	}
+
+	@media (min-width: 768px) {
+		li {
+			margin-left: $s-8;
+		}
 	}
 
 	li.boards {
@@ -306,6 +329,13 @@
 		p {
 			margin: 0;
 		}
+
+		img {
+			img {
+				height: 32px;
+				width: 32px;
+			}
+		}
 	}
 
 	.user-details-text {
@@ -387,9 +417,5 @@
 
 	&:hover {
 		opacity: 1;
-	}
-
-	h5 {
-		// margin-bottom: $s-2;
 	}
 }

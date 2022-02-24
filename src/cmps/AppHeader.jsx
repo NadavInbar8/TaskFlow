@@ -1,9 +1,11 @@
-import React, {useEffect, useState} from 'react';
-import {useSelector, useDispatch, shallowEqual} from 'react-redux';
-import {loadBoards, addBoard, openModal, updateBoard} from '../store/board.action.js';
-import {setUser} from '../store/user.action.js';
+import React, {useEffect, useState, useLayoutEffect} from 'react';
 import {Link, useLocation, useHistory} from 'react-router-dom';
 import boardsImg from '../assets/imgs/boards.svg';
+
+// Redux
+import {useSelector, useDispatch, shallowEqual} from 'react-redux';
+import {loadBoards, addBoard, openModal, updateBoard} from '../store/board.action.js';
+import {setUser, setUsers} from '../store/user.action.js';
 
 // import {WorkSpace} from '../pages/WorkSpace.jsx';
 // import {Board} from '../pages/Board.jsx';
@@ -15,6 +17,9 @@ import star from '../assets/imgs/star.svg';
 import fullStar from '../assets/imgs/starFill.svg';
 import closeBtn from '../assets/imgs/close.svg';
 
+// Services
+import {userService} from '../services/user.service.js';
+
 export function AppHeader() {
 	// const [isBoardsModalOpen, setBoardsModal] = useState(false);
 	// const [isCreateModalOpen, setCreateModal] = useState(false);
@@ -24,9 +29,11 @@ export function AppHeader() {
 	const {modal} = useSelector((state) => ({
 		modal: state.boardModule.modal,
 	}));
-	const {loggedInUser} = useSelector((state) => ({
-		loggedInUser: state.userModule.loggedInUser,
-	}));
+	// const {loggedInUser} = useSelector((state) => ({
+	// 	loggedInUser: state.userModule.loggedInUser,
+	// }));
+
+	const [loggedInUser, setLoggedInUser] = useState();
 
 	// const [newBoard, setNewBoard] = useState({});
 	// const [boardTitleInput, setBoardTitleInput] = useState('');
@@ -36,8 +43,10 @@ export function AppHeader() {
 	const history = useHistory();
 	// const user = null;
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		dispatch(loadBoards());
+		loadUsers();
+		loadUser();
 	}, []);
 
 	const getBackgroundcolor = () => {
@@ -47,10 +56,10 @@ export function AppHeader() {
 		else if (location.pathname.includes('/workspace')) return '#026aa7';
 	};
 
-	const getOpacity = () => {
-		if (location.pathname === '/') return '1';
-		else return '1';
-	};
+	// const getOpacity = () => {
+	// 	if (location.pathname === '/') return '1';
+	// 	else return '1';
+	// };
 
 	const getFontColor = () => {
 		if (location.pathname === '/') return '#172b4';
@@ -64,6 +73,17 @@ export function AppHeader() {
 	const onLogOut = async () => {
 		dispatch(setUser(null, 'login'));
 		window.location.replace('/');
+	};
+
+	const loadUsers = async () => {
+		const users = await userService.getUsers();
+		dispatch(setUsers(users));
+	};
+
+	const loadUser = async () => {
+		let user = await userService.getLoggedinUser();
+		if (!user) user = userService.connectGuestUser();
+		setLoggedInUser(user);
 	};
 
 	const getBackground = (board) => {
@@ -190,7 +210,6 @@ export function AppHeader() {
 				<header
 					className='app-header'
 					style={{
-						opacity: getOpacity(),
 						backgroundColor: getBackgroundcolor(),
 						color: getFontColor(),
 					}}>
