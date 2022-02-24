@@ -456,3 +456,10 @@
     background-color: #6deca9;
   }
 }
+
+@media (max-width: 768px) {
+  .details-modal {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+}

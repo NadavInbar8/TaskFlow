@@ -860,3 +860,26 @@
     margin-bottom: 24px;
   }
 }
+
+@media (max-width: 768px) {
+  .card-details {
+    width: 97%;
+  }
+  .card-details-main {
+    flex-direction: column;
+  }
+
+  .edit-actions {
+    width: 90%;
+  }
+
+  .actions {
+    padding: 0px;
+    padding-left: 16px;
+    padding-right: 16px;
+    width: 100%;
+  }
+  .actions-list {
+    min-width: 100%;
+  }
+}
