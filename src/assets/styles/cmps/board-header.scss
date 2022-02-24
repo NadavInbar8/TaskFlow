@@ -10,7 +10,7 @@
 	align-items: center;
 	min-height: 44px;
 	color: #ffff;
-	padding: $s-1;
+	padding: 0 $s-2;
 
 	@media (min-width: 768px) {
 		padding: 0 $s-3;
@@ -25,6 +25,7 @@
 		display: flex;
 		flex-wrap: wrap;
 		gap: 4px;
+		justify-content: flex-start;
 
 		@media (min-width: 768px) {
 			gap: 0;
@@ -59,6 +60,8 @@
 		width: unset;
 		border: none;
 		color: #ffff;
+		margin-left: $s-2;
+		padding: 0 $s-1;
 
 		font-weight: 600;
 		font-family: segoe;
@@ -66,6 +69,7 @@
 
 		@media (min-width: 768px) {
 			font-size: 1.5rem;
+			margin-left: 0;
 		}
 	}
 
@@ -172,10 +176,9 @@
 		// text-overflow: ellipsis;
 	}
 
-	div.invite-btn:hover {
-		cursor: pointer;
-		opacity: 0.8;
-	}
+	// .invite-btn:hover {
+	// 	opacity: 0.8;
+	// }
 
 	.filter-div {
 		position: relative;
