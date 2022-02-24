@@ -34,7 +34,10 @@ export const BoardHeader = ({setForceRender, filterBoard, forceRender}) => {
 	const [width, setWidth] = useState('');
 	const [boardTitleInput, setBoardTitleInput] = useState('');
 	// const [starStatus, setStarStatus] = useState(false);
-	const [loggedInUser, setLoggedInUser] = useState();
+	const {loggedInUser} = useSelector((state) => ({
+		loggedInUser: state.userModule.loggedInUser,
+	}));
+
 	const {users} = useSelector((state) => ({
 		users: state.userModule.users,
 	}));

@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { setUsers } from '../store/user.action.js';
 import { socketService, SOCKET_EVENT_USER_UPDATED } from './socket.service';
 
-const STORAGE_KEY_LOGGEDIN_USER = 'loggedinUser';
+const STORAGE_KEY_LOGGEDIN_USER = 'loggedInUser';
 var gWatchedUser = null;
 
 export const userService = {
@@ -75,7 +75,6 @@ async function signup(userCred) {
   userCred.password = userCred.password.toString();
   console.log('user service user cred', userCred);
   const user = await httpService.post('auth/signup', userCred);
-  console.log(user);
   return _saveLocalUser(user);
   // socketService.emit('set-user-socket', user._id);
 }
