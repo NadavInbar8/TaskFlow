@@ -2,16 +2,34 @@
 .board-header {
 	// background: #0000003d;
 	display: flex;
+	flex-wrap: wrap;
 	flex-direction: row;
 	justify-content: space-between;
-	padding: 0 $s-3;
+	margin-bottom: 60px;
 	max-height: 50px;
 	align-items: center;
 	min-height: 44px;
 	color: #ffff;
+	padding: $s-1;
+
+	@media (min-width: 768px) {
+		padding: 0 $s-3;
+		margin-bottom: 0;
+	}
 
 	div {
 		border-radius: 3px;
+	}
+
+	.header-left-container {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 4px;
+
+		@media (min-width: 768px) {
+			gap: 0;
+			flex-wrap: nowrap;
+		}
 	}
 
 	.board-header-div {
@@ -21,6 +39,7 @@
 		min-width: 40px;
 		margin-left: 10px;
 		padding: 6px 10px;
+		flex-wrap: wrap;
 	}
 
 	.board-title {
@@ -33,16 +52,21 @@
 	}
 
 	input {
+		max-width: 90vw;
 		height: 32px;
 		background-color: inherit;
 		max-width: 400px;
 		width: unset;
 		border: none;
 		color: #ffff;
-		font-size: 1.5rem;
+
 		font-weight: 600;
 		font-family: segoe;
 		padding-bottom: 4px;
+
+		@media (min-width: 768px) {
+			font-size: 1.5rem;
+		}
 	}
 
 	input:hover {
@@ -128,11 +152,18 @@
 
 	.users-div {
 		position: relative;
+
+		@media (max-width: 768px) {
+			display: flex;
+			justify-content: flex-start;
+			width: 100%;
+			margin-bottom: $s-1;
+		}
 	}
 
 	div.invite-btn {
 		height: 32px;
-		width: 70px;
+		// width: 70px;
 		border-radius: $s-1;
 		border-color: none;
 		background-color: white;
@@ -192,20 +223,5 @@
 		height: 15px;
 		width: fit-content;
 		padding-right: $s-1;
-	}
-
-	.menu-modal {
-		padding-top: 10px;
-		z-index: 1;
-		position: absolute;
-		margin-right: 10px;
-		top: 110%;
-		right: 0;
-		background-color: white;
-		display: flex;
-		flex-direction: column;
-		justify-content: space-between;
-		width: 20vw;
-		height: 85vh;
 	}
 }
