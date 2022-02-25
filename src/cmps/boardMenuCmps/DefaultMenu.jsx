@@ -1,19 +1,13 @@
 // images
 import blackBoardImg from '../../assets/imgs/black-trello.svg';
 import archive from '../../assets/imgs/archive.svg';
-import backBtn from '../../assets/imgs/back-btn.svg';
 import trash from '../../assets/imgs/small-trash.svg';
 
 import {Activity} from './Activity.jsx';
 
 export const DefaultMenu = ({onSetMenuTitle, onSetCmpToRender, onOpenArchive, onRemoveBoard, board}) => {
 	const getBackground = () => {
-		// return `${board.style.backgroundColor}`;
-		// if (location.pathname === '/') return 'lightcyan';
-
 		return board?.style.userClicked ? board?.style.backgroundColor : `url(${board?.style.previewImgUrl})`;
-		// console.log(background);
-		// return background;
 	};
 
 	return (
