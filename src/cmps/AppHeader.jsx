@@ -111,7 +111,7 @@ export function AppHeader() {
 								</Link>
 							</div>
 						) : (
-							<div className='user-profile-div'>
+							<div className='user-profile-div' title={loggedInUser?.fullName}>
 								{loggedInUser?.imgUrl ? (
 									<div
 										className='user-avatar'
