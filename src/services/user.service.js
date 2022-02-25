@@ -75,6 +75,7 @@ async function connectGuestUser() {
 		imgUrl: 'https://i.pinimg.com/originals/27/b1/1e/27b11ec85bb8f88b0c824991c76d9b5b.gif',
 	};
 	_saveLocalUser(guestUser);
+	return guestUser;
 }
 
 // signup({
