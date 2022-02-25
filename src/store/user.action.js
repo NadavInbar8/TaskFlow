@@ -22,7 +22,7 @@ export const setUser = (user, type) => {
 			}
 			dispatch({type: 'SET_USER', loggedInUser});
 		} catch (err) {
-			console.log('could not get boards ', err);
+			console.log('could not get user ', err);
 		}
 	};
 };

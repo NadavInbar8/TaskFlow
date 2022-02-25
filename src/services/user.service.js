@@ -70,8 +70,11 @@ async function connectGuestUser() {
 	const guestUser = {
 		email: 'guest@taskflow.com',
 		password: '1234',
+		fullName: 'Guest',
+		initials: 'G',
+		imgUrl: 'https://i.pinimg.com/originals/27/b1/1e/27b11ec85bb8f88b0c824991c76d9b5b.gif',
 	};
-	await login(guestUser);
+	_saveLocalUser(guestUser);
 }
 
 // signup({
