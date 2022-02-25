@@ -58,6 +58,7 @@ export const WorkSpace = () => {
 
 	return (
 		<div className='work-space'>
+			{console.log(boards)}
 			<div className='boards'>
 				<h2 className='flex flex-center'>
 					<img style={{height: '30px', paddingRight: '20px'}} src={star} alt='' />

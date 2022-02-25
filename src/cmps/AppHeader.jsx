@@ -31,7 +31,7 @@ export function AppHeader() {
 	const location = useLocation();
 
 	useLayoutEffect(() => {
-		if (location.pathname !== '/') dispatch(loadBoards());
+		dispatch(loadBoards());
 		loadUsers();
 		loadUser();
 	}, []);
