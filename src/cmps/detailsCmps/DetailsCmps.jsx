@@ -20,7 +20,6 @@ export function DetailscheckList({
   }
 
   function handleCheckBoxChange(itemIdx) {
-    // console.log(itemIdx);
     const newCheckList = checkList;
     newCheckList.items[itemIdx].isDone = checkList.items[itemIdx].isDone;
     updateCheckList(newCheckList, idx, itemIdx);
@@ -49,8 +48,6 @@ export function DetailscheckList({
 
   return (
     <div className='checklist'>
-      {/* {console.log(checkList)} */}
-
       <div className='top'>
         <section className='top-title'>
           <div className='flex left-container'>
