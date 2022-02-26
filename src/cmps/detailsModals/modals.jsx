@@ -104,6 +104,7 @@ export function Members({
               {membersMinusLoggedInUser.map((member, idx) => {
                 return (
                   <li
+                    key={member._id}
                     onClick={() => {
                       addMember(member);
                     }}
