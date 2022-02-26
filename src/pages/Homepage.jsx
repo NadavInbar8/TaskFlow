@@ -6,10 +6,6 @@ import {userService} from '../services/user.service.js';
 import blackLogo from '../assets/imgs/logo/blackLogo.svg';
 
 export const Homepage = () => {
-	//   ComponentWillUnmount = () => {
-	//     userService.connectGuestUser();
-	//   };
-
 	return (
 		<div className='homepage flex'>
 			<div className='homepage-main flex'>

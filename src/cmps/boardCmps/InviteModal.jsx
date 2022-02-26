@@ -1,8 +1,6 @@
-import React, {useEffect, useState} from 'react';
-import {useSelector, useDispatch, shallowEqual} from 'react-redux';
-import {loadBoards, addBoard, openModal, updateBoard} from '../../store/board.action.js';
-import {setUser} from '../../store/user.action.js';
-import {Link, useLocation, useHistory} from 'react-router-dom';
+import React from 'react';
+import {useDispatch} from 'react-redux';
+import {openModal, updateBoard} from '../../store/board.action.js';
 
 import closeBtn from '../../assets/imgs/close.svg';
 import check from '../../assets/imgs/check.svg';
@@ -35,7 +33,6 @@ export const InviteModal = ({users, loggedInUser, board}) => {
 
 	const checkUserInBoard = (userId) => {
 		const imgToRender = board.members.some((member) => member._id === userId);
-		// console.log(imgToRender);
 		if (imgToRender) return <img src={check} alt='check' />;
 		else return '';
 	};

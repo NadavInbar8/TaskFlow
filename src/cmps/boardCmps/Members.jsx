@@ -1,37 +1,25 @@
-import {useSelector, useDispatch, shallowEqual} from 'react-redux';
-import {MemberModal} from './MemberModal.jsx';
-
 export const Members = ({board, loggedInUser, toggleModal}) => {
-	const {modal} = useSelector((state) => ({
-		modal: state.boardModule.modal,
-	}));
 	return (
 		<div className='member-icons'>
 			<div className='member-icon'>
-				{/* onClick=
-						{() => {
-							toggleMemberInBoard(member);
-						}} */}
-
 				{loggedInUser?.imgUrl ? (
-					<img className='member-avatar-btn flex-center' src={loggedInUser?.imgUrl} alt='' />
+					<img
+						className='member-avatar-btn flex-center'
+						title={loggedInUser.fullName}
+						src={loggedInUser?.imgUrl}
+						alt=''
+					/>
 				) : (
 					<div className='flex align-center'>
 						<div className='member-avatar-btn flex-center'>{loggedInUser ? loggedInUser.initials : 'G'}</div>
 					</div>
 				)}
-				{/* <MemberModal member={loggedInUser} toggleModal={toggleModal} /> */}
 			</div>
 			{board?.members &&
 				board?.members?.map((member) => {
 					if (member?._id !== loggedInUser?._id)
 						return (
 							<div className='member-icon' title={member.fullName} key={member._id}>
-								{/* onClick=
-						{() => {
-							toggleMemberInBoard(member);
-						}} */}
-
 								{member?.imgUrl ? (
 									<img className='member-avatar-btn flex-center' title={member.fullName} src={member.imgUrl} alt='' />
 								) : (
@@ -41,7 +29,6 @@ export const Members = ({board, loggedInUser, toggleModal}) => {
 								)}
 							</div>
 						);
-					// <MemberModal member={member} toggleModal={toggleModal} />;
 				})}
 		</div>
 	);

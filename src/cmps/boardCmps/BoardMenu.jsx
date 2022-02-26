@@ -2,8 +2,6 @@ import React, {useEffect, useState} from 'react';
 import {useSelector, useDispatch, shallowEqual} from 'react-redux';
 import {useHistory} from 'react-router-dom';
 import {removeBoard, updateBoard} from '../../store/board.action.js';
-// import {Cover} from '../detailsModals/modals.jsx';
-// import {Colors} from './Colors.jsx';
 
 // Dyanmic Cmps
 import {DefaultMenu} from '../boardMenuCmps/DefaultMenu.jsx';
@@ -13,16 +11,12 @@ import {ChangeBackground} from '../boardMenuCmps/ChangeBackground.jsx';
 // images
 import backBtn from '../../assets/imgs/back-btn.svg';
 import closeBtn from '../../assets/imgs/close.svg';
-// import blackBoardImg from '../../assets/imgs/black-trello.svg';
-// import archive from '../../assets/imgs/archive.svg';
-// import trash from '../../assets/imgs/trash.svg';
 
 // Services
 import {utilService} from '../../services/util.service.js';
 
 export const BoardMenu = ({menuOpen, setMenuOpen, loggedInUser}) => {
 	const {board} = useSelector((state) => ({board: state.boardModule.currBoard}), shallowEqual);
-	// const {modal} = useSelector((state) => ({modal: state.boardModule.modal}));
 	const [menuTitle, setMenuTitle] = useState('Menu');
 	const [cmpToRender, setCmpToRender] = useState('defaultMenu');
 
@@ -86,7 +80,6 @@ export const BoardMenu = ({menuOpen, setMenuOpen, loggedInUser}) => {
 						/>
 					)}
 					<span>{menuTitle}</span>
-					{/* <img onClick={() => toggleModal('menu')} src={close} alt='' /> */}
 					<img
 						src={closeBtn}
 						className='close-btn pointer'
@@ -108,41 +101,6 @@ export const BoardMenu = ({menuOpen, setMenuOpen, loggedInUser}) => {
 				{cmpToRender === 'changeBackground' && (
 					<ChangeBackground board={board} changeBG={changeBG} setCmpToRender={setCmpToRender} />
 				)}
-				{/* <div className='about-board flex flex-row align-center justify-center'>
-					<div className='menu-container-svg align-center'>
-						<img src={blackBoardImg} alt='board-img' />
-					</div>
-					&nbsp;
-					<h5>About this board</h5>
-					<br></br>
-					<span>Add a descreption to your board</span>
-				</div>
-				<div
-					className='change-board-background flex flex-row align-center justify-center pointer'
-					onClick={() => {
-						onSetMenuTitle('Change background');
-						onSetCmpToRender('changeBGC');
-					}}>
-					<div
-						className='board-background-img align-center'
-						style={{backgroundColor: board.style.backgroundColor}}></div>
-					&nbsp;
-					<h5>Change background</h5>
-				</div>
-				<div className='menu-board-actions flex flex-row align-center justify-center' onClick={() => onOpenArchive()}>
-					<img src={archive} alt='' />
-					&nbsp;
-					<h5>Archive</h5>
-				</div>
-				<div className='menu-board-actions flex flex-row align-center justify-center' onClick={() => onRemoveBoard()}>
-					<img src={trash} alt='' />
-					&nbsp;
-					<h5>Remove board</h5>
-				</div>
-				<div className='activity'>
-					<h2 className='acitivity-h2'>Activity</h2>
-					<hr className='activity-hr'></hr>
-				</div> */}
 			</div>
 		</section>
 	);

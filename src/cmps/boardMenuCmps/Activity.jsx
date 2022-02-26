@@ -3,7 +3,6 @@ import activity from '../../assets/imgs/menuActivity.svg';
 export const Activity = ({board}) => {
 	let copyBoard = {...board};
 	let activitiesToRender = copyBoard.activities;
-	// console.log('right order', board.activities);
 	return (
 		<section className='menu-board-actions flex flex-row pointer activity-div'>
 			<div className='activity-header'>
@@ -13,7 +12,6 @@ export const Activity = ({board}) => {
 			<div className='activity-list-container'>
 				<ul className='activity-list'>
 					{activitiesToRender?.map((activity, idx) => {
-						// console.log(activity);
 						return (
 							<li key={idx}>
 								<div className='activity-div'>

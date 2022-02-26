@@ -53,7 +53,6 @@ export function updateBoard(board) {
 	return async (dispatch) => {
 		try {
 			const updatedBoard = await boardService.save(board);
-			// console.log(updatedBoard);
 			dispatch({type: 'UPDATE_BOARDS', updatedBoard});
 			dispatch({type: 'UPDATE_CURRBOARD', updatedBoard});
 		} catch (err) {
