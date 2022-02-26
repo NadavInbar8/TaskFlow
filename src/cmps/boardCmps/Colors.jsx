@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {useSelector, useDispatch, shallowEqual} from 'react-redux';
+import {useSelector} from 'react-redux';
 
 export function Colors({addBG, parentCmp, changeBG}) {
 	const [colors, setColors] = useState([
@@ -34,16 +34,7 @@ export function Colors({addBG, parentCmp, changeBG}) {
 				'bc-cyan',
 			]);
 		} else if (parentCmp === 'createModal') {
-			setColors([
-				'bc-blue',
-				'bc-orange',
-				'bc-dark-green',
-				'bc-red',
-				'bc-purple',
-				'bc-pink',
-				// 'bc-light-green',
-				// 'bc-cyan',
-			]);
+			setColors(['bc-blue', 'bc-orange', 'bc-dark-green', 'bc-red', 'bc-purple', 'bc-pink']);
 			console.log(parentCmp, colors);
 		}
 	};
@@ -75,7 +66,6 @@ export function Colors({addBG, parentCmp, changeBG}) {
 					return (
 						<div
 							onClick={() => onSaveColor(color)}
-							// Add a V inisde the div based
 							key={idx}
 							className={`${color} color-div-${parentCmp} flex flex-center`}></div>
 					);

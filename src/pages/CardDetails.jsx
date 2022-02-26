@@ -1036,7 +1036,7 @@ export const CardDetails = () => {
 
 															<div className='comment-content'>
 																<span className='comment-user-fullname'>
-																	{comment.byMember.fullname} At-
+																	{comment?.byMember?.fullname} At-
 																	<span>&nbsp;{getStringTimeForImg(comment)}</span>
 																</span>
 																<span className='comment-txt'>
