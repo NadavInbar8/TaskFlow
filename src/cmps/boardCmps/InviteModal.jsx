@@ -10,7 +10,8 @@ import {utilService} from '../../services/util.service.js';
 
 export const InviteModal = ({users, loggedInUser, board}) => {
 	const dispatch = useDispatch();
-	const toggleModal = (type) => {
+	const toggleModal = (type, ev) => {
+		ev.stopPropagation();
 		dispatch(openModal(type));
 	};
 
@@ -41,16 +42,13 @@ export const InviteModal = ({users, loggedInUser, board}) => {
 		<section className='invite-modal'>
 			<div className='modal-top'>
 				<span className='modal-top-span'>Invite to board</span>
-				<img src={closeBtn} className='close-btn pointer' alt='close' onClick={() => toggleModal()}></img>
+				<img src={closeBtn} className='close-btn pointer' alt='close' onClick={(ev) => toggleModal('', ev)}></img>
 			</div>
 			<div className='users-div'>
 				<ul className='users-list'>
 					{users &&
 						loggedInUser &&
 						users.map((user) => {
-							console.log(users);
-							console.log(loggedInUser);
-							console.log(user);
 							if (user?._id !== loggedInUser?._id) {
 								return (
 									<li

@@ -16,8 +16,8 @@ export const Members = ({board, loggedInUser, toggleModal}) => {
 				)}
 			</div>
 			{board?.members &&
-				board?.members?.map((member) => {
-					if (member?._id !== loggedInUser?._id)
+				board?.members?.map((member, idx) => {
+					if (member?._id !== loggedInUser?._id && idx <= 4)
 						return (
 							<div className='member-icon' title={member.fullName} key={member._id}>
 								{member?.imgUrl ? (
