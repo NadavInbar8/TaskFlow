@@ -37,6 +37,9 @@ async function update(user) {
 }
 
 async function login(userCred) {
+	if (userCred.fullName === 'Guest') {
+		connectGuestUser();
+	}
 	userCred.password = userCred.password.toString();
 	const user = await httpService.post('auth/login', userCred);
 	await _saveLocalUser(user);
@@ -79,10 +82,9 @@ async function connectGuestUser() {
 }
 
 // signup({
-//   email: 'guest@taskflow.com',
-//   password: '1234',
-//   fullName: 'Guest',
-//   initials: 'G',
-//   imgUrl:
-//     'https://i.pinimg.com/originals/27/b1/1e/27b11ec85bb8f88b0c824991c76d9b5b.gif',
+// 	email: 'guest@taskflow.com',
+// 	password: '1234',
+// 	fullName: 'Guest',
+// 	initials: 'G',
+// 	imgUrl: 'https://i.pinimg.com/originals/27/b1/1e/27b11ec85bb8f88b0c824991c76d9b5b.gif',
 // });
