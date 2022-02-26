@@ -18,7 +18,6 @@ export function Members({
     let newMembers = members.filter((member) => {
       return member._id !== loggedInUser._id;
     });
-    console.log(newMembers);
     setMembers(newMembers);
   }
 
@@ -27,12 +26,10 @@ export function Members({
   }, []);
 
   function addMember(member) {
-    console.log('hi');
     addUserToCard(member);
   }
   const checkUserInBoard = (userId) => {
     const imgToRender = board.members.some((member) => member._id === userId);
-    // console.log(imgToRender);
     if (imgToRender) return <img src={check} alt='check' />;
     else return '';
   };
@@ -68,7 +65,6 @@ export function Members({
                 }}
               >
                 <div className='user-profile-div'>
-                  {/* {console.log(loggedInUser)} */}
                   {loggedInUser?.imgUrl ? (
                     <div className='user-details'>
                       <div className='flex align-center'>
@@ -113,7 +109,6 @@ export function Members({
                     }}
                   >
                     <div key={idx} className='user-profile-div'>
-                      {/* {console.log(loggedInUser)} */}
                       {member?.imgUrl ? (
                         <div className='user-details'>
                           <div className='flex align-center'>
@@ -167,11 +162,9 @@ export function Checklist({ toggleModal, addCheckList }) {
 
   function handleChange({ target }) {
     setCheckList({ ...checkList, title: target.value });
-    // console.log(checkList);
   }
   function saveCheckList(ev) {
     ev.preventDefault();
-    console.log(checkList);
     addCheckList(checkList);
     setCheckList({
       title: '',
@@ -245,7 +238,6 @@ export function Attachment({ attachLink, toggleModal }) {
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log(res);
         attachLink({
           link: res.url,
           name: res.original_filename,
@@ -258,7 +250,6 @@ export function Attachment({ attachLink, toggleModal }) {
 
   function saveLink() {
     const attachment = { link, name, createdAt: Date.now() };
-    console.log(attachment);
     attachLink(attachment);
     toggleModal('attachment');
   }
@@ -429,7 +420,6 @@ export function Cover({ addCover, toggleModal }) {
 export function Labels({ addLabel, toggleModal, board, updateLabelsList }) {
   const [editMode, setEditMode] = useState(false);
   let labelsforState;
-  // console.log(board);
   if (board.labelOptions) labelsforState = board.labelOptions;
   else
     labelsforState = [
@@ -452,7 +442,6 @@ export function Labels({ addLabel, toggleModal, board, updateLabelsList }) {
       // { id: 10, color: '#f2d600', name: 'important' },
     ];
 
-  // console.log('labelsOptions', labelsforState);
   const [labels, setLabels] = useState(labelsforState);
   const [editLabel, setEditLabel] = useState({
     id: 1234,
@@ -463,23 +452,17 @@ export function Labels({ addLabel, toggleModal, board, updateLabelsList }) {
   const [searchedLabel, setsearchedLabel] = useState('');
 
   function markChosen(label) {
-    console.log(label);
     setEditLabel(label);
   }
   function handleEditLabelChange({ target }) {
-    console.log(target.value);
     setEditLabel({ ...editLabel, name: target.value });
   }
 
   function saveLabel() {
-    console.log('you are in labels list');
-    console.log(labels);
     let newLabels = labels;
     let newLabel = editLabel;
-    console.log(editLabel);
 
     newLabels.map((label) => {
-      console.log(label.id, editLabel.id);
       if (label.id === editLabel.id) {
         label.name = editLabel.name;
         return label;
@@ -498,13 +481,10 @@ export function Labels({ addLabel, toggleModal, board, updateLabelsList }) {
 
   function handleFilter({ target }) {
     setsearchedLabel(target.value);
-    console.log(target.value);
 
     let newlLabels = labelsforState.filter((label) => {
-      // console.log(label);
       return label.name.includes(target.value);
     });
-    console.log(newlLabels);
     setLabels(newlLabels);
   }
 
@@ -624,20 +604,15 @@ export function Move({ board, moveCardToOtherList, toggleModal, type }) {
   const [selectedPosition, setSelectedPosition] = useState(0);
 
   function handleListChange({ target }) {
-    // console.log(target.value);
     let selectedGroup = board.groups.find((group) => group.id === target.value);
-    // console.log(selectedGroup);
     setSelectedGroup(selectedGroup);
   }
 
   function handlePositionChange({ target }) {
-    // console.log(target.value);
     setSelectedPosition(target.value);
   }
 
   function moveCard() {
-    // console.log(selectedGroup);
-    // console.log(selectedPosition);
     moveCardToOtherList(selectedGroup, selectedPosition, 'move');
     toggleModal('moveModal');
   }
@@ -762,9 +737,7 @@ export class Dates extends React.Component {
   }
 
   saveDate = () => {
-    console.log(this.state.selectedDay);
     this.props.addDate(this.state.selectedDay);
-    console.log(this.state.selectedDay);
     this.props.toggleModal('dates');
   };
 

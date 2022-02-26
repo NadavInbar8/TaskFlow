@@ -140,7 +140,6 @@ export const CardDetails = () => {
 
   // Card crud//////////////////
   function deleteCard() {
-    console.log(board);
     let listIdx = board.groups.findIndex((group) => group.id === listId);
     let currCardIdx = board.groups[listIdx].tasks.findIndex(
       (task) => task.id === cardId
@@ -186,8 +185,7 @@ export const CardDetails = () => {
   //   add
   function addComment(ev) {
     ev.preventDefault();
-    console.log(comment);
-    console.log(new Date().toString());
+
     const newComment = {
       ...comment,
       createdAt: Date.now(),
@@ -214,7 +212,6 @@ export const CardDetails = () => {
     currCard.comments.splice(idx, 1);
     setCard(currCard);
     socket.emit('updateCard', card);
-    // console.log(currCard);
     // let activity = `${loggedInUser.fullName} deleted a comment at card-${card.title} at ${getNiceDate()}`;
     let activity = {
       user: loggedInUser,
@@ -240,7 +237,6 @@ export const CardDetails = () => {
       'November',
       'December',
     ];
-    console.log(Date.now() - date.getTime());
     const isOverDue = date.getTime() - Date.now() > 0 ? false : true;
     const currCard = card;
     currCard.date = {
@@ -260,7 +256,6 @@ export const CardDetails = () => {
   }
 
   function toggleDateComplete() {
-    console.log('changing');
     const currCard = card;
     currCard.date.isComplete = !currCard.date.isComplete;
     setCard(currCard);
@@ -299,7 +294,6 @@ export const CardDetails = () => {
       msg: `Deleted a label at card: ${card.title}`,
       time: getNiceDate(),
     };
-    console.log(currCard);
     updateCard(activity);
   }
 
@@ -330,7 +324,6 @@ export const CardDetails = () => {
       time: getNiceDate(),
     };
     setCard(currCard);
-    console.log(card);
 
     updateCard(activity);
     socket.emit('updateCard', card);
@@ -410,7 +403,6 @@ export const CardDetails = () => {
   }
 
   function deleteAttachment(idx) {
-    console.log(idx);
     const currCard = card;
     if (currCard.attachments.length > 1) currCard.attachments.splice(1, idx);
     else currCard.attachments.pop();
@@ -434,12 +426,10 @@ export const CardDetails = () => {
 
   // ATTACHMENTS;
   function attachLink(link) {
-    console.log(link);
     const currCard = card;
     currCard.attachments
       ? currCard.attachments.push(link)
       : (currCard.attachments = [link]);
-    console.log(currCard);
     setCard(currCard);
     socket.emit('updateCard', card);
 
@@ -502,7 +492,6 @@ export const CardDetails = () => {
 
     let newBoard = { ...board };
     const copiedCards = [...newBoard.groups[listIdx].tasks];
-    console.log(copiedCards);
 
     if (type === 'move') {
       newBoard.groups[listIdx].tasks.splice(currCardIdx, 1);
@@ -517,7 +506,6 @@ export const CardDetails = () => {
     newBoard.groups[chosenGroupIdx].tasksIds.splice(idx, 0, currCard.id);
 
     newBoard.groups[chosenGroupIdx].tasks.splice(idx, 0, currCard);
-    console.log(newBoard);
 
     // let activity = `${
     //   loggedInUser.fullName
@@ -551,7 +539,6 @@ export const CardDetails = () => {
         currCard.users.splice(userIdx, 1);
         setCard(currCard);
         socket.emit('updateCard', card);
-        console.log(currCard);
 
         // let activity = `${loggedInUser.fullName} removed ${
         //   user.fullName
@@ -565,11 +552,9 @@ export const CardDetails = () => {
 
         updateCard(activity);
       } else {
-        console.log(doesUserExist);
         currCard.users ? currCard.users.push(user) : (currCard.users = [user]);
         setCard(currCard);
         socket.emit('updateCard', card);
-        console.log(currCard);
 
         // let activity = `${loggedInUser.fullName} added ${
         //   user.fullname
@@ -587,7 +572,6 @@ export const CardDetails = () => {
       currCard.users = [user];
       setCard(currCard);
       socket.emit('updateCard', card);
-      console.log(currCard);
       // let activity = `${loggedInUser.fullName} added ${ user.fullname} to a card at card-${card.title} at ${getNiceDate()}`;
       let activity = {
         user: loggedInUser,
@@ -789,7 +773,6 @@ export const CardDetails = () => {
                                 onClick={() => addUserToCard(user)}
                                 className='user-profile-div'
                               >
-                                {/* {console.log(loggedInUser)} */}
                                 {user?.imgUrl ? (
                                   <div className='user-details'>
                                     <div className='flex align-center'>
@@ -898,7 +881,6 @@ export const CardDetails = () => {
                               onChange={toggleDateComplete}
                               type='checkbox'
                             />
-                            {console.log(card.date.isComplete)}
                             <span
                               className='chosen-date'
                               onClick={(ev) => {
@@ -1115,8 +1097,6 @@ export const CardDetails = () => {
                           return (
                             <li className='comment' key={idx}>
                               <section className='comment-user-content'>
-                                {console.log(comment)}
-
                                 {!comment.byMember?.imgUrl && (
                                   <div className='user-logo'>
                                     {comment.byMember?.initials}

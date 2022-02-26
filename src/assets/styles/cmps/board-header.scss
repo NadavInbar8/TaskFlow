@@ -4,15 +4,16 @@
 	display: flex;
 	flex-wrap: wrap;
 	flex-direction: row;
-	justify-content: space-between;
+	justify-content: center;
 	margin-bottom: 60px;
 	max-height: 50px;
 	align-items: center;
 	min-height: 44px;
 	color: #ffff;
-	padding: 0 $s-2;
+	padding: $s-1 $s-2;
 
 	@media (min-width: 768px) {
+		justify-content: space-between;
 		padding: 0 $s-3;
 		margin-bottom: 0;
 	}
@@ -25,9 +26,10 @@
 		display: flex;
 		flex-wrap: wrap;
 		gap: 4px;
-		justify-content: flex-start;
+		justify-content: center;
 
 		@media (min-width: 768px) {
+			justify-content: flex-start;
 			gap: 0;
 			flex-wrap: nowrap;
 		}
@@ -159,7 +161,7 @@
 
 		@media (max-width: 768px) {
 			display: flex;
-			justify-content: flex-start;
+			// justify-content: center;
 			width: 100%;
 			margin-bottom: $s-1;
 		}
