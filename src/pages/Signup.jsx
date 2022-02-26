@@ -66,7 +66,6 @@ export function Signup() {
       initials,
     };
     if (user.email && user.password && user.fullName && user.initials) {
-      console.log(user);
       dispatch(setUser(user, 'signup'));
       setTimeout(() => {
         history.push('/workspace');
@@ -77,7 +76,6 @@ export function Signup() {
   };
 
   const responseGoogle = (response) => {
-    console.log(response);
     const user = {
       email: response.profileObj.email,
       password: '11111',
@@ -88,7 +86,6 @@ export function Signup() {
         response.profileObj.familyName.charAt(0).toUpperCase(),
       imgUrl: response.profileObj.imageUrl || null,
     };
-    console.log(user);
     if (user.email && user.password) history.push('/workspace');
     dispatch(setUser(user, 'signup'));
   };

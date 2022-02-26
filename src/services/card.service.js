@@ -20,7 +20,6 @@ export const CardService = {
 
 async function getCardById() {
   // const board = await storageService.query('board');
-  // console.log(board);
   // return board.groups[0].tasks[0];
   //   return httpService.get(`user`);
 }

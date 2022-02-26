@@ -221,9 +221,7 @@ export const Board = () => {
   const addNewCard = (list) => {
     let listIdx = board.groups.findIndex((group) => group.id === list.id);
     list.tasks.push(newCard);
-    console.log('list', list);
     list.tasksIds.push(newCard.id);
-    console.log('list.tasksIds', list.tasksIds);
     const updatedBoard = { ...board };
     updatedBoard.groups[listIdx] = list;
     updatedBoard.groups[listIdx].editMode = false;
@@ -244,7 +242,6 @@ export const Board = () => {
   };
 
   const openListModal = (group) => {
-    console.log('im here 2');
     setSelectedList(group);
   };
 
@@ -379,7 +376,6 @@ export const Board = () => {
     let cardIdx = updatedBoard.groups[listIdx].tasks.findIndex(
       (task) => task.id === card.id
     );
-    console.log('cardIdx', cardIdx);
     updatedBoard.groups[listIdx].tasks = updatedBoard.groups[
       listIdx
     ].tasks.filter((task) => task.id !== card.id);

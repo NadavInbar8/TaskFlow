@@ -44,7 +44,6 @@ const Group = ({
   const [titleEdit, setTitleEdit] = useState(false);
   const [newTitle, setNewTitle] = useState(group?.title);
   const toggleBoardModal = (modalType, group) => {
-    console.log('im here');
     openListModal(group);
     dispatch(openModal(modalType));
   };
@@ -52,8 +51,6 @@ const Group = ({
   const changeGroupTitle = (group) => {
     if (board) {
       const newBoard = { ...board };
-      // console.log('newBoard', newBoard);
-      // console.log(newBoard.groups);
       let groupIdx = newBoard.groups.findIndex(
         (groupF) => group.id === groupF.id
       );
@@ -101,7 +98,6 @@ const Group = ({
                 className='list-menu pointer'
                 alt='list menu'
                 onClick={(ev) => {
-                  console.log('clicked');
                   ev.stopPropagation();
                   toggleBoardModal('groupModal', group);
                 }}
