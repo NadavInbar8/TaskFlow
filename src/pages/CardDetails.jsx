@@ -1034,6 +1034,7 @@ export const CardDetails = () => {
 																)}
 															</section>
 
+<<<<<<< HEAD
                               <div className='comment-content'>
                                 <span className='comment-user-fullname'>
                                   {comment.byMember.fullname} At-
@@ -1052,6 +1053,24 @@ export const CardDetails = () => {
                     )}
                   </div>
                 </div>
+=======
+															<div className='comment-content'>
+																<span className='comment-user-fullname'>
+																	{comment?.byMember?.fullname} At-
+																	<span>&nbsp;{getStringTimeForImg(comment)}</span>
+																</span>
+																<span className='comment-txt'>
+																	<span>{comment.txt}</span>
+																</span>
+															</div>
+														</li>
+													);
+												})}
+											</ul>
+										)}
+									</div>
+								</div>
+>>>>>>> 04e5df0fb6cd3a0113409f9477cb5d0bde0cb933
 
 								<div className='actions'>
 									<section className='modals-container'>

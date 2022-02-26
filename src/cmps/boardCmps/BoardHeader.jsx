@@ -70,7 +70,8 @@ export const BoardHeader = ({setForceRender, filterBoard, forceRender}) => {
 		setForceRender(!forceRender);
 	};
 
-	const toggleModal = (type) => {
+	const toggleModal = (type, ev) => {
+		ev.stopPropagation();
 		dispatch(openModal(type));
 	};
 
@@ -114,8 +115,8 @@ export const BoardHeader = ({setForceRender, filterBoard, forceRender}) => {
 					<Members board={board} loggedInUser={loggedInUser} toggleModal={toggleModal} />
 					<div
 						className='board-header-div invite-btn flex-center'
-						onClick={() => {
-							toggleModal('inviteModal');
+						onClick={(ev) => {
+							toggleModal('inviteModal', ev);
 						}}>
 						<img className='add-user-img' src={addUser} alt='' />
 						<span>Invite</span>

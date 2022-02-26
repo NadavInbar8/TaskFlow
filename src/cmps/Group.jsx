@@ -126,7 +126,6 @@ const Group = ({
                           const taskObj = tasks.find(
                             (temp) => temp.id === taskId
                           );
-                          console.log(taskObj);
                           return selectedCard?.id !== taskObj?.id ? (
                             <Task1
                               key={taskId}
