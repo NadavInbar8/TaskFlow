@@ -1,24 +1,24 @@
-import React, {useEffect, useState} from 'react';
-import {connect} from 'react-redux';
-import {Link, useHistory, useParams, useRouteMatch} from 'react-router-dom';
-import {GoogleMap, useJsApiLoader, Marker} from '@react-google-maps/api';
-import {io} from 'socket.io-client';
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import { Link, useHistory, useParams, useRouteMatch } from 'react-router-dom';
+import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
+import { io } from 'socket.io-client';
 
-import {updateBoard, openModal} from '../store/board.action.js';
-import {setUsers} from '../store/user.action.js';
-import {useSelector, useDispatch, shallowEqual} from 'react-redux';
+import { updateBoard, openModal } from '../store/board.action.js';
+import { setUsers } from '../store/user.action.js';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import {
-	Members,
-	Labels,
-	Checklist,
-	Dates,
-	Attachment,
-	Cover,
-	Move,
-	EditAttachmentName,
+  Members,
+  Labels,
+  Checklist,
+  Dates,
+  Attachment,
+  Cover,
+  Move,
+  EditAttachmentName,
 } from '../cmps/detailsModals/Modals.jsx';
-import {utilService} from '../services/util.service.js';
-import {DetailscheckList} from '../cmps/detailsCmps/DetailsCmps.jsx';
+import { utilService } from '../services/util.service.js';
+import { DetailscheckList } from '../cmps/detailsCmps/DetailsCmps.jsx';
 
 import description from '../assets/imgs/description.svg';
 import mapsvg from '../assets/imgs/map.svg';
@@ -38,8 +38,8 @@ import plus from '../assets/imgs/plus.svg';
 import xsvg from '../assets/imgs/x.svg';
 import xsvgwhite from '../assets/imgs/xwhite.svg';
 import arrowcross from '../assets/imgs/arrowcross.svg';
-import {userService} from '../services/user.service.js';
-import {socket} from '../RootCmp.jsx';
+import { userService } from '../services/user.service.js';
+import { socket } from '../RootCmp.jsx';
 
 /* googlemap stuff */
 // import usePlacesAutocomplete, {
@@ -1097,23 +1097,23 @@ export const CardDetails = () => {
                         <img src={loggedInUser.imgUrl} />
                       </div>
                     )} */}
-										<input
-											value={comment.txt}
-											name='comment'
-											onChange={handleCommentChange}
-											type='text'
-											placeholder='Write comment...'
-										/>
-									</form>
+                    <input
+                      value={comment.txt}
+                      name='comment'
+                      onChange={handleCommentChange}
+                      type='text'
+                      placeholder='Write comment...'
+                    />
+                  </form>
 
-									<div className='comments'>
-										{card.comments && (
-											<ul>
-												{card.comments.map((comment, idx) => {
-													return (
-														<li className='comment' key={idx}>
-															<section className='comment-user-content'>
-																{console.log(comment)}
+                  <div className='comments'>
+                    {card.comments && (
+                      <ul>
+                        {card.comments.map((comment, idx) => {
+                          return (
+                            <li className='comment' key={idx}>
+                              <section className='comment-user-content'>
+                                {console.log(comment)}
 
                                 {!comment.byMember?.imgUrl && (
                                   <div className='user-logo'>
@@ -1130,22 +1130,24 @@ export const CardDetails = () => {
                                 )}
                               </section>
 
-															<div className='comment-content'>
-																<span className='comment-user-fullname'>
-																	{comment.byMember.fullname} At-
-																	<span>&nbsp;{getStringTimeForImg(comment)}</span>
-																</span>
-																<span className='comment-txt'>
-																	<span>{comment.txt}</span>
-																</span>
-															</div>
-														</li>
-													);
-												})}
-											</ul>
-										)}
-									</div>
-								</div>
+                              <div className='comment-content'>
+                                <span className='comment-user-fullname'>
+                                  {comment.byMember.fullname} At-
+                                  <span>
+                                    &nbsp;{getStringTimeForImg(comment)}
+                                  </span>
+                                </span>
+                                <span className='comment-txt'>
+                                  <span>{comment.txt}</span>
+                                </span>
+                              </div>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    )}
+                  </div>
+                </div>
 
                 <div className='actions'>
                   <section className='modals-container'>
