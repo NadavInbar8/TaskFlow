@@ -39,7 +39,7 @@ import xsvg from '../assets/imgs/x.svg';
 import xsvgwhite from '../assets/imgs/xwhite.svg';
 import arrowcross from '../assets/imgs/arrowcross.svg';
 import { userService } from '../services/user.service.js';
-import { socket } from '../RootCmp.jsx';
+import { socketService as socket } from '../services/socket.service.js';
 
 /* googlemap stuff */
 // import usePlacesAutocomplete, {

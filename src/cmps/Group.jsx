@@ -14,6 +14,7 @@ import Task from './Task.jsx';
 // SVG //
 import dotdotdot from '../assets/imgs/dotdotdot.svg';
 import plus from '../assets/imgs/plus.svg';
+import { socketService } from '../services/socket.service.js';
 
 const Group = ({
   index,
@@ -37,7 +38,6 @@ const Group = ({
   deleteCard,
   addNewCard,
   board,
-  socket,
 }) => {
   const { boardId } = useParams();
   const { modal } = useSelector((state) => ({
@@ -60,7 +60,7 @@ const Group = ({
       );
       newBoard.groups[groupIdx].title = newTitle;
       dispatch(updateBoard(newBoard));
-      socket.emit('updateBoard', newBoard);
+      socketService.emit('updateBoard', newBoard);
 
       setTitleEdit(false);
     }

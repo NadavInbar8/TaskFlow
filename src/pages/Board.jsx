@@ -4,7 +4,8 @@ import { CardDetails } from './CardDetails.jsx';
 import { Route } from 'react-router';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
-import { socket } from '../RootCmp.jsx';
+// import { socket } from '../RootCmp.jsx';
+// import { io } from 'socket.io-client';
 // Redux
 import { loadBoard, updateBoard, openModal } from '../store/board.action.js';
 
@@ -21,6 +22,7 @@ import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 // Images
 import cardEdit from '../assets/imgs/card-edit.svg';
 import plusWhite from '../assets/imgs/plus-white.svg';
+import { socketService } from '../services/socket.service.js';
 
 ////// DND IMPORTS ///////
 
@@ -57,6 +59,12 @@ export const Board = () => {
 
   useEffect(() => {
     dispatch(loadBoard(boardId));
+    socketService.setup();
+    socketService.emit('socket-by-boardId', boardId);
+    console.log('sent emit');
+    socketService.on('setUpdatedBoard', (board) => {
+      dispatch(updateBoard(board));
+    });
   }, [boardId]);
 
   useEffect(() => {
@@ -71,9 +79,6 @@ export const Board = () => {
 
   useEffect(() => {
     dispatch(loadBoard(boardId));
-    socket.on('setUpdatedBoard', (board) => {
-      dispatch(updateBoard(board));
-    });
   }, []);
 
   ///// Functions /////
@@ -138,7 +143,7 @@ export const Board = () => {
     updatedBoard.activities.unshift(activity);
     setForceRender(!forceRender);
     dispatch(updateBoard(updatedBoard));
-    socket.emit('updateBoard', updatedBoard);
+    socketService.emit('updateBoard', updatedBoard);
   };
 
   const openEditModal = (card) => {
@@ -183,7 +188,7 @@ export const Board = () => {
     };
     updatedBoard.activities.unshift(activity);
     dispatch(updateBoard(updatedBoard));
-    socket.emit('updateBoard', updatedBoard);
+    socketService.emit('updateBoard', updatedBoard);
   };
 
   const deleteList = async (list) => {
@@ -201,7 +206,7 @@ export const Board = () => {
     updatedBoard.activities.unshift(activity);
     setForceRender(!forceRender);
     await dispatch(updateBoard(updatedBoard));
-    socket.emit('updateBoard', updatedBoard);
+    socketService.emit('updateBoard', updatedBoard);
   };
 
   const editCard = (list, card) => {
@@ -218,7 +223,7 @@ export const Board = () => {
     };
     updatedBoard.activities.unshift(activity);
     dispatch(updateBoard(updatedBoard));
-    socket.emit('updateBoard', updatedBoard);
+    socketService.emit('updateBoard', updatedBoard);
 
     closeEditModal(card);
   };
@@ -243,7 +248,7 @@ export const Board = () => {
     updatedBoard.activities.unshift(activity);
     closeEditModal();
     dispatch(updateBoard(updatedBoard));
-    socket.emit('updateBoard', updatedBoard);
+    socketService.emit('updateBoard', updatedBoard);
 
     setForceRender(!forceRender);
   };
@@ -267,7 +272,7 @@ export const Board = () => {
     updatedBoard.activities.unshift(activity);
     closeListModal();
     dispatch(updateBoard(updatedBoard));
-    socket.emit('updateBoard', updatedBoard);
+    socketService.emit('updateBoard', updatedBoard);
 
     setForceRender(!forceRender);
   };
@@ -293,7 +298,7 @@ export const Board = () => {
     closeEditModal();
     setForceRender(!forceRender);
     dispatch(updateBoard(updatedBoard));
-    socket.emit('updateBoard', updatedBoard);
+    socketService.emit('updateBoard', updatedBoard);
   };
 
   const onDragEnd = (result) => {
@@ -316,7 +321,7 @@ export const Board = () => {
       };
       setData(newData);
       dispatch(updateBoard(newData));
-      socket.emit('updateBoard', newData);
+      socketService.emit('updateBoard', newData);
 
       return;
     }
@@ -343,7 +348,7 @@ export const Board = () => {
       };
       setData(newData);
       dispatch(updateBoard(newData));
-      socket.emit('updateBoard', newData);
+      socketService.emit('updateBoard', newData);
 
       return;
     } else {
@@ -377,7 +382,7 @@ export const Board = () => {
       };
       setData(newData);
       dispatch(updateBoard(newData));
-      socket.emit('updateBoard', newData);
+      socketService.emit('updateBoard', newData);
     }
   };
   return data ? (
@@ -451,7 +456,6 @@ export const Board = () => {
                           deleteCard={deleteCard}
                           addNewCard={addNewCard}
                           board={board}
-                          socket={socket}
                         />
                       );
                     })

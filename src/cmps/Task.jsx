@@ -114,7 +114,6 @@ const Task = ({
                 {task.checkLists?.length > 0 ? (
                   <div className='board-card-checklist'>
                     {task.checkLists.map((checkList, idx) => {
-                      console.log('task.taskLists', task.checkLists);
                       let checkListCounter = 0;
 
                       checkList.items.forEach((checkListItem) => {

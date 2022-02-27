@@ -13,8 +13,6 @@ export const socketService = createSocketService();
 // for debugging from console
 // window.socketService = socketService
 
-socketService.setup();
-
 function createSocketService() {
   var socket = null;
   const socketService = {

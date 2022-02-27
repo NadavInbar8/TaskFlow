@@ -95,7 +95,8 @@ export const CreateModal = ({ loggedInUser }) => {
   };
 
   const saveNewBoard = () => {
-    if (!newBoard.style) newBoard.style = { backgroundColor: '#0079bf' };
+    if (!newBoard.style)
+      newBoard.style = { userClicked: true, backgroundColor: '#0079bf' };
     dispatch(addBoard(newBoard));
   };
 
