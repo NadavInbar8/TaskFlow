@@ -1,18 +1,12 @@
 // React
 import React, { useEffect, useState } from 'react';
 import { CardDetails } from './CardDetails.jsx';
-import { Route, Switch } from 'react-router';
-import { Link, useParams, useLocation } from 'react-router-dom';
+import { Route } from 'react-router';
+import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { socket } from '../RootCmp.jsx';
 // Redux
-import {
-  loadBoard,
-  addCard,
-  updateBoard,
-  openModal,
-} from '../store/board.action.js';
-import { setUsers } from '../store/user.action.js';
+import { loadBoard, updateBoard, openModal } from '../store/board.action.js';
 
 // Cmps
 import { BoardHeader } from '../cmps/boardCmps/BoardHeader.jsx';
@@ -21,25 +15,11 @@ import Group from '../cmps/Group.jsx';
 // Utils
 import { utilService } from '../services/util.service.js';
 
-// Services
-import addUser from '../assets/imgs/add-user.png';
-import { userService } from '../services/user.service.js';
-
 // Libs
-import { over, update } from 'lodash';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
-import initialData from './initialData.js';
 
 // Images
-import filterSvg from '../assets/imgs/filter-svgs/filter.svg';
-import attachment from '../assets/imgs/card-attach.svg';
-import cardChecklist from '../assets/imgs/card-checklist.svg';
-import dueDate from '../assets/imgs/card-due.svg';
-import description from '../assets/imgs/card-desc.svg';
 import cardEdit from '../assets/imgs/card-edit.svg';
-import dotdotdot from '../assets/imgs/dotdotdot.svg';
-import close from '../assets/imgs/close.svg';
-import plus from '../assets/imgs/plus.svg';
 import plusWhite from '../assets/imgs/plus-white.svg';
 
 ////// DND IMPORTS ///////
@@ -53,21 +33,15 @@ export const Board = () => {
     shallowEqual
   );
 
-  const [loggedInUser, setLoggedInUser] = useState();
-
-  const { modal } = useSelector((state) => ({
-    modal: state.boardModule.modal,
-  }));
-  const { users } = useSelector((state) => ({
-    users: state.userModule.users,
+  const { loggedInUser } = useSelector((state) => ({
+    loggedInUser: state.userModule.loggedInUser,
   }));
 
   const dispatch = useDispatch();
 
-  const [data, setData] = useState(null);
-
   ///// useStates /////
-  const [filteredBoard, setFilteredBoard] = useState({});
+
+  const [data, setData] = useState(null);
   const [selectedCard, setSelectedCard] = useState({});
   const [selectedList, setSelectedList] = useState({});
   const [newList, setNewList] = useState(false);
@@ -75,44 +49,14 @@ export const Board = () => {
   const [newCard, setNewCard] = useState({});
   const [overlay, setOverlay] = useState(false);
   const [forceRender, setForceRender] = useState(true);
+  const [openLabels, setOpenLabels] = useState(false);
 
-  ////// modal stuff /////
-  const [editModal, setEditModal] = useState(false);
-  const [memberModal, setMemeberModal] = useState(false);
-  const [labelsModal, setLabelsModal] = useState(false);
-  const [datesModal, setDatesModal] = useState(false);
-  // const [filterModal, setFilterModal] = useState(false);
-  // const [starStatus, setStarStatus] = useState(false);
-  // const [menuModal, setMenuModal] = useState(false);
-
-  ///// Tom useStates /////
-  // const [width, setWidth] = useState('');
-  // const [boardTitleInput, setBoardTitleInput] = useState('');
-  // const [cover, setCover] = useState(false);
-
-  // const toggleStarring = () => {
-  // 	setStarStatus(!starStatus);
-  // };
-  // const toggleModal = (type) => {
-  // 	switch (type) {
-  // 		case 'filter':
-  // 			setFilterModal(!filterModal);
-  // 			setMenuModal(false);
-  // 			break;
-  // 		case 'menu':
-  // 			setMenuModal(!menuModal);
-  // 			setFilterModal(false);
-  // 			break;
-  // 		default:
-  // 	}
-  // };
+  // const [filteredBoard, setFilteredBoard] = useState({});
 
   ///// useEffect /////
 
   useEffect(() => {
     dispatch(loadBoard(boardId));
-    // loadUsers();
-    // loadUser();
   }, [boardId]);
 
   useEffect(() => {
@@ -121,63 +65,49 @@ export const Board = () => {
     } else setForceRender(!forceRender);
   }, [board]);
 
-  const [tempBoard, setTempBoard] = useState({});
-
-  // useEffect(() => {
-  //   dispatch(loadBoard(boardId));
-  // }, [board]);
-
   useEffect(() => {
     dispatch(loadBoard(boardId));
   }, [forceRender]);
 
   useEffect(() => {
-    // if (!loggedInUser) userService.connectGuestUser();
     dispatch(loadBoard(boardId));
     socket.on('setUpdatedBoard', (board) => {
       dispatch(updateBoard(board));
     });
   }, []);
 
-  // useEffect(() => {}, [board]);
+  ///// Functions /////
 
-  // useEffect(() => {
-  // 	if (board) setBoardTitleInput(board.title);
-  // 	if (board) setWidth(board.title.length - 2 + 'ch');
-  // }, [board]);
+  // function filterBoard(ev, filter = null) {
+  //   ev.preventDefault();
+
+  //   let { name } = filter;
+  //   if (filter.name === '') {
+  //     setForceRender(!forceRender);
+  //   } else {
+  //     name = name.toLowerCase();
+  //     const newFilteredBoard = board;
+  //     // for (var i = 0; i < board.groups.length; i++) {
+  //     // 	for (var j = 0; j < board.groups[i].tasks.length; j++) {
+  //     // 		if (board.groups[i].tasks[j] !== newFilteredBoard.groups[i].tasks[j]) console.log('different');
+  //     // 	}
+  //     // }
+  //     // newFilteredBoard.groups = newFilteredBoard.groups.map((group) =>
+  //     // 	group.tasks.filter((task) => task.title.toLowerCase().includes(name))
+  //     // );
+  //     const filteredGroups = newFilteredBoard.groups.filter((group) =>
+  //       group.title.toLowerCase().includes(name)
+  //     );
+
+  //     // filteredBoard.groups = filteredGroups.forEach(group);
+  //     newFilteredBoard.groups = filteredGroups;
+  //     setFilteredBoard(newFilteredBoard);
+  //   }
+  // }
 
   function handleChange({ target }) {
     const value = target.value;
     setNewCard({ ...newCard, title: value });
-  }
-
-  ///// Functions /////
-
-  function filterBoard(ev, filter = null) {
-    ev.preventDefault();
-
-    let { name } = filter;
-    if (filter.name === '') {
-      setForceRender(!forceRender);
-    } else {
-      name = name.toLowerCase();
-      const newFilteredBoard = board;
-      // for (var i = 0; i < board.groups.length; i++) {
-      // 	for (var j = 0; j < board.groups[i].tasks.length; j++) {
-      // 		if (board.groups[i].tasks[j] !== newFilteredBoard.groups[i].tasks[j]) console.log('different');
-      // 	}
-      // }
-      // newFilteredBoard.groups = newFilteredBoard.groups.map((group) =>
-      // 	group.tasks.filter((task) => task.title.toLowerCase().includes(name))
-      // );
-      const filteredGroups = newFilteredBoard.groups.filter((group) =>
-        group.title.toLowerCase().includes(name)
-      );
-
-      // filteredBoard.groups = filteredGroups.forEach(group);
-      newFilteredBoard.groups = filteredGroups;
-      setFilteredBoard(newFilteredBoard);
-    }
   }
 
   const editNewCard = (list) => {
@@ -192,32 +122,7 @@ export const Board = () => {
   const toggleModal = (type) => {
     dispatch(openModal(type));
   };
-  // Tom funcs
 
-  // function handleBoardTitleChange({ target }) {
-  //   if (!target) return;
-  //   console.log(target);
-  //   // const field = target.name;
-  //   const value = target.value;
-  //   setWidth(value.length + 'ch');
-  //   setBoardTitleInput(value);
-  // }
-
-  // const addCover = (cover) => {
-  //   setCover(cover);
-  // };
-
-  // const updateBoardTitle = () => {
-  //   const updatedBoard = { ...board };
-  //   updatedBoard.title = boardTitleInput;
-  //   dispatch(updateBoard(updatedBoard));
-  //   setForceRender(!forceRender);
-  // };
-  function getNiceDate() {
-    return `${new Date().toDateString()} ${
-      new Date().getHours() + ':' + new Date().getMinutes()
-    }`;
-  }
   const addNewCard = (list) => {
     let listIdx = board.groups.findIndex((group) => group.id === list.id);
     list.tasks.push(newCard);
@@ -228,7 +133,7 @@ export const Board = () => {
     let activity = {
       user: loggedInUser,
       msg: `Added a card in group: ${list.title}`,
-      time: getNiceDate(),
+      time: utilService.getNiceDate(),
     };
     updatedBoard.activities.unshift(activity);
     setForceRender(!forceRender);
@@ -251,7 +156,6 @@ export const Board = () => {
 
   const closeEditModal = () => {
     setSelectedCard({});
-    setEditModal(false);
     toggleEditModal();
   };
 
@@ -275,7 +179,7 @@ export const Board = () => {
     let activity = {
       user: loggedInUser,
       msg: `Added a Group in Board:  ${updatedBoard.title}`,
-      time: getNiceDate(),
+      time: utilService.getNiceDate(),
     };
     updatedBoard.activities.unshift(activity);
     dispatch(updateBoard(updatedBoard));
@@ -292,7 +196,7 @@ export const Board = () => {
     let activity = {
       user: loggedInUser,
       msg: `Deleted a Group in Board:  ${updatedBoard.title}`,
-      time: getNiceDate(),
+      time: utilService.getNiceDate(),
     };
     updatedBoard.activities.unshift(activity);
     setForceRender(!forceRender);
@@ -310,7 +214,7 @@ export const Board = () => {
     let activity = {
       user: loggedInUser,
       msg: `Edited a Card in Group:  ${list.title}`,
-      time: getNiceDate(),
+      time: utilService.getNiceDate(),
     };
     updatedBoard.activities.unshift(activity);
     dispatch(updateBoard(updatedBoard));
@@ -334,7 +238,7 @@ export const Board = () => {
     let activity = {
       user: loggedInUser,
       msg: `Copied a Card in Group:  ${list.title}`,
-      time: getNiceDate(),
+      time: utilService.getNiceDate(),
     };
     updatedBoard.activities.unshift(activity);
     closeEditModal();
@@ -358,7 +262,7 @@ export const Board = () => {
     let activity = {
       user: loggedInUser,
       msg: `Copied a Group in Board: ${updatedBoard.title}`,
-      time: getNiceDate(),
+      time: utilService.getNiceDate(),
     };
     updatedBoard.activities.unshift(activity);
     closeListModal();
@@ -383,7 +287,7 @@ export const Board = () => {
     let activity = {
       user: loggedInUser,
       msg: `Deleted a Card in Group:  ${list.title}`,
-      time: getNiceDate(),
+      time: utilService.getNiceDate(),
     };
     updatedBoard.activities.unshift(activity);
     closeEditModal();
@@ -391,20 +295,6 @@ export const Board = () => {
     dispatch(updateBoard(updatedBoard));
     socket.emit('updateBoard', updatedBoard);
   };
-
-  // const loadUsers = async () => {
-  //   const users = await userService.getUsers();
-  //   dispatch(setUsers(users));
-  // };
-
-  // const loadUser = () => {
-  //   let user = userService.getLoggedinUser();
-  //   if (!user) user = userService.connectGuestUser();
-  //   setLoggedInUser(user);
-  // };
-
-  const [openLabels, setOpenLabels] = useState(false);
-  const [listModal, setListModal] = useState(false);
 
   const onDragEnd = (result) => {
     const { draggableId, type, source, destination } = result;
@@ -476,10 +366,6 @@ export const Board = () => {
         tasksIds: finishTaskIds,
       };
       newFinish.tasks.tasksIds = finishTaskIds;
-
-      // const endTaskIdx = newStart.findIndex(
-      //   (task) => task.id === draggableId
-      // );
       newFinish.tasks.splice(destination.index, 0, ...startTask);
 
       const newGroups = [...data.groups];
@@ -493,7 +379,6 @@ export const Board = () => {
       dispatch(updateBoard(newData));
       socket.emit('updateBoard', newData);
     }
-    // const group = data.groups[source.drop]
   };
   return data ? (
     <section className='flex-column h100'>
@@ -507,7 +392,7 @@ export const Board = () => {
           board={board}
           setForceRender={setForceRender}
           // Filter
-          filterBoard={filterBoard}
+          // filterBoard={filterBoard}
         />
       ) : null}
       <div
@@ -543,7 +428,6 @@ export const Board = () => {
                       }
                       return (
                         <Group
-                          // style={{ zIndex: group.style.zIndex }}
                           key={group?.id}
                           group={group}
                           index={index}

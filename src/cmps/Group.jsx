@@ -1,14 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { Link, useParams, useLocation } from 'react-router-dom';
-import { useSelector, useDispatch, shallowEqual } from 'react-redux';
-import { updateBoard } from '../store/board.action.js';
-import dotdotdot from '../assets/imgs/dotdotdot.svg';
-import close from '../assets/imgs/close.svg';
-import plus from '../assets/imgs/plus.svg';
-
+// Lib //
+import React, { useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
+
+// Store
+import { updateBoard } from '../store/board.action.js';
 import { openModal } from '../store/board.action';
-import Task1 from './Task1.jsx';
+
+// Cmp //
+import Task from './Task.jsx';
+
+// SVG //
+import dotdotdot from '../assets/imgs/dotdotdot.svg';
+import plus from '../assets/imgs/plus.svg';
 
 const Group = ({
   index,
@@ -16,7 +21,6 @@ const Group = ({
   tasks,
   openListModal,
   selectedList,
-  closeListModal,
   copyList,
   deleteList,
   editNewCard,
@@ -67,17 +71,12 @@ const Group = ({
     setNewTitle(value);
   };
 
-  //style={{ zIndex: group.style.zIndex, backgroundColor: 'red' }}
   return (
     <Draggable draggableId={group.id} index={index}>
-      {(provided, snapshot) => (
+      {(provided) => (
         <>
           <div
-            className={
-              // group.style.zIndex === 'high'
-              // ? 'board-list seeOverlay flex-column'
-              'board-list flex-column'
-            }
+            className={'board-list flex-column'}
             {...provided.draggableProps}
             ref={provided.innerRef}
           >
@@ -123,7 +122,7 @@ const Group = ({
                             (temp) => temp.id === taskId
                           );
                           return selectedCard?.id !== taskObj?.id ? (
-                            <Task1
+                            <Task
                               key={taskId}
                               task={taskObj}
                               index={index}
