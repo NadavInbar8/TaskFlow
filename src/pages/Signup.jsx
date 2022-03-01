@@ -21,7 +21,7 @@ import { useHistory } from 'react-router-dom';
 import logo from '../assets/imgs/logo/blackLogo.svg';
 import leftSvg from '../assets/imgs/login-svg-left.svg';
 import rightSvg from '../assets/imgs/login-svg-right.svg';
-
+import KEYS from '../keys.js';
 import { userService } from '../services/user.service.js';
 
 function Copyright(props) {
@@ -174,9 +174,7 @@ export function Signup() {
                 <Grid item xs={12}></Grid>
               </Grid>
               <GoogleLogin
-                clientId={
-                  '484186307654-22veet8tro4ahi5q7a01un8rgrodj2qj.apps.googleusercontent.com'
-                }
+                clientId={KEYS.googleClientId}
                 buttonText='Signup with Google'
                 onSuccess={responseGoogle}
                 onFailure={responseGoogle}

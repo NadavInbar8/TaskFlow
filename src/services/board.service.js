@@ -2,156 +2,156 @@
 // import {utilService} from './util.service';
 // import { socketService, SOCKET_EVENT_USER_UPDATED } from './socket.service'
 // const STORAGE_KEY_BOARD = 'board';
-import {httpService} from './http.service.js';
+import { httpService } from './http.service.js';
 
 export const boardService = {
-	query,
-	getById,
-	save,
-	remove,
+  query,
+  getById,
+  save,
+  remove,
 };
 
 async function query() {
-	const boards = await httpService.get(`board`);
-	return boards;
+  const boards = await httpService.get(`board`);
+  return boards;
 }
 
 async function getById(boardId) {
-	const board = await httpService.get(`board/${boardId}`);
-	return board;
+  const board = await httpService.get(`board/${boardId}`);
+  return board;
 }
 
 async function save(board) {
-	if (!board.groups) {
-		const emptyBoard = _getEmptyBoard(board);
-		return await httpService.post('board', emptyBoard);
-	} else {
-		return await httpService.put(`board/${board._id}`, board);
-	}
+  if (!board.groups) {
+    const emptyBoard = _getEmptyBoard(board);
+    return await httpService.post('board', emptyBoard);
+  } else {
+    return await httpService.put(`board/${board._id}`, board);
+  }
 }
 
 async function remove(boardId) {
-	return await httpService.delete(`board/${boardId}`);
+  return await httpService.delete(`board/${boardId}`);
 }
 
 function _getEmptyBoard(board) {
-	return {
-		title: board.title,
-		starred: false,
-		createdAt: 1589983468418,
-		createdBy: board.createdBy
-			? board.createdBy
-			: {
-					_id: 'u101',
-					fullname: 'Guest Guestosh',
-					imgUrl: 'https://avatarfiles.alphacoders.com/196/196630.jpg',
-			  },
-		style: board.style,
-		labelOptions: [
-			{id: 1, color: 'green', name: ''},
-			{id: 2, color: 'yellow', name: ''},
-			{id: 3, color: 'orange', name: ''},
-			{id: 4, color: 'red', name: ''},
-			{id: 5, color: 'purple', name: ''},
-			{id: 6, color: 'blue', name: ''},
-		],
-		labels: [
-			{
-				id: 'l101',
-				title: 'Done',
-				color: '#61bd4f',
-			},
-		],
-		members: board.members,
-		groupsOrder: ['g101', 'g102'],
-		groups: [
-			{
-				id: 'g101',
-				title: 'Group 1',
-				tasksIds: ['c101', 'c102'],
-				tasks: [
-					{
-						id: 'c101',
-						title: 'Replace logo',
-					},
-					{
-						id: 'c102',
-						title: 'Add Samples',
-					},
-				],
-				style: {},
-				editMode: false,
-			},
-			{
-				id: 'g102',
-				title: 'Group 2',
-				tasksIds: ['c103', 'c104'],
-				tasks: [
-					{
-						id: 'c103',
-						title: 'Do that',
-					},
-					{
-						id: 'c104',
-						title: 'Help me',
-						status: 'in-progress',
-						description: 'description',
-						comments: [
-							{
-								id: 'ZdPnm',
-								initials: 'YB',
-								txt: 'also @yaronb please CR this',
-								createdAt: 1590999817436.0,
-								byMember: {
-									_id: 'u101',
-									initials: 'TT',
-									fullname: 'Tal Tarablus',
-								},
-							},
-						],
-						checklists: [
-							{
-								id: 'YEhmF',
-								title: 'Checklist',
-								todos: [
-									{
-										id: '212jX',
-										title: 'To Do 1',
-										isDone: false,
-									},
-								],
-							},
-						],
-						members: [
-							{
-								_id: 'u101',
-								username: 'Tal',
-								fullname: 'Tal Tarablus',
-								initials: 'TT',
-							},
-						],
-						labelIds: ['l101', 'l102'],
-						createdAt: 1590999730348,
-						dueDate: 16156215211,
-						byMember: {
-							_id: 'u101',
-							username: 'Tal',
-							fullname: 'Tal Tarablus',
-							initials: 'TT',
-						},
-						style: {
-							bgColor: '#26de81',
-						},
-					},
-				],
-				style: {},
-				editMode: false,
-			},
-		],
-		activities: [],
+  return {
+    title: board.title,
+    starred: false,
+    createdAt: 1589983468418,
+    createdBy: board.createdBy
+      ? board.createdBy
+      : {
+          _id: 'u101',
+          fullname: 'Guest Guestosh',
+          imgUrl: 'https://avatarfiles.alphacoders.com/196/196630.jpg',
+        },
+    style: board.style,
+    labelOptions: [
+      { id: 1, color: 'green', name: '' },
+      { id: 2, color: 'yellow', name: '' },
+      { id: 3, color: 'orange', name: '' },
+      { id: 4, color: 'red', name: '' },
+      { id: 5, color: 'purple', name: '' },
+      { id: 6, color: 'blue', name: '' },
+    ],
+    labels: [
+      {
+        id: 'l101',
+        title: 'Done',
+        color: '#61bd4f',
+      },
+    ],
+    members: board.members,
+    groupsOrder: ['g101', 'g102'],
+    groups: [
+      {
+        id: 'g101',
+        title: 'Group 1',
+        tasksIds: ['c101', 'c102'],
+        tasks: [
+          {
+            id: 'c101',
+            title: 'Replace logo',
+          },
+          {
+            id: 'c102',
+            title: 'Add Samples',
+          },
+        ],
+        style: {},
+        editMode: false,
+      },
+      {
+        id: 'g102',
+        title: 'Group 2',
+        tasksIds: ['c103', 'c104'],
+        tasks: [
+          {
+            id: 'c103',
+            title: 'Do that',
+          },
+          {
+            id: 'c104',
+            title: 'Help me',
+            status: 'in-progress',
+            description: 'description',
+            comments: [
+              {
+                id: 'ZdPnm',
+                initials: 'YB',
+                txt: 'also @yaronb please CR this',
+                createdAt: 1590999817436.0,
+                byMember: {
+                  _id: 'u101',
+                  initials: 'TT',
+                  fullname: 'Tal Tarablus',
+                },
+              },
+            ],
+            checklists: [
+              {
+                id: 'YEhmF',
+                title: 'Checklist',
+                todos: [
+                  {
+                    id: '212jX',
+                    title: 'To Do 1',
+                    isDone: false,
+                  },
+                ],
+              },
+            ],
+            members: [
+              {
+                _id: 'u101',
+                username: 'Tal',
+                fullname: 'Tal Tarablus',
+                initials: 'TT',
+              },
+            ],
+            labelIds: ['l101', 'l102'],
+            createdAt: 1590999730348,
+            dueDate: 16156215211,
+            byMember: {
+              _id: 'u101',
+              username: 'Tal',
+              fullname: 'Tal Tarablus',
+              initials: 'TT',
+            },
+            style: {
+              bgColor: '#26de81',
+            },
+          },
+        ],
+        style: {},
+        editMode: false,
+      },
+    ],
+    activities: [],
 
-		cmpsOrder: ['status-picker', 'member-picker', 'date-picker'],
-	};
+    cmpsOrder: ['status-picker', 'member-picker', 'date-picker'],
+  };
 }
 
 // function _saveToStorage() {
