@@ -135,7 +135,9 @@ export function Login() {
               />
 
               <GoogleLogin
-                clientId={KEYS.googleClientId}
+                clientId={
+                  '484186307654-22veet8tro4ahi5q7a01un8rgrodj2qj.apps.googleusercontent.com'
+                }
                 buttonText='Login with Google'
                 onSuccess={responseGoogle}
                 onFailure={responseGoogle}

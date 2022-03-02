@@ -8,7 +8,7 @@ export const unsplashService = {
 
 const query = async (searchVal, amount) => {
   const res = await axios.get(
-    `https://api.unsplash.com/search/photos?query=${searchVal}&per_page=${amount}&orientation=landscape&client_id=${KEYS.unsplashKey}`
+    `https://api.unsplash.com/search/photos?query=${searchVal}&per_page=${amount}&orientation=landscape&client_id=-1iZ64Fvzxw6BbfNlTxHGxOOmFA_qQbnkY5HWJMgEsY`
   );
   return res.data;
 };
