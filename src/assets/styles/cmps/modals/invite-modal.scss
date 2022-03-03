@@ -1,78 +1,82 @@
 .invite-modal {
-	position: absolute;
-	z-index: 1;
-	background-color: white;
-	color: $b1;
-	flex-direction: column;
-	min-height: 60px;
-	min-width: 200px;
-	height: fit-content;
-	width: fit-content;
-	position: absolute;
-	align-items: flex-start;
-	top: 110%;
-	right: 0;
-	padding: $s-2;
-	border-radius: $s-1;
-	cursor: default;
-	box-shadow: 0 8px 16px -4px rgba(9, 30, 66, 0.25), 0 0 0 1px rgba(9, 30, 66, 0.08);
-	overflow-y: auto;
-	max-height: 50vh;
-	// User
+  position: absolute;
+  z-index: 1;
+  background-color: white;
+  color: $b1;
+  flex-direction: column;
+  min-height: 60px;
+  min-width: 200px;
+  height: fit-content;
+  width: fit-content;
+  position: absolute;
+  align-items: flex-start;
+  top: 110%;
+  right: 0;
+  padding: $s-2;
+  border-radius: $s-1;
+  cursor: default;
+  box-shadow: 0 8px 16px -4px rgba(9, 30, 66, 0.25),
+    0 0 0 1px rgba(9, 30, 66, 0.08);
+  overflow-y: auto;
+  max-height: 50vh;
+  // User
+  @media (min-width: 768px) {
+    left: 0;
+  }
 
-	.user-details {
-		flex-wrap: wrap;
-		margin-bottom: $s-2;
+  .user-details {
+    flex-wrap: wrap;
+    margin-bottom: $s-2;
 
-		p {
-			margin: 0;
-		}
-	}
+    p {
+      margin: 0;
+    }
+  }
 
-	ul {
-		padding: 0;
-	}
+  ul {
+    padding: 0;
+  }
 
-	li {
-		white-space: nowrap;
-		justify-content: space-between;
-		align-items: center;
-	}
+  li {
+    white-space: nowrap;
+    justify-content: space-between;
+    align-items: center;
+  }
 
-	li:last-child {
-		margin-bottom: 0;
-	}
+  li:last-child {
+    margin-bottom: 0;
+  }
 
-	img {
-		float: left;
-		margin-right: 8px;
-	}
+  img {
+    float: left;
+    margin-right: 8px;
+  }
 
-	li:hover {
-		opacity: 0.8;
-		cursor: pointer;
-	}
+  li:hover {
+    opacity: 0.8;
+    cursor: pointer;
+  }
 
-	.user-details-text {
-		margin-left: $s-2;
-	}
-	.user-details {
-		right: 0;
-		display: flex;
-		align-items: center;
-		position: relative;
-		gap: $s-2;
-		justify-content: space-between;
-		margin-bottom: 8px;
-	}
+  .user-details-text {
+    margin-left: $s-2;
+  }
+  .user-details {
+    right: 0;
+    display: flex;
+    align-items: center;
+    position: relative;
+    gap: $s-2;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
 
-	.user-avatar-btn {
-		font-weight: 700;
-		cursor: pointer;
-		height: 32px;
-		width: 32px;
-		background-color: darkcyan;
-		border-radius: 50%;
-		color: $b1;
-	}
+  .user-avatar-btn {
+    font-weight: 700;
+    cursor: pointer;
+    height: 32px;
+    width: 32px;
+    background-color: darkcyan;
+    border-radius: 50%;
+    color: $b1;
+  }
 }

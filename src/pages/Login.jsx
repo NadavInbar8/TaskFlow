@@ -135,9 +135,7 @@ export function Login() {
               />
 
               <GoogleLogin
-                clientId={
-                  '484186307654-22veet8tro4ahi5q7a01un8rgrodj2qj.apps.googleusercontent.com'
-                }
+                clientId={process.env.REACT_APP_GOOGLE_API_KEY}
                 buttonText='Login with Google'
                 onSuccess={responseGoogle}
                 onFailure={responseGoogle}
